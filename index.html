@@ -5,10 +5,12 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Baksla.sh</title>
+        <title>baksla.sh</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Kalam&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        <link rel="icon" type="image/png" sizes="32x32" href="assets/image/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="assets/image/favicon-16x16.png">
         <script src="https://cdn.tailwindcss.com"></script>
         <script defer="" src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
         <script>
@@ -37,13 +39,11 @@
     <body class="bg-gray-100">
 
         <section class="py-10 lg:py-16">
-
             <div class="container max-w-screen-xl mx-auto px-4">
-
                 <nav class="flex items-center justify-between">
-                    <img src="assets/image/bakslash.svg" alt="bakslash" class="h-10">
+                    <img src="assets/image/bakslash.svg" alt="bakslash" class="h-7 sm:h-10">
                     <div>
-                        <button id="email-button" onclick="copyEmail()" class="hidden lg:block px-7 py-3 lg:px-9 lg:py-4 bg-white font-medium lg:font-semibold text-gray-700 text-md rounded-md hover:bg-gray-700 hover:text-white transition-color ease-in-out duration-200">hello@baksla.sh</button>
+                        <button id="email-button" onclick="copyEmail()" class="px-7 py-3 lg:px-9 lg:py-4 bg-white font-medium lg:font-semibold text-gray-700 text-md rounded-md hover:bg-gray-700 hover:text-white transition-color ease-in-out duration-200">hello@baksla.sh</button>
                         <p id="email-copied-text" class="pointer-events-none font-handwritten text-xl font-bold absolute -ml-4 -rotate-12 transition ease-in-out duration-100 opacity-0">
                             <img src="assets/image/tick.svg" alt="tick" class="h-6 inline" />
                             Email copied to clipboard!
@@ -61,82 +61,54 @@
                     </span>
                     <span id="typewriter" class="text-gray-800 text-5xl md:text-6xl leading-none"></span>
                 </div>
-
             </div>
-
         </section>
 
-        <section class="py-10 md:py-16">
-
-            <div class="container max-w-screen-xl mx-auto px-4">
-
-                <h1 class="font-medium text-gray-700 text-3xl md:text-4xl mb-5"><span class="font-bold">baksla.sh</span> in numbers</h1>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="bg-gray-50 px-8 py-10 rounded-md">
-                        <h4 class="font-roboto text-gray-800 text-6xl font-bold">11k+</h4>
-                        <h4 class="font-medium text-gray-700 text-lg mb-4 flex items-center whitespace-nowrap">
-                            contributions to
-                            <img src="assets/image/symfony.svg" alt="symfony" class="inline h-6 ml-2" />
-                        </h4>
-                        <p class="font-normal text-gray-500 text-md">Lorem ipsum dolor sit amet, consectetur <br> adipiscing elit, sed do eiusmod tempor <br> incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-
-                    <div class="bg-gray-50 px-8 py-10 rounded-md">
-                        <h4 class="font-roboto text-gray-800 text-6xl font-bold">5+</h4>
-                        <h4 class="font-medium text-gray-700 text-lg mb-4">
-                            skilled developers
-                        </h4>
-                        <p class="font-normal text-gray-500 text-md">Lorem ipsum dolor sit amet, consectetur <br> adipiscing elit, sed do eiusmod tempor <br> incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-
-                    <div class="bg-gray-50 px-8 py-10 rounded-md">
-                        <h4 class="font-roboto text-gray-800 text-6xl font-bold">1</h4>
-                        <h4 class="font-medium text-gray-700 text-lg mb-4 flex items-center whitespace-nowrap">
-                            <img src="assets/image/symfony.svg" alt="symfony" class="inline h-6 mr-1" />
-                            core team member
-                        </h4>
-                        <p class="font-normal text-gray-500 text-md">Lorem ipsum dolor sit amet, consectetur <br> adipiscing elit, sed do eiusmod tempor <br> incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-
-                    <div class="bg-gray-50 px-8 py-10 rounded-md">
-                        <h4 class="font-roboto text-gray-800 text-6xl font-bold">20+</h4>
-                        <h4 class="font-medium text-gray-700 text-lg mb-4 flex items-center whitespace-nowrap">
-                            talks about
-                            <img src="assets/image/php-logo.svg" alt="php" class="inline h-6 mx-2" />
-                            and
-                            <img src="assets/image/symfony.svg" alt="symfony" class="inline h-6 ml-1" />
-                        </h4>
-                        <p class="font-normal text-gray-500 text-md">Lorem ipsum dolor sit amet, consectetur <br> adipiscing elit, sed do eiusmod tempor <br> incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-
-                    <div class="bg-gray-50 px-8 py-10 rounded-md">
-                        <h4 class="font-roboto text-gray-800 text-6xl font-bold">2</h4>
-                        <h4 class="font-medium text-gray-700 text-lg mb-4 flex items-center">
-                            sponsored conferences
-                        </h4>
-                        <p class="font-normal text-gray-500 text-md">Lorem ipsum dolor sit amet, consectetur <br> adipiscing elit, sed do eiusmod tempor <br> incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-
-                    <div class="bg-gray-50 px-8 py-10 rounded-md">
-                        <h4 class="font-roboto text-gray-800 text-6xl font-bold">∞</h4>
-                        <h4 class="font-medium text-gray-700 text-lg mb-4 flex items-center">
-                            <span class="whitespace-nowrap">love in the</span>
-                            <img src="assets/image/php-logo.svg" alt="php" class="inline h-6 mx-2" />
-                            ecosystem
-                        </h4>
-                        <p class="font-normal text-gray-500 text-md">Lorem ipsum dolor sit amet, consectetur <br> adipiscing elit, sed do eiusmod tempor <br> incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
+        <section class="pt-16 md:pt-20">
+            <div class="relative z-10">
+                <div class="container max-w-screen-xl mx-auto px-4 mt-16">
+                    <h1 class="font-medium text-center text-gray-700 text-3xl md:text-4xl mb-5"><span class="font-bold">baksla.sh</span> will be there soon!</h1>
                 </div>
-
             </div>
 
+            <div class="blur-xl py-10 -mt-48 max-h-screen overflow-y-hidden">
+                <div class="container max-w-screen-xl mx-auto px-4">
+                    <h1 class="font-medium text-gray-700 text-3xl md:text-4xl mb-5"><span class="font-bold">baksla.sh</span> in numbers</h1>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="bg-gray-50 px-8 py-10 rounded-md">
+                            <h4 class="font-roboto text-gray-800 text-6xl font-bold">11k+</h4>
+                            <h4 class="font-medium text-gray-700 text-lg mb-4 flex items-center whitespace-nowrap">
+                                contributions to
+                                <img src="assets/image/symfony.svg" alt="symfony" class="inline h-6 ml-2" />
+                            </h4>
+                            <p class="font-normal text-gray-500 text-md">Lorem ipsum dolor sit amet, consectetur <br> adipiscing elit, sed do eiusmod tempor <br> incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+
+                        <div class="bg-gray-50 px-8 py-10 rounded-md">
+                            <h4 class="font-roboto text-gray-800 text-6xl font-bold">5+</h4>
+                            <h4 class="font-medium text-gray-700 text-lg mb-4">
+                                skilled developers
+                            </h4>
+                            <p class="font-normal text-gray-500 text-md">Lorem ipsum dolor sit amet, consectetur <br> adipiscing elit, sed do eiusmod tempor <br> incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+
+                        <div class="bg-gray-50 px-8 py-10 rounded-md hidden lg:block">
+                            <h4 class="font-roboto text-gray-800 text-6xl font-bold">1</h4>
+                            <h4 class="font-medium text-gray-700 text-lg mb-4 flex items-center whitespace-nowrap">
+                                <img src="assets/image/symfony.svg" alt="symfony" class="inline h-6 mr-1" />
+                                core team member
+                            </h4>
+                            <p class="font-normal text-gray-500 text-md">Lorem ipsum dolor sit amet, consectetur <br> adipiscing elit, sed do eiusmod tempor <br> incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </section>
 
-        <section class="py-10 md:py-16">
-
+        <section class="blur-xl py-10 md:py-16">
             <div class="container max-w-screen-xl mx-auto px-4">
-
                 <div class="flex flex-col lg:flex-row justify-between">
                     <div class="mb-10 lg:mb-0">
                         <h1 class="font-medium text-gray-700 text-3xl md:text-4xl mb-5"><span class="font-bold">baksla.sh</span> in key points</h1>
@@ -208,78 +180,30 @@
 
                     </div>
                 </div>
-
             </div>
-
         </section>
 
-        <section class="py-10 md:py-16">
-
-            <div class="container max-w-screen-xl mx-auto px-4">
-                <h1 class="font-medium text-gray-700 text-3xl md:text-4xl mb-5"><span class="font-bold">baksla.sh</span> beloved clients and partners</h1>
-
-                <div
-                    x-data="{}"
-                    x-init="$nextTick(() => {
-                    let ul = $refs.logos;
-                    ul.insertAdjacentHTML('afterend', ul.outerHTML);
-                    ul.nextSibling.setAttribute('aria-hidden', 'true');
-                    })"
-                    class="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]"
-                >
-                    <ul x-ref="logos" class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll hover:[animation-play-state:paused]">
-                        <li>
-                            <a href="#"><img src="assets/image/brand-1.png" alt="Image"></a>
-                        </li>
-                        <li>
-                            <a href="#"><img src="assets/image/brand-2.png" alt="Image"></a>
-                        </li>
-                        <li>
-                            <a href="#"><img src="assets/image/brand-3.png" alt="Image"></a>
-                        </li>
-                        <li>
-                            <a href="#"><img src="assets/image/brand-4.png" alt="Image"></a>
-                        </li>
-                        <li>
-                            <a href="#"><img src="assets/image/brand-5.png" alt="Image"></a>
-                        </li>
-                        <li>
-                            <a href="#"><img src="assets/image/brand-6.png" alt="Image"></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-        </section>
-
-        <section class="py-10 md:py-16">
-
-            <div class="container max-w-screen-xl mx-auto px-4">
-                <h1 class="font-medium text-gray-700 text-3xl md:text-4xl mb-5"><span class="font-bold">contact</span> the team</h1>
-            </div>
-
-        </section>
-
-        <footer class="py-10">
-            <div class="container max-w-screen-xl mx-auto px-4 flex items-center md:flex-row flex-col md:justify-between">
-                <span class="text-sm text-gray-500 flex items-center md:justify-start justify-center">© 2024 Bakslash™. All Rights Reserved.</span>
-                <ul class="flex flex-wrap justify-center items-center mt-3 text-sm font-medium sm:mt-0">
-                    <li class="h-full">
-                        <a href="https://github.com/bakslashHQ" class="hover:underline me-4 md:me-6 h-full flex items-center"><img src="assets/image/github.svg" alt="github" class="h-5 mt-2 md:h-6 md:mt-0 opacity-50 hover:opacity-100"></a>
-                    </li>
-                    <li>
-                        <a href="https://x.com/bakslashHQ" class="hover:underline me-4 md:me-6 h-full flex items-center"><img src="assets/image/x.svg" alt="x" class="h-5 mt-2 md:h-6 md:mt-0 opacity-50 hover:opacity-100"></a>
-                    </li>
-                    <li>
-                        <a href="https://www.linkedin.com/company/bakslashhq" class="hover:underline me-4 md:me-6 h-full flex items-center"><img src="assets/image/linkedin.svg" alt="linkedin" class="h-5 mt-2 md:h-6 md:mt-0 opacity-50 hover:opacity-100"></a>
-                    </li>
-                    <li>
-                        <a href="mailto:hello@baksla.sh" class="hover:underline me-4 md:me-6 h-full flex items-center"><img src="assets/image/mail.svg" alt="mail" class="h-7 mt-2 md:h-8 md:mt-0 opacity-50 hover:opacity-100"></a>
-                    </li>
-                </ul>
-            </div>
-        </footer>
+		<footer class="py-10">
+			<div class="container max-w-screen-xl mx-auto px-4 flex items-center md:flex-row flex-col md:justify-between">
+				<span class="text-sm text-gray-500 flex items-center md:justify-start justify-center">© 2024 Bakslash™. All Rights Reserved.</span>
+				<ul class="flex flex-wrap justify-center items-center mt-3 text-sm font-medium sm:mt-0">
+					<li class="h-full">
+						<a href="https://github.com/bakslashHQ" class="hover:underline me-4 md:me-6 h-full flex items-center"><img src="assets/image/github.svg" alt="github" class="h-5 mt-2 md:h-6 md:mt-0 opacity-50 hover:opacity-100"></a>
+					</li>
+					<li>
+						<a href="https://x.com/bakslashHQ" class="hover:underline me-4 md:me-6 h-full flex items-center"><img src="assets/image/x.svg" alt="x" class="h-5 mt-2 md:h-6 md:mt-0 opacity-50 hover:opacity-100"></a>
+					</li>
+					<li>
+						<a href="https://www.linkedin.com/company/bakslashhq" class="hover:underline me-4 md:me-6 h-full flex items-center"><img src="assets/image/linkedin.svg" alt="linkedin" class="h-5 mt-2 md:h-6 md:mt-0 opacity-50 hover:opacity-100"></a>
+					</li>
+					<li>
+						<a href="mailto:hello@baksla.sh" class="hover:underline me-4 md:me-6 h-full flex items-center"><img src="assets/image/mail.svg" alt="mail" class="h-7 mt-2 md:h-8 md:mt-0 opacity-50 hover:opacity-100"></a>
+					</li>
+				</ul>
+			</div>
+		</footer>
 
         <script type="text/javascript" src="assets/js/index.js"></script>
     </body>
 </html>
+
