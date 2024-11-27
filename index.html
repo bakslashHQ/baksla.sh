@@ -1,90 +1,341 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>baksla.sh</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Kalam&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-        <link rel="icon" type="image/png" sizes="32x32" href="assets/image/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="assets/image/favicon-16x16.png">
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script defer="" src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-        <script>
-            tailwind.config = {
-                theme: {
-                    extend: {
-                        fontFamily: {
-                            'sans': ['Poppins'],
-                            'handwritten': ['Kalam'],
-                        },
-                        animation: {
-                            'infinite-scroll': 'infinite-scroll 40s linear infinite',
-                        },
-                        keyframes: {
-                            'infinite-scroll': {
-                                from: { transform: 'translateX(0)' },
-                                to: { transform: 'translateX(-100%)' },
-                            }
-                        }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>baksla.sh</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kalam&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <!-- Favicon links -->
+    <link rel="icon" type="image/png" href="assets/image/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/svg+xml" href="assets/image/favicon.svg">
+    <link rel="shortcut icon" href="assets/image/favicon.ico">
+
+    <!-- External scripts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Poppins'],
+                        'handwritten': ['Kalam'],
+                    },
+                    backgroundImage: {
+                        'code-img': "url('assets/image/code.png')",
                     },
                 },
-            };
-        </script>
-    </head>
+            },
+        };
+    </script>
+</head>
 
-    <body class="bg-gray-100">
+<body class="bg-gray-100">
+    <section class="py-10">
+        <div class="container max-w-screen-xl mx-auto px-8 xl:px-4">
+            <nav class="flex items-center justify-between">
+                <img src="assets/image/bakslash.svg" alt="baksla.sh" class="h-10">
+                <a href="mailto:hello@baksla.sh">
+                    <button onclick="copyEmail(this)" class="hidden lg:block font-medium lg:font-semibold text-slate-800 text-xl hover:underline underline-offset-3 decoration-4 decoration-indigo-500">
+                        hello@baksla.sh
+                    </button>
+                    <p data-up="6" class="hidden lg:block pointer-events-none text-slate-800 font-handwritten text-xl font-bold absolute -ml-10 -rotate-12 transition ease-in-out duration-100 opacity-0">
+                        <img src="assets/image/tick.svg" alt="tick" class="h-6 inline" />
+                        Email copied to clipboard!
+                    </p>
+                </a>
+            </nav>
+        </div>
+    </section>
 
-        <section class="py-10 lg:py-16">
-            <div class="container max-w-screen-xl mx-auto px-4">
-                <nav class="flex items-center justify-between">
-                    <img src="assets/image/bakslash.svg" alt="bakslash" class="h-7 sm:h-10">
-                    <div>
-                        <button id="email-button" onclick="copyEmail()" class="px-7 py-3 lg:px-9 lg:py-4 bg-white font-medium lg:font-semibold text-gray-700 text-md rounded-md hover:bg-gray-700 hover:text-white transition-color ease-in-out duration-200">hello@baksla.sh</button>
-                        <p id="email-copied-text" class="pointer-events-none font-handwritten text-xl font-bold absolute -ml-4 -rotate-12 transition ease-in-out duration-100 opacity-0">
-                            <img src="assets/image/tick.svg" alt="tick" class="h-6 inline" />
-                            Email copied to clipboard!
-                        </p>
+    <section>
+        <div class="container max-w-screen-xl mx-auto px-8 xl:px-4 py-12 lg:py-24">
+            <div class="font-handwritten flex flex-wrap flex-row items-center justify-center">
+                <span class="text-slate-800 text-6xl lg:text-8xl leading-none whitespace-nowrap">We are</span>
+                <span class="tools w-16 h-16 lg:w-32 lg:h-32 mx-5 lg:mx-10 flex items-center">
+                    <img id="tool-0" src="assets/image/symfony-small.svg" alt="symfony" />
+                    <img id="tool-1" src="assets/image/php-logo.svg" alt="php" />
+                    <img id="tool-2" src="assets/image/api-platform.png" alt="api platform" />
+                </span>
+                <div class="block md:hidden w-full"></div>
+                <span id="typewriter" class="text-slate-800 text-6xl lg:text-8xl leading-none"></span>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-gradient-to-b from-gray-100 to-gray-800">
+        <div class="container max-w-screen-xl mx-auto">
+            <div class="xl:rounded-lg shadow-inner">
+                <div id="code" class="absolute xl:rounded-t-lg bg-cover bg-code-img"></div>
+                <div class="grid grid-cols-1 grid-cols-2 lg:grid-cols-5 gap-x-10 gap-y-16 lg:gap-y-44 px-10 py-16 md:px-20 md:py-32 xl:rounded-t-lg backdrop-blur-sm">
+                    <div class="col-span-2 lg:col-span-3">
+                        <h1 class="font-extrabold text-slate-100 text-4xl mb-5">A real <span class="underline underline-offset-3 decoration-8 decoration-indigo-500">OSS company</span></h1>
+                        <div class="relative">
+                            <span class="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-indigo-500 rounded-lg"></span>
+                            <div class="relative p-6 bg-slate-100 border-2 border-indigo-500 rounded-lg">
+                                <p class="text-gray-700">
+                                    As core contributors to Symfony and its ecosystem, <span class="font-bold">we don't just use tools, we shape them.</span>
+                                    That's why we've created several Symfony components, and one of our founder is part of the core team members.
+                                    <br />
+                                    <br />
+                                    <span class="font-bold">Who knows a framework better than someone who contributes to its creation?</span>
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                </nav>
-
-                <div class="font-handwritten mt-20 md:mt-32 flex flex-wrap flex-row items-center">
-                    <span class="text-gray-800 text-5xl md:text-6xl leading-none whitespace-nowrap">We are</span>
-                    <span class="tools mt-3 mx-5 md:mx-10 w-40 md:w-60">
-                        <img id="tool-0" src="assets/image/symfony.svg" alt="symfony" class="h-10 md:h-20" />
-                        <img id="tool-1" src="assets/image/php.svg" alt="php" class="mx-auto h-10 md:h-20" />
-                        <img id="tool-2" src="assets/image/api-platform.svg" alt="api platform" class="h-10 md:h-20 hidden" />
-                        <img src="assets/image/tool-underline.svg" alt="underline" class="mt-1 md:-mt-1" />
-                    </span>
-                    <span id="typewriter" class="text-gray-800 text-5xl md:text-6xl leading-none"></span>
+                    <div class="flex flex-col justify-center">
+                        <h4 class="font-roboto font-extrabold text-slate-100 text-5xl sm:text-7xl mb-2 text-center">1k+</h4>
+                        <h4 class="font-medium text-slate-100 text-xl mb-4 flex justify-center items-center whitespace-nowrap">
+                            <img src="assets/image/symfony-small-white.png" alt="symfony" class="h-5 sm:h-7 text-white px-2 py-1 bg-indigo-500 rounded-l-sm" />
+                            <mark class="hidden sm:block text-white pr-2 bg-indigo-500 rounded-r-sm">contributions</mark>
+                            <mark class="block sm:hidden text-white pr-2 bg-indigo-500 rounded-r-sm text-sm">contribs.</mark>
+                        </h4>
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <h4 class="font-roboto font-extrabold text-slate-100 text-5xl sm:text-7xl mb-2 text-center">1</h4>
+                        <h4 class="font-medium text-slate-100 text-xl mb-4 flex justify-center items-center whitespace-nowrap">
+                            <img src="assets/image/symfony-small-white.png" alt="symfony" class="h-5 sm:h-7 text-white px-2 py-1 bg-indigo-500 rounded-l-sm" />
+                            <mark class="text-white pr-2 bg-indigo-500 rounded-r-sm text-sm sm:text-lg">core team</mark>
+                        </h4>
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <h4 class="font-roboto font-extrabold text-slate-100 text-5xl sm:text-7xl mb-2 text-center">20+</h4>
+                        <h4 class="font-medium text-slate-100 text-xl mb-4 flex justify-center items-center whitespace-nowrap">
+                            <img src="assets/image/php-white.png" alt="php" class="h-5 sm:h-7 text-white px-2 py-1 bg-indigo-500 rounded-l-sm" />
+                            <mark class="text-white bg-indigo-500 text-sm sm:text-lg">and</mark>
+                            <img src="assets/image/symfony-small-white.png" alt="symfony" class="h-5 sm:h-7 text-white px-2 py-1 bg-indigo-500" />
+                            <mark class="text-white pr-2 bg-indigo-500 rounded-r-sm text-sm sm:text-lg">talks</mark>
+                        </h4>
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <h4 class="font-roboto font-extrabold text-slate-100 text-4xl sm:text-7xl mb-2 text-center">3</h4>
+                        <h4 class="font-medium text-slate-100 text-xl mb-4 flex justify-center items-center whitespace-nowrap">
+                            <mark class="text-white px-2 bg-indigo-500 rounded-sm text-sm sm:text-lg">sponsored confs.</mark>
+                        </h4>
+                    </div>
+                    <div class="col-span-2 lg:col-span-3">
+                        <h1 class="font-extrabold text-slate-100 text-4xl mb-5 underline underline-offset-3 decoration-8 decoration-indigo-500">
+                            <img src="assets/image/symfony-white.png" alt="symfony" class="inline h-12 mr-2 mb-2" />
+                            evangelist
+                        </h1>
+                        <div class="relative">
+                            <span class="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-indigo-500 rounded-lg"></span>
+                            <div class="relative p-6 bg-slate-100 border-2 border-indigo-500 rounded-lg">
+                                <p class="text-gray-700">
+                                    Passionate advocates for the PHP and Symfony communities, <span class="font-bold">we share our expertise worldwide through conference talks, workshops, and training sessions</span>.
+                                    <br />
+                                    <br />
+                                    While working on client projects, we love sharing our expertise with their development teams, empowering them to enhance their skills.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-span-2 lg:col-span-3">
+                        <h1 class="font-extrabold text-slate-100 text-4xl mb-5"><span class="underline underline-offset-3 decoration-8 decoration-indigo-500">Pragmatic</span> technologists</h1>
+                        <div class="relative">
+                            <span class="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-indigo-500 rounded-lg"></span>
+                            <div class="relative p-6 bg-slate-100 border-2 border-indigo-500 rounded-lg">
+                                <p class="text-gray-700">
+                                    We always take the pragmatic approach, ensuring that <span class="font-bold">our solutions are built for long-term maintainability without falling into the trap of over-engineering</span>.
+                                    <br />
+                                    <br />
+                                    We help our clients craft architectures that are tailored to their actual needs, keeping the business at the center of the discussion, and making sure that our technical decisions align with the client's goals and drive real value.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-center col-span-2">
+                        <h4 class="font-roboto font-extrabold text-slate-100 text-4xl sm:text-7xl mb-2 text-center">∞</h4>
+                        <h4 class="font-medium text-slate-100 text-xl mb-4 flex justify-center items-center whitespace-nowrap">
+                            <mark class="text-white bg-indigo-500 pl-2 rounded-l-sm text-sm sm:text-lg">love in</mark>
+                            <img src="assets/image/php-white.png" alt="php" class="h-5 sm:h-7 text-white px-2 py-1 bg-indigo-500" />
+                            <mark class="text-white pr-2 bg-indigo-500 rounded-r-sm text-sm sm:text-lg">ecosystem</mark>
+                        </h4>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-		<footer class="py-10">
-			<div class="container max-w-screen-xl mx-auto px-4 flex items-center md:flex-row flex-col md:justify-between">
-				<span class="text-sm text-gray-500 flex items-center md:justify-start justify-center">© 2024 Bakslash™. All Rights Reserved.</span>
-				<ul class="flex flex-wrap justify-center items-center mt-3 text-sm font-medium sm:mt-0">
-					<li class="h-full">
-						<a href="https://github.com/bakslashHQ" class="hover:underline me-4 md:me-6 h-full flex items-center"><img src="assets/image/github.svg" alt="github" class="h-5 mt-2 md:h-6 md:mt-0 opacity-50 hover:opacity-100"></a>
-					</li>
-					<li>
-						<a href="https://x.com/bakslashHQ" class="hover:underline me-4 md:me-6 h-full flex items-center"><img src="assets/image/x.svg" alt="x" class="h-5 mt-2 md:h-6 md:mt-0 opacity-50 hover:opacity-100"></a>
-					</li>
-					<li>
-						<a href="https://www.linkedin.com/company/bakslashhq" class="hover:underline me-4 md:me-6 h-full flex items-center"><img src="assets/image/linkedin.svg" alt="linkedin" class="h-5 mt-2 md:h-6 md:mt-0 opacity-50 hover:opacity-100"></a>
-					</li>
-					<li>
-						<a href="mailto:hello@baksla.sh" class="hover:underline me-4 md:me-6 h-full flex items-center"><img src="assets/image/mail.svg" alt="mail" class="h-7 mt-2 md:h-8 md:mt-0 opacity-50 hover:opacity-100"></a>
-					</li>
-				</ul>
-			</div>
-		</footer>
+    <section class="bg-gray-100 px-8 xl:px-4 py-20">
+        <div class="container max-w-screen-xl mx-auto">
+            <div class="pb-20 lg:pt-10 lg:pb-28">
+                <h2 class="text-4xl md:text-5xl font-bold leading-none tracking-tight text-slate-700">Our tailored solutions <span class="text-transparent font-extrabold bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-400">built to last</span>.</h2>
+                <div class="mt-6 lg:mt-20 grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <img src="assets/image/talk.png" alt="mtarld" class="rounded shadow-xl self-center w-full" />
+                    <div class="flex flex-col justify-center">
+                        <p class="text-center text-2xl md:text-3xl font-semibold text-slate-800">"The less time we spend on a mission, the more successful we've been."</p>
+                        <figcaption class="flex items-center justify-center space-x-3 mt-6">
+                            <img class="w-6 h-6 rounded-full" src="assets/image/chalasr.webp" alt="Robin Chalas">
+                            <div class="flex items-center divide-x-2 rtl:divide-x-reverse divide-gray-500">
+                                <cite class="pe-3 font-medium text-slate-900">Robin Chalas</cite>
+                                <cite class="ps-3 text-sm text-slate-700">CEO at baksla.sh</cite>
+                            </div>
+                        </figcaption>
+                        <div class="mt-12">
+                            <p class="text-center text-slate-700 text-lg">
+                                <span class="font-bold">We don't tie ourselves tightly to your team, we work alongside you</span>, sharing our expertise and building solutions that stand the test of time.
+                                The less time we spend on a mission, the more value we’ve delivered, <span class="font-bold">leaving your team stronger, smarter, and more independent.</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <script type="text/javascript" src="assets/js/index.js"></script>
-    </body>
+            <h3 class="text-3xl font-bold text-gray-600">Want to <span class="underline underline-offset-3 decoration-8 decoration-indigo-500">implement</span> a solution?</h1>
+
+            <div class="my-8 p-2 grid grid-cols-1 md:grid-cols-2 gap-6 rounded-lg">
+                <div class="relative">
+                    <span class="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-indigo-500 rounded-lg"></span>
+                    <div class="relative p-6 bg-slate-100 border-2 h-full border-indigo-500 rounded-lg">
+                        <div class="flex flex-col h-full justify-center">
+                            <h4 class="font-bold text-slate-700 text-2xl mb-3">Custom Symfony development</h4>
+                            <p class="font-normal text-slate-700 text-md">
+                                We help you to <span class="font-bold">create scalable and maintainable applications tailored to your specific needs</span>, leveraging the expertise of our talented and passionate developers.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <span class="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-indigo-500 rounded-lg"></span>
+                    <div class="relative p-6 bg-slate-100 h-full border-2 border-indigo-500 rounded-lg">
+                        <div class="flex flex-col h-full justify-center">
+                            <h4 class="font-bold text-slate-700 text-2xl mb-3">CTO as a service</h4>
+                            <p class="font-normal text-slate-700 text-md">
+                                Whether you're launching new products, or optimizing existing systems, we provide you a <span class="font-bold">strategic technical leadership to ensure your technology aligns with your business vision</span> and growth objectives.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="mt-10 lg:mt-20 text-3xl font-bold text-gray-600">Try to <span class="underline underline-offset-3 decoration-8 decoration-purple-500">upskill</span>?</h1>
+
+            <div class="my-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="relative">
+                    <span class="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-purple-500 rounded-lg"></span>
+                    <div class="relative p-6 bg-slate-100 h-full border-2 border-purple-500 rounded-lg">
+                        <div class="flex flex-col h-full justify-center">
+                            <h4 class="font-bold text-slate-700 text-2xl mb-3">Workshops and trainings</h4>
+                            <p class="font-normal text-slate-700 text-md">
+                                Whether your team is composed by beginners looking to understand the fundamentals or experienced developers, we can empower your team by providing <span class="font-bold">in-depth Symfony, API Platform and clean code training, tailored to their specific needs and skills</span>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <span class="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-purple-500 rounded-lg"></span>
+                    <div class="relative p-6 bg-slate-100 h-full border-2 border-purple-500 rounded-lg">
+                        <div class="flex flex-col h-full justify-center">
+                            <h4 class="font-bold text-slate-700 text-2xl mb-3">Coaching "à la carte"</h4>
+                            <p class="font-normal text-slate-700 text-md">
+                                Whether starting a new project or tackling challenges as your project grows, our on-demand consulting offers <span class="font-bold">tailored support, including brainstorming, Q&A, specifications, and code reviews</span>, to help your team make the right decisions during this crucial moment.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="mt-10 lg:mt-20 text-3xl font-bold text-gray-600">Need some <span class="underline underline-offset-3 decoration-8 decoration-violet-500">expertise</span>?</h1>
+
+            <div class="my-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="relative">
+                    <span class="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-violet-500 rounded-lg"></span>
+                    <div class="relative p-6 bg-slate-100 h-full border-2 border-violet-500 rounded-lg">
+                        <div class="flex flex-col h-full justify-center">
+                            <h4 class="font-bold text-slate-700 text-2xl mb-3">Audit</h4>
+                            <p class="font-normal text-slate-700 text-md">
+                                We provide comprehensive audits covering code quality, security, and performance, offering actionable insights to improve the health and longevity of your applications</span>.
+                                Audits will <span class="font-bold">assess your code for maintainability, technical debt, check for security risks, and pinpoint performance bottlenecks</span> that could affect scalability.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <span class="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-violet-500 rounded-lg"></span>
+                    <div class="relative p-6 bg-slate-100 h-full border-2 border-violet-500 rounded-lg">
+                        <div class="flex flex-col h-full justify-center">
+                            <h4 class="font-bold text-slate-700 text-3xl mb-3">Architecture study</h4>
+                            <p class="font-normal text-slate-700 text-md">
+                                We help you <span class="font-bold">establish solid foundations for your project</span>, ensuring a smooth execution phase.
+                                We will collaborate with you to understand the project's context, goals, resources, and constraints in order to define the ideal software or system architecture.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-gray-200 px-8 xl:px-4 py-16">
+        <div class="container max-w-screen-xl mx-auto">
+            <h2 class="mb-10 text-3xl md:text-4xl font-bold leading-none tracking-tight text-slate-700">They've already put their trust in us</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-2">
+                <img src="assets/image/drdata.png" class="w-4/5 mx-auto my-auto" alt="DrData">
+                <img src="assets/image/bluspark.svg" class="w-4/5 mx-auto my-auto" alt="Bluspark">
+                <img src="assets/image/fdj.png" class="w-4/5 mx-auto my-auto" alt="FDJ">
+                <img src="assets/image/wamiz.png" class="w-4/5 mx-auto my-auto" alt="Wamiz">
+                <img src="assets/image/synapsun.png" class="w-4/5 mx-auto my-auto" alt="Synapsun">
+                <img src="assets/image/yousign.png" class="w-4/5 mx-auto my-auto" alt="Yousign">
+                <img src="assets/image/nestlé.png" class="w-4/5 mx-auto my-auto" alt="Nestlé">
+                <img src="assets/image/zeturf.png" class="w-4/5 mx-auto my-auto" alt="Zeturf">
+            </div>
+        </div>
+    </section>
+
+    <section class="py-10 md:py-16 text-center">
+        <div class="container max-w-screen-xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-slate-600 leading-relaxed">Contact us at
+                <a href="mailto:hello@baksla.sh">
+                    <button onclick="copyEmail(this)" class="email-button w-full text-4xl text-slate-700 font-extrabold hover:underline underline-offset-3 decoration-8 decoration-indigo-500">
+                        hello@baksla.sh
+                    </button>
+                    <p data-up="10" class="mx-auto pointer-events-none font-handwritten text-xl font-bold relative -rotate-12 transition ease-in-out duration-100 opacity-0">
+                        <img src="assets/image/tick.svg" alt="tick" class="h-6 inline" />
+                        Email copied to clipboard!
+                    </p>
+                </a>
+            </h2>
+        </div>
+    </section>
+
+    <footer class="pb-10">
+        <div class="container max-w-screen-xl mx-auto px-4 flex items-center md:flex-row flex-col md:justify-between">
+            <span class="text-sm text-slate-700 flex items-center md:justify-start justify-center">
+                © 2024 baksla.sh™. All Rights Reserved.
+            </span>
+            <ul class="flex flex-wrap justify-center items-center mt-3 text-sm font-medium sm:mt-0">
+                <li class="h-full">
+                    <a href="https://github.com/bakslashHQ" class="hover:underline me-4 md:me-6 h-full flex items-center">
+                        <img src="assets/image/github.svg" alt="github" class="h-5 mt-2 md:h-6 md:mt-0 opacity-50 hover:opacity-100 grayscale hover:grayscale-0">
+                    </a>
+                </li>
+                <li>
+                    <a href="https://x.com/BakslashHQ" class="hover:underline me-4 md:me-6 h-full flex items-center">
+                        <img src="assets/image/x.svg" alt="x" class="h-5 mt-2 md:h-6 md:mt-0 opacity-50 hover:opacity-100 grayscale hover:grayscale-0">
+                    </a>
+                </li>
+                <li>
+                    <a href="https://bsky.app/profile/bakslash.bsky.social" class="hover:underline me-4 md:me-6 h-full flex items-center">
+                        <img src="assets/image/bluesky.svg" alt="bluesky" class="h-5 mt-2 md:h-6 md:mt-0 opacity-50 hover:opacity-100 grayscale hover:grayscale-0">
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.linkedin.com/company/bakslashhq" class="hover:underline me-4 md:me-6 h-full flex items-center">
+                        <img src="assets/image/linkedin.svg" alt="linkedin" class="h-5 mt-2 md:h-6 md:mt-0 opacity-30 hover:opacity-100 grayscale hover:grayscale-0">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+
+    <script type="text/javascript" src="assets/js/index.js"></script>
+</body>
 </html>
-
