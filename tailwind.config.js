@@ -2,6 +2,10 @@
 module.exports = {
   content: [
       'index.html',
+      './assets/js/index.js'
+  ],
+  safelist: [
+    '-translate-y-6'
   ],
   theme: {
     extend: {
