@@ -44,22 +44,21 @@ const setTool = () => {
   setTimeout(setTool, 8000);
 }
 
-const copyEmail = (emailButton) => {
-  const emailText = emailButton.nextElementSibling;
+const copyEmail = (emailLink) => {
+  const emailText = emailLink.firstElementChild;
+  const emailCopyText = emailLink.lastElementChild;
 
-  emailButton.classList.add("blur");
-  emailButton.classList.add("pointer-events-none");
-  emailText.classList.add("-translate-y-" + emailText.dataset.up);
-  emailText.classList.remove("opacity-0");
+  emailText.classList.add("blur", "pointer-events-none");
+  emailCopyText.classList.add(emailCopyText.dataset.translateUp);
+  emailCopyText.classList.remove("opacity-0");
 
   navigator.clipboard.writeText('hello@baksla.sh');
 
   setTimeout(() => {
-    emailButton.classList.remove("blur");
-    emailButton.classList.remove("pointer-events-none");
-    emailText.classList.remove("-translate-y-10");
-    emailText.classList.add("opacity-0");
-  }, 1500)
+    emailText.classList.remove("blur", "pointer-events-none");
+    emailCopyText.classList.remove(emailCopyText.dataset.translateUp);
+    emailCopyText.classList.add("opacity-0");
+  }, 1500);
 }
 
 const backgroundParallax = () => {
