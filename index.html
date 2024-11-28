@@ -22,13 +22,13 @@
     <section class="py-10">
         <div class="container max-w-screen-xl mx-auto px-8 xl:px-4">
             <nav class="flex items-center justify-between">
-                <img src="assets/image/bakslash.svg" alt="baksla.sh" class="h-10">
+                <img src="assets/image/bakslash.svg" alt="baksla.sh" class="h-10"  loading="eager" fetchpriority="high" width="300" height="40">
                 <div>
                     <button onclick="copyEmail(this)" class="hidden lg:block font-medium lg:font-semibold text-slate-800 text-xl hover:underline underline-offset-3 decoration-4 decoration-indigo-500">
                         hello@baksla.sh
                     </button>
                     <span data-up="6" class="hidden lg:block pointer-events-none text-slate-800 font-handwritten text-xl font-bold absolute -ml-10 -rotate-12 transition ease-in-out duration-100 opacity-0">
-                            <img src="assets/image/tick.svg" alt="tick" class="h-6 inline" />
+                            <img src="assets/image/tick.svg" alt="tick" class="h-6 inline" fetchpriority="low" loading="lazy" width="32px" height="32px" />
                             Email copied to clipboard!
                     </span>
                 </div>
