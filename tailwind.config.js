@@ -4,9 +4,6 @@ module.exports = {
       'index.html',
       './assets/js/index.js'
   ],
-  safelist: [
-    '-translate-y-6'
-  ],
   theme: {
     extend: {
       fontFamily: {
