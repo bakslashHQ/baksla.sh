@@ -39,15 +39,15 @@
     <section class="py-10">
         <div class="container max-w-screen-xl mx-auto px-8 xl:px-4">
             <nav class="flex items-center justify-between">
-                <img src="assets/image/bakslash.svg" alt="baksla.sh" class="h-10" loading="eager" fetchpriority="high" width="300" height="40">
-                <a href="mailto:hello@baksla.sh">
-                    <button onclick="copyEmail(this)" class="hidden lg:block font-medium lg:font-semibold text-slate-800 text-xl hover:underline underline-offset-3 decoration-4 decoration-indigo-500">
+                <img src="assets/image/bakslash.svg" alt="baksla.sh" class="h-10"  loading="eager" fetchpriority="high" width="300" height="40">
+                <a href="mailto:hello@baksla.sh" onclick="copyEmail(this)" >
+                    <span class="hidden lg:block font-medium lg:font-semibold text-slate-800 text-xl hover:underline underline-offset-3 decoration-4 decoration-indigo-500">
                         hello@baksla.sh
-                    </button>
-                    <p data-up="6" class="hidden lg:block pointer-events-none text-slate-800 font-handwritten text-xl font-bold absolute -ml-10 -rotate-12 transition ease-in-out duration-100 opacity-0">
+                    </span>
+                    <span data-translate-up="-translate-y-6" class="hidden lg:block pointer-events-none text-slate-800 font-handwritten text-xl font-bold absolute -ml-10 -rotate-12 transition ease-in-out duration-100 opacity-0">
                         <img src="assets/image/tick.svg" alt="tick" class="h-6 inline" fetchpriority="low" loading="lazy" width="32px" height="32px" />
                         Email copied to clipboard!
-                    </p>
+                    </span>
                 </a>
             </nav>
         </div>
@@ -72,7 +72,7 @@
         <div class="container max-w-screen-xl mx-auto">
             <div class="xl:rounded-lg shadow-inner">
                 <div id="code" class="absolute xl:rounded-t-lg bg-cover bg-code-img"></div>
-                <div class="grid grid-cols-1 grid-cols-2 lg:grid-cols-5 gap-x-10 gap-y-16 lg:gap-y-44 px-10 py-16 md:px-20 md:py-32 xl:rounded-t-lg backdrop-blur-sm">
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-x-10 gap-y-16 lg:gap-y-44 px-10 py-16 md:px-20 md:py-32 xl:rounded-t-lg backdrop-blur-sm">
                     <div class="col-span-2 lg:col-span-3">
                         <h1 class="font-extrabold text-slate-100 text-4xl mb-5">A real <span class="underline underline-offset-3 decoration-8 decoration-indigo-500">OSS company</span></h1>
                         <div class="relative">
@@ -89,40 +89,40 @@
                         </div>
                     </div>
                     <div class="flex flex-col justify-center">
-                        <h4 class="font-roboto font-extrabold text-slate-100 text-5xl sm:text-7xl mb-2 text-center">1k+</h4>
-                        <h4 class="font-medium text-slate-100 text-xl mb-4 flex justify-center items-center whitespace-nowrap">
-                            <img src="assets/image/symfony-small-white.png" alt="symfony" class="h-5 sm:h-7 text-white px-2 py-1 bg-indigo-500 rounded-l-sm" loading="lazy" />
+                        <p class="font-roboto font-extrabold text-slate-100 text-5xl sm:text-7xl mb-2 text-center">1k+</p>
+                        <p class="font-medium text-slate-100 text-xl mb-4 flex justify-center items-center whitespace-nowrap">
+                            <img src="assets/image/symfony-small-white.png" alt="symfony" class="h-5 sm:h-7 text-white px-2 py-1 bg-indigo-500 rounded-l-sm"  loading="lazy" />
                             <mark class="hidden sm:block text-white pr-2 bg-indigo-500 rounded-r-sm">contributions</mark>
                             <mark class="block sm:hidden text-white pr-2 bg-indigo-500 rounded-r-sm text-sm">contribs.</mark>
-                        </h4>
+                        </p>
                     </div>
                     <div class="flex flex-col justify-center">
-                        <h4 class="font-roboto font-extrabold text-slate-100 text-5xl sm:text-7xl mb-2 text-center">1</h4>
-                        <h4 class="font-medium text-slate-100 text-xl mb-4 flex justify-center items-center whitespace-nowrap">
+                        <p class="font-roboto font-extrabold text-slate-100 text-5xl sm:text-7xl mb-2 text-center">1</p>
+                        <p class="font-medium text-slate-100 text-xl mb-4 flex justify-center items-center whitespace-nowrap">
                             <img src="assets/image/symfony-small-white.png" alt="symfony" class="h-5 sm:h-7 text-white px-2 py-1 bg-indigo-500 rounded-l-sm" loading="lazy" />
                             <mark class="text-white pr-2 bg-indigo-500 rounded-r-sm text-sm sm:text-lg">core team</mark>
-                        </h4>
+                        </p>
                     </div>
                     <div class="flex flex-col justify-center">
-                        <h4 class="font-roboto font-extrabold text-slate-100 text-5xl sm:text-7xl mb-2 text-center">20+</h4>
-                        <h4 class="font-medium text-slate-100 text-xl mb-4 flex justify-center items-center whitespace-nowrap">
+                        <p class="font-roboto font-extrabold text-slate-100 text-5xl sm:text-7xl mb-2 text-center">20+</p>
+                        <p class="font-medium text-slate-100 text-xl mb-4 flex justify-center items-center whitespace-nowrap">
                             <img src="assets/image/php-white.png" alt="php" class="h-5 sm:h-7 text-white px-2 py-1 bg-indigo-500 rounded-l-sm" loading="lazy" />
                             <mark class="text-white bg-indigo-500 text-sm sm:text-lg">and</mark>
                             <img src="assets/image/symfony-small-white.png" alt="symfony" class="h-5 sm:h-7 text-white px-2 py-1 bg-indigo-500" loading="lazy" />
                             <mark class="text-white pr-2 bg-indigo-500 rounded-r-sm text-sm sm:text-lg">talks</mark>
-                        </h4>
+                        </p>
                     </div>
                     <div class="flex flex-col justify-center">
-                        <h4 class="font-roboto font-extrabold text-slate-100 text-4xl sm:text-7xl mb-2 text-center">3</h4>
-                        <h4 class="font-medium text-slate-100 text-xl mb-4 flex justify-center items-center whitespace-nowrap">
+                        <p class="font-roboto font-extrabold text-slate-100 text-4xl sm:text-7xl mb-2 text-center">3</p>
+                        <p class="font-medium text-slate-100 text-xl mb-4 flex justify-center items-center whitespace-nowrap">
                             <mark class="text-white px-2 bg-indigo-500 rounded-sm text-sm sm:text-lg">sponsored confs.</mark>
-                        </h4>
+                        </p>
                     </div>
                     <div class="col-span-2 lg:col-span-3">
-                        <h1 class="font-extrabold text-slate-100 text-4xl mb-5 underline underline-offset-3 decoration-8 decoration-indigo-500">
+                        <h2 class="font-extrabold text-slate-100 text-4xl mb-5 underline underline-offset-3 decoration-8 decoration-indigo-500">
                             <img src="assets/image/symfony-white.png" alt="symfony" class="inline h-12 mr-2 mb-2" loading="lazy" />
                             evangelist
-                        </h1>
+                        </h2>
                         <div class="relative">
                             <span class="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-indigo-500 rounded-lg"></span>
                             <div class="relative p-6 bg-slate-100 border-2 border-indigo-500 rounded-lg">
@@ -136,7 +136,7 @@
                         </div>
                     </div>
                     <div class="col-span-2 lg:col-span-3">
-                        <h1 class="font-extrabold text-slate-100 text-4xl mb-5"><span class="underline underline-offset-3 decoration-8 decoration-indigo-500">Pragmatic</span> technologists</h1>
+                        <h2 class="font-extrabold text-slate-100 text-4xl mb-5"><span class="underline underline-offset-3 decoration-8 decoration-indigo-500">Pragmatic</span> technologists</h2>
                         <div class="relative">
                             <span class="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-indigo-500 rounded-lg"></span>
                             <div class="relative p-6 bg-slate-100 border-2 border-indigo-500 rounded-lg">
@@ -150,12 +150,12 @@
                         </div>
                     </div>
                     <div class="flex flex-col justify-center col-span-2">
-                        <h4 class="font-roboto font-extrabold text-slate-100 text-4xl sm:text-7xl mb-2 text-center">∞</h4>
-                        <h4 class="font-medium text-slate-100 text-xl mb-4 flex justify-center items-center whitespace-nowrap">
+                        <p class="font-roboto font-extrabold text-slate-100 text-4xl sm:text-7xl mb-2 text-center">∞</p>
+                        <p class="font-medium text-slate-100 text-xl mb-4 flex justify-center items-center whitespace-nowrap">
                             <mark class="text-white bg-indigo-500 pl-2 rounded-l-sm text-sm sm:text-lg">love in</mark>
                             <img src="assets/image/php-white.png" alt="php" class="h-5 sm:h-7 text-white px-2 py-1 bg-indigo-500" />
                             <mark class="text-white pr-2 bg-indigo-500 rounded-r-sm text-sm sm:text-lg">ecosystem</mark>
-                        </h4>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -187,7 +187,7 @@
                 </div>
             </div>
 
-            <h3 class="text-3xl font-bold text-gray-600">Want to <span class="underline underline-offset-3 decoration-8 decoration-indigo-500">implement</span> a solution?</h1>
+            <h3 class="text-3xl font-bold text-gray-600">Want to <span class="underline underline-offset-3 decoration-8 decoration-indigo-500">implement</span> a solution?</h3>
 
             <div class="my-8 p-2 grid grid-cols-1 md:grid-cols-2 gap-6 rounded-lg">
                 <div class="relative">
@@ -214,7 +214,7 @@
                 </div>
             </div>
 
-            <h3 class="mt-10 lg:mt-20 text-3xl font-bold text-gray-600">Try to <span class="underline underline-offset-3 decoration-8 decoration-purple-500">upskill</span>?</h1>
+            <h3 class="mt-10 lg:mt-20 text-3xl font-bold text-gray-600">Try to <span class="underline underline-offset-3 decoration-8 decoration-purple-500">upskill</span>?</h3>
 
             <div class="my-8 grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="relative">
@@ -241,7 +241,7 @@
                 </div>
             </div>
 
-            <h3 class="mt-10 lg:mt-20 text-3xl font-bold text-gray-600">Need some <span class="underline underline-offset-3 decoration-8 decoration-violet-500">expertise</span>?</h1>
+            <h3 class="mt-10 lg:mt-20 text-3xl font-bold text-gray-600">Need some <span class="underline underline-offset-3 decoration-8 decoration-violet-500">expertise</span>?</h3>
 
             <div class="my-8 grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="relative">
@@ -291,14 +291,14 @@
     <section class="py-10 md:py-16 text-center">
         <div class="container max-w-screen-xl mx-auto px-4">
             <h2 class="text-3xl font-bold text-slate-600 leading-relaxed">Contact us at
-                <a href="mailto:hello@baksla.sh">
-                    <button onclick="copyEmail(this)" class="email-button w-full text-4xl text-slate-700 font-extrabold hover:underline underline-offset-3 decoration-8 decoration-indigo-500">
+                <a href="mailto:hello@baksla.sh" onclick="copyEmail(this)">
+                    <span onclick="copyEmail(this)" class="block w-full text-4xl text-slate-700 font-extrabold hover:underline underline-offset-3 decoration-8 decoration-indigo-500">
                         hello@baksla.sh
-                    </button>
-                    <p data-up="10" class="mx-auto pointer-events-none font-handwritten text-xl font-bold relative -rotate-12 transition ease-in-out duration-100 opacity-0">
-                        <img src="assets/image/tick.svg" alt="tick" class="h-6 inline" width="32px" height="32px" />
+                    </span>
+                    <span data-translate-up="-translate-y-8" class="hidden lg:block mx-auto pointer-events-none font-handwritten text-xl font-bold relative -rotate-12 transition ease-in-out duration-100 opacity-0">
+                        <img src="assets/image/tick.svg" alt="tick" class="h-6 inline" fetchpriority="low" loading="lazy" width="32px" height="32px" />
                         Email copied to clipboard!
-                    </p>
+                    </span>
                 </a>
             </h2>
         </div>
