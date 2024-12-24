@@ -1,9 +1,26 @@
 # [bakslash.sh](https://baksla.sh/)
 
+## Requirements
+
+- Make
+- Orbstack / Docker
+
+## Installation
+
+```shell
+make build
+make up
+make app.install
+```
+
 ## Usage
 
-Build Tailwind CSS:
-```bash
-$ corepack enable
-$ pnpx tailwindcss -i assets/css/style.css -o assets/css/style.built.css -m
+Start the environment:
+```shell
+make start
+```
+
+Display available commands:
+```shell
+make help
 ```
