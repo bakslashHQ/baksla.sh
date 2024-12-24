@@ -1,0 +1,151 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    /* Fallbacks fonts are generated through fontpie, e.g.: "pnpx fontpie ./Poppins-SemiBold.woff2" */
+
+    @font-face {
+        font-family: 'Kalam';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url(../fonts/Kalam/Kalam-Light.woff2) format('woff2');
+    }
+    @font-face {
+        font-family: 'Kalam Light Fallback';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Arial');
+        ascent-override: 114.42%;
+        descent-override: 57.16%;
+        line-gap-override: 0.00%;
+        size-adjust: 92.90%;
+    }
+
+    @font-face {
+        font-family: 'Kalam';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(../fonts/Kalam/Kalam-Regular.woff2) format('woff2');
+    }
+    @font-face {
+        font-family: 'Kalam Fallback';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Arial');
+        ascent-override: 110.75%;
+        descent-override: 55.32%;
+        line-gap-override: 0.00%;
+        size-adjust: 95.98%;
+    }
+
+    @font-face {
+        font-family: 'Kalam';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(../fonts/Kalam/Kalam-Bold.woff2) format('woff2');
+    }
+    @font-face {
+        font-family: 'Kalam Fallback';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Arial');
+        ascent-override: 104.53%;
+        descent-override: 52.22%;
+        line-gap-override: 0.00%;
+        size-adjust: 101.69%;
+    }
+
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(../fonts/Poppins/Poppins-Regular.woff2) format('woff2');
+    }
+    @font-face {
+        font-family: 'Poppins Fallback';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Arial');
+        ascent-override: 92.83%;
+        descent-override: 30.94%;
+        line-gap-override: 8.84%;
+        size-adjust: 113.11%;
+    }
+
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(../fonts/Poppins/Poppins-Medium.woff2) format('woff2');
+    }
+    @font-face {
+        font-family: 'Poppins Medium Fallback';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Arial');
+        ascent-override: 91.82%;
+        descent-override: 30.61%;
+        line-gap-override: 8.74%;
+        size-adjust: 114.36%;
+    }
+
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url(../fonts/Poppins/Poppins-SemiBold.woff2) format('woff2');
+    }
+    @font-face {
+        font-family: 'Poppins SemiBold Fallback';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Arial');
+        ascent-override: 90.85%;
+        descent-override: 30.28%;
+        line-gap-override: 8.65%;
+        size-adjust: 115.57%;
+    }
+
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(../fonts/Poppins/Poppins-Bold.woff2) format('woff2');
+    }
+    @font-face {
+        font-family: 'Poppins Fallback';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Arial');
+        ascent-override: 89.77%;
+        descent-override: 29.92%;
+        line-gap-override: 8.55%;
+        size-adjust: 116.97%;
+    }
+
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 800;
+        font-display: swap;
+        src: url(../fonts/Poppins/Poppins-ExtraBold.woff2) format('woff2');
+    }
+    @font-face {
+        font-family: 'Poppins ExtraBold Fallback';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Arial');
+        ascent-override: 88.85%;
+        descent-override: 29.62%;
+        line-gap-override: 8.46%;
+        size-adjust: 118.17%;
+    }
+}
