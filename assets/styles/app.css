@@ -1,3 +1,62 @@
-body {
-    background-color: skyblue;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    @font-face {
+        font-family: 'Kalam';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url(../fonts/Kalam/Kalam-Light.woff2) format('woff2');
+    }
+    @font-face {
+        font-family: 'Kalam';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(../fonts/Kalam/Kalam-Regular.woff2) format('woff2');
+    }
+    @font-face {
+        font-family: 'Kalam';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(../fonts/Kalam/Kalam-Bold.woff2) format('woff2');
+    }
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(../fonts/Poppins/Poppins-Regular.woff2) format('woff2');
+    }
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(../fonts/Poppins/Poppins-Medium.woff2) format('woff2');
+    }
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url(../fonts/Poppins/Poppins-SemiBold.woff2) format('woff2');
+    }
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(../fonts/Poppins/Poppins-Bold.woff2) format('woff2');
+    }
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 800;
+        font-display: swap;
+        src: url(../fonts/Poppins/Poppins-ExtraBold.woff2) format('woff2');
+    }
 }

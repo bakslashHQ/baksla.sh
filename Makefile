@@ -45,7 +45,8 @@ bash: ## Connect to the FrankenPHP container via bash so up and down arrows go t
 
 test: ## Start tests with phpunit, pass the parameter "c=" to add options to phpunit, example: make test c="--group e2e --stop-on-failure"
 	@$(eval c ?=)
-	@$(DOCKER_COMP) exec -e APP_ENV=test php bin/phpunit $(c)
+	@$(DOCKER_COMP) exec -e APP_ENV=test php bin/phpunit $(c) --group smoke
+	@$(DOCKER_COMP) exec -e APP_ENV=test php bin/phpunit $(c) --exclude-group smoke
 
 ## —— App \\ ——————————————————————————————————————————————————————————————
 app.install: ## Install the application
@@ -67,3 +68,6 @@ sf: ## List all Symfony commands or pass the parameter "c=" to run a given comma
 
 cc: c=c:c ## Clear the cache
 cc: sf
+
+tailwind.watch: ## Watch Tailwind CSS
+	@$(SYMFONY) tailwind:build --watch

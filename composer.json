@@ -39,9 +39,11 @@
         "symfony/translation": "7.2.*",
         "symfony/twig-bundle": "7.2.*",
         "symfony/ux-turbo": "^2.22",
+        "symfony/ux-twig-component": "^2.22",
         "symfony/validator": "7.2.*",
         "symfony/web-link": "7.2.*",
         "symfony/yaml": "7.2.*",
+        "symfonycasts/tailwind-bundle": "^0.6.1",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0"
     },
@@ -78,7 +80,8 @@
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd",
-            "importmap:install": "symfony-cmd"
+            "importmap:install": "symfony-cmd",
+            "tailwind:build --minify": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"

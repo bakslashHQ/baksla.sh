@@ -1,9 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-      'index.html',
-      'legal-notices.html',
-      './assets/js/index.js',
+    "./assets/**/*.js",
+    "./templates/**/*.html.twig",
   ],
   theme: {
     extend: {
@@ -12,7 +11,7 @@ module.exports = {
         'handwritten': ['Kalam', 'Kalam Fallback'],
       },
       backgroundImage: {
-        'code-img': "url('../image/code.png')",
+        'code-img': "url('../images/code.png')",
       },
     },
   },
