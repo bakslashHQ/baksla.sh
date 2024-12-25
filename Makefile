@@ -72,6 +72,11 @@ cc: sf
 tailwind.watch:
 	@$(SYMFONY) tailwind:build --watch
 
+## Symfony 🎵 - Extract tranlations
+translation.extract:
+	@$(SYMFONY) translation:extract --format yaml --domain messages --force fr
+	@$(SYMFONY) translation:extract --format yaml --domain messages --force en
+
 ## Quality Assurance 💯 - Run all QA checks
 qa: refactor cs lint phpstan test
 

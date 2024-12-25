@@ -1,18 +1,19 @@
+{% set email = 'hello@baksla.sh' %}
 <a
     class="relative"
-    href="mailto:hello@baksla.sh"
+    href="mailto:{{ email }}"
     data-controller="copy-email"
     data-copy-email-button-blurred-class="blur pointer-events-none"
     data-copy-email-copy-text-hidden-class="opacity-0 -translate-y-6"
 >
     <span class="{{ attributes.render('class') }}" data-copy-email-target="button">
-        hello@baksla.sh
+        {{ email }}
     </span>
 
     <span
         data-copy-email-target="copyText"
         class="mx-auto pointer-events-none font-handwritten text-xl font-bold absolute -rotate-12 transition ease-in-out duration-100 opacity-0 -translate-y-6">
         <twig:UX:Icon name="mdi:check-circle" aria-label="Tick" class="h-6 inline text-green-500" />
-        Email copied to clipboard!
+        {{ 'email.copy.copied_to_clipboard'|trans }}
     </span>
 </a>
