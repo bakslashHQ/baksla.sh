@@ -20,6 +20,7 @@ abstract class FunctionalTestCase extends WebTestCase
         self::$client = self::createClient();
     }
 
+    #[\Override]
     protected function tearDown(): void
     {
         parent::tearDown();
@@ -30,6 +31,7 @@ abstract class FunctionalTestCase extends WebTestCase
      * @param array<string, mixed> $options An array of options to pass to the createKernel method
      * @param array<string, mixed> $server  An array of server parameters
      */
+    #[\Override]
     protected static function createClient(array $options = [], array $server = []): KernelBrowser
     {
         return parent::createClient($options, $server + [
