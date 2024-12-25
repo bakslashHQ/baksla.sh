@@ -44,6 +44,24 @@ jobs:
       -
         name: Check HTTPS reachability
         run: curl -vk -o /dev/null https://localhost
+      - 
+        name: Run Back Refactoring checks
+        run: make refactor.back
+      - 
+        name: Run Back CS checks
+        run: make cs.back
+      -
+        name: Run Front CS checks
+        run: make cs.front
+      -
+        name: Run Back linters
+        run: make lint.back
+      -
+        name: Run Front linters
+        run: make lint.front
+      -
+        name: Run PHPStan checks
+        run: make phpstan
       -
         name: Create test database
         if: false # Remove this line if Doctrine ORM is installed
@@ -53,12 +71,8 @@ jobs:
         if: false # Remove this line if Doctrine Migrations is installed
         run: docker compose exec -T php bin/console -e test doctrine:migrations:migrate --no-interaction
       -
-        name: Run PHPUnit
-        run: make test
-      -
-        name: Doctrine Schema Validator
-        if: false # Remove this line if Doctrine ORM is installed
-        run: docker compose exec -T php bin/console -e test doctrine:schema:validate
+        name: Run Back tests
+        run: make test.back
   lint:
     name: Docker Lint
     runs-on: ubuntu-latest

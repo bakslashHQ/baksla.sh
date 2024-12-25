@@ -1,0 +1,32 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "files": {
+    "ignore": [
+      "assets/vendor/*",
+      "assets/controllers.json",
+      "assets/controllers/csrf_protection_controller.js",
+      "composer.json",
+      "public/assets/*",
+      "public/bundles/*",
+      "var/cache/*",
+      "var/tailwind/*",
+      "vendor/*"
+    ]
+  },
+  "formatter": {
+    "attributePosition": "auto",
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 140
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  },
+  "css": {
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  }
+}

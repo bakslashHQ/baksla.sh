@@ -1,4 +1,4 @@
-import {Controller} from '@hotwired/stimulus';
+import { Controller } from '@hotwired/stimulus';
 
 /**
  * @property {HTMLElement} buttonTarget
@@ -10,7 +10,7 @@ import {Controller} from '@hotwired/stimulus';
  */
 export default class extends Controller {
   static targets = ['button', 'copyText'];
-  static classes = ['buttonBlurred', 'copyTextHidden']
+  static classes = ['buttonBlurred', 'copyTextHidden'];
 
   connect() {
     if (!this.hasButtonTarget) {
@@ -20,11 +20,11 @@ export default class extends Controller {
       throw new Error('Missing "copyText" target');
     }
 
-    this.buttonTarget.addEventListener('click', this.#onButtonClick.bind(this))
+    this.buttonTarget.addEventListener('click', this.#onButtonClick.bind(this));
   }
 
   disconnect() {
-    this.buttonTarget.removeEventListener('click', this.#onButtonClick.bind(this))
+    this.buttonTarget.removeEventListener('click', this.#onButtonClick.bind(this));
   }
 
   #onButtonClick() {

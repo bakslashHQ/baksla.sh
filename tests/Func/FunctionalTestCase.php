@@ -7,6 +7,7 @@ namespace App\Tests\Func;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 abstract class FunctionalTestCase extends WebTestCase
 {
@@ -16,16 +17,19 @@ abstract class FunctionalTestCase extends WebTestCase
     {
         parent::setUp();
         self::ensureKernelShutdown();
-        static::$client = static::createClient();
+        self::$client = self::createClient();
     }
 
     protected function tearDown(): void
     {
         parent::tearDown();
-        static::$client = null;
-        unset($this->legalMonologLogger);
+        self::$client = null;
     }
 
+    /**
+     * @param array<string, mixed> $options An array of options to pass to the createKernel method
+     * @param array<string, mixed> $server  An array of server parameters
+     */
     protected static function createClient(array $options = [], array $server = []): KernelBrowser
     {
         return parent::createClient($options, $server + [
@@ -33,6 +37,11 @@ abstract class FunctionalTestCase extends WebTestCase
         ]);
     }
 
+    /**
+     * @param array<string, mixed>  $parameters    The Request parameters
+     * @param array<UploadedFile>  $files         The files
+     * @param array<string, mixed>  $server        The server parameters (HTTP headers are referenced with an HTTP_ prefix as PHP does)
+     */
     protected function get(
         string $uri,
         array $parameters = [],
@@ -41,8 +50,10 @@ abstract class FunctionalTestCase extends WebTestCase
         ?string $content = null,
         bool $changeHistory = true
     ): Crawler {
+        $this->assertNotNull(self::$client, 'The client must be set.');
+
         return self::$client->request(
-            method: 'GET',
+            method: \Symfony\Component\HttpFoundation\Request::METHOD_GET,
             uri: $uri,
             parameters: $parameters,
             files: $files,
@@ -54,19 +65,21 @@ abstract class FunctionalTestCase extends WebTestCase
 
     protected function followRedirect(): Crawler
     {
+        $this->assertNotNull(self::$client, 'The client must be set.');
+
         return self::$client->followRedirect();
     }
 
     /**
-     * @template T
+     * @template T of object
      * @param class-string<T> $class
-     * @return object<T>
+     * @return T
      */
     protected function getService(string $class): object
     {
         $service = self::getContainer()->get($class);
 
-        self::assertInstanceOf($class, $service);
+        $this->assertInstanceOf($class, $service);
 
         return $service;
     }

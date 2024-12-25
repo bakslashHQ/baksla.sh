@@ -1,6 +1,6 @@
-import {Controller} from "@hotwired/stimulus";
+import { Controller } from '@hotwired/stimulus';
 
-const words = ["experts.", "lovers.", "developers.", "advocates."];
+const words = ['experts.', 'lovers.', 'developers.', 'advocates.'];
 // const maxWordsLength = Math.max(...words.map((w) => w.length));
 
 /**
@@ -11,7 +11,7 @@ const words = ["experts.", "lovers.", "developers.", "advocates."];
  */
 export default class extends Controller {
   static targets = ['typewriter', 'tool'];
-  static classes = [ "hidden" ];
+  static classes = ['hidden'];
 
   connect() {
     if (!this.hasTypewriterTarget) {
@@ -43,7 +43,7 @@ export default class extends Controller {
       }
 
       letterIndex++;
-    }
+    };
 
     const setTool = () => {
       currentTool = toolIndex % this.toolTargets.length;
@@ -59,7 +59,7 @@ export default class extends Controller {
       toolIndex++;
 
       this.timeoutIdTool = setTimeout(setTool, 8000);
-    }
+    };
 
     type();
     setTool();
