@@ -10,9 +10,9 @@ use PHPUnit\Framework\Attributes\TestWith;
 final class SmokeTest extends FunctionalTestCase
 {
     #[Group('smoke')]
-    #[TestWith(["/", 200])]
-    #[TestWith(["/legal-notices", 200])]
-    #[TestWith(["/legal-notices.html", 301, "/legal-notices"])]
+    #[TestWith(['/', 200])]
+    #[TestWith(['/legal-notices', 200])]
+    #[TestWith(['/legal-notices.html', 301, '/legal-notices'])]
     public function testUrl(string $url, int $expectedStatusCode, ?string $expectedRedirectionUrl = null): void
     {
         $this->get($url);
