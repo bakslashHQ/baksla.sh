@@ -72,6 +72,24 @@ cc: sf
 tailwind.watch: ## Watch Tailwind CSS
 	@$(SYMFONY) tailwind:build --watch
 
+################
+# Coding style #
+################
+
+## Coding style - Run all coding style checks
+cs: cs.back
+
+## Coding style - Run all coding style checks and fix issues
+cs.fix: cs.back.fix
+
+## Coding style - Check backend coding style
+cs.back:
+	$(PHP) vendor/bin/ecs check
+
+## Coding style - Check backend coding style and fix issues
+cs.back.fix:
+	$(PHP) vendor/bin/ecs check --fix
+
 ###########
 # PHPStan #
 ###########

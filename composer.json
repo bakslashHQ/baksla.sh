@@ -111,6 +111,7 @@
         "symfony/maker-bundle": "^1.0",
         "symfony/phpunit-bridge": "^7.2",
         "symfony/stopwatch": "7.2.*",
-        "symfony/web-profiler-bundle": "7.2.*"
+        "symfony/web-profiler-bundle": "7.2.*",
+        "symplify/easy-coding-standard": "^12.5"
     }
 }

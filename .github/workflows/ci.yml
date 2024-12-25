@@ -45,6 +45,9 @@ jobs:
         name: Check HTTPS reachability
         run: curl -vk -o /dev/null https://localhost
       - 
+        name: Run ECS
+        make: make ecs
+      - 
         name: Run PHPStan
         make: make phpstan
       -
