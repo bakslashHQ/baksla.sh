@@ -1,0 +1,30 @@
+{%- props color = 'indigo' -%}
+
+{%- set style_shadow = html_cva(
+    base: 'absolute top-0 left-0 w-full h-full mt-1 ml-1 rounded-lg',
+    variants: {
+        color: {
+            indigo: 'bg-indigo-500',
+            purple: 'bg-purple-500',
+            violet: 'bg-violet-500',
+        },
+    }
+) -%}
+
+{%- set style_card = html_cva(
+    base: 'relative p-6 h-full bg-slate-100 border-2 rounded-lg',
+    variants: {
+        color: {
+            indigo: 'border-indigo-500',
+            purple: 'border-purple-500',
+            violet: 'border-violet-500',
+        },
+    }
+) -%}
+
+<div class="relative">
+    <span class="{{ style_shadow.apply({color}) }}"></span>
+    <div class="{{ style_card.apply({color}) }}">
+        {%- block content %}{% endblock -%}
+    </div>
+</div>

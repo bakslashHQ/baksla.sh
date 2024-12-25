@@ -48,18 +48,15 @@
                 <div data-code-parallax-target="foreground" class="grid grid-cols-1 lg:grid-cols-5 gap-x-10 gap-y-16 lg:gap-y-44 px-10 py-16 md:px-20 md:py-32 xl:rounded-t-lg backdrop-blur-sm">
                     <div class="col-span-2 lg:col-span-3">
                         <h1 class="font-extrabold text-slate-100 text-4xl mb-5">A real <span class="underline underline-offset-3 decoration-8 decoration-indigo-500">OSS company</span></h1>
-                        <div class="relative">
-                            <span class="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-indigo-500 rounded-lg"></span>
-                            <div class="relative p-6 bg-slate-100 border-2 border-indigo-500 rounded-lg">
-                                <p class="text-gray-700">
-                                    As core contributors to Symfony and its ecosystem, <span class="font-bold">we don't just use tools, we shape them.</span>
-                                    That's why we've created several Symfony components, and one of our founder is part of the core team members.
-                                    <br />
-                                    <br />
-                                    <span class="font-bold">Who knows a framework better than someone who contributes to its creation?</span>
-                                </p>
-                            </div>
-                        </div>
+                        <twig:Card>
+                            <p class="text-gray-700">
+                                As core contributors to Symfony and its ecosystem, <span class="font-bold">we don't just use tools, we shape them.</span>
+                                That's why we've created several Symfony components, and one of our founder is part of the core team members.
+                                <br />
+                                <br />
+                                <span class="font-bold">Who knows a framework better than someone who contributes to its creation?</span>
+                            </p>
+                        </twig:Card>
                     </div>
                     <div class="flex flex-col justify-center">
                         <p class="font-roboto font-extrabold text-slate-100 text-5xl sm:text-7xl mb-2 text-center">1k+</p>
@@ -96,31 +93,25 @@
                             <img src="{{ asset('images/symfony-white.png') }}" alt="symfony" class="inline h-12 mr-2 mb-2" loading="lazy" />
                             evangelist
                         </h2>
-                        <div class="relative">
-                            <span class="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-indigo-500 rounded-lg"></span>
-                            <div class="relative p-6 bg-slate-100 border-2 border-indigo-500 rounded-lg">
-                                <p class="text-gray-700">
-                                    Passionate advocates for the PHP and Symfony communities, <span class="font-bold">we share our expertise worldwide through conference talks, workshops, and training sessions</span>.
-                                    <br />
-                                    <br />
-                                    While working on client projects, we love sharing our expertise with their development teams, empowering them to enhance their skills.
-                                </p>
-                            </div>
-                        </div>
+                        <twig:Card>
+                            <p class="text-gray-700">
+                                Passionate advocates for the PHP and Symfony communities, <span class="font-bold">we share our expertise worldwide through conference talks, workshops, and training sessions</span>.
+                                <br />
+                                <br />
+                                While working on client projects, we love sharing our expertise with their development teams, empowering them to enhance their skills.
+                            </p>
+                        </twig:Card>
                     </div>
                     <div class="col-span-2 lg:col-span-3">
                         <h2 class="font-extrabold text-slate-100 text-4xl mb-5"><span class="underline underline-offset-3 decoration-8 decoration-indigo-500">Pragmatic</span> technologists</h2>
-                        <div class="relative">
-                            <span class="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-indigo-500 rounded-lg"></span>
-                            <div class="relative p-6 bg-slate-100 border-2 border-indigo-500 rounded-lg">
-                                <p class="text-gray-700">
-                                    We always take the pragmatic approach, ensuring that <span class="font-bold">our solutions are built for long-term maintainability without falling into the trap of over-engineering</span>.
-                                    <br />
-                                    <br />
-                                    We help our clients craft architectures that are tailored to their actual needs, keeping the business at the center of the discussion, and making sure that our technical decisions align with the client's goals and drive real value.
-                                </p>
-                            </div>
-                        </div>
+                        <twig:Card>
+                            <p class="text-gray-700">
+                                We always take the pragmatic approach, ensuring that <span class="font-bold">our solutions are built for long-term maintainability without falling into the trap of over-engineering</span>.
+                                <br />
+                                <br />
+                                We help our clients craft architectures that are tailored to their actual needs, keeping the business at the center of the discussion, and making sure that our technical decisions align with the client's goals and drive real value.
+                            </p>
+                        </twig:Card>
                     </div>
                     <div class="flex flex-col justify-center col-span-2">
                         <p class="font-roboto font-extrabold text-slate-100 text-4xl sm:text-7xl mb-2 text-center">∞</p>
@@ -163,84 +154,56 @@
             <h3 class="text-3xl font-bold text-gray-600">Want to <span class="underline underline-offset-3 decoration-8 decoration-indigo-500">implement</span> a solution?</h3>
 
             <div class="my-8 p-2 grid grid-cols-1 md:grid-cols-2 gap-6 rounded-lg">
-                <div class="relative">
-                    <span class="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-indigo-500 rounded-lg"></span>
-                    <div class="relative p-6 bg-slate-100 border-2 h-full border-indigo-500 rounded-lg">
-                        <div class="flex flex-col h-full justify-center">
-                            <h4 class="font-bold text-slate-700 text-2xl mb-3">Custom Symfony development</h4>
-                            <p class="font-normal text-slate-700 text-md">
-                                We help you to <span class="font-bold">create scalable and maintainable applications tailored to your specific needs</span>, leveraging the expertise of our talented and passionate developers.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="relative">
-                    <span class="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-indigo-500 rounded-lg"></span>
-                    <div class="relative p-6 bg-slate-100 h-full border-2 border-indigo-500 rounded-lg">
-                        <div class="flex flex-col h-full justify-center">
-                            <h4 class="font-bold text-slate-700 text-2xl mb-3">CTO as a service</h4>
-                            <p class="font-normal text-slate-700 text-md">
-                                Whether you're launching new products, or optimizing existing systems, we provide you a <span class="font-bold">strategic technical leadership to ensure your technology aligns with your business vision</span> and growth objectives.
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                <twig:Card>
+                    <h4 class="font-bold text-slate-700 text-2xl mb-3">Custom Symfony development</h4>
+                    <p class="font-normal text-slate-700 text-md">
+                        We help you to <span class="font-bold">create scalable and maintainable applications tailored to your specific needs</span>, leveraging the expertise of our talented and passionate developers.
+                    </p>
+                </twig:Card>
+
+                <twig:Card>
+                    <h4 class="font-bold text-slate-700 text-2xl mb-3">CTO as a service</h4>
+                    <p class="font-normal text-slate-700 text-md">
+                        Whether you're launching new products, or optimizing existing systems, we provide you a <span class="font-bold">strategic technical leadership to ensure your technology aligns with your business vision</span> and growth objectives.
+                    </p>
+                </twig:Card>
             </div>
 
             <h3 class="mt-10 lg:mt-20 text-3xl font-bold text-gray-600">Try to <span class="underline underline-offset-3 decoration-8 decoration-purple-500">upskill</span>?</h3>
 
             <div class="my-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="relative">
-                    <span class="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-purple-500 rounded-lg"></span>
-                    <div class="relative p-6 bg-slate-100 h-full border-2 border-purple-500 rounded-lg">
-                        <div class="flex flex-col h-full justify-center">
-                            <h4 class="font-bold text-slate-700 text-2xl mb-3">Workshops and trainings</h4>
-                            <p class="font-normal text-slate-700 text-md">
-                                Whether your team is composed by beginners looking to understand the fundamentals or experienced developers, we can empower your team by providing <span class="font-bold">in-depth Symfony, API Platform and clean code training, tailored to their specific needs and skills</span>.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="relative">
-                    <span class="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-purple-500 rounded-lg"></span>
-                    <div class="relative p-6 bg-slate-100 h-full border-2 border-purple-500 rounded-lg">
-                        <div class="flex flex-col h-full justify-center">
-                            <h4 class="font-bold text-slate-700 text-2xl mb-3">Coaching "à la carte"</h4>
-                            <p class="font-normal text-slate-700 text-md">
-                                Whether starting a new project or tackling challenges as your project grows, our on-demand consulting offers <span class="font-bold">tailored support, including brainstorming, Q&A, specifications, and code reviews</span>, to help your team make the right decisions during this crucial moment.
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                <twig:Card color="purple">
+                    <h4 class="font-bold text-slate-700 text-2xl mb-3">Workshops and trainings</h4>
+                    <p class="font-normal text-slate-700 text-md">
+                        Whether your team is composed by beginners looking to understand the fundamentals or experienced developers, we can empower your team by providing <span class="font-bold">in-depth Symfony, API Platform and clean code training, tailored to their specific needs and skills</span>.
+                    </p>
+                </twig:Card>
+                <twig:Card color="purple">
+                    <h4 class="font-bold text-slate-700 text-2xl mb-3">Coaching "à la carte"</h4>
+                    <p class="font-normal text-slate-700 text-md">
+                        Whether starting a new project or tackling challenges as your project grows, our on-demand consulting offers <span class="font-bold">tailored support, including brainstorming, Q&A, specifications, and code reviews</span>, to help your team make the right decisions during this crucial moment.
+                    </p>
+                </twig:Card>
             </div>
 
             <h3 class="mt-10 lg:mt-20 text-3xl font-bold text-gray-600">Need some <span class="underline underline-offset-3 decoration-8 decoration-violet-500">expertise</span>?</h3>
 
             <div class="my-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="relative">
-                    <span class="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-violet-500 rounded-lg"></span>
-                    <div class="relative p-6 bg-slate-100 h-full border-2 border-violet-500 rounded-lg">
-                        <div class="flex flex-col h-full justify-center">
-                            <h4 class="font-bold text-slate-700 text-2xl mb-3">Audit</h4>
-                            <p class="font-normal text-slate-700 text-md">
-                                We provide comprehensive audits covering code quality, security, and performance, offering actionable insights to improve the health and longevity of your applications</span>.
-                                Audits will <span class="font-bold">assess your code for maintainability, technical debt, check for security risks, and pinpoint performance bottlenecks</span> that could affect scalability.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="relative">
-                    <span class="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-violet-500 rounded-lg"></span>
-                    <div class="relative p-6 bg-slate-100 h-full border-2 border-violet-500 rounded-lg">
-                        <div class="flex flex-col h-full justify-center">
-                            <h4 class="font-bold text-slate-700 text-3xl mb-3">Architecture study</h4>
-                            <p class="font-normal text-slate-700 text-md">
-                                We help you <span class="font-bold">establish solid foundations for your project</span>, ensuring a smooth execution phase.
-                                We will collaborate with you to understand the project's context, goals, resources, and constraints in order to define the ideal software or system architecture.
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                <twig:Card color="violet">
+                    <h4 class="font-bold text-slate-700 text-2xl mb-3">Audit</h4>
+                    <p class="font-normal text-slate-700 text-md">
+                        We provide comprehensive audits covering code quality, security, and performance, offering actionable insights to improve the health and longevity of your applications</span>.
+                        Audits will <span class="font-bold">assess your code for maintainability, technical debt, check for security risks, and pinpoint performance bottlenecks</span> that could affect scalability.
+                    </p>
+                </twig:Card>
+
+                <twig:Card color="violet">
+                    <h4 class="font-bold text-slate-700 text-2xl mb-3">Architecture study</h4>
+                    <p class="font-normal text-slate-700 text-md">
+                        We help you <span class="font-bold">establish solid foundations for your project</span>, ensuring a smooth execution phase.
+                        We will collaborate with you to understand the project's context, goals, resources, and constraints in order to define the ideal software or system architecture.
+                    </p>
+                </twig:Card>
             </div>
         </div>
     </section>
