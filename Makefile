@@ -1,3 +1,7 @@
+ROOT_DIR := $(dir $(realpath $(lastword $(MAKEFILE_LIST))))
+include $(ROOT_DIR)/tools/make/text.mk
+include $(ROOT_DIR)/tools/make/help.mk
+
 # Executables (local)
 DOCKER_COMP = docker compose
 
@@ -9,113 +13,104 @@ PHP      = $(PHP_CONT) php
 COMPOSER = $(PHP_CONT) composer
 SYMFONY  = $(PHP) bin/console
 
-# Misc
-.DEFAULT_GOAL = help
-.PHONY        : help build up start down logs sh composer vendor sf cc test
-
-## —— 🎵 🐳 The Baksla.sh Makefile 🐳 🎵 ——————————————————————————————————
-help: ## Outputs this help screen
-	@grep -E '(^[a-zA-Z0-9\./_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}{printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
-
-## —— Docker 🐳 ————————————————————————————————————————————————————————————————
-build: ## Builds the Docker images
+## Docker 🐳 - Builds the Docker images
+build:
 	@$(DOCKER_COMP) build --pull
 
-up: ## Start the docker hub in detached mode (no logs)
+## Docker 🐳 - Start the docker hub in detached mode (no logs)
+up:
 	@$(DOCKER_COMP) up --wait --detach
 	@echo "Web server running on"
 	@echo "\thttp://localhost"
 	@echo "\thttps://localhost"
 
-start: build up ## Build and start the containers
+## Docker 🐳 - Build and start the containers
+start: build up
 
-down: ## Stop the docker hub
+## Docker 🐳 - Stop the docker hub
+down:
 	@$(DOCKER_COMP) down --remove-orphans
 
-stop: down ## Alias to down
+## Docker 🐳 - Stop the docker hub (alias to down)
+stop: down
 
-logs: ## Show live logs
+## Docker 🐳 - Show live logs
+logs:
 	@$(DOCKER_COMP) logs --tail=0 --follow
 
-sh: ## Connect to the FrankenPHP container
+## Docker 🐳 - Connect to the PHP container
+sh:
 	@$(PHP_CONT) sh
 
-bash: ## Connect to the FrankenPHP container via bash so up and down arrows go to previous commands
+## Docker 🐳 - Connect to the PHP container via bash
+bash:
 	@$(PHP_CONT) bash
 
-## —— App \\ ——————————————————————————————————————————————————————————————
-app.install: ## Install the application
+## App 💻 - Install the application
+app.install:
 	@$(call action, Installing PHP dependencies...)
 	$(COMPOSER) install --prefer-dist
 
 	@$(call action, Running DB migrations...)
 	$(SYMFONY) doctrine:migrations:migrate --no-interaction --all-or-nothing --allow-no-migration
 
-## —— Composer 🧙 ——————————————————————————————————————————————————————————————
-composer: ## Run composer, pass the parameter "c=" to run a given command, example: make composer c='req symfony/orm-pack'
+## Composer 🧙 - Run composer, pass the parameter "c=" to run a given command, example: make composer c='req symfony/orm-pack'
+composer:
 	@$(eval c ?=)
 	@$(COMPOSER) $(c)
 
-## —— Symfony 🎵 ———————————————————————————————————————————————————————————————
-sf: ## List all Symfony commands or pass the parameter "c=" to run a given command, example: make sf c=about
+## Symfony 🎵 - List all Symfony commands or pass the parameter "c=" to run a given command, example: make sf c=about
+sf:
 	@$(eval c ?=)
 	@$(SYMFONY) $(c)
 
+## Symfony 🎵 - Clear the cache
 cc: c=c:c ## Clear the cache
 cc: sf
 
-tailwind.watch: ## Watch Tailwind CSS
+## Symfony 🎵 - Run TailwindCSS watcher
+tailwind.watch:
 	@$(SYMFONY) tailwind:build --watch
 
-######
-# QA #
-######
-
-## QA - Run all QA checks
+## Quality Assurance 💯 - Run all QA checks
 qa: refactor cs lint phpstan test
 
-## QA - Run all QA checks and fix issues
+## Quality Assurance 💯 - Run all QA checks and fix issues
 qa.fix: refactor.fix cs.fix lint.fix phpstan test
 
-############
-# Refactor #
-############
+## —— Refactor 🔃 ———————————————————————————————————————————————————————————————
 
-## Refactor - Run all refactor checks
+## Refactor 🔃 - Run all refactor checks
 refactor: refactor.back
 
-## Refactor - Run all refactor checks and fix issues
+## Refactor 🔃 - Run all refactor checks and fix issues
 refactor.fix: refactor.back.fix
 
-## Refactor - Run refactor checks for backend
+## Refactor 🔃 - Run refactor checks for backend
 refactor.back:
 	$(PHP) vendor/bin/rector process --dry-run
 
-## Refactor - Run refactor checks for backend and fix issues
+## Refactor 🔃 - Run refactor checks for backend and fix issues
 refactor.back.fix:
 	$(PHP) vendor/bin/rector process
 
-################
-# Coding style #
-################
-
-## Coding style - Run all coding style checks
+## Coding style 📝 - Run all coding style checks
 cs: cs.back cs.front
 
-## Coding style - Run all coding style checks and fix issues
+## Coding style 📝 - Run all coding style checks and fix issues
 cs.fix: cs.back.fix cs.front.fix
 
-## Coding style - Check backend coding style
+## Coding style 📝 - Run backend coding style checks
 cs.back:
 	$(PHP) vendor/bin/ecs check
 	$(PHP) vendor/bin/twig-cs-fixer
 
-## Coding style - Check backend coding style and fix issues
+## Coding style 📝 - Run backend coding style checks and fix issues
 cs.back.fix:
 	$(PHP) vendor/bin/ecs check --fix
 	$(PHP) vendor/bin/twig-cs-fixer --fix
 
-## Coding style - Check frontend coding style
+## Coding style 📝 - Run frontend coding style checks
 cs.front:
 ifdef CI
 	$(SYMFONY) biomejs:ci . --linter-enabled=false
@@ -123,21 +118,17 @@ else
 	$(SYMFONY) biomejs:check . --linter-enabled=false
 endif
 
-## Coding style - Check frontend coding style and fix issues
+## Coding style 📝 - Run frontend coding style checks and fix issues
 cs.front.fix:
 	$(SYMFONY) biomejs:check . --linter-enabled=false --write --unsafe
 
-##########
-# Linter #
-##########
-
-## Linter - Run all linters
+## Linter ✅ - Run all linters
 lint: lint.back lint.front
 
-## Linter - Run all linters and fix issues
+## Linter ✅ - Run all linters and fix issues
 lint.fix: lint.back lint.front.fix
 
-## Linter - Run linters for backend
+## Linter ✅ - Run backend linters
 lint.back:
 	$(SYMFONY) lint:container
 	$(SYMFONY) lint:xliff translations
@@ -147,7 +138,7 @@ lint.back:
 	# TODO: Uncomment when the project has Doctrine entities
 	#$(SYMFONY) doctrine:schema:validate
 
-## Linter - Lint front files
+## Linter ✅ - Run frontend linters
 lint.front:
 ifdef CI
 	$(SYMFONY) biomejs:ci . --formatter-enabled=false
@@ -155,31 +146,23 @@ else
 	$(SYMFONY) biomejs:check . --formatter-enabled=false
 endif
 
-## Linter - Lint front files and fix issues
+## Linter ✅ - Run frontend linters and fix issues
 lint.front.fix:
 	$(SYMFONY) biomejs:check . --formatter-enabled=false --write
 
-###########
-# PHPStan #
-###########
-
-## PHPStan - Run PHPStan
+## PHPStan 🐘 - Run PHPStan
 phpstan:
 	$(PHP) vendor/bin/phpstan analyse --memory-limit=1G
 
-## PHPStan - Run PHPStan and update the baseline
+## PHPStan 🐘 - Run PHPStan and update the baseline
 phpstan.generate-baseline:
 	$(PHP) vendor/bin/phpstan analyse --memory-limit=1G --generate-baseline
 
-#########
-# Tests #
-#########
-
-## Tests - Run all tests
+## Tests 🧑‍🔬 - Run all tests
 test: test.back
 
-## Tests - Run backend tests
-test.back: ## Start tests with phpunit, pass the parameter "c=" to add options to phpunit, example: make test c="--group e2e --stop-on-failure"
+## Tests 🧑‍🔬 - Start backend tests, pass the parameter "c=" to add options to phpunit, example: make test c="--group e2e --stop-on-failure"
+test.back:
 	@$(eval c ?=)
 	@$(DOCKER_COMP) exec -e APP_ENV=test php bin/phpunit $(c) --group smoke
 	@$(DOCKER_COMP) exec -e APP_ENV=test php bin/phpunit $(c) --exclude-group smoke
