@@ -44,6 +44,9 @@ jobs:
       -
         name: Check HTTPS reachability
         run: curl -vk -o /dev/null https://localhost
+      - 
+        name: Run PHPStan
+        make: make phpstan
       -
         name: Create test database
         if: false # Remove this line if Doctrine ORM is installed

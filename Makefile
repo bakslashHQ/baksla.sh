@@ -71,3 +71,15 @@ cc: sf
 
 tailwind.watch: ## Watch Tailwind CSS
 	@$(SYMFONY) tailwind:build --watch
+
+###########
+# PHPStan #
+###########
+
+## PHPStan - Run PHPStan
+phpstan:
+	$(PHP) vendor/bin/phpstan analyse --memory-limit=1G
+
+## PHPStan - Run PHPStan and update the baseline
+phpstan.generate-baseline:
+	$(PHP) vendor/bin/phpstan analyse --memory-limit=1G --generate-baseline
