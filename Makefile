@@ -85,10 +85,12 @@ cs.fix: cs.back.fix
 ## Coding style - Check backend coding style
 cs.back:
 	$(PHP) vendor/bin/ecs check
+	$(PHP) vendor/bin/twig-cs-fixer
 
 ## Coding style - Check backend coding style and fix issues
 cs.back.fix:
 	$(PHP) vendor/bin/ecs check --fix
+	$(PHP) vendor/bin/twig-cs-fixer --fix
 
 ###########
 # PHPStan #
