@@ -40,6 +40,6 @@ export default class extends Controller {
     #onWindowScroll() {
       const scrolledPercentage = window.scrollY / (document.documentElement.scrollHeight - document.documentElement.clientHeight)
 
-      this.backgroundTarget.style.backgroundPositionY = -1 * (scrolledPercentage * 1000) + 'px';
+      this.backgroundTarget.style.backgroundPositionY = `${-1 * (scrolledPercentage * 1000)}px`;
     }
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2ed5c91d98e1e675d9e007479266cb9b",
+    "content-hash": "b04b9c43ec9dc06be927e1d458580a6b",
     "packages": [
         {
             "name": "composer/semver",
@@ -7707,6 +7707,61 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "kocal/biome-js-bundle",
+            "version": "v1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Kocal/BiomeJsBundle.git",
+                "reference": "f42ab9ff7c64a20e8d7835ffdd8affa084ec66eb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Kocal/BiomeJsBundle/zipball/f42ab9ff7c64a20e8d7835ffdd8affa084ec66eb",
+                "reference": "f42ab9ff7c64a20e8d7835ffdd8affa084ec66eb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1",
+                "symfony/console": "^6.4|^7.0",
+                "symfony/http-client": "^6.4|^7.0",
+                "symfony/process": "^6.4|^7.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.11",
+                "phpunit/phpunit": "^10.5 || ^11.1",
+                "symfony/framework-bundle": "^6.4|^7.0",
+                "symplify/easy-coding-standard": "^12.1.2"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Kocal\\BiomeJsBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Hugo Alliaume",
+                    "email": "hugo@alliau.me"
+                }
+            ],
+            "description": "Use Biome.js with Symfony",
+            "keywords": [
+                "biome",
+                "biome.js",
+                "bundle",
+                "symfony"
+            ],
+            "support": {
+                "issues": "https://github.com/Kocal/BiomeJsBundle/issues",
+                "source": "https://github.com/Kocal/BiomeJsBundle/tree/v1.3.0"
+            },
+            "time": "2024-11-29T14:28:49+00:00"
+        },
         {
             "name": "masterminds/html5",
             "version": "2.9.0",

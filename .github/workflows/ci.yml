@@ -51,6 +51,9 @@ jobs:
         name: Run Back CS checks
         make: make cs.back
       - 
+        name: Run Front linters
+        make: make lint.front
+      -
         name: Run PHPStan checks
         make: make phpstan
       -

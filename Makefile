@@ -95,10 +95,10 @@ refactor.back.fix:
 ################
 
 ## Coding style - Run all coding style checks
-cs: cs.back
+cs: cs.back cs.front
 
 ## Coding style - Run all coding style checks and fix issues
-cs.fix: cs.back.fix
+cs.fix: cs.back.fix cs.front.fix
 
 ## Coding style - Check backend coding style
 cs.back:
@@ -109,6 +109,40 @@ cs.back:
 cs.back.fix:
 	$(PHP) vendor/bin/ecs check --fix
 	$(PHP) vendor/bin/twig-cs-fixer --fix
+
+## Coding style - Check frontend coding style
+cs.front:
+ifdef CI
+	$(SYMFONY) biomejs:ci . --linter-enabled=false
+else
+	$(SYMFONY) biomejs:check . --linter-enabled=false
+endif
+
+## Coding style - Check frontend coding style and fix issues
+cs.front.fix:
+	$(SYMFONY) biomejs:check . --linter-enabled=false --write --unsafe
+
+##########
+# Linter #
+##########
+
+## Linter - Run all linters
+lint: lint.front
+
+## Linter - Run all linters and fix issues
+lint.fix: lint.front.fix
+
+## Linter - Lint front files
+lint.front:
+ifdef CI
+	$(SYMFONY) biomejs:ci . --formatter-enabled=false
+else
+	$(SYMFONY) biomejs:check . --formatter-enabled=false
+endif
+
+## Linter - Lint front files and fix issues
+lint.front.fix:
+	$(SYMFONY) biomejs:check . --formatter-enabled=false --write
 
 ###########
 # PHPStan #
