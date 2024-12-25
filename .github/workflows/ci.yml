@@ -45,10 +45,13 @@ jobs:
         name: Check HTTPS reachability
         run: curl -vk -o /dev/null https://localhost
       - 
-        name: Run ECS
-        make: make ecs
+        name: Run Back Refactoring checks
+        make: make refactor.back
       - 
-        name: Run PHPStan
+        name: Run Back CS checks
+        make: make cs.back
+      - 
+        name: Run PHPStan checks
         make: make phpstan
       -
         name: Create test database

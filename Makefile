@@ -72,6 +72,24 @@ cc: sf
 tailwind.watch: ## Watch Tailwind CSS
 	@$(SYMFONY) tailwind:build --watch
 
+############
+# Refactor #
+############
+
+## Refactor - Run all refactor checks
+refactor: refactor.back
+
+## Refactor - Run all refactor checks and fix issues
+refactor.fix: refactor.back.fix
+
+## Refactor - Run refactor checks for backend
+refactor.back:
+	$(PHP) vendor/bin/rector process --dry-run
+
+## Refactor - Run refactor checks for backend and fix issues
+refactor.back.fix:
+	$(PHP) vendor/bin/rector process
+
 ################
 # Coding style #
 ################

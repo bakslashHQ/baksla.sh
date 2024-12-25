@@ -16,9 +16,9 @@ final class SmokeTest extends FunctionalTestCase
     {
         $this->get($url);
 
-        self::assertResponseStatusCodeSame($expectedStatusCode);
-        if ($expectedRedirectionUrl) {
-            self::assertResponseRedirects($expectedRedirectionUrl);
+        $this->assertResponseStatusCodeSame($expectedStatusCode);
+        if ($expectedRedirectionUrl !== null && $expectedRedirectionUrl !== '' && $expectedRedirectionUrl !== '0') {
+            $this->assertResponseRedirects($expectedRedirectionUrl);
         }
     }
 }

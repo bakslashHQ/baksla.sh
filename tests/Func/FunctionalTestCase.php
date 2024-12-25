@@ -24,7 +24,6 @@ abstract class FunctionalTestCase extends WebTestCase
     {
         parent::tearDown();
         self::$client = null;
-        unset($this->legalMonologLogger);
     }
 
     /**
@@ -51,10 +50,10 @@ abstract class FunctionalTestCase extends WebTestCase
         ?string $content = null,
         bool $changeHistory = true
     ): Crawler {
-        self::assertNotNull(self::$client, 'The client must be set.');
+        $this->assertNotNull(self::$client, 'The client must be set.');
 
         return self::$client->request(
-            method: 'GET',
+            method: \Symfony\Component\HttpFoundation\Request::METHOD_GET,
             uri: $uri,
             parameters: $parameters,
             files: $files,
@@ -66,7 +65,7 @@ abstract class FunctionalTestCase extends WebTestCase
 
     protected function followRedirect(): Crawler
     {
-        self::assertNotNull(self::$client, 'The client must be set.');
+        $this->assertNotNull(self::$client, 'The client must be set.');
 
         return self::$client->followRedirect();
     }
@@ -80,7 +79,7 @@ abstract class FunctionalTestCase extends WebTestCase
     {
         $service = self::getContainer()->get($class);
 
-        self::assertInstanceOf($class, $service);
+        $this->assertInstanceOf($class, $service);
 
         return $service;
     }
