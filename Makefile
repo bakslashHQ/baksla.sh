@@ -67,6 +67,16 @@ cc: sf
 tailwind.watch: ## Watch Tailwind CSS
 	@$(SYMFONY) tailwind:build --watch
 
+######
+# QA #
+######
+
+## QA - Run all QA checks
+qa: refactor cs lint phpstan test
+
+## QA - Run all QA checks and fix issues
+qa.fix: refactor.fix cs.fix lint.fix phpstan test
+
 ############
 # Refactor #
 ############
