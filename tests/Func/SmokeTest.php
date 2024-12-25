@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace App\Tests\Func;
 
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\TestWith;
+
 final class SmokeTest extends FunctionalTestCase
 {
-    /**
-     * @group smoke
-     * @testWith ["/", 200]
-     *           ["/legal-notices", 200]
-     *           ["/legal-notices.html", 301, "/legal-notices"]
-     */
+    #[Group('smoke')]
+    #[TestWith(["/", 200])]
+    #[TestWith(["/legal-notices", 200])]
+    #[TestWith(["/legal-notices.html", 301, "/legal-notices"])]
     public function testUrl(string $url, int $expectedStatusCode, ?string $expectedRedirectionUrl = null): void
     {
         $this->get($url);

@@ -43,11 +43,6 @@ sh: ## Connect to the FrankenPHP container
 bash: ## Connect to the FrankenPHP container via bash so up and down arrows go to previous commands
 	@$(PHP_CONT) bash
 
-test: ## Start tests with phpunit, pass the parameter "c=" to add options to phpunit, example: make test c="--group e2e --stop-on-failure"
-	@$(eval c ?=)
-	@$(DOCKER_COMP) exec -e APP_ENV=test php bin/phpunit $(c) --group smoke
-	@$(DOCKER_COMP) exec -e APP_ENV=test php bin/phpunit $(c) --exclude-group smoke
-
 ## —— App \\ ——————————————————————————————————————————————————————————————
 app.install: ## Install the application
 	@$(call action, Installing PHP dependencies...)
@@ -165,3 +160,16 @@ phpstan:
 ## PHPStan - Run PHPStan and update the baseline
 phpstan.generate-baseline:
 	$(PHP) vendor/bin/phpstan analyse --memory-limit=1G --generate-baseline
+
+#########
+# Tests #
+#########
+
+## Tests - Run all tests
+test: test.back
+
+## Tests - Run backend tests
+test.back: ## Start tests with phpunit, pass the parameter "c=" to add options to phpunit, example: make test c="--group e2e --stop-on-failure"
+	@$(eval c ?=)
+	@$(DOCKER_COMP) exec -e APP_ENV=test php bin/phpunit $(c) --group smoke
+	@$(DOCKER_COMP) exec -e APP_ENV=test php bin/phpunit $(c) --exclude-group smoke
