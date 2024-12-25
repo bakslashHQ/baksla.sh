@@ -16,4 +16,5 @@ return [
     Symfonycasts\TailwindBundle\SymfonycastsTailwindBundle::class => ['all' => true],
     Symfony\UX\TwigComponent\TwigComponentBundle::class => ['all' => true],
     Kocal\BiomeJsBundle\KocalBiomeJsBundle::class => ['dev' => true],
+    Symfony\UX\Icons\UXIconsBundle::class => ['all' => true],
 ];
