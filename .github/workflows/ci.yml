@@ -50,7 +50,13 @@ jobs:
       - 
         name: Run Back CS checks
         make: make cs.back
-      - 
+      -
+        name: Run Front CS checks
+        make: make cs.front
+      -
+        name: Run Back linters
+        make: make lint.back
+      -
         name: Run Front linters
         make: make lint.front
       -
@@ -67,10 +73,6 @@ jobs:
       -
         name: Run PHPUnit
         run: make test
-      -
-        name: Doctrine Schema Validator
-        if: false # Remove this line if Doctrine ORM is installed
-        run: docker compose exec -T php bin/console -e test doctrine:schema:validate
   lint:
     name: Docker Lint
     runs-on: ubuntu-latest

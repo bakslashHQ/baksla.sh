@@ -127,10 +127,20 @@ cs.front.fix:
 ##########
 
 ## Linter - Run all linters
-lint: lint.front
+lint: lint.back lint.front
 
 ## Linter - Run all linters and fix issues
-lint.fix: lint.front.fix
+lint.fix: lint.back lint.front.fix
+
+## Linter - Run linters for backend
+lint.back:
+	$(SYMFONY) lint:container
+	$(SYMFONY) lint:xliff translations
+	$(SYMFONY) lint:translations
+	$(SYMFONY) lint:yaml --parse-tags config
+	$(SYMFONY) lint:twig templates
+	# TODO: Uncomment when the project has Doctrine entities
+	#$(SYMFONY) doctrine:schema:validate
 
 ## Linter - Lint front files
 lint.front:
