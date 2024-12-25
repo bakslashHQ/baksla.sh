@@ -27,45 +27,37 @@
             <h2 class="text-4xl md:text-5xl font-bold leading-none tracking-tight text-slate-700 text-center">Legal Notices</h2>
 
             <div class="my-8 p-2 grid grid-cols-1 gap-6 rounded-lg max-w-[480px] mx-auto">
-                <div class="relative">
-                    <span class="absolute bg-indigo-500 h-full left-0 ml-1 mt-1 rounded-lg top-0 w-full"></span>
-                    <div class="relative p-6 bg-slate-100 border-2 h-full border-indigo-500 rounded-lg">
-                        <div class="flex flex-col h-full items-center">
-                            <h3 class="font-bold text-slate-700 text-2xl mb-3">Website Editor</h3>
-                            <p class="text-slate-600 text-lg mb-2"><strong>Bakslash</strong></p>
-                            <p class="text-slate-600 mb-2">60 Rue François 1er, 75008 Paris</p>
-                            <ul class="font-normal text-slate-700 text-md">
-                                <li><strong>SIREN:</strong> 987479318</li>
-                                <li><strong>SIRET:</strong> 987479318 00014</li>
-                                <li><strong>Code <abbr title="Activité Principale Exercée">APE</abbr>:</strong> 62.01Z</li>
-                            </ul>
-                        </div>
+                <twig:Card>
+                    <div class="flex flex-col h-full items-center">
+                        <h3 class="font-bold text-slate-700 text-2xl mb-3">Website Editor</h3>
+                        <p class="text-slate-600 text-lg mb-2"><strong>Bakslash</strong></p>
+                        <p class="text-slate-600 mb-2">60 Rue François 1er, 75008 Paris</p>
+                        <ul class="font-normal text-slate-700 text-md">
+                            <li><strong>SIREN:</strong> 987479318</li>
+                            <li><strong>SIRET:</strong> 987479318 00014</li>
+                            <li><strong>Code <abbr title="Activité Principale Exercée">APE</abbr>:</strong> 62.01Z</li>
+                        </ul>
                     </div>
-                </div>
+                </twig:Card>
 
-                <div class="relative">
-                    <span class="absolute bg-indigo-500 h-full left-0 ml-1 mt-1 rounded-lg top-0 w-full"></span>
-                    <div class="relative p-6 bg-slate-100 border-2 h-full border-indigo-500 rounded-lg">
-                        <div class="flex flex-col h-full items-center">
-                            <h3 class="font-bold text-slate-700 text-2xl mb-3">Publishing Directors</h3>
-                            <p class="font-normal text-slate-700 text-md">
-                                Robin Chalas, CEO and Mathias Arlaud, COO.
-                            </p>
-                        </div>
+                <twig:Card>
+                    <div class="flex flex-col h-full items-center">
+                        <h3 class="font-bold text-slate-700 text-2xl mb-3">Publishing Directors</h3>
+                        <p class="font-normal text-slate-700 text-md">
+                            Robin Chalas, CEO and Mathias Arlaud, COO.
+                        </p>
                     </div>
-                </div>
+                </twig:Card>
 
-                <div class="relative">
-                    <span class="absolute bg-indigo-500 h-full left-0 ml-1 mt-1 rounded-lg top-0 w-full"></span>
-                    <div class="relative p-6 bg-slate-100 border-2 h-full border-indigo-500 rounded-lg">
-                        <div class="flex flex-col h-full items-center">
-                            <h3 class="font-bold text-slate-700 text-2xl mb-3">Hosting Provider</h3>
-                            <p class="font-normal text-slate-700 text-md">
-                                <a href="https://www.ovhcloud.com/fr/" class="hover:underline">OVHCloud</a>
-                            </p>
-                        </div>
+                <twig:Card>
+                    <div class="flex flex-col h-full items-center">
+                        <h3 class="font-bold text-slate-700 text-2xl mb-3">Hosting Provider</h3>
+                        <p class="font-normal text-slate-700 text-md">
+                            <a href="https://www.ovhcloud.com/fr/" class="hover:underline">OVHCloud</a>
+                        </p>
                     </div>
-                </div>
+                </twig:Card>
+
             </div>
         </div>
     </section>
