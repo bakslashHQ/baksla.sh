@@ -3,3 +3,11 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+# TODO: Move this redirection to the webserver configuration
+legacy_legal_notices:
+    path: /legal-notices.html
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        route: 'app_legal_notices'
+        permanent: true

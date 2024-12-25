@@ -1,17 +1,95 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ app.request.locale }}">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}baksla.sh{% endblock %}</title>
+
+        <!-- Styles -->
         {% block stylesheets %}
+            <style>
+                /* Generated through fontpie, e.g.: "pnpx fontpie ./Poppins-SemiBold.woff2" */
+                @font-face { font-family: 'Kalam Light Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 114.42%; descent-override: 57.16%; line-gap-override: 0.00%; size-adjust: 92.90%; }
+                @font-face { font-family: 'Kalam Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 110.75%; descent-override: 55.32%; line-gap-override: 0.00%; size-adjust: 95.98%; }
+                @font-face { font-family: 'Kalam Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 104.53%; descent-override: 52.22%; line-gap-override: 0.00%; size-adjust: 101.69%; }
+                @font-face { font-family: 'Poppins Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 92.83%; descent-override: 30.94%; line-gap-override: 8.84%; size-adjust: 113.11%; }
+                @font-face { font-family: 'Poppins Medium Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 91.82%; descent-override: 30.61%; line-gap-override: 8.74%; size-adjust: 114.36%; }
+                @font-face { font-family: 'Poppins SemiBold Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 90.85%; descent-override: 30.28%; line-gap-override: 8.65%; size-adjust: 115.57%; }
+                @font-face { font-family: 'Poppins Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 89.77%; descent-override: 29.92%; line-gap-override: 8.55%; size-adjust: 116.97%; }
+                @font-face { font-family: 'Poppins ExtraBold Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 88.85%; descent-override: 29.62%; line-gap-override: 8.46%; size-adjust: 118.17%; }
+            </style>
         {% endblock %}
+
+        <!-- Metadata & cie -->
+        {% block seo %}
+        {% endblock %}
+
+        <!-- Favicon links -->
+        <link rel="icon" type="image/png" href="{{ asset('images/favicon-96x96.png') }}" sizes="96x96">
+        <link rel="icon" type="image/svg+xml" href="{{ asset('images/favicon.svg') }}">
+        <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}">
 
         {% block javascripts %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-    <body>
-        {% block body %}{% endblock %}
+    <body class="bg-gray-100">
+        {% block body %}
+            <section class="py-10">
+                <div class="container max-w-screen-xl mx-auto px-8 xl:px-4">
+                    <nav class="flex items-center justify-between">
+                        <a href="{{ path('app_home') }}" title="Bakslash">
+                            <img src="{{ asset('images/bakslash.svg') }}" alt="baksla.sh" class="h-10"  loading="eager" fetchpriority="high" width="300" height="40">
+                        </a>
+                        <twig:CopyEmail class="hidden lg:block font-medium lg:font-semibold text-slate-800 text-xl hover:underline underline-offset-3 decoration-4 decoration-indigo-500" />
+                    </nav>
+                </div>
+            </section>
+
+            {% block content %}{% endblock %}
+
+            <section class="py-10 md:py-16 text-center">
+                <div class="container max-w-screen-xl mx-auto px-4">
+                    <h2 class="text-3xl font-bold text-slate-600 leading-relaxed">Contact us at
+                        <twig:CopyEmail class="block w-full text-4xl text-slate-700 font-extrabold hover:underline underline-offset-3 decoration-8 decoration-indigo-500" />
+                    </h2>
+                </div>
+            </section>
+
+            <footer class="pb-10">
+                <div class="container max-w-screen-xl mx-auto px-4 flex items-center md:flex-row flex-col md:justify-between">
+                <span class="text-sm text-slate-700 flex items-center md:justify-start justify-center">
+                    © 2024 baksla.sh™. All Rights Reserved.
+                </span>
+                    <ul class="flex flex-wrap justify-center items-center mt-3 text-md font-medium sm:mt-0">
+                        <li>
+                            <a href="{{ path('app_legal_notices') }}" class="opacity-50 hover:opacity-100 hover:underline me-4 md:me-6">Legal Notices</a>
+                        </li>
+                    </ul>
+                    <ul class="flex flex-wrap justify-center items-center mt-3 text-sm font-medium sm:mt-0">
+                        <li class="h-full">
+                            <a href="https://github.com/bakslashHQ" class="hover:underline me-4 md:me-6 h-full flex items-center">
+                                <img src="{{ asset('images/github.svg') }}" alt="github" class="h-5 mt-2 md:h-6 md:mt-0 opacity-50 hover:opacity-100 grayscale hover:grayscale-0" loading="lazy" width="32px" height="32px">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://x.com/BakslashHQ" class="hover:underline me-4 md:me-6 h-full flex items-center">
+                                <img src="{{ asset('images/x.svg') }}" alt="x" class="h-5 mt-2 md:h-6 md:mt-0 opacity-50 hover:opacity-100 grayscale hover:grayscale-0" loading="lazy" width="32px" height="32px">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://bsky.app/profile/baksla.sh" class="hover:underline me-4 md:me-6 h-full flex items-center">
+                                <img src="{{ asset('images/bluesky.svg') }}" alt="bluesky" class="h-5 mt-2 md:h-6 md:mt-0 opacity-50 hover:opacity-100 grayscale hover:grayscale-0" loading="lazy" width="32px" height="32px">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.linkedin.com/company/bakslashhq" class="hover:underline me-4 md:me-6 h-full flex items-center">
+                                <img src="{{ asset('images/linkedin.svg') }}" alt="linkedin" class="h-5 mt-2 md:h-6 md:mt-0 opacity-30 hover:opacity-100 grayscale hover:grayscale-0" loading="lazy" width="32px" height="32px">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </footer>
+        {% endblock %}
     </body>
 </html>
