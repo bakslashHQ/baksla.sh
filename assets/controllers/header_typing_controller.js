@@ -1,17 +1,18 @@
 import { Controller } from '@hotwired/stimulus';
 
-const words = ['experts.', 'lovers.', 'developers.', 'advocates.'];
-// const maxWordsLength = Math.max(...words.map((w) => w.length));
-
 /**
  * @property {HTMLElement} typewriterTarget
  * @property {Boolean} hasTypewriterTarget
  * @property {Array<HTMLElement>} toolTargets
  * @property {String} hiddenClass
+ * @property {Array} wordsValue
  */
 export default class extends Controller {
   static targets = ['typewriter', 'tool'];
   static classes = ['hidden'];
+  static values = {
+    words: Array,
+  };
 
   connect() {
     if (!this.hasTypewriterTarget) {
@@ -25,11 +26,11 @@ export default class extends Controller {
     let toolIndex = 0;
     let letterIndex = 0;
 
-    let currentWord = words[0];
+    let currentWord = this.wordsValue[0];
     let currentTool = 0;
 
     const type = () => {
-      currentWord = words[wordIndex % words.length];
+      currentWord = this.wordsValue[wordIndex % this.wordsValue.length];
 
       this.typewriterTarget.textContent = currentWord.substring(0, letterIndex);
 

@@ -1,57 +1,55 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Legal Notices | baksla.sh{% endblock %}
+{% block title %}{{ 'legal_notices.seo.title'|trans|raw }}{% endblock %}
 
 {% block seo %}
-    <meta name="description" content="Legal notices of Bakslash, A real OSS company, Symfony evangelist with pragmatic technologists">
+    <meta name="description" content="{{ 'legal_notices.seo.description'|trans|raw }}">
 
     <!-- Opengraph Meta Tags -->
     <meta property="og:url" content="https://baksla.sh/legal-notices.html">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="baksla.sh">
-    <meta property="og:description" content="Legal notices of Bakslash, A real OSS company, Symfony evangelist with pragmatic technologists">
+    <meta property="og:title" content="{{ 'legal_notices.seo.title'|trans|raw }}">
+    <meta property="og:description" content="{{ 'legal_notices.seo.description'|trans|raw }}">
     <meta property="og:image" content="https://baksla.sh/assets/image/bakslash.svg">
 
     <!-- X Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta property="twitter:domain" content="baksla.sh">
     <meta property="twitter:url" content="https://baksla.sh/legal-notices.html">
-    <meta name="twitter:title" content="baksla.sh">
-    <meta name="twitter:description" content="Legal notices of Bakslash, A real OSS company, Symfony evangelist with pragmatic technologists">
+    <meta name="twitter:title" content="{{ 'legal_notices.seo.title'|trans|raw }}">
+    <meta name="twitter:description" content="{{ 'legal_notices.seo.description'|trans|raw }}">
     <meta name="twitter:image" content="https://baksla.sh/assets/image/bakslash.svg">
 {% endblock %}
 
 {% block content %}
     <section>
         <div class="container max-w-screen-xl mx-auto px-8 xl:px-4 py-12 lg:py-24">
-            <h2 class="text-4xl md:text-5xl font-bold leading-none tracking-tight text-slate-700 text-center">Legal Notices</h2>
+            <h2 class="text-4xl md:text-5xl font-bold leading-none tracking-tight text-slate-700 text-center">{{ 'legal_notices.title'|trans }}</h2>
 
             <div class="my-8 p-2 grid grid-cols-1 gap-6 rounded-lg max-w-[480px] mx-auto">
                 <twig:Card>
                     <div class="flex flex-col h-full items-center">
-                        <h3 class="font-bold text-slate-700 text-2xl mb-3">Website Editor</h3>
+                        <h3 class="font-bold text-slate-700 text-2xl mb-3">{{ 'legal_notices.card.website_editor.title'|trans }}</h3>
                         <p class="text-slate-600 text-lg mb-2"><strong>Bakslash</strong></p>
-                        <p class="text-slate-600 mb-2">60 Rue François 1er, 75008 Paris</p>
+                        <p class="text-slate-600 mb-2">{{ 'legal_notices.card.website_editor.address'|trans }}</p>
                         <ul class="font-normal text-slate-700 text-md">
-                            <li><strong>SIREN:</strong> 987479318</li>
-                            <li><strong>SIRET:</strong> 987479318 00014</li>
-                            <li><strong>Code <abbr title="Activité Principale Exercée">APE</abbr>:</strong> 62.01Z</li>
+                            <li><strong>{{ 'legal_notices.card.website_editor.siren'|trans }}</strong> 987479318</li>
+                            <li><strong>{{ 'legal_notices.card.website_editor.siret'|trans }}</strong> 987479318 00014</li>
+                            <li><strong>{{ 'legal_notices.card.website_editor.code_eap'|trans }}</strong> 62.01Z</li>
                         </ul>
                     </div>
                 </twig:Card>
 
                 <twig:Card>
                     <div class="flex flex-col h-full items-center">
-                        <h3 class="font-bold text-slate-700 text-2xl mb-3">Publishing Directors</h3>
-                        <p class="font-normal text-slate-700 text-md">
-                            Robin Chalas, CEO and Mathias Arlaud, COO.
-                        </p>
+                        <h3 class="font-bold text-slate-700 text-2xl mb-3">{{ 'legal_notices.card.publishing_directors.title'|trans }}</h3>
+                        <p class="font-normal text-slate-700 text-md">{{ 'legal_notices.card.publishing_directors.names'|trans }}</p>
                     </div>
                 </twig:Card>
 
                 <twig:Card>
                     <div class="flex flex-col h-full items-center">
-                        <h3 class="font-bold text-slate-700 text-2xl mb-3">Hosting Provider</h3>
+                        <h3 class="font-bold text-slate-700 text-2xl mb-3">{{ 'legal_notices.card.hosting_provider.title'|trans }}</h3>
                         <p class="font-normal text-slate-700 text-md">
                             <a href="https://www.ovhcloud.com/fr/" class="hover:underline">OVHCloud</a>
                         </p>

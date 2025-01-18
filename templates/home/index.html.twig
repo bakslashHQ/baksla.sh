@@ -1,23 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}baksla.sh{% endblock %}
+{% block title %}{{ 'home.seo.title'|trans|raw }}{% endblock %}
 
 {% block seo %}
-    <meta name="description" content="A real OSS company, Symfony evangelist with pragmatic technologists">
+    <meta name="description" content="{{ 'home.seo.description'|trans|raw }}">
 
     <!-- Opengraph Meta Tags -->
     <meta property="og:url" content="https://baksla.sh">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="baksla.sh">
-    <meta property="og:description" content="A real OSS company, Symfony evangelist with pragmatic technologists">
+    <meta property="og:title" content="{{ 'home.seo.title'|trans|raw }}">
+    <meta property="og:description" content="{{ 'home.seo.description'|trans|raw }}">
     <meta property="og:image" content="https://baksla.sh/assets/image/bakslash.svg">
 
     <!-- X Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta property="twitter:domain" content="baksla.sh">
     <meta property="twitter:url" content="https://baksla.sh">
-    <meta name="twitter:title" content="baksla.sh">
-    <meta name="twitter:description" content="A real OSS company, Symfony evangelist with pragmatic technologists">
+    <meta name="twitter:title" content="{{ 'home.seo.title'|trans|raw }}">
+    <meta name="twitter:description" content="{{ 'home.seo.description'|trans|raw }}">
     <meta name="twitter:image" content="https://baksla.sh/assets/image/bakslash.svg">
 {% endblock %}
 
@@ -27,16 +27,27 @@
             <div
                 data-controller="header-typing"
                 data-header-typing-hidden-class="hidden"
+                data-header-typing-words-value="{{ [
+                    'home.hero.words.experts',
+                    'home.hero.words.lovers',
+                    'home.hero.words.developers',
+                    'home.hero.words.advocates'
+                ]|map(word => word|trans)|json_encode }}"
                 class="font-handwritten flex flex-wrap flex-row items-center justify-center"
             >
-                <span class="text-slate-800 text-6xl lg:text-8xl leading-none whitespace-nowrap">We are</span>
-                <span class="tools w-16 h-16 lg:w-32 lg:h-32 mx-5 lg:mx-10 flex items-center">
-                    <twig:UX:Icon name="mdi:symfony" aria-label="Symfony" data-header-typing-target="tool" width="128" height="128" class="size-16 lg:size-32" />
-                    <twig:UX:Icon name="devicon:php" aria-label="PHP" data-header-typing-target="tool" width="128" height="128" class="size-16 lg:size-32 hidden" />
-                    <twig:UX:Icon name="api-platform" aria-label="API Platform" data-header-typing-target="tool" width="128" height="128" class="size-16 lg:size-32 hidden" />
-                </span>
-                <div class="block md:hidden w-full"></div>
-                <span data-header-typing-target="typewriter" class="text-slate-800 text-6xl lg:text-8xl leading-none"></span>
+                {{- 'home.hero.we_are_experts'|trans|replace({
+                    '<0>': '<span class="text-slate-800 text-6xl lg:text-8xl leading-none whitespace-nowrap">',
+                    '</0>': '</span>',
+                    '<1>': '<span class="tools w-16 h-16 lg:w-32 lg:h-32 mx-5 lg:mx-10 flex items-center">'
+                        ~ component('UX:Icon', {name: 'mdi:symfony', 'aria-label': 'Symfony', 'data-header-typing-target': 'tool', width: 128, height: 128, class: 'size-16 lg:size-32'})
+                        ~ component('UX:Icon', {name: 'devicon:php', 'aria-label': 'PHP', 'data-header-typing-target': 'tool', width: 128, height: 128, class: 'size-16 lg:size-32 hidden'})
+                        ~ component('UX:Icon', {name: 'api-platform', 'aria-label': 'API Platform', 'data-header-typing-target': 'tool', width: 128, height: 128, class: 'size-16 lg:size-32 hidden'}),
+                    '</1>': '</span>',
+                    '<2>': '<div class="block md:hidden w-full">',
+                    '</2>': '</div>',
+                    '<3>': '<span data-header-typing-target="typewriter" class="text-slate-800 text-6xl lg:text-8xl leading-none">',
+                    '</3>': '</span>',
+                })|raw -}}
             </div>
         </div>
     </section>
@@ -47,14 +58,20 @@
                 <div data-code-parallax-target="background" class="absolute xl:rounded-t-lg bg-cover bg-code-img"></div>
                 <div data-code-parallax-target="foreground" class="grid grid-cols-1 lg:grid-cols-5 gap-x-10 gap-y-16 lg:gap-y-44 px-10 py-16 md:px-20 md:py-32 xl:rounded-t-lg backdrop-blur-sm">
                     <div class="col-span-2 lg:col-span-3">
-                        <h1 class="font-extrabold text-slate-100 text-4xl mb-5">A real <span class="underline underline-offset-3 decoration-8 decoration-indigo-500">OSS company</span></h1>
+                        <h1 class="font-extrabold text-slate-100 text-4xl mb-5">
+                            {{ 'home.section.real_oss_company.title'|trans|replace({
+                                '<0>': '<span class="underline underline-offset-3 decoration-8 decoration-indigo-500">',
+                                '</0>': '</span>',
+                            })|raw }}
+                        </h1>
                         <twig:Card>
                             <p class="text-gray-700">
-                                As core contributors to Symfony and its ecosystem, <span class="font-bold">we don't just use tools, we shape them.</span>
-                                That's why we've created several Symfony components, and one of our founder is part of the core team members.
-                                <br />
-                                <br />
-                                <span class="font-bold">Who knows a framework better than someone who contributes to its creation?</span>
+                                {{- 'home.section.real_oss_company.content'|trans|replace({
+                                    '<0>': '<span class="font-bold">',
+                                    '</0>': '</span>',
+                                    '<1>': '<span class="font-bold">',
+                                    '</1>': '</span>',
+                                })|raw -}}
                             </p>
                         </twig:Card>
                     </div>
@@ -63,8 +80,8 @@
                         <div>
                             <span class="font-medium text-slate-100 text-xl inline-flex justify-center items-center whitespace-nowrap text-white bg-indigo-500 text-sm sm:text-lg rounded-sm gap-1 px-1">
                                 <twig:UX:Icon name="mdi:symfony" aria-label="Symfony" class="h-5 sm:h-7" />
-                                <mark class="hidden sm:inline bg-inherit text-inherit">contributions</mark>
-                                <mark class="inline sm:hidden bg-inherit text-inherit">contribs.</mark>
+                                <mark class="hidden sm:inline bg-inherit text-inherit">{{ 'home.kpi.contributions.long'|trans }}</mark>
+                                <mark class="inline sm:hidden bg-inherit text-inherit">{{ 'home.kpi.contributions.short'|trans }}</mark>
                             </span>
                         </div>
                     </div>
@@ -72,8 +89,9 @@
                         <p class="font-roboto font-extrabold text-slate-100 text-5xl sm:text-7xl mb-2 text-center">1</p>
                         <div>
                             <span class="font-medium text-slate-100 text-xl inline-flex justify-center items-center whitespace-nowrap text-white bg-indigo-500 text-sm sm:text-lg rounded-sm gap-1 px-1">
-                                <twig:UX:Icon name="mdi:symfony" aria-label="Symfony" class="h-5 sm:h-7" />
-                                <mark class="bg-inherit text-inherit">core team</mark>
+                                {{- 'home.kpi.core_team'|trans|replace({
+                                    '<0/>': component('UX:Icon', {name: 'mdi:symfony', 'aria-label': 'Symfony', class: 'h-5 sm:h-7'})
+                                })|raw -}}
                             </span>
                         </div>
                     </div>
@@ -81,10 +99,10 @@
                         <p class="font-roboto font-extrabold text-slate-100 text-5xl sm:text-7xl mb-2 text-center">20+</p>
                         <div>
                             <span class="font-medium text-slate-100 text-xl inline-flex justify-center items-center whitespace-nowrap text-white bg-indigo-500 text-sm sm:text-lg rounded-sm gap-1 px-1">
-                                <twig:UX:Icon name="mdi:language-php" aria-label="PHP" class="h-5 sm:h-7" />
-                                <mark class="bg-inherit text-inherit">and</mark>
-                                <twig:UX:Icon name="mdi:symfony" aria-label="Symfony" class="h-5 sm:h-7" />
-                                <mark class="bg-inherit text-inherit">talks</mark>
+                                {{- 'home.kpi.talks'|trans|replace({
+                                    '<0/>': component('UX:Icon', {name: 'mdi:language-php', 'aria-label': 'Symfony', class: 'h-5 sm:h-7'}),
+                                    '<1/>': component('UX:Icon', {name: 'mdi:symfony', 'aria-label': 'Symfony', class: 'h-5 sm:h-7'})
+                                })|raw -}}
                             </span>
                         </div>
                     </div>
@@ -92,32 +110,38 @@
                         <p class="font-roboto font-extrabold text-slate-100 text-5xl sm:text-7xl mb-2 text-center">3</p>
                         <div>
                             <span class="font-medium text-slate-100 text-xl inline-flex justify-center items-center whitespace-nowrap text-white bg-indigo-500 text-sm sm:text-lg rounded-sm gap-1 px-1">
-                                <mark class="bg-inherit text-inherit">sponsored confs.</mark>
+                                <mark class="bg-inherit text-inherit">{{ 'home.kpi.sponsored_confs'|trans }}</mark>
                             </span>
                         </div>
                     </div>
                     <div class="col-span-2 lg:col-span-3">
                         <h2 class="font-extrabold text-slate-100 text-4xl mb-5 underline underline-offset-3 decoration-8 decoration-indigo-500">
-                            <img src="{{ asset('images/symfony-white.png') }}" alt="symfony" class="inline h-12 mr-2 mb-2" loading="lazy" />
-                            evangelist
+                            {{ 'home.section.symfony_evangelist.title'|trans|replace({
+                                '<0/>': '<img src="' ~ asset('images/symfony-white.png') ~ '" alt="symfony" class="inline h-12 mr-2 mb-2" loading="lazy" />',
+                            })|raw }}
                         </h2>
                         <twig:Card>
                             <p class="text-gray-700">
-                                Passionate advocates for the PHP and Symfony communities, <span class="font-bold">we share our expertise worldwide through conference talks, workshops, and training sessions</span>.
-                                <br />
-                                <br />
-                                While working on client projects, we love sharing our expertise with their development teams, empowering them to enhance their skills.
+                                {{- 'home.section.symfony_evangelist.content'|trans|replace({
+                                    '<0>': '<span class="font-bold">',
+                                    '</0>': '</span>',
+                                })|raw -}}
                             </p>
                         </twig:Card>
                     </div>
                     <div class="col-span-2 lg:col-span-3">
-                        <h2 class="font-extrabold text-slate-100 text-4xl mb-5"><span class="underline underline-offset-3 decoration-8 decoration-indigo-500">Pragmatic</span> technologists</h2>
+                        <h2 class="font-extrabold text-slate-100 text-4xl mb-5">
+                            {{ 'home.section.pragmatic_technologists.title'|trans|replace({
+                                '<0>': '<span class="underline underline-offset-3 decoration-8 decoration-indigo-500">',
+                                '</0>': '</span>',
+                            })|raw }}
+                        </h2>
                         <twig:Card>
                             <p class="text-gray-700">
-                                We always take the pragmatic approach, ensuring that <span class="font-bold">our solutions are built for long-term maintainability without falling into the trap of over-engineering</span>.
-                                <br />
-                                <br />
-                                We help our clients craft architectures that are tailored to their actual needs, keeping the business at the center of the discussion, and making sure that our technical decisions align with the client's goals and drive real value.
+                                {{- 'home.section.pragmatic_technologists.content'|trans|replace({
+                                    '<0>': '<span class="font-bold">',
+                                    '</0>': '</span>',
+                                })|raw -}}
                             </p>
                         </twig:Card>
                     </div>
@@ -125,9 +149,13 @@
                         <p class="font-roboto font-extrabold text-slate-100 text-5xl sm:text-7xl mb-2 text-center">∞</p>
                         <div>
                             <span class="font-medium text-slate-100 text-xl inline-flex justify-center items-center whitespace-nowrap text-white bg-indigo-500 text-sm sm:text-lg rounded-sm gap-1 px-1">
-                                <mark class="bg-inherit text-inherit">love in</mark>
-                                <twig:UX:Icon name="mdi:language-php" aria-label="PHP" class="h-5 sm:h-7" />
-                                <mark class="bg-inherit text-inherit">ecosystem</mark>
+                                {{- 'home.kpi.love_in_ecosystem'|trans|replace({
+                                    '<0>': '<mark class="bg-inherit text-inherit">',
+                                    '</0>': '</mark>',
+                                    '<1/>': component('UX:Icon', {name: 'mdi:language-php', 'aria-label': 'PHP', class: 'h-5 sm:h-7'}),
+                                    '<2>': '<mark class="bg-inherit text-inherit">',
+                                    '</2>': '</mark>',
+                                })|raw -}}
                             </span>
                         </div>
                     </div>
@@ -139,79 +167,135 @@
     <section class="bg-gray-100 px-8 xl:px-4 py-20">
         <div class="container max-w-screen-xl mx-auto">
             <div class="pb-20 lg:pt-10 lg:pb-28">
-                <h2 class="text-4xl md:text-5xl font-bold leading-none tracking-tight text-slate-700">Our tailored solutions <span class="text-transparent font-extrabold bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-400">built to last</span>.</h2>
+                <h2 class="text-4xl md:text-5xl font-bold leading-none tracking-tight text-slate-700">
+                    {{- 'home.section.our_solutions.title'|trans|replace({
+                        '<0>': '<span class="text-transparent font-extrabold bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-400">',
+                        '</0>': '</span>',
+                    })|raw -}}
+                </h2>
                 <div class="mt-6 lg:mt-20 grid grid-cols-1 md:grid-cols-2 gap-12">
                     <img src="{{ asset('images/talk.png') }}" alt="talk" class="rounded shadow-xl self-center w-full" />
                     <div class="flex flex-col justify-center">
-                        <p class="text-center text-2xl md:text-3xl font-semibold text-slate-800">"The less time we spend on a mission, the more successful we've been."</p>
+                        <p class="text-center text-2xl md:text-3xl font-semibold text-slate-800">
+                            {{ 'home.section.our_solutions.quote.content'|trans }}
+                        </p>
                         <figcaption class="flex items-center justify-center space-x-3 mt-6">
                             <img class="w-6 h-6 rounded-full" src="{{ asset('images/chalasr.webp') }}" alt="Robin Chalas" loading="lazy" width="128" height="128">
                             <div class="flex items-center divide-x-2 rtl:divide-x-reverse divide-gray-500">
                                 <cite class="pe-3 font-medium text-slate-900">Robin Chalas</cite>
-                                <cite class="ps-3 text-sm text-slate-700">CEO at baksla.sh</cite>
+                                <cite class="ps-3 text-sm text-slate-700">{{ 'home.section.our_solutions.quote.author_role'|trans }}</cite>
                             </div>
                         </figcaption>
                         <div class="mt-12">
                             <p class="text-center text-slate-700 text-lg">
-                                <span class="font-bold">We don't tie ourselves tightly to your team, we work alongside you</span>, sharing our expertise and building solutions that stand the test of time.
-                                The less time we spend on a mission, the more value we’ve delivered, <span class="font-bold">leaving your team stronger, smarter, and more independent.</span>
+                                {{- 'home.section.our_solutions.content'|trans|replace({
+                                    '<0>': '<span class="font-bold">',
+                                    '</0>': '</span>',
+                                    '<1>': '<span class="font-bold">',
+                                    '</1>': '</span>',
+                                })|raw -}}
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <h3 class="text-3xl font-bold text-gray-600">Want to <span class="underline underline-offset-3 decoration-8 decoration-indigo-500">implement</span> a solution?</h3>
+            <h3 class="text-3xl font-bold text-gray-600">
+                {{- 'home.section.need_solution.title'|trans|replace({
+                    '<0>': '<span class="underline underline-offset-3 decoration-8 decoration-indigo-500">',
+                    '</0>': '</span>',
+                })|raw -}}
+            </h3>
 
             <div class="my-8 p-2 grid grid-cols-1 md:grid-cols-2 gap-6 rounded-lg">
                 <twig:Card>
-                    <h4 class="font-bold text-slate-700 text-2xl mb-3">Custom Symfony development</h4>
+                    <h4 class="font-bold text-slate-700 text-2xl mb-3">
+                        {{- 'home.card.custom_symfony_development.title'|trans -}}
+                    </h4>
                     <p class="font-normal text-slate-700 text-md">
-                        We help you to <span class="font-bold">create scalable and maintainable applications tailored to your specific needs</span>, leveraging the expertise of our talented and passionate developers.
+                        {{- 'home.card.custom_symfony_development.content'|trans|replace({
+                            '<0>': '<span class="font-bold">',
+                            '</0>': '</span>',
+                        })|raw -}}
                     </p>
                 </twig:Card>
 
                 <twig:Card>
-                    <h4 class="font-bold text-slate-700 text-2xl mb-3">CTO as a service</h4>
+                    <h4 class="font-bold text-slate-700 text-2xl mb-3">
+                        {{- 'home.card.cto_as_a_service.title'|trans -}}
+                    </h4>
                     <p class="font-normal text-slate-700 text-md">
-                        Whether you're launching new products, or optimizing existing systems, we provide you a <span class="font-bold">strategic technical leadership to ensure your technology aligns with your business vision</span> and growth objectives.
+                        {{- 'home.card.cto_as_a_service.content'|trans|replace({
+                            '<0>': '<span class="font-bold">',
+                            '</0>': '</span>',
+                        })|raw -}}
                     </p>
                 </twig:Card>
             </div>
 
-            <h3 class="mt-10 lg:mt-20 text-3xl font-bold text-gray-600">Try to <span class="underline underline-offset-3 decoration-8 decoration-purple-500">upskill</span>?</h3>
+            <h3 class="mt-10 lg:mt-20 text-3xl font-bold text-gray-600">
+                {{- 'home.section.try_to_upskill.title'|trans|replace({
+                    '<0>': '<span class="underline underline-offset-3 decoration-8 decoration-indigo-500">',
+                    '</0>': '</span>',
+                })|raw -}}
+            </h3>
 
             <div class="my-8 grid grid-cols-1 md:grid-cols-2 gap-6">
                 <twig:Card color="purple">
-                    <h4 class="font-bold text-slate-700 text-2xl mb-3">Workshops and trainings</h4>
+                    <h4 class="font-bold text-slate-700 text-2xl mb-3">
+                        {{- 'home.card.workshops_and_trainings.title'|trans -}}
+                    </h4>
                     <p class="font-normal text-slate-700 text-md">
-                        Whether your team is composed by beginners looking to understand the fundamentals or experienced developers, we can empower your team by providing <span class="font-bold">in-depth Symfony, API Platform and clean code training, tailored to their specific needs and skills</span>.
+                        {{- 'home.card.workshops_and_trainings.content'|trans|replace({
+                            '<0>': '<span class="font-bold">',
+                            '</0>': '</span>',
+                        })|raw -}}
                     </p>
                 </twig:Card>
                 <twig:Card color="purple">
-                    <h4 class="font-bold text-slate-700 text-2xl mb-3">Coaching "à la carte"</h4>
+                    <h4 class="font-bold text-slate-700 text-2xl mb-3">
+                        {{- 'home.card.coaching.title'|trans -}}
+                    </h4>
                     <p class="font-normal text-slate-700 text-md">
-                        Whether starting a new project or tackling challenges as your project grows, our on-demand consulting offers <span class="font-bold">tailored support, including brainstorming, Q&A, specifications, and code reviews</span>, to help your team make the right decisions during this crucial moment.
+                        {{- 'home.card.coaching.content'|trans|replace({
+                            '<0>': '<span class="font-bold">',
+                            '</0>': '</span>',
+                        })|raw -}}
                     </p>
                 </twig:Card>
             </div>
 
-            <h3 class="mt-10 lg:mt-20 text-3xl font-bold text-gray-600">Need some <span class="underline underline-offset-3 decoration-8 decoration-violet-500">expertise</span>?</h3>
+            <h3 class="mt-10 lg:mt-20 text-3xl font-bold text-gray-600">
+                {{- 'home.section.need_expertise.title'|trans|replace({
+                    '<0>': '<span class="underline underline-offset-3 decoration-8 decoration-indigo-500">',
+                    '</0>': '</span>',
+                })|raw -}}
+            </h3>
 
             <div class="my-8 grid grid-cols-1 md:grid-cols-2 gap-6">
                 <twig:Card color="violet">
-                    <h4 class="font-bold text-slate-700 text-2xl mb-3">Audit</h4>
+                    <h4 class="font-bold text-slate-700 text-2xl mb-3">
+                        {{- 'home.card.audit.title'|trans -}}
+                    </h4>
                     <p class="font-normal text-slate-700 text-md">
-                        We provide comprehensive audits covering code quality, security, and performance, offering actionable insights to improve the health and longevity of your applications</span>.
-                        Audits will <span class="font-bold">assess your code for maintainability, technical debt, check for security risks, and pinpoint performance bottlenecks</span> that could affect scalability.
+                        {{- 'home.card.audit.content'|trans|replace({
+                            '<0>': '<span class="font-bold">',
+                            '</0>': '</span>',
+                            '<1>': '<span class="font-bold">',
+                            '</1>': '</span>',
+                        })|raw -}}
                     </p>
                 </twig:Card>
 
                 <twig:Card color="violet">
-                    <h4 class="font-bold text-slate-700 text-2xl mb-3">Architecture study</h4>
+                    <h4 class="font-bold text-slate-700 text-2xl mb-3">
+                        {{- 'home.card.architecture_study.title'|trans -}}
+                    </h4>
                     <p class="font-normal text-slate-700 text-md">
-                        We help you <span class="font-bold">establish solid foundations for your project</span>, ensuring a smooth execution phase.
-                        We will collaborate with you to understand the project's context, goals, resources, and constraints in order to define the ideal software or system architecture.
+                        {{- 'home.card.architecture_study.content'|trans|replace({
+                            '<0>': '<span class="font-bold">',
+                            '</0>': '</span>',
+                        })|raw -}}
                     </p>
                 </twig:Card>
             </div>
@@ -220,7 +304,9 @@
 
     <section class="bg-gray-200 px-8 xl:px-4 py-16">
         <div class="container max-w-screen-xl mx-auto">
-            <h2 class="mb-10 text-3xl md:text-4xl font-bold leading-none tracking-tight text-slate-700">They've already put their trust in us</h2>
+            <h2 class="mb-10 text-3xl md:text-4xl font-bold leading-none tracking-tight text-slate-700">
+                {{- 'home.section.they_trust_us.title'|trans -}}
+            </h2>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-2">
                 <img src="{{ asset('images/drdata.png') }}" class="w-4/5 mx-auto my-auto" alt="DrData" loading="lazy" width="638" height="160">
                 <img src="{{ asset('images/bluspark.svg') }}" class="w-4/5 mx-auto my-auto" alt="Bluspark" loading="lazy" width="165" height="42">
