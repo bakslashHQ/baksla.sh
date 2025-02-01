@@ -1,6 +1,5 @@
 includes:
     - vendor/phpstan/phpstan-symfony/extension.neon
-    - vendor/phpstan/phpstan-doctrine/extension.neon
     - tools/phpstan/symfony-configuration.php
     - phpstan-baseline.neon
 
@@ -18,6 +17,3 @@ parameters:
 
     symfony:
         consoleApplicationLoader: tools/phpstan/console-application.php
-
-    doctrine:
-        objectManagerLoader: tools/phpstan/object-manager.php

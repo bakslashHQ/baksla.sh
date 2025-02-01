@@ -11,9 +11,3 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: tools/phpstan/console-application.php
-
-		-
-			message: '#^Parameter \#1 \$environment of class App\\Kernel constructor expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: tools/phpstan/object-manager.php
