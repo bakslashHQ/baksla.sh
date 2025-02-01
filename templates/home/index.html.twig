@@ -6,11 +6,11 @@
     <meta name="description" content="{{ 'home.seo.description'|trans|raw }}">
 
     <!-- Opengraph Meta Tags -->
-    <meta property="og:url" content="https://baksla.sh">
+    <meta property="og:url" content="{{ app.request.getSchemeAndHttpHost() }}">
     <meta property="og:type" content="website">
     <meta property="og:title" content="{{ 'home.seo.title'|trans|raw }}">
     <meta property="og:description" content="{{ 'home.seo.description'|trans|raw }}">
-    <meta property="og:image" content="https://baksla.sh/assets/image/bakslash.svg">
+    <meta property="og:image" content="{{ asset('images/bakslash.svg') }}">
 
     <!-- X Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -18,7 +18,7 @@
     <meta property="twitter:url" content="https://baksla.sh">
     <meta name="twitter:title" content="{{ 'home.seo.title'|trans|raw }}">
     <meta name="twitter:description" content="{{ 'home.seo.description'|trans|raw }}">
-    <meta name="twitter:image" content="https://baksla.sh/assets/image/bakslash.svg">
+    <meta name="twitter:image" content="{{ asset('images/bakslash.svg') }}">
 {% endblock %}
 
 {% block content %}
