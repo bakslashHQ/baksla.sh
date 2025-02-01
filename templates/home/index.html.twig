@@ -23,7 +23,7 @@
 
 {% block content %}
     <section>
-        <div class="container max-w-screen-xl mx-auto px-8 xl:px-4 py-12 lg:py-24">
+        <div class="container max-w-screen-xl mx-auto px-8 xl:px-4 py-12 lg:py-48">
             <div
                 data-controller="header-typing"
                 data-header-typing-hidden-class="hidden"
@@ -52,18 +52,28 @@
         </div>
     </section>
 
-    <section class="bg-gradient-to-b from-gray-100 to-gray-800">
+    <section class="bg-gradient-to-b from-gray-100 to-gray-200">
         <div class="container max-w-screen-xl mx-auto">
             <div class="xl:rounded-lg shadow-inner" data-controller="code-parallax">
                 <div data-code-parallax-target="background" class="absolute xl:rounded-t-lg bg-cover bg-code-img"></div>
-                <div data-code-parallax-target="foreground" class="grid grid-cols-1 lg:grid-cols-5 gap-x-10 gap-y-16 lg:gap-y-44 px-10 py-16 md:px-20 md:py-32 xl:rounded-t-lg backdrop-blur-sm">
-                    <div class="col-span-2 lg:col-span-3">
+                <div data-code-parallax-target="foreground" class="grid grid-cols-1 lg:grid-cols-5 gap-x-10 gap-y-28 lg:gap-y-36 px-10 py-16 md:px-20 md:pt-32 pb:40 lg:rounded-t-lg backdrop-blur-sm">
+                    <div class="hidden lg:flex flex-col justify-center items-center col-span-2">
                         <h1 class="font-extrabold text-slate-100 text-4xl mb-5">
                             {{ 'home.section.real_oss_company.title'|trans|replace({
                                 '<0>': '<span class="underline underline-offset-3 decoration-8 decoration-indigo-500">',
                                 '</0>': '</span>',
                             })|raw }}
                         </h1>
+                    </div>
+                    <div class="col-span-2 lg:col-span-3">
+                        <div class="lg:hidden flex flex-col justify-center items-center mb-5">
+                            <h1 class="font-extrabold text-slate-100 text-4xl mb-5">
+                                {{ 'home.section.real_oss_company.title'|trans|replace({
+                                    '<0>': '<span class="underline underline-offset-3 decoration-8 decoration-indigo-500">',
+                                    '</0>': '</span>',
+                                })|raw }}
+                            </h1>
+                        </div>
                         <twig:Card>
                             <p class="text-gray-700">
                                 {{- 'home.section.real_oss_company.content'|trans|replace({
@@ -75,51 +85,14 @@
                             </p>
                         </twig:Card>
                     </div>
-                    <div class="flex flex-col justify-center items-center">
-                        <p class="font-roboto font-extrabold text-slate-100 text-5xl sm:text-7xl mb-2 text-center">1k+</p>
-                        <div>
-                            <span class="font-medium text-slate-100 text-xl inline-flex justify-center items-center whitespace-nowrap text-white bg-indigo-500 text-sm sm:text-lg rounded-sm gap-1 px-1">
-                                <twig:UX:Icon name="mdi:symfony" aria-label="Symfony" class="h-5 sm:h-7" />
-                                <mark class="hidden sm:inline bg-inherit text-inherit">{{ 'home.kpi.contributions.long'|trans }}</mark>
-                                <mark class="inline sm:hidden bg-inherit text-inherit">{{ 'home.kpi.contributions.short'|trans }}</mark>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="flex flex-col justify-center items-center">
-                        <p class="font-roboto font-extrabold text-slate-100 text-5xl sm:text-7xl mb-2 text-center">1</p>
-                        <div>
-                            <span class="font-medium text-slate-100 text-xl inline-flex justify-center items-center whitespace-nowrap text-white bg-indigo-500 text-sm sm:text-lg rounded-sm gap-1 px-1">
-                                {{- 'home.kpi.core_team'|trans|replace({
-                                    '<0/>': component('UX:Icon', {name: 'mdi:symfony', 'aria-label': 'Symfony', class: 'h-5 sm:h-7'})
-                                })|raw -}}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="flex flex-col justify-center items-center">
-                        <p class="font-roboto font-extrabold text-slate-100 text-5xl sm:text-7xl mb-2 text-center">20+</p>
-                        <div>
-                            <span class="font-medium text-slate-100 text-xl inline-flex justify-center items-center whitespace-nowrap text-white bg-indigo-500 text-sm sm:text-lg rounded-sm gap-1 px-1">
-                                {{- 'home.kpi.talks'|trans|replace({
-                                    '<0/>': component('UX:Icon', {name: 'mdi:language-php', 'aria-label': 'Symfony', class: 'h-5 sm:h-7'}),
-                                    '<1/>': component('UX:Icon', {name: 'mdi:symfony', 'aria-label': 'Symfony', class: 'h-5 sm:h-7'})
-                                })|raw -}}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="flex flex-col justify-center items-center">
-                        <p class="font-roboto font-extrabold text-slate-100 text-5xl sm:text-7xl mb-2 text-center">3</p>
-                        <div>
-                            <span class="font-medium text-slate-100 text-xl inline-flex justify-center items-center whitespace-nowrap text-white bg-indigo-500 text-sm sm:text-lg rounded-sm gap-1 px-1">
-                                <mark class="bg-inherit text-inherit">{{ 'home.kpi.sponsored_confs'|trans }}</mark>
-                            </span>
-                        </div>
-                    </div>
                     <div class="col-span-2 lg:col-span-3">
-                        <h2 class="font-extrabold text-slate-100 text-4xl mb-5 underline underline-offset-3 decoration-8 decoration-indigo-500">
-                            {{ 'home.section.symfony_evangelist.title'|trans|replace({
-                                '<0/>': '<img src="' ~ asset('images/symfony-white.png') ~ '" alt="symfony" class="inline h-12 mr-2 mb-2" loading="lazy" />',
-                            })|raw }}
-                        </h2>
+                        <div class="lg:hidden flex flex-col justify-center items-center">
+                            <h2 class="font-extrabold text-slate-100 text-4xl mb-5 underline underline-offset-3 decoration-8 decoration-indigo-500">
+                                {{ 'home.section.symfony_evangelist.title'|trans|replace({
+                                    '<0/>': '<img src="' ~ asset('images/symfony-white.png') ~ '" alt="symfony" class="inline h-12 mr-2 mb-2" loading="lazy" />',
+                                })|raw }}
+                            </h2>
+                        </div>
                         <twig:Card>
                             <p class="text-gray-700">
                                 {{- 'home.section.symfony_evangelist.content'|trans|replace({
@@ -129,13 +102,30 @@
                             </p>
                         </twig:Card>
                     </div>
-                    <div class="col-span-2 lg:col-span-3">
+                    <div class="hidden lg:flex flex-col justify-center items-center col-span-2">
+                        <h2 class="font-extrabold text-slate-100 text-4xl mb-5 underline underline-offset-3 decoration-8 decoration-indigo-500">
+                            {{ 'home.section.symfony_evangelist.title'|trans|replace({
+                                '<0/>': '<img src="' ~ asset('images/symfony-white.png') ~ '" alt="symfony" class="inline h-12 mr-2 mb-2" loading="lazy" />',
+                            })|raw }}
+                        </h2>
+                    </div>
+                    <div class="hidden lg:flex flex-col justify-center items-center col-span-2">
                         <h2 class="font-extrabold text-slate-100 text-4xl mb-5">
                             {{ 'home.section.pragmatic_technologists.title'|trans|replace({
                                 '<0>': '<span class="underline underline-offset-3 decoration-8 decoration-indigo-500">',
                                 '</0>': '</span>',
                             })|raw }}
                         </h2>
+                    </div>
+                    <div class="col-span-2 lg:col-span-3">
+                        <div class="lg:hidden flex flex-col justify-center items-center mb-5">
+                            <h2 class="font-extrabold text-slate-100 text-4xl mb-5">
+                                {{ 'home.section.pragmatic_technologists.title'|trans|replace({
+                                    '<0>': '<span class="underline underline-offset-3 decoration-8 decoration-indigo-500">',
+                                    '</0>': '</span>',
+                                })|raw }}
+                            </h2>
+                        </div>
                         <twig:Card>
                             <p class="text-gray-700">
                                 {{- 'home.section.pragmatic_technologists.content'|trans|replace({
@@ -145,26 +135,24 @@
                             </p>
                         </twig:Card>
                     </div>
-                    <div class="flex flex-col justify-center items-center col-span-2">
-                        <p class="font-roboto font-extrabold text-slate-100 text-5xl sm:text-7xl mb-2 text-center">∞</p>
-                        <div>
-                            <span class="font-medium text-slate-100 text-xl inline-flex justify-center items-center whitespace-nowrap text-white bg-indigo-500 text-sm sm:text-lg rounded-sm gap-1 px-1">
-                                {{- 'home.kpi.love_in_ecosystem'|trans|replace({
-                                    '<0>': '<mark class="bg-inherit text-inherit">',
-                                    '</0>': '</mark>',
-                                    '<1/>': component('UX:Icon', {name: 'mdi:language-php', 'aria-label': 'PHP', class: 'h-5 sm:h-7'}),
-                                    '<2>': '<mark class="bg-inherit text-inherit">',
-                                    '</2>': '</mark>',
-                                })|raw -}}
-                            </span>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="bg-gray-100 px-8 xl:px-4 py-20">
+    <section class="shadow-xl">
+        <div class="container max-w-screen-xl mx-auto">
+            <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-5 gap-x-10 gap-y-8 px-10 py-16 md:py-32">
+                <twig:Kpi kpi="{{ 'home.kpi.talks'|trans }}" value="20+" icon="php" icon-label="PHP" />
+                <twig:Kpi kpi="{{ 'home.kpi.core_team'|trans }}" value="1" icon="symfony" icon-label="Symfony" />
+                <twig:Kpi kpi="{{ 'home.kpi.core_team'|trans }}" value="1" icon="symfony-ux" icon-label="Symfony UX" />
+                <twig:Kpi kpi="{{ 'home.kpi.contributions'|trans }}" value="1k+" icon="symfony" icon-label="Symfony" />
+                <twig:Kpi kpi="{{ 'home.kpi.love_in_ecosystem'|trans }}" value="∞" icon="noto:red-heart" icon-label="love" class="col-span-2 sm:col-span-4 lg:col-span-1" />
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-gradient-to-t from-gray-100 to-gray-200 px-8 xl:px-4 py-20">
         <div class="container max-w-screen-xl mx-auto">
             <div class="pb-20 lg:pt-10 lg:pb-28">
                 <h2 class="text-4xl md:text-5xl font-bold leading-none tracking-tight text-slate-700">
