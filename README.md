@@ -5,5 +5,5 @@
 Build Tailwind CSS:
 ```bash
 $ corepack enable
-$ pnpx tailwindcss -i assets/css/style.css -o assets/css/style.built.css -m
+$ pnpx tailwindcss@3.4.17 -i assets/css/style.css -o assets/css/style.built.css -m
 ```
