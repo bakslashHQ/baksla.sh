@@ -51,9 +51,6 @@ app.install:
 	@$(call action, Installing PHP dependencies...)
 	$(COMPOSER) install --prefer-dist
 
-	@$(call action, Running DB migrations...)
-	$(SYMFONY) doctrine:migrations:migrate --no-interaction --all-or-nothing --allow-no-migration
-
 ## Composer 🧙 - Run composer, pass the parameter "c=" to run a given command, example: make composer c='req symfony/orm-pack'
 composer:
 	@$(eval c ?=)
@@ -137,11 +134,9 @@ lint.fix: lint.back lint.front.fix
 lint.back:
 	$(SYMFONY) lint:container
 	$(SYMFONY) lint:xliff translations
-	$(SYMFONY) lint:translations
+	$(SYMFONY) lint:translations --locale en --locale fr
 	$(SYMFONY) lint:yaml --parse-tags config
 	$(SYMFONY) lint:twig templates
-	# TODO: Uncomment when the project has Doctrine entities
-	#$(SYMFONY) doctrine:schema:validate
 
 ## Linter ✅ - Run frontend linters
 lint.front:

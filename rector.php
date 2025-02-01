@@ -25,6 +25,5 @@ return RectorConfig::configure()
         earlyReturn: true,
         strictBooleans: true,
         phpunitCodeQuality: true,
-        doctrineCodeQuality: true,
         symfonyCodeQuality: true,
     );
