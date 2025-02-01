@@ -39,9 +39,9 @@
                     '<0>': '<span class="text-slate-800 text-6xl lg:text-8xl leading-none whitespace-nowrap">',
                     '</0>': '</span>',
                     '<1>': '<span class="tools w-16 h-16 lg:w-32 lg:h-32 mx-5 lg:mx-10 flex items-center">'
-                        ~ component('UX:Icon', {name: 'mdi:symfony', 'aria-label': 'Symfony', 'data-header-typing-target': 'tool', width: 128, height: 128, class: 'size-16 lg:size-32'})
+                        ~ component('UX:Icon', {name: 'logos:symfony', 'aria-label': 'Symfony', 'data-header-typing-target': 'tool', width: 128, height: 128, class: 'size-16 lg:size-32'})
                         ~ component('UX:Icon', {name: 'devicon:php', 'aria-label': 'PHP', 'data-header-typing-target': 'tool', width: 128, height: 128, class: 'size-16 lg:size-32 hidden'})
-                        ~ component('UX:Icon', {name: 'api-platform', 'aria-label': 'API Platform', 'data-header-typing-target': 'tool', width: 128, height: 128, class: 'size-16 lg:size-32 hidden'}),
+                        ~ component('UX:Icon', {name: 'logos:api-platform', 'aria-label': 'API Platform', 'data-header-typing-target': 'tool', width: 128, height: 128, class: 'size-16 lg:size-32 hidden'}),
                     '</1>': '</span>',
                     '<2>': '<div class="block md:hidden w-full">',
                     '</2>': '</div>',
@@ -143,10 +143,10 @@
     <section class="shadow-xl">
         <div class="container max-w-screen-xl mx-auto">
             <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-5 gap-x-10 gap-y-8 px-10 py-16 md:py-32">
-                <twig:Kpi kpi="{{ 'home.kpi.talks'|trans }}" value="20+" icon="php" icon-label="PHP" />
-                <twig:Kpi kpi="{{ 'home.kpi.core_team'|trans }}" value="1" icon="symfony" icon-label="Symfony" />
-                <twig:Kpi kpi="{{ 'home.kpi.core_team'|trans }}" value="1" icon="symfony-ux" icon-label="Symfony UX" />
-                <twig:Kpi kpi="{{ 'home.kpi.contributions'|trans }}" value="1k+" icon="symfony" icon-label="Symfony" />
+                <twig:Kpi kpi="{{ 'home.kpi.talks'|trans }}" value="20+" icon="logos:php" icon-label="PHP" />
+                <twig:Kpi kpi="{{ 'home.kpi.core_team'|trans }}" value="1" icon="logos:symfony" icon-label="Symfony" />
+                <twig:Kpi kpi="{{ 'home.kpi.core_team'|trans }}" value="1" icon="logos:symfony-ux" icon-label="Symfony UX" />
+                <twig:Kpi kpi="{{ 'home.kpi.contributions'|trans }}" value="1k+" icon="logos:symfony" icon-label="Symfony" />
                 <twig:Kpi kpi="{{ 'home.kpi.love_in_ecosystem'|trans }}" value="∞" icon="noto:red-heart" icon-label="love" class="col-span-2 sm:col-span-4 lg:col-span-1" />
             </div>
         </div>
@@ -296,14 +296,14 @@
                 {{- 'home.section.they_trust_us.title'|trans -}}
             </h2>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-2">
-                <img src="{{ asset('images/drdata.png') }}" class="w-4/5 mx-auto my-auto" alt="DrData" loading="lazy" width="638" height="160">
-                <img src="{{ asset('images/bluspark.svg') }}" class="w-4/5 mx-auto my-auto" alt="Bluspark" loading="lazy" width="165" height="42">
-                <img src="{{ asset('images/fdj.png') }}" class="w-4/5 mx-auto my-auto" alt="FDJ" loading="lazy" width="499" height="238">
-                <img src="{{ asset('images/wamiz.png') }}" class="w-4/5 mx-auto my-auto" alt="Wamiz" loading="lazy" width="225" height="86">
-                <img src="{{ asset('images/synapsun.png') }}" class="w-4/5 mx-auto my-auto" alt="Synapsun" loading="lazy" width="467" height="117">
-                <img src="{{ asset('images/yousign.png') }}" class="w-4/5 mx-auto my-auto" alt="Yousign" loading="lazy" width="500" height="146">
-                <img src="{{ asset('images/nestle.png') }}" class="w-4/5 mx-auto my-auto" alt="Nestlé" loading="lazy" width="500" height="136">
-                <img src="{{ asset('images/zeturf.png') }}" class="w-4/5 mx-auto my-auto" alt="Zeturf" loading="lazy" width="500" height="281">
+                <img src="{{ asset('images/clients/drdata.png') }}" class="w-4/5 mx-auto my-auto" alt="DrData" loading="lazy" width="638" height="160">
+                <img src="{{ asset('images/clients/bluspark.svg') }}" class="w-4/5 mx-auto my-auto" alt="Bluspark" loading="lazy" width="165" height="42">
+                <img src="{{ asset('images/clients/fdj.png') }}" class="w-4/5 mx-auto my-auto" alt="FDJ" loading="lazy" width="499" height="238">
+                <img src="{{ asset('images/clients/wamiz.png') }}" class="w-4/5 mx-auto my-auto" alt="Wamiz" loading="lazy" width="225" height="86">
+                <img src="{{ asset('images/clients/synapsun.png') }}" class="w-4/5 mx-auto my-auto" alt="Synapsun" loading="lazy" width="467" height="117">
+                <img src="{{ asset('images/clients/yousign.png') }}" class="w-4/5 mx-auto my-auto" alt="Yousign" loading="lazy" width="500" height="146">
+                <img src="{{ asset('images/clients/nestle.png') }}" class="w-4/5 mx-auto my-auto" alt="Nestlé" loading="lazy" width="500" height="136">
+                <img src="{{ asset('images/clients/zeturf.png') }}" class="w-4/5 mx-auto my-auto" alt="Zeturf" loading="lazy" width="500" height="281">
             </div>
         </div>
     </section>
