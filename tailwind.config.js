@@ -10,6 +10,9 @@ module.exports = {
       backgroundImage: {
         'code-img': "url('../images/code.png')",
       },
+      colors: {
+        charade: '#282C34',
+      },
     },
   },
 };
