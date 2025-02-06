@@ -3,11 +3,23 @@
 declare(strict_types=1);
 
 use Symfony\Bundle\FrameworkBundle\Controller\RedirectController;
+use Symfony\Bundle\FrameworkBundle\Controller\TemplateController;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 return static function (RoutingConfigurator $routingConfigurator): void {
     $routingConfigurator
-        ->import(sprintf('%s/src/Controller/', dirname(__DIR__)), 'attribute');
+        ->add('app_home', '/')
+        ->controller(TemplateController::class)
+        ->defaults([
+            'template' => 'home/index.html.twig',
+        ]);
+
+    $routingConfigurator
+        ->add('app_legal_notices', '/legal-notices')
+        ->controller(TemplateController::class)
+        ->defaults([
+            'template' => 'legal_notices/index.html.twig',
+        ]);
 
     $routingConfigurator
         ->add('legacy_legal_notices', '/legal-notices.html')

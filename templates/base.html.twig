@@ -33,7 +33,7 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-    <body class="bg-gray-100">
+    <body class="bg-white">
         {% block body %}
             <section class="py-10">
                 <div class="container max-w-screen-xl mx-auto px-8 xl:px-4">
@@ -41,24 +41,15 @@
                         <a href="{{ path('app_home') }}" title="Bakslash">
                             <img src="{{ asset('images/bakslash.svg') }}" alt="baksla.sh" class="h-10" loading="eager" fetchpriority="high" width="300" height="40">
                         </a>
-                        <twig:CopyEmail class="hidden lg:block font-medium lg:font-semibold text-slate-800 text-xl hover:underline underline-offset-3 decoration-4 decoration-indigo-500" />
+                        <twig:CopyEmail class="hidden lg:block font-medium lg:font-semibold text-slate-800 text-xl hover:underline underline-offset-3 decoration-4 decoration-indigo-500" tooltip-class="-mt-6" />
                     </nav>
                 </div>
             </section>
 
             {% block content %}{% endblock %}
 
-            <section class="py-10 md:py-16 text-center">
-                <div class="container max-w-screen-xl mx-auto px-4">
-                    <h2 class="text-3xl font-bold text-slate-600 leading-relaxed">
-                        {{- 'email.contact_us.cta'|trans }}
-                        <twig:CopyEmail class="block w-full text-4xl text-slate-700 font-extrabold hover:underline underline-offset-3 decoration-8 decoration-indigo-500" />
-                    </h2>
-                </div>
-            </section>
-
-            <footer class="pb-10">
-                <div class="container max-w-screen-xl mx-auto px-4 flex items-center md:flex-row flex-col md:justify-between">
+            <footer class="py-10 bg-gray-100">
+                <div class="container max-w-screen-xl mx-auto px-4 md:px-8 flex items-center md:flex-row flex-col md:justify-between">
                 <span class="text-sm text-slate-700 flex items-center md:justify-start justify-center">
                     {{- 'footer.copyright'|trans({
                         year: 'now'|date('Y'),

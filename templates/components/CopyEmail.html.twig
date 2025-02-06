@@ -12,7 +12,7 @@
 
     <span
         data-copy-email-target="copyText"
-        class="lg:-ml-10 -mt-6 text-center pointer-events-none text-slate-800 font-handwritten text-xl font-bold absolute -rotate-12 transition ease-in-out duration-100 opacity-0 translate-y-12">
+        class="{{ attributes.render('tooltip-class') }} text-center pointer-events-none text-slate-800 font-handwritten text-xl font-bold absolute -rotate-12 transition ease-in-out duration-100 opacity-0 translate-y-12">
         <twig:UX:Icon name="mdi:check-circle" aria-label="Tick" class="h-6 inline text-green-500" />
         {{ 'email.copy.copied_to_clipboard'|trans }}
     </span>

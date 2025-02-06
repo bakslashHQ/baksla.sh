@@ -1,0 +1,29 @@
+<section>
+    <div class="container max-w-screen-xl mx-auto px-8 xl:px-4 py-12 lg:py-56">
+        <div
+            data-controller="header-typing"
+            data-header-typing-hidden-class="hidden"
+            data-header-typing-words-value="{{ [
+                'home.hero.words.experts',
+                'home.hero.words.lovers',
+                'home.hero.words.developers',
+                'home.hero.words.advocates'
+            ]|map(word => word|trans)|json_encode }}"
+            class="flex flex-wrap flex-row items-center justify-center text-6xl lg:text-8xl text-slate-800 leading-none font-handwritten"
+        >
+            {{- 'home.hero.we_are_experts'|trans|replace({
+                '<0>': '<span class="whitespace-nowrap">',
+                '</0>': '</span>',
+                '<1>': '<span class="tools w-16 h-16 lg:w-32 lg:h-32 mx-5 lg:mx-10 flex items-center">'
+                    ~ component('UX:Icon', {name: 'logos:symfony', 'aria-label': 'Symfony', 'data-header-typing-target': 'tool', width: 128, height: 128, class: 'size-16 lg:size-32'})
+                    ~ component('UX:Icon', {name: 'devicon:php', 'aria-label': 'PHP', 'data-header-typing-target': 'tool', width: 128, height: 128, class: 'size-16 lg:size-32 hidden'})
+                    ~ component('UX:Icon', {name: 'logos:api-platform', 'aria-label': 'API Platform', 'data-header-typing-target': 'tool', width: 128, height: 128, class: 'size-16 lg:size-32 hidden'}),
+                '</1>': '</span>',
+                '<2>': '<div class="block md:hidden w-full">',
+                '</2>': '</div>',
+                '<3>': '<span data-header-typing-target="typewriter" class="leading-none">',
+                '</3>': '</span>',
+            })|raw -}}
+        </div>
+    </div>
+</section>
