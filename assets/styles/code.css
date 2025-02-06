@@ -1,0 +1,67 @@
+.code {
+  @apply bg-gray-100 py-4 px-6 my-6 overflow-x-auto rounded-lg whitespace-pre text-[0.9em] leading-[1.4em];
+}
+
+.code > pre {
+  color: #1f2328;
+}
+
+.hl-keyword {
+  color: #d73a49;
+}
+
+.hl-property {
+  color: #6639ba;
+}
+
+.hl-type {
+  color: #953800;
+}
+
+.hl-generic {
+  color: #9d3af6;
+}
+
+.hl-value {
+  color: #032f62;
+}
+
+.hl-literal {
+  color: #032f62;
+}
+
+.hl-number {
+  color: #032f62;
+}
+
+.hl-variable {
+  color: #1f2328;
+}
+
+.hl-comment {
+  color: #6a737d;
+}
+
+.hl-blur {
+  filter: blur(2px);
+}
+
+.hl-strong {
+  font-weight: bold;
+}
+
+.hl-em {
+  font-style: italic;
+}
+
+.hl-addition {
+  display: inline-block;
+  min-width: 100%;
+  background-color: #00ff0022;
+}
+
+.hl-deletion {
+  display: inline-block;
+  min-width: 100%;
+  background-color: #ff000011;
+}

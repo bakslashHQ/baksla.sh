@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'pages/base.html.twig' %}
 
 {% block title %}{{ 'home.seo.title'|trans|raw }}{% endblock %}
 
@@ -22,9 +22,10 @@
 {% endblock %}
 
 {% block content %}
-    {% include 'home/_hero.html.twig' %}
-    {% include 'home/_kpi.html.twig' %}
-    {% include 'home/_code.html.twig' %}
-    {% include 'home/_products.html.twig' %}
-    {% include 'home/_partners.html.twig' %}
+    {% include 'pages/website/home/_hero.html.twig' %}
+    {% include 'pages/website/home/_kpi.html.twig' %}
+    {% include 'pages/website/home/_code.html.twig' %}
+    {% include 'pages/website/home/_products.html.twig' %}
+    {% include 'pages/website/home/_blog.html.twig' %}
+    {% include 'pages/website/home/_partners.html.twig' %}
 {% endblock %}

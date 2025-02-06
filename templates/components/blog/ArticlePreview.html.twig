@@ -1,0 +1,40 @@
+{% set color = random([
+    'ring-indigo-100 hover:ring-indigo-500 shadow-indigo-500/20',
+    'ring-blue-100 hover:ring-blue-500 shadow-blue-500/20',
+    'ring-purple-100 hover:ring-purple-500 shadow-purple-500/20',
+    'ring-violet-100 hover:ring-violet-500 shadow-violet-500/20',
+    'ring-blue-100 hover:ring-blue-500 shadow-blue-500/20',
+]) %}
+
+<article {{ attributes.defaults({class: 'rounded-2xl bg-white p-6 shadow-2xl ring-2 cursor-pointer hover:ring-offset-1 hover:ring-4 transition ' ~ color}) }}>
+    {% if showcased is defined and showcased %}
+        <a href="{{ path('app_blog_article', {id: id}) }}">
+            <h2 class="text-2xl font-semibold text-slate-900 p-3 sm:p-6 sm:text-3xl">{{ title }}</h2>
+            <p class="text-lg tracking-tight text-gray-900 px-3 sm:px-6 pb-4 sm:pb-6 sm:text-xl/8">{{ description }}</p>
+            <div class="flex flex-wrap items-center gap-x-4 gap-y-4 border-t border-gray-900/10 mx-3 sm:mx-6 pt-4 sm:py-4 sm:flex-nowrap">
+                <img class="size-10 flex-none rounded-full bg-gray-50" src="{{ asset('images/blog/author/' ~ author.picture) }}" alt="{{ author.name }}">
+                <div class="flex-auto">
+                    <div class="font-semibold">{{ author.name }}</div>
+                    {% if author.bsky is defined %}
+                        <div class="text-gray-600">@{{ author.bsky }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </a>
+    {% else %}
+        <a href="{{ path('app_blog_article', {id: id}) }}">
+            <h2 class="text-xl font-semibold text-slate-900 pb-3 sm:text-xl">{{ title }}</h2>
+            <p class="text-gray-900">{{ description }}</p>
+            <div class="mt-6 flex items-center gap-x-4">
+                <img class="size-10 rounded-full bg-gray-50" src="{{ asset('images/blog/author/' ~ author.picture) }}" alt="{{ author.name }}" {% if _context['lazy-load-image'] is defined %}loading="lazy"{% endif %} />
+
+                <div class="flex-auto">
+                    <div class="font-semibold">{{ author.name }}</div>
+                    {% if author.bsky is defined %}
+                        <a href="https://bsky.app/profile/{{ author.bsky }}" class="text-gray-600 hover:underline">@{{ author.bsky }}</a>
+                    {% endif %}
+                </div>
+            </div>
+        </a>
+    {% endif %}
+</article>

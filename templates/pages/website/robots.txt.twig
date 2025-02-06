@@ -1,0 +1,5 @@
+Sitemap: {{ url('app_sitemap') }}
+User-Agent: *
+{% if app.environment != 'prod' %}
+Disallow: /
+{% endif %}

@@ -1,0 +1,113 @@
+{% if this.showcased %}
+    <section class="bg-code-dark-gray">
+        <div class="grid">
+            <div class="col-start-1 row-start-1 max-h-[40rem] overflow-hidden">
+                <div class="pt-10 mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8 text-gray-300 text-lg leading-[1.2] whitespace-normal blur-[1px] opacity-20">
+                    <div class="flex flex-row items-center justify-start">
+                        <pre class="pr-5 text-right opacity-50">&nbsp;1</pre>
+                        <code class="text-2xl font-bold whitespace-normal text-gray-300"># The <span class="bg-gray-600/50">`ExpressionLanguage`</span> component</code>
+                    </div>
+                    <div class="flex flex-row items-start">
+                        <pre class="pr-5 text-right opacity-50">&nbsp;2</pre>
+                    </div>
+                    <div class="flex flex-row items-start">
+                        <pre class="pr-5 text-right opacity-50">&nbsp;3</pre>
+                        <code class="whitespace-normal">&gt; <span class="text-code-yellow font-semibold">If eval() is the answer, you certainly ask the wrong question - Rasmus Lerdorf</span></code>
+                    </div>
+                    <div class="flex flex-row items-start">
+                        <pre class="pr-5 text-right opacity-50">&nbsp;4</pre>
+                    </div>
+                    <div class="flex flex-row items-start">
+                        <pre class="pr-5 text-right opacity-50">&nbsp;5</pre>
+                        <code class="whitespace-normal">Indeed, storing PHP code in the database and executing it later <span class="font-semibold">*is a huge security issue*</span>,</code>
+                    </div>
+                    <div class="flex flex-row items-start">
+                        <pre class="pr-5 text-right opacity-50">&nbsp;6</pre>
+                        <code class="whitespace-normal">because it'll be possible to change variables, use dangerous functions and alter critical system files.</code>
+                    </div>
+                    <div class="flex flex-row items-start justify-start">
+                        <pre class="pr-5 text-right opacity-50">&nbsp;7</pre>
+                    </div>
+                    <div class="flex flex-row items-start">
+                        <pre class="pr-5 text-right opacity-50">&nbsp;8</pre>
+                        <code class="whitespace-normal">That's why the <span class="bg-gray-600/50">`ExpressionLanguage`</span> component of Symfony exists!</code>
+                    </div>
+                    <div class="flex flex-row items-start justify-start">
+                        <pre class="pr-5 text-right opacity-50">&nbsp;9</pre>
+                    </div>
+                    <div class="flex flex-row items-start">
+                        <pre class="pr-5 text-right opacity-50">10</pre>
+                        <code class="whitespace-normal">This component is basically an oneliner-restricted PHP sandbox.</code>
+                    </div>
+                    <div class="flex flex-row items-start">
+                        <pre class="pr-5 text-right opacity-50">11</pre>
+                        <code class="whitespace-normal">It interprets and compiles a simple custom programming language to a securitized PHP code.</code>
+                    </div>
+                    <div class="flex flex-row items-start justify-start">
+                        <pre class="pr-5 text-right opacity-50">12</pre>
+                    </div>
+                    <div class="flex flex-row items-center justify-start">
+                        <pre class="pr-5 text-right opacity-50">13</pre>
+                        <code class="text-xl font-bold whitespace-normal text-gray-300">## Usage</code>
+                    </div>
+                    <div class="flex flex-row items-start justify-start">
+                        <pre class="pr-5 text-right opacity-50">14</pre>
+                    </div>
+                    <div class="flex flex-row items-start justify-start">
+                        <pre class="pr-5 text-right opacity-50">15</pre>
+                        <code class="whitespace-normal">If you use Symfony as a framework, you might have already used that component.</code>
+                    </div>
+                    <div class="flex flex-row items-start justify-start">
+                        <pre class="pr-5 text-right opacity-50">16</pre>
+                        <code class="whitespace-normal">The <span class="bg-gray-600/50">`ExpressionLanguage`</span> component is used in:</code>
+                    </div>
+                    <div class="flex flex-row items-start justify-start">
+                        <pre class="pr-5 text-right opacity-50">17</pre>
+                        <code class="whitespace-normal"> <span class="text-code-blue">-</span> YAML configuration files</code>
+                    </div>
+                    <div class="flex flex-row items-start justify-start">
+                        <pre class="pr-5 text-right opacity-50">18</pre>
+                        <code class="whitespace-normal"> <span class="text-code-blue">-</span> <span class="bg-gray-600/50">`is_granted`</span> twig function</code>
+                    </div>
+                    <div class="flex flex-row items-start justify-start">
+                        <pre class="pr-5 text-right opacity-50">19</pre>
+                        <code class="whitespace-normal"> <span class="text-code-blue">-</span> <span class="bg-gray-600/50">`IsGranted`</span> attribute</code>
+                    </div>
+                    <div class="flex flex-row items-start justify-start">
+                        <pre class="pr-5 text-right opacity-50">20</pre>
+                        <code class="whitespace-normal"> <span class="text-code-blue">-</span> <span class="bg-gray-600/50">`Route::$condition`</span> property</code>
+                    </div>
+                    <div class="flex flex-row items-start justify-start">
+                        <pre class="pr-5 text-right opacity-50">21</pre>
+                        <code class="whitespace-normal"> <span class="text-code-blue">-</span> <span class="bg-gray-600/50">`Assert\Expression`</span> attribute</code>
+                    </div>
+                    <div class="flex flex-row items-start justify-start">
+                        <pre class="pr-5 text-right opacity-50">22</pre>
+                        <code class="whitespace-normal"> <span class="text-code-blue">-</span> Workflow guards</code>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-start-1 row-start-1 z-10">
+                <div class="mx-auto max-w-7xl px-6 pb-72 pt-24 text-center sm:pt-32 lg:px-8">
+                    <div class="mx-auto max-w-4xl">
+                        <h2 class="mt-2 text-balance text-5xl font-bold tracking-tight text-white sm:text-6xl underline decoration-8 decoration-indigo-500">{{ 'home.blog.title'|trans }}</h2>
+                        <a href="{{ path('app_blog') }}" class="mt-4 flex justify-center items-center gap-2 text-indigo-400 font-semibold opacity-80 hover:opacity-100 transition">
+                            {{ 'home.blog.visit_blog'|trans }} <twig:UX:Icon name="weui:arrow-outlined" class="h-5" aria-hidden="true" />
+                        </a>
+                    </div>
+                </div>
+
+                <div class="flow-root bg-white pb-24 sm:pb-32">
+                    <div class="-mt-[14rem]">
+                        <div class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
+                            <div class="mx-auto max-w-2xl lg:max-w-4xl">
+                                <twig:ArticlePreview :article="this.showcased" showcased lazy-load-image />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endif %}

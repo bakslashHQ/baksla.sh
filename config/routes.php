@@ -11,14 +11,14 @@ return static function (RoutingConfigurator $routingConfigurator): void {
         ->add('app_home', '/')
         ->controller(TemplateController::class)
         ->defaults([
-            'template' => 'home/index.html.twig',
+            'template' => 'pages/website/home.html.twig',
         ]);
 
     $routingConfigurator
         ->add('app_legal_notices', '/legal-notices')
         ->controller(TemplateController::class)
         ->defaults([
-            'template' => 'legal_notices/index.html.twig',
+            'template' => 'pages/website/legal_notices.html.twig',
         ]);
 
     $routingConfigurator
@@ -28,4 +28,18 @@ return static function (RoutingConfigurator $routingConfigurator): void {
             'route' => 'app_legal_notices',
             'permanent' => true,
         ]);
+
+    $routingConfigurator
+        ->add('app_robots', '/robots.txt')
+        ->controller(TemplateController::class)
+        ->format('txt')
+        ->defaults([
+            'template' => 'pages/website/robots.txt.twig',
+        ]);
+
+    $routingConfigurator
+        ->import(sprintf('%s/src/Website/Controller/', dirname(__DIR__)), 'attribute');
+
+    $routingConfigurator
+        ->import(sprintf('%s/src/Blog/Infrastructure/Symfony/Controller/', dirname(__DIR__)), 'attribute');
 };

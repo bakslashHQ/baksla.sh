@@ -1,3 +1,5 @@
+@import './code.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -58,5 +60,26 @@
     font-weight: 800;
     font-display: swap;
     src: url(../fonts/Poppins/Poppins-ExtraBold.woff2) format('woff2');
+  }
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url(../fonts/Inter/Inter-Light.ttf) format('ttf');
+  }
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(../fonts/Inter/Inter-Regular.ttf) format('ttf');
+  }
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(../fonts/Inter/Inter-Bold.ttf) format('ttf');
   }
 }
