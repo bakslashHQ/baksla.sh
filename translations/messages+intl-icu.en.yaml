@@ -1,82 +1,65 @@
 home.seo.title: baksla.sh
 home.seo.description: A real OSS company, Symfony evangelist with pragmatic technologists
 
+email.contact_us.cta: Contact us at
+email.copy.copied_to_clipboard: Email copied to clipboard!
+
 home.hero.we_are_experts: <0>We are</0> <1></1> <2></2> <3></3>
 home.hero.words.experts: 'experts.'
 home.hero.words.lovers: 'lovers.'
 home.hero.words.developers: 'developers.'
 home.hero.words.advocates: 'advocates.'
 
-home.section.real_oss_company.title: A real <0>OSS company</0>
-home.section.real_oss_company.content: |
-    As core contributors to Symfony and its ecosystem, <0>we don't just use tools, we shape them.</0>
-    That's why we've created several Symfony components, and one of our founders is part of the core team members.
-    <br /><br />
-    <1>Who knows a framework better than someone who contributes to its creation?</1>
-
-home.section.symfony_evangelist.title: <0/> evangelist
-home.section.symfony_evangelist.content: |
-    Passionate advocates for the PHP and Symfony communities, <0>we share our expertise worldwide through conference talks, workshops, and training sessions</0>.
-    <br /><br />
-    While working on client projects, we love sharing our expertise with their development teams, empowering them to enhance their skills.
-
-home.section.pragmatic_technologists.title: <0>Pragmatic</0> technologists
-home.section.pragmatic_technologists.content: |
-    We always take the pragmatic approach, ensuring that <0>our solutions are built for long-term maintainability without falling into the trap of over-engineering</0>.
-    <br /><br />
-    We help our clients craft architectures that are tailored to their actual needs, keeping the business at the center of the discussion, and making sure that our technical decisions align with the client's goals and drive real value.
-
-home.section.our_solutions.title: Our tailored solutions <0>built to last</0>.
-home.section.our_solutions.quote:
-    content: “The less time we spend on a mission, the more successful we've been.”
-    author_role: CEO at baksla.sh
-home.section.our_solutions.content: |
-    <0>We don't tie ourselves tightly to your team, we work alongside you</0>, sharing our expertise and building solutions that stand the test of time.
-    The less time we spend on a mission, the more value we’ve delivered, <1>leaving your team stronger, smarter, and more independent.</1>
-
-home.section.need_solution.title: Want to <0>implement</0> a solution?
-home.section.need_expertise.title: Need some <0>expertise</0>?
-home.section.try_to_upskill.title: Try to <0>upskill</0>?
-home.section.they_trust_us.title: They've already put their trust in us
-
 home.kpi.contributions: contributions
 home.kpi.core_team: core team
 home.kpi.talks: related talks
 home.kpi.love_in_ecosystem: for PHP
 
-home.card.custom_symfony_development.title: Custom Symfony development
-home.card.custom_symfony_development.content: We help you to <0>create scalable and maintainable applications tailored to your specific needs</0>, leveraging the expertise of our talented and passionate developers.
-home.card.cto_as_a_service.title: CTO as a service
-home.card.cto_as_a_service.content: Whether you're launching new products, or optimizing existing systems, we provide you a <0>strategic technical leadership to ensure your technology aligns with your business vision</0> and growth objectives.
-home.card.workshops_and_trainings.title: Workshops and trainings
-home.card.workshops_and_trainings.content: Whether your team is composed by beginners looking to understand the fundamentals or experienced developers, we can empower your team by providing <0>in-depth Symfony, API Platform and clean code training, tailored to their specific needs and skills</0>.
-home.card.coaching.title: Coaching "à la carte"
-home.card.coaching.content: Whether starting a new project or tackling challenges as your project grows, our on-demand consulting offers <0>tailored support, including brainstorming, Q&A, specifications, and code reviews</0>, to help your team make the right decisions during this crucial moment.
-home.card.audit.title: Audit
-home.card.audit.content: |
-    We provide <0>comprehensive audits covering code quality, security, and performance, offering actionable insights to improve the health and longevity of your applications</0>.
-    Audits will <1>assess your code for maintainability, technical debt, check for security risks, and pinpoint performance bottlenecks</1> that could affect scalability.
-home.card.architecture_study.title: Architecture study
-home.card.architecture_study.content: |
-    We help you <0>establish solid foundations for your project</0>, ensuring a smooth execution phase.
-    We will collaborate with you to understand the project's context, goals, resources, and constraints in order to define the ideal software or system architecture.
+home.code.real_oss_company.title: A real <0>OSS company</0>
+home.code.real_oss_company.content_1: As core contributors to Symfony and its ecosystem, we don't just use tools, we shape them.
+home.code.real_oss_company.content_2: That's why we've created several Symfony components, and one of our founders is part of the core team members.
+home.code.real_oss_company.content_3: Who knows a framework better than someone who contributes to its creation?
+home.code.symfony_evangelist.title: <0/> <1>evangelist</1>
+home.code.symfony_evangelist.content_1: Passionate advocates for the PHP and Symfony communities, <0>we share our expertise worldwide through conference talks, workshops, and training sessions</0>. While working on client projects, we love sharing our expertise with their development teams, empowering them to enhance their skills.
+home.code.pragmatic_technologists.title: <0>Pragmatic</0> technologists
+home.code.pragmatic_technologists.content_1: We always take the pragmatic approach, ensuring that <0>our solutions are built for long-term maintainability without falling into the trap of over-engineering</0>.
+home.code.pragmatic_technologists.content_2: We help our clients craft architectures that are tailored to their actual needs, keeping the business at the center of the discussion, and making sure that our technical decisions align with the client's goals and drive real value.
 
-legal_notices.title: Legal Notices
+home.products.title: Our tailored solutions <0>built to last</0>.
+home.products.product.custom_symfony_development.title: Custom Symfony development
+home.products.product.custom_symfony_development.content: We help you to create scalable and maintainable applications tailored to your specific needs, leveraging the expertise of our talented and passionate developers.
+home.products.product.coaching.title: Coaching "à la carte"
+home.products.product.coaching.content: "Whether starting a new project or tackling challenges as your project grows, our on-demand consulting offers tailored support, including: <0>Brainstorming</0><1>Q&A</1><2>Specifications</2><3>Code reviews</3>This will help your team make the right decisions during this crucial moment."
+home.products.product.architecture.title: Architecture study and Audit
+home.products.product.architecture.content: We help you to build solid foundations for your project with a future-proof architecture, while our audits reveal technical debt, security risks, and performance bottlenecks to ensure long-term stability and scalability.
+home.products.product.cto_as_a_service.title: CTO as a service
+home.products.product.cto_as_a_service.content: If you're launching new products, or if you're optimizing existing systems, we can provide you a strategic technical leadership to ensure your technology aligns with your business vision and growth objectives.
+home.products.product.workshops_and_trainings.title: Workshops and trainings
+home.products.product.workshops_and_trainings.content: "Whether your team is composed by beginners looking to understand the fundamentals or experienced developers, we can empower your team by providing in-depth training of: <0>Symfony</0><1>API Platform</1><2>Clean Code</2>Each training will be tailored to their specific needs and skills."
+home.products.quote.content: “The less time we spend on a mission, the more successful we've been.”
+home.products.quote.author_role: CEO at baksla.sh
+home.products.quote.detail: |
+    We don't tie ourselves tightly to your team, we work alongside you, sharing our expertise and building solutions that stand the test of time.
+    The less time we spend on a mission, the more value we’ve delivered, leaving your team stronger, smarter, and more independent.
 
-legal_notices.seo.title: Legal notices | baksla.sh
-legal_notices.seo.description: Legal notices of Bakslash, A real OSS company, Symfony evangelist with pragmatic technologists
+home.blog.title: From <0>the Blog</0>
+home.blog.visit_blog: Visit Blog
 
-legal_notices.card.website_editor.title: Website Editor
-legal_notices.card.website_editor.address: 60 Rue François 1er, 75008 Paris
-legal_notices.card.website_editor.siren: 'SIREN:'
-legal_notices.card.website_editor.siret: 'SIRET:'
-legal_notices.card.website_editor.code_eap: 'Code EAP:'
-legal_notices.card.publishing_directors.title: Publishing Directors
-legal_notices.card.publishing_directors.names: Robin Chalas, CEO and Mathias Arlaud, COO.
-legal_notices.card.hosting_providers.title: Hosting Provider
+home.partners.they_trust_us.title: "They've already put their trust in us, be part of it and contact us at: <0>"
 
 footer.copyright: © {year} baksla.sh™. All Rights Reserved.
 footer.link.legal_notices: Legal Notices
 
-email.contact_us.cta: Contact us at
-email.copy.copied_to_clipboard: Email copied to clipboard!
+legal_notices.title: Legal Notices
+legal_notices.seo.title: Legal notices | baksla.sh
+legal_notices.seo.description: Legal notices of Bakslash, A real OSS company, Symfony evangelist with pragmatic technologists
+
+legal_notices.last_updated_at: Last updated at {date}
+legal_notices.website_editor.title: Website Editor
+legal_notices.website_editor.address: 60 Rue François 1er, 75008 Paris
+legal_notices.website_editor.siren: "SIREN:"
+legal_notices.website_editor.siret: "SIRET:"
+legal_notices.website_editor.code_eap: "Code EAP:"
+legal_notices.publishing_directors.title: Publishing Directors
+legal_notices.publishing_directors.names: Robin Chalas, CEO and Mathias Arlaud, COO.
+legal_notices.hosting_providers.title: Hosting Provider

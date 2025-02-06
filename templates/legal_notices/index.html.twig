@@ -1,3 +1,5 @@
+{% set updated_at = '2025-02-05' %}
+
 {% extends 'base.html.twig' %}
 
 {% block title %}{{ 'legal_notices.seo.title'|trans|raw }}{% endblock %}
@@ -6,56 +8,43 @@
     <meta name="description" content="{{ 'legal_notices.seo.description'|trans|raw }}">
 
     <!-- Opengraph Meta Tags -->
-    <meta property="og:url" content="https://baksla.sh/legal-notices.html">
+    <meta property="og:url" content="{{ app.request.uri }}">
     <meta property="og:type" content="website">
     <meta property="og:title" content="{{ 'legal_notices.seo.title'|trans|raw }}">
     <meta property="og:description" content="{{ 'legal_notices.seo.description'|trans|raw }}">
-    <meta property="og:image" content="https://baksla.sh/assets/image/bakslash.svg">
+    <meta property="og:image" content="{{ asset('images/bakslash.svg') }}">
 
     <!-- X Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta property="twitter:domain" content="baksla.sh">
-    <meta property="twitter:url" content="https://baksla.sh/legal-notices.html">
+    <meta property="twitter:domain" content="{{ app.request.getSchemeAndHttpHost() }}">
+    <meta property="twitter:url" content="{{ app.request.uri }}">
     <meta name="twitter:title" content="{{ 'legal_notices.seo.title'|trans|raw }}">
     <meta name="twitter:description" content="{{ 'legal_notices.seo.description'|trans|raw }}">
-    <meta name="twitter:image" content="https://baksla.sh/assets/image/bakslash.svg">
+    <meta name="twitter:image" content="{{ asset('images/bakslash.svg') }}">
 {% endblock %}
 
 {% block content %}
-    <section>
-        <div class="container max-w-screen-xl mx-auto px-8 xl:px-4 py-12 lg:py-24">
-            <h2 class="text-4xl md:text-5xl font-bold leading-none tracking-tight text-slate-700 text-center">{{ 'legal_notices.title'|trans }}</h2>
+    <section class="bg-white px-6 py-32 lg:px-8">
+        <div class="mx-auto max-w-3xl text-base/7 text-slate-800">
+            <h1 class="mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{{ 'legal_notices.title'|trans }}</h1>
+            <p class="mt-6 text-xl/8">{{ 'legal_notices.last_updated_at'|trans({'date': updated_at|date('F jS, Y')}) }}</p>
 
-            <div class="my-8 p-2 grid grid-cols-1 gap-6 rounded-lg max-w-[480px] mx-auto">
-                <twig:Card>
-                    <div class="flex flex-col h-full items-center">
-                        <h3 class="font-bold text-slate-700 text-2xl mb-3">{{ 'legal_notices.card.website_editor.title'|trans }}</h3>
-                        <p class="text-slate-600 text-lg mb-2"><strong>Bakslash</strong></p>
-                        <p class="text-slate-600 mb-2">{{ 'legal_notices.card.website_editor.address'|trans }}</p>
-                        <ul class="font-normal text-slate-700 text-md">
-                            <li><strong>{{ 'legal_notices.card.website_editor.siren'|trans }}</strong> 987479318</li>
-                            <li><strong>{{ 'legal_notices.card.website_editor.siret'|trans }}</strong> 987479318 00014</li>
-                            <li><strong>{{ 'legal_notices.card.website_editor.code_eap'|trans }}</strong> 62.01Z</li>
-                        </ul>
-                    </div>
-                </twig:Card>
+            <h2 class="mt-16 text-pretty text-3xl font-semibold tracking-tight text-gray-900">baksla.sh</h2>
+            <div class="mt-4 max-w-2xl">
+                <p>{{ 'legal_notices.website_editor.address'|trans }}</p>
+                <p><span class="font-semibold">{{ 'legal_notices.website_editor.siren'|trans }}</span> 987479318</p>
+                <p><span class="font-semibold">{{ 'legal_notices.website_editor.siret'|trans }}</span> 987479318 00014</p>
+                <p><span class="font-semibold">{{ 'legal_notices.website_editor.code_eap'|trans }}</span> 62.01Z</p>
+            </div>
 
-                <twig:Card>
-                    <div class="flex flex-col h-full items-center">
-                        <h3 class="font-bold text-slate-700 text-2xl mb-3">{{ 'legal_notices.card.publishing_directors.title'|trans }}</h3>
-                        <p class="font-normal text-slate-700 text-md">{{ 'legal_notices.card.publishing_directors.names'|trans }}</p>
-                    </div>
-                </twig:Card>
+            <h2 class="mt-14 text-pretty text-3xl font-semibold tracking-tight text-gray-900">{{ 'legal_notices.publishing_directors.title'|trans }}</h2>
+            <div class="mt-4 max-w-2xl">
+                <p>{{ 'legal_notices.publishing_directors.names'|trans }}</p>
+            </div>
 
-                <twig:Card>
-                    <div class="flex flex-col h-full items-center">
-                        <h3 class="font-bold text-slate-700 text-2xl mb-3">{{ 'legal_notices.card.hosting_provider.title'|trans }}</h3>
-                        <p class="font-normal text-slate-700 text-md">
-                            <a href="https://www.ovhcloud.com/fr/" class="hover:underline">OVHCloud</a>
-                        </p>
-                    </div>
-                </twig:Card>
-
+            <h2 class="mt-14 text-pretty text-3xl font-semibold tracking-tight text-gray-900">{{ 'legal_notices.hosting_providers.title'|trans }}</h2>
+            <div class="mt-4 max-w-2xl">
+                <a href="https://www.ovhcloud.com/fr/" class="hover:underline">OVHCloud</a>
             </div>
         </div>
     </section>

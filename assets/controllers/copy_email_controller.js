@@ -1,4 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
+import { debounce } from '../helpers.js';
 
 /**
  * @property {HTMLElement} buttonTarget
@@ -21,6 +22,9 @@ export default class extends Controller {
     }
 
     this.buttonTarget.addEventListener('click', this.#onButtonClick.bind(this));
+    window.addEventListener('resize', this.#onWindowResize.bind(this));
+
+    this.#syncPositions();
   }
 
   disconnect() {
@@ -28,11 +32,25 @@ export default class extends Controller {
   }
 
   #onButtonClick() {
+    this.#syncPositions();
+
     this.buttonTarget.classList.add(...this.buttonBlurredClasses);
     this.copyTextTarget.classList.remove(...this.copyTextHiddenClasses);
     navigator.clipboard.writeText(this.buttonTarget.textContent.trim());
 
     setTimeout(() => this.#reset(), 1500);
+  }
+
+  #onWindowResize() {
+    debounce(this.#syncPositions());
+  }
+
+  #syncPositions() {
+    const buttonWidth = this.buttonTarget.getBoundingClientRect().right - this.buttonTarget.getBoundingClientRect().left;
+    const copyTextWidth = this.copyTextTarget.getBoundingClientRect().right - this.copyTextTarget.getBoundingClientRect().left;
+    const gap = (copyTextWidth - buttonWidth) / 2;
+
+    this.copyTextTarget.style.left = `${this.buttonTarget.getBoundingClientRect().left - gap}px`;
   }
 
   #reset() {
