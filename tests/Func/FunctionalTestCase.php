@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\Response;
 
 abstract class FunctionalTestCase extends WebTestCase
 {
@@ -84,5 +85,12 @@ abstract class FunctionalTestCase extends WebTestCase
         $this->assertInstanceOf($class, $service);
 
         return $service;
+    }
+
+    protected function getResponse(): Response
+    {
+        $this->assertNotNull(self::$client, 'The client must be set.');
+
+        return self::$client->getResponse();
     }
 }

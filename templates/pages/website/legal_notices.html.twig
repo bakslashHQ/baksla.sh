@@ -1,0 +1,51 @@
+{% set updated_at = '2025-02-05' %}
+
+{% extends 'pages/base.html.twig' %}
+
+{% block title %}{{ 'legal_notices.seo.title'|trans|raw }}{% endblock %}
+
+{% block seo %}
+    <meta name="description" content="{{ 'legal_notices.seo.description'|trans|raw }}">
+
+    <!-- Opengraph Meta Tags -->
+    <meta property="og:url" content="{{ app.request.uri }}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ 'legal_notices.seo.title'|trans|raw }}">
+    <meta property="og:description" content="{{ 'legal_notices.seo.description'|trans|raw }}">
+    <meta property="og:image" content="{{ asset('images/bakslash.svg') }}">
+
+    <!-- X Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="{{ app.request.getSchemeAndHttpHost() }}">
+    <meta property="twitter:url" content="{{ app.request.uri }}">
+    <meta name="twitter:title" content="{{ 'legal_notices.seo.title'|trans|raw }}">
+    <meta name="twitter:description" content="{{ 'legal_notices.seo.description'|trans|raw }}">
+    <meta name="twitter:image" content="{{ asset('images/bakslash.svg') }}">
+{% endblock %}
+
+{% block content %}
+    <section class="isolate bg-white px-6 py-32 lg:px-8">
+        {% include 'pages/_bg_shape.html.twig' %}
+
+        <div class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8 text-center text-gray-700">
+            <h1 class="text-4xl font-bold tracking-tight text-slate-800 sm:text-5xl">
+                {{- 'legal_notices.title'|trans -}}
+            </h1>
+            <p class="mt-3 text-lg/8 text-gray-600">
+                {{- 'legal_notices.last_updated_at'|trans({'date': updated_at|date('F jS, Y')}) -}}
+            </p>
+
+            <h2 class="mt-24 mb-4 text-pretty text-3xl font-semibold tracking-tight text-slate-800">baksla.sh</h2>
+            <p>{{ 'legal_notices.website_editor.address'|trans }}</p>
+            <p><span class="font-semibold">{{ 'legal_notices.website_editor.siren'|trans }}</span> 987479318</p>
+            <p><span class="font-semibold">{{ 'legal_notices.website_editor.siret'|trans }}</span> 987479318 00014</p>
+            <p><span class="font-semibold">{{ 'legal_notices.website_editor.code_eap'|trans }}</span> 62.01Z</p>
+
+            <h2 class="mt-16 mb-4 text-pretty text-3xl font-semibold tracking-tight text-slate-800">{{ 'legal_notices.publishing_directors.title'|trans }}</h2>
+            <p>{{ 'legal_notices.publishing_directors.names'|trans }}</p>
+
+            <h2 class="mt-16 mb-4 text-pretty text-3xl font-semibold tracking-tight text-slate-800">{{ 'legal_notices.hosting_providers.title'|trans }}</h2>
+            <a href="https://www.ovhcloud.com/fr/" class="hover:underline">OVHCloud</p>
+        </div>
+    </section>
+{% endblock %}

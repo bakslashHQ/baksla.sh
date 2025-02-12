@@ -1,0 +1,68 @@
+{% extends 'pages/base.html.twig' %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block seo %}
+    <meta name="description" content="{{ article.description }}">
+
+    <!-- Opengraph Meta Tags -->
+    <meta property="og:url" content="{{ app.request.uri }}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ article.title }}">
+    <meta property="og:description" content="{{ article.description }}">
+    <meta property="og:image" content="{{ asset('images/bakslash.svg') }}">
+
+    <!-- X Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="{{ app.request.getSchemeAndHttpHost() }}">
+    <meta property="twitter:url" content="{{ app.request.uri }}">
+    <meta name="twitter:title" content="{{ article.title }}">
+    <meta name="twitter:description" content="{{ article.description }}">
+    <meta name="twitter:image" content="{{ asset('images/bakslash.svg') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="isolate pb-12 md:pb-32">
+        {% include 'pages/_bg_shape.html.twig' %}
+
+        <div class="mx-auto max-w-3xl px-6 lg:max-w-5xl lg:px-8 py-20 sm:py-36">
+            <h1 class="sm:text-center text-5xl font-bold tracking-tight text-pretty text-slate-800 sm:text-6xl">
+                {{- article.title -}}
+            </h1>
+            <div class="mt-8 flex items-center sm:justify-center gap-x-4">
+                <img class="size-8 rounded-full bg-gray-50" src="{{ asset('images/blog/author/' ~ article.author.picture) }}" alt="{{ article.author.name }}" />
+                <div class="text-md">
+                    <span class="font-semibold text-gray-700" data-test-author>{{ article.author.name }}</span>
+                    {% if article.author.bsky is defined %}
+                        - <a href="https://bsky.app/profile/{{ article.author.bsky }}" class="text-gray-600 hover:underline">@{{ article.author.bsky }}</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="mx-auto max-w-3xl lg:max-w-5xl px-6 lg:px-8 text-gray-800 text-lg font-article" data-test-article>
+            {{- article.html|raw -}}
+        </div>
+
+        <div class="mx-auto max-w-3xl lg:max-w-5xl px-6 lg:px-8 mt-28">
+            <hr class="my-10" />
+
+            <div class="mx-auto max-w-2xl lg:mx-0">
+                <h2 class="text-pretty text-4xl font-bold tracking-tight text-gray-600">{{ 'blog.article.more_from_the_blog'|trans|replace({
+                    '<0>': '<a href="' ~ path('app_blog') ~ '"class="underline decoration-8 decoration-indigo-500">',
+                    '</0>': '</a>',
+                })|raw }}</h2>
+            </div>
+
+            <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-8 pt-10 lg:mx-0 lg:max-w-none lg:grid-cols-3" data-test-more-articles>
+                {% for preview in more %}
+                    {% if preview %}
+                        <twig:ArticlePreview :article="preview" lazy-load-image />
+                    {% else %}
+                        <twig:blog:ArticlePreviewPlaceholder />
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

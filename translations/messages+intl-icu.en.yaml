@@ -42,13 +42,14 @@ home.products.quote.detail: |
     We don't tie ourselves tightly to your team, we work alongside you, sharing our expertise and building solutions that stand the test of time.
     The less time we spend on a mission, the more value we’ve delivered, leaving your team stronger, smarter, and more independent.
 
-home.blog.title: From <0>the Blog</0>
-home.blog.visit_blog: Visit Blog
+home.blog.title: An echo from the Blog
+home.blog.visit_blog: Visit the Blog
 
 home.partners.they_trust_us.title: "They've already put their trust in us, be part of it and contact us at: <0>"
 
 footer.copyright: © {year} baksla.sh™. All Rights Reserved.
 footer.link.legal_notices: Legal Notices
+footer.link.blog: The Blog
 
 legal_notices.title: Legal Notices
 legal_notices.seo.title: Legal notices | baksla.sh
@@ -63,3 +64,10 @@ legal_notices.website_editor.code_eap: "Code EAP:"
 legal_notices.publishing_directors.title: Publishing Directors
 legal_notices.publishing_directors.names: Robin Chalas, CEO and Mathias Arlaud, COO.
 legal_notices.hosting_providers.title: Hosting Provider
+
+blog.seo.title: Tech, Teams and Tales
+blog.seo.description: The baksla.sh's blog
+blog.title: Tech, Teams and Tales
+blog.subtitle: echoes from baksla.sh
+blog.no_article_yet: There is no article yet, come back later!
+blog.article.more_from_the_blog: More from <0>The Blog</0>

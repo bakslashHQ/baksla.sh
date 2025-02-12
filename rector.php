@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Rector\CodingStyle\Rector\ClassMethod\MakeInheritedMethodVisibilitySameAsParentRector;
 use Rector\Config\RectorConfig;
 
 return RectorConfig::configure()
@@ -26,4 +27,7 @@ return RectorConfig::configure()
         strictBooleans: true,
         phpunitCodeQuality: true,
         symfonyCodeQuality: true,
-    );
+    )
+    ->withSkip([
+        MakeInheritedMethodVisibilitySameAsParentRector::class,
+    ]);

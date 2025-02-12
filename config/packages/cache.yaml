@@ -1,0 +1,7 @@
+framework:
+    cache:
+        pools:
+            article_cache:
+                adapter: cache.adapter.filesystem
+            article_preview_cache:
+                adapter: cache.adapter.filesystem

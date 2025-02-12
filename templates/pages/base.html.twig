@@ -17,6 +17,9 @@
                 @font-face { font-family: 'Poppins SemiBold Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 90.85%; descent-override: 30.28%; line-gap-override: 8.65%; size-adjust: 115.57%; }
                 @font-face { font-family: 'Poppins Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 89.77%; descent-override: 29.92%; line-gap-override: 8.55%; size-adjust: 116.97%; }
                 @font-face { font-family: 'Poppins ExtraBold Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 88.85%; descent-override: 29.62%; line-gap-override: 8.46%; size-adjust: 118.17%; }
+                @font-face { font-family: 'Inter Light Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 93.44%; descent-override: 23.26%; line-gap-override: 0.00%; size-adjust: 103.68%; }
+                @font-face { font-family: 'Inter Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 91.59%; descent-override: 22.81%; line-gap-override: 0.00%; size-adjust: 105.77%; }
+                @font-face { font-family: 'Inter Bold Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 88.18%; descent-override: 21.96%; line-gap-override: 0.00%; size-adjust: 109.86%; }
             </style>
         {% endblock %}
 
@@ -33,22 +36,25 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-    <body class="bg-white">
+    <body class="bg-white min-h-screen flex flex-col">
         {% block body %}
             <section class="py-10">
                 <div class="container max-w-screen-xl mx-auto px-8 xl:px-4">
                     <nav class="flex items-center justify-between">
                         <a href="{{ path('app_home') }}" title="Bakslash">
-                            <img src="{{ asset('images/bakslash.svg') }}" alt="baksla.sh" class="h-10" loading="eager" fetchpriority="high" width="300" height="40">
+                            <img src="{{ asset('images/bakslash.svg') }}" alt="baksla.sh" class="h-10 hidden sm:block" loading="eager" fetchpriority="high" width="300" height="40">
+                            <twig:UX:Icon name="logos:bakslash" aria-label="baksla.sh" class="h-10 sm:hidden" />
                         </a>
-                        <twig:CopyEmail class="hidden lg:block font-medium lg:font-semibold text-slate-800 text-xl hover:underline underline-offset-3 decoration-4 decoration-indigo-500" tooltip-class="-mt-6" />
+                        <twig:CopyEmail class="font-medium lg:font-semibold text-slate-800 text-xl hover:underline underline-offset-3 decoration-4 decoration-indigo-500" tooltip-class="-ml-6" />
                     </nav>
                 </div>
             </section>
 
-            {% block content %}{% endblock %}
+            <div class="grow">
+                {% block content %}{% endblock %}
+            </div>
 
-            <footer class="py-10 bg-gray-100">
+            <footer class="py-10">
                 <div class="container max-w-screen-xl mx-auto px-4 md:px-8 flex items-center md:flex-row flex-col md:justify-between">
                 <span class="text-sm text-slate-700 flex items-center md:justify-start justify-center">
                     {{- 'footer.copyright'|trans({
@@ -56,6 +62,11 @@
                     }) -}}
                 </span>
                     <ul class="flex flex-wrap justify-center items-center mt-3 text-md font-medium sm:mt-0">
+                        <li>
+                            <a href="{{ path('app_blog') }}" class="opacity-50 hover:opacity-100 hover:underline me-4 md:me-6">
+                                {{- 'footer.link.blog'|trans -}}
+                            </a>
+                        </li>
                         <li>
                             <a href="{{ path('app_legal_notices') }}" class="opacity-50 hover:opacity-100 hover:underline me-4 md:me-6">
                                 {{- 'footer.link.legal_notices'|trans -}}

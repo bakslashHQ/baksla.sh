@@ -1,10 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./assets/**/*.js', './templates/**/*.html.twig'],
+  content: ['./assets/**/*.js', './templates/**/*.html.twig', './src/Blog/Infrastructure/League/CommonMark/LeagueMarkdownConverter.php'],
   theme: {
     extend: {
       fontFamily: {
         sans: ['Poppins', 'Poppins Fallback'],
+        article: ['Inter', 'Inter Fallback'],
         handwritten: ['Kalam', 'Kalam Fallback'],
       },
       colors: {
