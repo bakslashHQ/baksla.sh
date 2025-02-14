@@ -35,10 +35,16 @@
         {% block javascripts %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_measurement_id }}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '{{ ga_measurement_id }}');
+        </script>
     </head>
     <body class="bg-white min-h-screen flex flex-col">
-        <div data-controller="analytics" data-analytics-measurement-id-value="{{ ga_measurement_id }}"></div>
-
         {% block body %}
             <section class="py-10">
                 <div class="container max-w-screen-xl mx-auto px-8 xl:px-4">
