@@ -37,6 +37,8 @@
         {% endblock %}
     </head>
     <body class="bg-white min-h-screen flex flex-col">
+        <div data-controller="analytics" data-analytics-measurement-id-value="{{ ga_measurement_id }}" />
+
         {% block body %}
             <section class="py-10">
                 <div class="container max-w-screen-xl mx-auto px-8 xl:px-4">
