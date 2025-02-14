@@ -51,7 +51,7 @@ final readonly class ViewArticle
         }
 
         $more = [];
-        $keys = $articles !== [] ? array_rand($articles, min(self::MORE_COUNT, \count($articles))) : [];
+        $keys = $articles !== [] ? (array) array_rand($articles, min(self::MORE_COUNT, \count($articles))) : [];
 
         for ($i = 0; $i < self::MORE_COUNT; ++$i) {
             $key = $keys[$i] ?? null;
