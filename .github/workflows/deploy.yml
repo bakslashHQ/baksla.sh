@@ -15,6 +15,6 @@ jobs:
         ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
 
     - name: connect pull and build
-      run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "./web/bakslash/deploy.sh"
+      run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "./web/baksla.sh/deploy.sh"
     - name: cleanup
       run: rm -rf ~/.ssh
