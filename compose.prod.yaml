@@ -5,4 +5,6 @@ services:
       target: frankenphp_prod
     environment:
       APP_SECRET: ${APP_SECRET}
-      DEFAULT_URI: https://baksla.sh
+      DEFAULT_URI: ${DEFAULT_URI}
+      GA_APP_NAME: ${GA_APP_NAME}
+      GA_MEASUREMENT_ID: ${GA_MEASUREMENT_ID}

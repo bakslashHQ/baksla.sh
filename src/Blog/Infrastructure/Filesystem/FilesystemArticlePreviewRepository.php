@@ -15,7 +15,7 @@ final readonly class FilesystemArticlePreviewRepository implements ArticlePrevie
 {
     public function __construct(
         private ArticlePreviewFactory $articlePreviewFactory,
-        #[Autowire(env: 'SHOWCASED_ARTICLE')]
+        #[Autowire(param: 'app.showcased_article')]
         private ?string $showcasedArticle,
         #[Autowire(param: 'app.articles_dir')]
         private string $articlesDir,
