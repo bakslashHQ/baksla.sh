@@ -18,6 +18,9 @@ export default class extends Controller {
       plugins: [
         googleAnalytics({
           measurementIds: [this.measurementIdValue],
+          gtagConfig: {
+            anonymize_ip: true,
+          },
         }),
       ],
     });
