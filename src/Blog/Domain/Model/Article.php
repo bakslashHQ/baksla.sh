@@ -15,12 +15,6 @@ final readonly class Article
         public string $html,
         public Author $author,
     ) {
-        $this->hash = md5(json_encode([
-            'id' => $id,
-            'title' => $title,
-            'description' => $description,
-            'html' => $html,
-            'author' => $author,
-        ]) ?: '');
+        $this->hash = hash('xxh128', json_encode($this) ?: '');
     }
 }

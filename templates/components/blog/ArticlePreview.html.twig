@@ -16,7 +16,7 @@
                 <div class="flex-auto">
                     <div class="font-semibold">{{ author.name }}</div>
                     {% if author.bsky is defined %}
-                        <div class="text-gray-600">@{{ author.bsky }}</div>
+                        <a href="https://bsky.app/profile/{{ author.bsky }}" class="text-gray-600 hover:underline">@{{ author.bsky }}</a>
                     {% endif %}
                 </div>
             </div>

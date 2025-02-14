@@ -23,7 +23,7 @@ final class ViewBlogTest extends FunctionalTestCase
 
         $this->get('/blog');
 
-        $this->assertSelectorCount(count($articlePreviewRepository->findAll()), '[data-test-articles] article a');
+        $this->assertSelectorCount(count($articlePreviewRepository->findAll()), '[data-test-articles] article > a');
     }
 
     public function testShowcasedArticleIsDisplayedIfEnabled(): void
