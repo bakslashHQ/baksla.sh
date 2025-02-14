@@ -37,7 +37,7 @@
         {% endblock %}
     </head>
     <body class="bg-white min-h-screen flex flex-col">
-        <div data-controller="analytics" data-analytics-measurement-id-value="{{ ga_measurement_id }}" />
+        <div data-controller="analytics" data-analytics-measurement-id-value="{{ ga_measurement_id }}"></div>
 
         {% block body %}
             <section class="py-10">
@@ -45,7 +45,7 @@
                     <nav class="flex items-center justify-between">
                         <a href="{{ path('app_home') }}" title="Bakslash">
                             <img src="{{ asset('images/bakslash.svg') }}" alt="baksla.sh" class="h-10 hidden sm:block" loading="eager" fetchpriority="high" width="300" height="40">
-                            <twig:UX:Icon name="logos:bakslash" aria-label="baksla.sh" class="h-10 sm:hidden" />
+                            <img src="{{ asset('images/bakslash-small.svg') }}" alt="baksla.sh" class="size-10 sm:hidden" loading="eager" fetchpriority="high" width="62" height="62">
                         </a>
                         <twig:CopyEmail class="font-medium lg:font-semibold text-slate-800 text-xl hover:underline underline-offset-3 decoration-4 decoration-indigo-500" tooltip-class="-ml-6" />
                     </nav>
