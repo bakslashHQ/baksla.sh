@@ -1,6 +1,4 @@
-import googleAnalytics from '@analytics/google-analytics';
 import { Controller } from '@hotwired/stimulus';
-import Analytics from 'analytics';
 
 /**
  * @property {String} appNameValue
@@ -13,18 +11,22 @@ export default class extends Controller {
   };
 
   connect() {
-    const analytics = Analytics({
-      app: this.appNameValue,
-      plugins: [
-        googleAnalytics({
-          measurementIds: [this.measurementIdValue],
-          gtagConfig: {
-            anonymize_ip: true,
-          },
-        }),
-      ],
-    });
+    import('@analytics/google-analytics').then((googleAnalytics) => {
+      import('analytics').then((Analytics) => {
+        const analytics = Analytics.default({
+          app: this.appNameValue,
+          plugins: [
+            googleAnalytics.default({
+              measurementIds: [this.measurementIdValue],
+              gtagConfig: {
+                anonymize_ip: true,
+              },
+            }),
+          ],
+        });
 
-    analytics.page();
+        analytics.page();
+      });
+    });
   }
 }
