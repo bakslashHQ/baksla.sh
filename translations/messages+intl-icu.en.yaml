@@ -1,9 +1,6 @@
 home.seo.title: baksla.sh
 home.seo.description: A real OSS company, Symfony evangelist with pragmatic technologists
 
-email.contact_us.cta: Contact us at
-email.copy.copied_to_clipboard: Email copied to clipboard!
-
 home.hero.we_are_experts: <0>We are</0> <1></1> <2></2> <3></3>
 home.hero.words.experts: 'experts.'
 home.hero.words.lovers: 'lovers.'
@@ -44,7 +41,7 @@ home.products.quote.detail: |
 
 home.blog.title: Echo from <0>the Blog</0>
 
-home.partners.they_trust_us.title: "They've already put their trust in us, be part of it and contact us at: <0>"
+home.partners.they_trust_us.title: "They've already put their trust in us, be part of it and contact us at: <0/>"
 
 footer.copyright: © {year} baksla.sh™. All Rights Reserved.
 footer.link.legal_notices: Legal Notices
