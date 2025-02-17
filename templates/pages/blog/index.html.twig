@@ -4,21 +4,11 @@
 
 {% block seo %}
     <meta name="description" content="{{ 'blog.seo.description'|trans|raw }}">
-
-    <!-- Opengraph Meta Tags -->
     <meta property="og:url" content="{{ app.request.uri }}">
     <meta property="og:type" content="website">
     <meta property="og:title" content="{{ 'blog.seo.title'|trans|raw }}">
     <meta property="og:description" content="{{ 'blog.seo.description'|trans|raw }}">
-    <meta property="og:image" content="{{ asset('images/bakslash.svg') }}">
-
-    <!-- X Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta property="twitter:domain" content="{{ app.request.getSchemeAndHttpHost() }}">
-    <meta property="twitter:url" content="{{ app.request.uri }}">
-    <meta name="twitter:title" content="{{ 'blog.seo.title'|trans|raw }}">
-    <meta name="twitter:description" content="{{ 'blog.seo.description'|trans|raw }}">
-    <meta name="twitter:image" content="{{ asset('images/bakslash.svg') }}">
+    <meta property="og:image" content="{{ asset('images/og.png') }}">
 {% endblock %}
 
 {% block content %}
