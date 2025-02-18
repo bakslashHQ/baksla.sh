@@ -1,4 +1,4 @@
-<section class="bg-gray-50 pt-24 sm:pt-32">
+<section aria-label="baksla.sh's solutions" class="bg-gray-50 pt-24 sm:pt-32">
     <div class="mx-auto max-w-2xl lg:max-w-7xl px-6 xl:px-8">
         <h2 class="mx-auto mt-2 max-w-2xl text-balance text-center text-4xl font-bold tracking-tight text-slate-800 sm:text-6xl">
             {{- 'home.products.title'|trans|replace({
@@ -12,10 +12,10 @@
                 <div class="absolute inset-px rounded-lg bg-white lg:rounded-l-[2rem] max-lg:rounded-t-[2rem]"></div>
                 <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] lg:rounded-l-[calc(2rem+1px)] max-lg:rounded-t-[calc(2rem+1px)]">
                     <div class="px-8 pb-3 sm:px-10 sm:pb-0">
-                        <p class="my-2 text-2xl font-semibold tracking-tight text-slate-900">
+                        <h3 class="my-2 text-2xl font-semibold tracking-tight text-slate-900">
                             {{- 'home.products.product.custom_symfony_development.title'|trans -}}
-                        </p>
-                        <span class="rounded-full bg-indigo-200 px-3 py-1 text-xs text-gray-900">Implementation</span>
+                        </h3>
+                        <span class="rounded-full bg-indigo-200 px-3 py-1 text-xs text-gray-900">{{ 'home.products.product.tag.implementation'|trans }}</span>
                         <p class="mt-6 max-w-lg max-lg:text-sm/6 text-md/6 text-gray-600">
                             {{- 'home.products.product.custom_symfony_development.content'|trans|replace({
                                 '<0>': '<span class="font-bold">',
@@ -23,7 +23,7 @@
                             })|raw -}}
                         </p>
                     </div>
-                    <div class="relative min-h-[30rem] w-full grow">
+                    <figure class="relative min-h-[30rem] w-full grow" aria-hidden="true">
                         <div class="absolute bottom-0 left-10 right-0 top-10 overflow-hidden rounded-tl-xl bg-code-dark-gray shadow-2xl">
                             <div class="flex bg-gray-800/40 ring-1 ring-white/5">
                                 <div class="-mb-px flex text-sm/6 font-medium text-gray-400">
@@ -65,7 +65,7 @@
                                 </code>
                             </div>
                         </div>
-                    </div>
+                    </figure>
                 </div>
                 <div class="pointer-events-none absolute inset-px rounded-lg shadow-2xl ring-2 ring-indigo-500 shadow-indigo-500/20 lg:rounded-l-[2rem] max-lg:rounded-t-[2rem]"></div>
             </div>
@@ -74,19 +74,19 @@
                 <div class="absolute inset-px rounded-lg bg-white"></div>
                 <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)]">
                     <div class="px-8 sm:px-10">
-                        <p class="my-2 text-2xl font-semibold tracking-tight text-slate-900">
+                        <h3 class="my-2 text-2xl font-semibold tracking-tight text-slate-900">
                             {{- 'home.products.product.coaching.title'|trans -}}
-                        </p>
-                        <span class="rounded-full bg-purple-200 px-3 py-1 text-xs text-gray-900">Upskill</span>
+                        </h3>
+                        <span class="rounded-full bg-purple-200 px-3 py-1 text-xs text-gray-900">{{ 'home.products.product.tag.upskill'|trans }}</span>
                         <p class="mt-6 max-w-lg max-lg:text-sm/6 text-md/6 text-gray-600">
                             {{- 'home.products.product.coaching.content'|trans|replace({
-                                '<0>': '</p><ul role="list" class="mt-5 pl-5 max-lg:text-sm/6 text-md/6 text-gray-600"><li class="flex items-center gap-x-3 mb-2">' ~ component('UX:Icon', {name: 'mdi:brain', 'aria-label': 'Brain', class: 'size-6 flex-none text-purple-600'}),
+                                '<0>': '</p><ul role="list" class="mt-5 pl-5 max-lg:text-sm/6 text-md/6 text-gray-600"><li class="flex items-center gap-x-3 mb-2">' ~ component('UX:Icon', {name: 'mdi:brain', 'aria-hidden': true, class: 'size-6 flex-none text-purple-600'}),
                                 '</0>': '</li>',
-                                '<1>': '<li class="flex items-center gap-x-3 mb-2">' ~ component('UX:Icon', {name: 'mdi:tooltip-question-outline', 'aria-label': 'Question', class: 'size-6 flex-none text-purple-600'}),
+                                '<1>': '<li class="flex items-center gap-x-3 mb-2">' ~ component('UX:Icon', {name: 'mdi:tooltip-question-outline', 'aria-hidden': true, class: 'size-6 flex-none text-purple-600'}),
                                 '</1>': '</li>',
-                                '<2>': '<li class="flex items-center gap-x-3 mb-2">' ~ component('UX:Icon', {name: 'mdi:format-list-bulleted-type', 'aria-label': 'List', class: 'size-6 flex-none text-purple-600'}),
+                                '<2>': '<li class="flex items-center gap-x-3 mb-2">' ~ component('UX:Icon', {name: 'mdi:format-list-bulleted-type', 'aria-hidden': true, class: 'size-6 flex-none text-purple-600'}),
                                 '</2>': '</li>',
-                                '<3>': '<li class="flex items-center gap-x-3">' ~ component('UX:Icon', {name: 'mdi:magnify-scan', 'aria-label': 'Magnifier', class: 'size-6 flex-none text-purple-600'}),
+                                '<3>': '<li class="flex items-center gap-x-3">' ~ component('UX:Icon', {name: 'mdi:magnify-scan', 'aria-hidden': true, class: 'size-6 flex-none text-purple-600'}),
                                 '</3>': '</li></ul><p class="mt-6 max-w-lg max-lg:text-sm/6 text-md/6 text-gray-600">',
                             })|raw -}}
                         </p>
@@ -99,10 +99,10 @@
                 <div class="absolute inset-px rounded-lg bg-white"></div>
                 <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)]">
                     <div class="px-8 sm:px-10 z-10">
-                        <p class="my-2 text-2xl font-semibold tracking-tight text-slate-900">
+                        <h3 class="my-2 text-2xl font-semibold tracking-tight text-slate-900">
                             {{- 'home.products.product.architecture.title'|trans -}}
-                        </p>
-                        <span class="rounded-full bg-violet-200 px-3 py-1 text-xs text-gray-900">Expertise</span>
+                        </h3>
+                        <span class="rounded-full bg-violet-200 px-3 py-1 text-xs text-gray-900">{{ 'home.products.product.tag.expertise'|trans }}</span>
                         <p class="mt-6 max-w-lg max-lg:text-sm/6 text-md/6 text-gray-600 mix-blend-exclusion">
                             {{- 'home.products.product.architecture.content'|trans|replace({
                                 '<0>': '<span class="font-bold">',
@@ -112,10 +112,10 @@
                             })|raw -}}
                         </p>
                     </div>
-                    <div class="relative h-[10rem] w-full grow">
+                    <div class="relative h-[10rem] w-full grow" aria-hidden="true">
                         <div class="absolute bottom-0 left-0 right-10 top-10 overflow-hidden rounded-tr-xl bg-gray-100 shadow-2xl">
                             <div class="flex bg-gray-400/40 ring-1 ring-gray-600/10">
-                                <div class="-mb-px flex text-sm/6 font-medium text-gray-500 border-b border-b-black/20">
+                                <div class="-mb-px flex text-sm/6 font-medium text-gray-600 border-b border-b-black/20">
                                     <div class="border-r border-gray-600/10 px-4 py-2">Visitor</div>
                                     <div class="border-r border-r-black/10 bg-gray-200 px-4 py-2 text-gray-700 font-semibold">Decorator</div>
                                 </div>
@@ -131,15 +131,15 @@
                 <div class="absolute inset-px rounded-lg bg-white lg:rounded-tr-[2rem]"></div>
                 <div class="relative h-full flex flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] lg:rounded-tr-[calc(2rem+1px)]">
                     <div class="px-8 pb-3 sm:px-10 sm:pb-0">
-                        <p class="my-2 text-2xl font-semibold tracking-tight text-slate-900">
+                        <h3 class="my-2 text-2xl font-semibold tracking-tight text-slate-900">
                             {{- 'home.products.product.cto_as_a_service.title'|trans -}}
-                        </p>
-                        <span class="rounded-full bg-indigo-200 px-3 py-1 text-xs text-gray-900">Implementation</span>
+                        </h3>
+                        <span class="rounded-full bg-indigo-200 px-3 py-1 text-xs text-gray-900">{{ 'home.products.product.tag.implementation'|trans }}</span>
                         <p class="mt-6 max-w-lg max-lg:text-sm/6 text-md/6 text-gray-600">
                             {{- 'home.products.product.cto_as_a_service.content'|trans -}}
                         </p>
                     </div>
-                    <div class="relative min-h-[10rem] w-full grow [container-type:inline-size] opacity-50">
+                    <div class="relative min-h-[10rem] w-full grow [container-type:inline-size] opacity-50" aria-hidden="true">
                         <div class="absolute inset-0 overflow-hidden">
                             <img class="size-full object-cover object-top" src="{{ asset('images/chart.svg') }}" alt="Chart" loading="lazy" width="336" height="212">
                         </div>
@@ -152,17 +152,17 @@
                 <div class="absolute inset-px rounded-lg bg-white lg:rounded-br-[2rem]"></div>
                 <div class="relative flex flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] lg:rounded-br-[calc(2rem+1px)]">
                     <div class="px-8 pb-3 sm:px-10 sm:pb-0">
-                        <p class="my-2 text-2xl font-semibold tracking-tight text-slate-900">
+                        <h3 class="my-2 text-2xl font-semibold tracking-tight text-slate-900">
                             {{- 'home.products.product.workshops_and_trainings.title'|trans -}}
-                        </p>
-                        <span class="rounded-full bg-purple-200 px-3 py-1 text-xs text-gray-900">Upskill</span>
+                        </h3>
+                        <span class="rounded-full bg-purple-200 px-3 py-1 text-xs text-gray-900">{{ 'home.products.product.tag.upskill'|trans }}</span>
                         <p class="mt-6 max-w-lg max-lg:text-sm/6 text-md/6 text-gray-600">
                             {{- 'home.products.product.workshops_and_trainings.content'|trans|replace({
-                                '<0>': '</p><ul role="list" class="mt-5 pl-5 max-lg:text-sm/6 text-md/6 text-gray-600"><li class="flex items-center gap-x-3 mb-2">' ~ component('UX:Icon', {name: 'logos:symfony', 'aria-label': 'Symfony', class: 'inline size-6 flex-none'}),
+                                '<0>': '</p><ul role="list" class="mt-5 pl-5 max-lg:text-sm/6 text-md/6 text-gray-600"><li class="flex items-center gap-x-3 mb-2">' ~ component('UX:Icon', {name: 'logos:symfony', 'aria-hidden': true, class: 'inline size-6 flex-none'}),
                                 '</0>': '</li>',
-                                '<1>': '<li class="flex items-center gap-x-3 mb-2">' ~ component('UX:Icon', {name: 'logos:api-platform', 'aria-label': 'API Platform', class: 'inline size-6 flex-none'}),
+                                '<1>': '<li class="flex items-center gap-x-3 mb-2">' ~ component('UX:Icon', {name: 'logos:api-platform', 'aria-hidden': true, class: 'inline size-6 flex-none'}),
                                 '</1>': '</li>',
-                                '<2>': '<li class="flex items-center gap-x-3">' ~ component('UX:Icon', {name: 'hugeicons:clean', 'aria-label': 'Clean Code', class: 'inline size-6 flex-none text-purple-600'}),
+                                '<2>': '<li class="flex items-center gap-x-3">' ~ component('UX:Icon', {name: 'hugeicons:clean', 'aria-hidden': true, class: 'inline size-6 flex-none text-purple-600'}),
                                 '</2>': '</li></ul><p class="mt-6 max-w-lg max-lg:text-sm/6 text-md/6 text-gray-600">',
                             })|raw -}}
                         </p>

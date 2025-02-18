@@ -38,6 +38,8 @@ final class LeagueMarkdownConverterTest extends TestCase
         yield ['#<ul class=".*(?!list-).*">#', '* foo'];
         yield ['#<ul class=".*mb-6.*">#', '- foo'];
         yield ['#<ul class=".*mb-3.*">#', "- foo\n1. bar"];
+        yield ['#<ul class=".*pl-12.*">#', '- foo'];
+        yield ['#<ol class=".*pl-8.*">#', "- foo\n1. bar"];
         yield ['#<div class="code"><pre data-lang="php" class="notranslate">#', "```php\necho 'hi';\n```"];
         yield ['#🚀#', ':rocket:'];
     }

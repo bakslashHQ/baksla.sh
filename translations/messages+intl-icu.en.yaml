@@ -23,6 +23,9 @@ home.code.pragmatic_technologists.content_1: We always take the pragmatic approa
 home.code.pragmatic_technologists.content_2: We help our clients craft architectures that are tailored to their actual needs, keeping the business at the center of the discussion, and making sure that our technical decisions align with the client's goals and drive real value.
 
 home.products.title: Our tailored solutions <0>built to last</0>.
+home.products.product.tag.expertise: Expertise
+home.products.product.tag.implementation: Implementation
+home.products.product.tag.upskill: Upskill
 home.products.product.custom_symfony_development.title: Custom Symfony development
 home.products.product.custom_symfony_development.content: We help you to create scalable and maintainable applications tailored to your specific needs, leveraging the expertise of our talented and passionate developers.
 home.products.product.coaching.title: Coaching "à la carte"
