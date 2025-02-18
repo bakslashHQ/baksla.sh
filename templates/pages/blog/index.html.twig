@@ -8,7 +8,7 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="{{ 'blog.seo.title'|trans|raw }}">
     <meta property="og:description" content="{{ 'blog.seo.description'|trans|raw }}">
-    <meta property="og:image" content="{{ asset('images/og.png')|absolute_url }}">
+    <meta property="og:image" content="{{ absolute_url(asset('images/og.png')) }}">
 {% endblock %}
 
 {% block content %}
