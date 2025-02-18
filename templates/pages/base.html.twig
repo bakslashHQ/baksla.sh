@@ -40,60 +40,58 @@
         <div data-controller="analytics" data-analytics-measurement-id-value="{{ ga_measurement_id }}" data-analytics-app-name-value="{{ ga_app_name }}"></div>
 
         {% block body %}
-            <section class="py-10">
+            <header class="py-10">
                 <div class="container max-w-screen-xl mx-auto px-8 xl:px-4">
                     <nav class="flex items-center justify-between">
-                        <a href="{{ path('app_home') }}" title="Bakslash">
-                            <img src="{{ asset('images/bakslash.svg') }}" alt="baksla.sh" class="h-10 hidden sm:block" loading="eager" fetchpriority="high" width="300" height="40">
-                            <img src="{{ asset('images/bakslash-small.svg') }}" alt="baksla.sh" class="size-10 sm:hidden" loading="eager" fetchpriority="high" width="62" height="62">
+                        <a href="{{ path('app_home') }}" title="baksla.sh">
+                            <img src="{{ asset('images/bakslash.svg') }}" alt="baksla.sh" class="h-11 hidden sm:block" loading="eager" fetchpriority="high" width="300" height="40">
+                            <img src="{{ asset('images/bakslash-small.svg') }}" alt="baksla.sh" aria-hidden="true" class="size-11 sm:hidden" loading="eager" fetchpriority="high" width="62" height="62">
                         </a>
-                        <a href="mailto:hello@baksla.sh" class="font-medium lg:font-semibold text-slate-800 text-xl hover:underline underline-offset-3 decoration-4 decoration-indigo-500">hello@baksla.sh</a>
+                        <a href="mailto:hello@baksla.sh" class="py-2 font-medium lg:font-semibold text-slate-800 text-xl hover:underline underline-offset-3 decoration-4 decoration-indigo-500">hello@baksla.sh</a>
                     </nav>
                 </div>
-            </section>
+            </header>
 
-            <div class="grow">
+            <main class="grow">
                 {% block content %}{% endblock %}
-            </div>
+            </main>
 
             <footer class="py-10">
                 <div class="container max-w-screen-xl mx-auto px-4 md:px-8 flex items-center md:flex-row flex-col md:justify-between">
-                <span class="text-sm text-slate-700 flex items-center md:justify-start justify-center">
-                    {{- 'footer.copyright'|trans({
-                        year: 'now'|date('Y'),
-                    }) -}}
-                </span>
-                    <ul class="flex flex-wrap justify-center items-center mt-3 text-md font-medium sm:mt-0">
+                    <span class="text-sm text-slate-700 flex items-center md:justify-start justify-center">
+                        {{- 'footer.copyright'|trans({year: 'now'|date('Y')}) -}}
+                    </span>
+                    <ul class="flex flex-wrap justify-center items-center mt-3 text-slate-700 text-sm sm:mt-0">
                         <li>
-                            <a href="{{ path('app_blog') }}" class="opacity-50 hover:opacity-100 hover:underline me-4 md:me-6">
+                            <a href="{{ path('app_blog') }}" class="hover:underline me-4 md:me-6 py-4">
                                 {{- 'footer.link.blog'|trans -}}
                             </a>
                         </li>
                         <li>
-                            <a href="{{ path('app_legal_notices') }}" class="opacity-50 hover:opacity-100 hover:underline me-4 md:me-6">
+                            <a href="{{ path('app_legal_notices') }}" class="hover:underline me-4 md:me-6 py-4">
                                 {{- 'footer.link.legal_notices'|trans -}}
                             </a>
                         </li>
                     </ul>
                     <ul class="flex flex-wrap justify-center items-center mt-3 text-sm font-medium sm:mt-0">
                         <li class="h-full">
-                            <a href="https://github.com/bakslashHQ" class="hover:underline me-4 md:me-6 h-full flex items-center">
-                                <twig:UX:Icon name="logos:github" alt="github" class="h-5 mt-2 md:h-6 md:mt-0 opacity-50 hover:opacity-100 grayscale hover:grayscale-0 transition" />
+                            <a href="https://github.com/bakslashHQ" aria-label="github" class="hover:underline me-4 md:me-6 h-full flex items-center">
+                                <twig:UX:Icon name="logos:github" alt="github" class="h-5 mt-2 md:h-6 md:mt-0 opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition" />
                             </a>
                         </li>
                         <li>
-                            <a href="https://x.com/BakslashHQ" class="hover:underline me-4 md:me-6 h-full flex items-center">
-                                <twig:UX:Icon name="logos:x" alt="X (Twitter)" class="h-5 mt-2 md:h-6 md:mt-0 opacity-50 hover:opacity-100 grayscale hover:grayscale-0 transition" />
+                            <a href="https://x.com/BakslashHQ" aria-label="x" class="hover:underline me-4 md:me-6 h-full flex items-center">
+                                <twig:UX:Icon name="logos:x" alt="X (Twitter)" class="h-5 mt-2 md:h-6 md:mt-0 opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition" />
                             </a>
                         </li>
                         <li>
-                            <a href="https://bsky.app/profile/baksla.sh" class="hover:underline me-4 md:me-6 h-full flex items-center">
-                                <twig:UX:Icon name="logos:bluesky" alt="Bluesky" class="h-5 mt-2 md:h-6 md:mt-0 opacity-50 hover:opacity-100 grayscale hover:grayscale-0 transition" />
+                            <a href="https://bsky.app/profile/baksla.sh" aria-label="bluesky" class="hover:underline me-4 md:me-6 h-full flex items-center">
+                                <twig:UX:Icon name="logos:bluesky" alt="Bluesky" class="h-5 mt-2 md:h-6 md:mt-0 opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition" />
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.linkedin.com/company/bakslashhq" class="hover:underline me-4 md:me-6 h-full flex items-center">
-                                <twig:UX:Icon name="logos:linkedin" alt="LinkedIn" class="h-5 mt-2 md:h-6 md:mt-0 opacity-30 hover:opacity-100 grayscale hover:grayscale-0 transition" />
+                            <a href="https://www.linkedin.com/company/bakslashhq" aria-label="linkedin" class="hover:underline me-4 md:me-6 h-full flex items-center">
+                                <twig:UX:Icon name="logos:linkedin" alt="LinkedIn" class="h-5 mt-2 md:h-6 md:mt-0 opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition" />
                             </a>
                         </li>
                     </ul>

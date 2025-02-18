@@ -49,13 +49,13 @@ final class LeagueMarkdownConverter
                         'class' => ['font-semibold'],
                     ],
                     Inline\Link::class => [
-                        'class' => ['text-blue-700', 'underline', 'underline-offset-4'],
+                        'class' => ['text-blue-800', 'underline', 'underline-offset-4'],
                     ],
                     Inline\Image::class => [
                         'class' => ['rounded-lg', 'shadow-lg', 'mx-auto', 'my-20'],
                     ],
                     Block\BlockQuote::class => [
-                        'class' => ['border-s-4', 'border-gray-300', 'px-4', 'my-6', 'text-gray-600'],
+                        'class' => ['border-s-4', 'border-gray-300', 'px-4', 'my-6', 'text-gray-700'],
                     ],
                     Block\Heading::class => [
                         'class' => static function (Block\Heading $node): array {
@@ -95,10 +95,16 @@ final class LeagueMarkdownConverter
                                 $node->getListData()->bulletChar === '-' => 'list-disc',
                                 default => '',
                             };
+                            $paddingClass = match ($node->getListData()->padding) {
+                                3 => 'pl-8',
+                                2 => 'pl-12',
+                                1 => 'pl-16',
+                                default => '',
+                            };
 
                             $marginClass = $node->next() instanceof Block\ListBlock ? 'mb-3' : 'mb-6';
 
-                            return [$listBulletClass, $marginClass, 'pl-12'];
+                            return [$listBulletClass, $paddingClass, $marginClass];
                         },
                     ],
                 ],
