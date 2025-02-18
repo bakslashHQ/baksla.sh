@@ -15,7 +15,7 @@
     <div class="isolate pb-12 md:pb-32">
         {% include 'pages/_bg_shape.html.twig' %}
 
-        <div class="mx-auto max-w-3xl px-6 lg:max-w-5xl lg:px-8 py-20 sm:py-36">
+        <section class="mx-auto max-w-3xl px-6 lg:max-w-5xl lg:px-8 py-20 sm:py-36">
             <h1 class="sm:text-center text-5xl font-bold tracking-tight text-pretty text-slate-800 sm:text-6xl">
                 {{- article.title -}}
             </h1>
@@ -28,13 +28,13 @@
                     {% endif %}
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="mx-auto max-w-3xl lg:max-w-5xl px-6 lg:px-8 text-gray-800 text-lg font-article" data-test-article>
+        <section class="mx-auto max-w-3xl lg:max-w-5xl px-6 lg:px-8 text-gray-800 text-lg font-article" data-test-article>
             {{- article.html|raw -}}
-        </div>
+        </section>
 
-        <div class="mx-auto max-w-3xl lg:max-w-5xl px-6 lg:px-8 mt-28">
+        <section class="mx-auto max-w-3xl lg:max-w-5xl px-6 lg:px-8 mt-28">
             <hr class="my-10" />
 
             <div class="mx-auto max-w-2xl lg:mx-0">
@@ -53,6 +53,6 @@
                     {% endif %}
                 {% endfor %}
             </div>
-        </div>
+        </section>
     </div>
 {% endblock %}

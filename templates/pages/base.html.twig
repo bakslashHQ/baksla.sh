@@ -47,7 +47,13 @@
                             <img src="{{ asset('images/bakslash.svg') }}" alt="baksla.sh" class="h-11 hidden sm:block" loading="eager" fetchpriority="high" width="300" height="40">
                             <img src="{{ asset('images/bakslash-small.svg') }}" alt="baksla.sh" aria-hidden="true" class="size-11 sm:hidden" loading="eager" fetchpriority="high" width="62" height="62">
                         </a>
-                        <a href="mailto:hello@baksla.sh" class="py-2 font-medium lg:font-semibold text-slate-800 text-xl hover:underline underline-offset-3 decoration-4 decoration-indigo-500">hello@baksla.sh</a>
+                        <div class="flex justify-center items-center gap-x-6">
+                            {% if app.request.get('_route') != 'app_blog' %}
+                            <a href="{{ path('app_blog') }}" class="py-2 font-medium text-slate-800 text-lg hover:underline underline-offset-3 decoration-4 decoration-indigo-500">{{ 'header.link.blog'|trans }}</a>
+                            <div class="border-r border-gray-300 h-6"></div>
+                            {% endif %}
+                            <a href="mailto:hello@baksla.sh" class="py-2 font-medium text-slate-800 text-lg hover:underline underline-offset-3 decoration-4 decoration-indigo-500">hello@baksla.sh</a>
+                        </div>
                     </nav>
                 </div>
             </header>
