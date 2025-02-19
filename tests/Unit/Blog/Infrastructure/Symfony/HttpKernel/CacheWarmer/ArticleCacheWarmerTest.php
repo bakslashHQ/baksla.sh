@@ -9,6 +9,7 @@ use App\Blog\Domain\Repository\ArticleRepository;
 use App\Blog\Infrastructure\Cache\CacheArticlePreviewRepository;
 use App\Blog\Infrastructure\Cache\CacheArticleRepository;
 use App\Blog\Infrastructure\Symfony\HttpKernel\CacheWarmer\ArticleCacheWarmer;
+use App\Tests\Fake\FakeBlogOpenGraphImageGenerator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\Filesystem\Filesystem;
@@ -17,7 +18,11 @@ final class ArticleCacheWarmerTest extends TestCase
 {
     private Filesystem $fs;
 
+    private string $tmpDir;
+
     private string $articlesDir;
+
+    private string $publicDir;
 
     protected function setUp(): void
     {
@@ -25,19 +30,32 @@ final class ArticleCacheWarmerTest extends TestCase
 
         $this->fs = new Filesystem();
 
-        $this->articlesDir = \sprintf('%s/bakslash_test/articles', sys_get_temp_dir());
+        $this->tmpDir = $this->fs->tempnam(sys_get_temp_dir(), '');
+        $this->fs->remove($this->tmpDir);
+        $this->fs->mkdir($this->tmpDir);
 
-        if ($this->fs->exists($this->articlesDir)) {
-            $this->fs->remove($this->articlesDir);
-        }
-
+        $this->articlesDir = \sprintf('%s/articles', $this->tmpDir);
         $this->fs->mkdir($this->articlesDir);
+
+        $this->publicDir = \sprintf('%s/public', $this->tmpDir);
+        $this->fs->mkdir($this->publicDir);
     }
 
-    public function testWamup(): void
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        $this->fs->remove($this->tmpDir);
+    }
+
+    public function testWarmup(): void
     {
         $articleRepository = $this->createStub(ArticleRepository::class);
         $articleRepository->method('get')->willReturn(anArticle()->build());
+        $articleRepository->method('findAll')->willReturn([
+            anArticle()->withId('symfony-certification')->build(),
+            anArticle()->withId('doctrine-query-builder-setmaxresults')->build(),
+        ]);
 
         $articlePreviewRepository = $this->createStub(ArticlePreviewRepository::class);
         $articlePreviewRepository->method('get')->willReturn(anArticlePreview()->build());
@@ -47,13 +65,24 @@ final class ArticleCacheWarmerTest extends TestCase
 
         $articleRepository = new CacheArticleRepository($articleCache = new ArrayAdapter(), $articleRepository);
         $articlePreviewRepository = new CacheArticlePreviewRepository($articlePreviewCache = new ArrayAdapter(), $articlePreviewRepository);
+        $openGraphImageGenerator = new FakeBlogOpenGraphImageGenerator();
 
-        $cacheWarmer = new ArticleCacheWarmer($articleRepository, $articlePreviewRepository, $this->articlesDir);
+        $cacheWarmer = new ArticleCacheWarmer(
+            $articleRepository,
+            $articlePreviewRepository,
+            $openGraphImageGenerator,
+            $this->fs,
+            $this->articlesDir,
+            $this->publicDir,
+        );
 
         $this->fs->touch(sprintf('%s/1.md.twig', $this->articlesDir));
         $this->fs->touch(sprintf('%s/2.md.twig', $this->articlesDir));
         $this->fs->touch(sprintf('%s/3.md', $this->articlesDir));
         $this->fs->touch(sprintf('%s/4.txt', $this->articlesDir));
+
+        $this->assertFileDoesNotExist(sprintf('%s/open-graph/article/symfony-certification.jpg', $this->publicDir));
+        $this->assertFileDoesNotExist(sprintf('%s/open-graph/article/doctrine-query-builder-setmaxresults.jpg', $this->publicDir));
 
         $cacheWarmer->warmUp('useless');
 
@@ -69,5 +98,8 @@ final class ArticleCacheWarmerTest extends TestCase
         $this->assertTrue($articlePreviewCache->getItem('_hash')->isHit());
         $this->assertFalse($articlePreviewCache->getItem('3')->isHit());
         $this->assertFalse($articlePreviewCache->getItem('4')->isHit());
+
+        $this->assertFileExists(sprintf('%s/open-graph/article/symfony-certification.jpg', $this->publicDir));
+        $this->assertFileExists(sprintf('%s/open-graph/article/doctrine-query-builder-setmaxresults.jpg', $this->publicDir));
     }
 }

@@ -8,7 +8,7 @@
     <meta property="og:type" content="article">
     <meta property="og:title" content="{{ article.title }}">
     <meta property="og:description" content="{{ article.description }}">
-    <meta property="og:image" content="{{ absolute_url(asset('images/og.png')) }}">
+    <meta property="og:image" content="{{ absolute_url('/open-graph/article/' ~ article.id ~ '.jpg') }}">
 {% endblock %}
 
 {% block content %}
