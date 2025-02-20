@@ -66,20 +66,20 @@
     font-style: normal;
     font-weight: 300;
     font-display: swap;
-    src: url(../fonts/Inter/Inter-Light.ttf) format('ttf');
+    src: url(../fonts/Inter/Inter-Light.woff2) format('woff2');
   }
   @font-face {
     font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url(../fonts/Inter/Inter-Regular.ttf) format('ttf');
+    src: url(../fonts/Inter/Inter-Regular.woff2) format('woff2');
   }
   @font-face {
     font-family: 'Inter';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
-    src: url(../fonts/Inter/Inter-Bold.ttf) format('ttf');
+    src: url(../fonts/Inter/Inter-Bold.woff2) format('woff2');
   }
 }
