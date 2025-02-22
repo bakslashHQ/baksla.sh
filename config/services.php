@@ -18,6 +18,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $params = $containerConfigurator->parameters();
 
     $params
+        ->set('app.public_dir', sprintf('%s/public', param('kernel.project_dir')))
         ->set('app.showcased_article', 'symfony-certification') // The filename without the ".md.twig" extension
         ->set('app.articles_dir', sprintf('%s/templates/articles', param('kernel.project_dir')));
 

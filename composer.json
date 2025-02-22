@@ -7,6 +7,7 @@
         "php": "~8.4.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-imagick": "*",
         "fakerphp/faker": "^1.24",
         "league/commonmark": "^2.6",
         "phpdocumentor/reflection-docblock": "^5.6.1",

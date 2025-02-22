@@ -1,3 +1,5 @@
+/public/open-graph/article
+
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
