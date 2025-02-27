@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Rector\CodingStyle\Rector\ClassMethod\MakeInheritedMethodVisibilitySameAsParentRector;
 use Rector\Config\RectorConfig;
+use Rector\Php81\Rector\Array_\FirstClassCallableRector;
 
 return RectorConfig::configure()
     ->withParallel()
@@ -30,4 +31,9 @@ return RectorConfig::configure()
     )
     ->withSkip([
         MakeInheritedMethodVisibilitySameAsParentRector::class,
-    ]);
+        FirstClassCallableRector::class => [
+            // e.g.: when calling ->factory() with a callable, we want to keep the array notation in place
+            __DIR__ . '/config/services.php',
+        ],
+    ])
+;
