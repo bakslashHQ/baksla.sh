@@ -32,7 +32,9 @@ final readonly class ArticleCacheWarmer implements CacheWarmerInterface
             ->files()
             ->in($this->articlesDir)
             ->name('*.md.twig')
-            ->ignoreVCSIgnored(true);
+            ->ignoreVCSIgnored(true)
+            ->sortByName()
+        ;
 
         foreach ($files as $file) {
             $id = str_replace('.md.twig', '', $file->getFilename());

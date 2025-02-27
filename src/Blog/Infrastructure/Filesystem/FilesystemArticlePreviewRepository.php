@@ -50,7 +50,9 @@ final readonly class FilesystemArticlePreviewRepository implements ArticlePrevie
             ->files()
             ->in($this->articlesDir)
             ->name('*.md.twig')
-            ->ignoreVCSIgnored(true);
+            ->ignoreVCSIgnored(true)
+            ->sortByName()
+        ;
 
         $previews = [];
         foreach ($files as $file) {

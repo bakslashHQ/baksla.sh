@@ -39,7 +39,9 @@ final readonly class FilesystemArticleRepository implements ArticleRepository
             ->files()
             ->in($this->articlesDir)
             ->name('*.md.twig')
-            ->ignoreVCSIgnored(true);
+            ->ignoreVCSIgnored(true)
+            ->sortByName()
+        ;
 
         $articles = [];
         foreach ($files as $file) {
