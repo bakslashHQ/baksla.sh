@@ -51,7 +51,7 @@ final class AuthorBuilder
         if ($picture === NotSet::VALUE) {
             $pictures = (new Finder())
                 ->files()
-                ->in(sprintf('%s/assets/images/blog/author', dirname(__DIR__, 2)))
+                ->in(sprintf('%s/assets/images/team/members', dirname(__DIR__, 2)))
                 ->ignoreVCSIgnored(true);
 
             /** @var string $picture */

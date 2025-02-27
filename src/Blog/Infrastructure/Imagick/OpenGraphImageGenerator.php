@@ -53,7 +53,7 @@ final readonly class OpenGraphImageGenerator implements ImageGenerator
         $authorFont = clone $fontPoppinsSemiBold;
         $authorFont->setFontSize(self::AUTHOR_FONT_SIZE);
 
-        $authorImage = new \Imagick(sprintf('%s/assets/images/blog/author/%s', $this->projectDir, $article->author->picture));
+        $authorImage = new \Imagick(sprintf('%s/assets/images/team/members/%s', $this->projectDir, $article->author->picture));
         $authorImage->resizeImage(self::AUTHOR_AVATAR_SIZE, self::AUTHOR_AVATAR_SIZE, \Imagick::FILTER_LANCZOS, 1);
         $authorImage->roundCornersImage($authorImage->getImageWidth(), $authorImage->getImageHeight());
 
