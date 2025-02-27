@@ -26,7 +26,7 @@
             <h2 class="text-xl font-semibold text-slate-900 pb-3 sm:text-xl">{{ title }}</h2>
             <p class="text-gray-900">{{ description }}</p>
             <div class="mt-6 flex items-center gap-x-4">
-                <img class="size-10 rounded-full bg-gray-50" src="{{ asset('images/blog/author/' ~ author.picture) }}" alt="{{ author.name }}" {% if _context['lazy-load-image'] is defined %}loading="lazy"{% endif %} />
+                <img class="size-10 rounded-full bg-gray-50" src="{{ asset('images/blog/author/' ~ author.picture) }}" alt="{{ author.name }}" {% if lazyLoadImage %}loading="lazy"{% endif %} />
 
                 <div class="flex-auto">
                     <div class="font-semibold">{{ author.name }}</div>

@@ -19,6 +19,8 @@ final class ArticlePreview
 
     public Author $author;
 
+    public bool $lazyLoadImage = false;
+
     public function mount(ArticlePreviewModel $article): void
     {
         $this->id = $article->id;
