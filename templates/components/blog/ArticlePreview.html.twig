@@ -12,7 +12,7 @@
             <h2 class="text-2xl font-semibold text-slate-900 p-3 sm:p-6 sm:text-3xl">{{ title }}</h2>
             <p class="text-lg tracking-tight text-gray-900 px-3 sm:px-6 pb-4 sm:pb-6 sm:text-xl/8">{{ description }}</p>
             <div class="flex flex-wrap items-center gap-x-4 gap-y-4 border-t border-gray-900/10 mx-3 sm:mx-6 pt-4 sm:py-4 sm:flex-nowrap">
-                <img class="size-10 flex-none rounded-full bg-gray-50" src="{{ asset('images/blog/author/' ~ author.picture) }}" alt="{{ author.name }}">
+                <img class="size-10 flex-none rounded-full bg-gray-50" src="{{ asset('images/team/members/' ~ author.picture) }}" alt="{{ author.name }}">
                 <div class="flex-auto">
                     <div class="font-semibold">{{ author.name }}</div>
                     {% if author.bsky is defined %}
@@ -26,7 +26,7 @@
             <h2 class="text-xl font-semibold text-slate-900 pb-3 sm:text-xl">{{ title }}</h2>
             <p class="text-gray-900">{{ description }}</p>
             <div class="mt-6 flex items-center gap-x-4">
-                <img class="size-10 rounded-full bg-gray-50" src="{{ asset('images/blog/author/' ~ author.picture) }}" alt="{{ author.name }}" {% if lazyLoadImage %}loading="lazy"{% endif %} />
+                <img class="size-10 rounded-full bg-gray-50" src="{{ asset('images/team/members/' ~ author.picture) }}" alt="{{ author.name }}" {% if lazyLoadImage %}loading="lazy"{% endif %} />
 
                 <div class="flex-auto">
                     <div class="font-semibold">{{ author.name }}</div>
