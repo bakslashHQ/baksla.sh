@@ -23,6 +23,11 @@
             </style>
         {% endblock %}
 
+        <!-- Scripts -->
+        {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% endblock %}
+
         <!-- Metadata & cie -->
         {% block seo %}
         {% endblock %}
@@ -31,10 +36,6 @@
         <link rel="icon" type="image/png" href="{{ asset('images/favicon-96x96.png') }}" sizes="96x96">
         <link rel="icon" type="image/svg+xml" href="{{ asset('images/favicon.svg') }}">
         <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}">
-
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
     </head>
     <body class="bg-white min-h-screen flex flex-col">
         <div data-controller="analytics" data-analytics-measurement-id-value="{{ ga_measurement_id }}" data-analytics-app-name-value="{{ ga_app_name }}"></div>
