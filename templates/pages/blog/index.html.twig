@@ -41,7 +41,7 @@
                     <div class="space-y-8 xl:row-span-2">
                         {% if articles %}
                             {% for i, article in articles|filter((_, i) => i % 4 == 0) %}
-                                <twig:ArticlePreview :article="article" :lazy-load-image="i > 7" />
+                                <twig:ArticlePreview :article="article" :lazyLoadImage="i > 7" />
                             {% endfor %}
                         {% else %}
                             <twig:blog:ArticlePreviewPlaceholder />
@@ -51,7 +51,7 @@
                     <div class="space-y-8 xl:row-start-1">
                         {% if articles %}
                             {% for i, article in articles|filter((_, i) => i % 4 == 1) %}
-                                <twig:ArticlePreview :article="article" :lazy-load-image="i > 7" />
+                                <twig:ArticlePreview :article="article" :lazyLoadImage="i > 7" />
                             {% endfor %}
                         {% else %}
                             <twig:blog:ArticlePreviewPlaceholder />
@@ -64,7 +64,7 @@
                     <div class="space-y-8 xl:row-start-1">
                         {% if articles %}
                             {% for i, article in articles|filter((_, i) => i % 4 == 2) %}
-                                <twig:ArticlePreview :article="article" :lazy-load-image="i > 7" />
+                                <twig:ArticlePreview :article="article" :lazyLoadImage="i > 7" />
                             {% endfor %}
                         {% else %}
                             <twig:blog:ArticlePreviewPlaceholder class="max-sm:hidden" />
@@ -74,7 +74,7 @@
                     <div class="space-y-8 xl:row-span-2">
                         {% if articles %}
                             {% for i, article in articles|filter((_, i) => i % 4 == 2) %}
-                                <twig:ArticlePreview :article="article" :lazy-load-image="i > 7" />
+                                <twig:ArticlePreview :article="article" :lazyLoadImage="i > 7" />
                             {% endfor %}
                         {% else %}
                             <twig:blog:ArticlePreviewPlaceholder class="max-xl:hidden" />
