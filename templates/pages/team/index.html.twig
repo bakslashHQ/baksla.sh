@@ -1,0 +1,43 @@
+{% extends 'pages/base.html.twig' %}
+
+{% block title %}{{ 'team.seo.title'|trans|raw }}{% endblock %}
+
+{% block seo %}
+    <meta name="description" content="{{ 'team.seo.description'|trans|raw }}">
+    <meta property="og:url" content="{{ app.request.uri }}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ 'team.seo.title'|trans|raw }}">
+    <meta property="og:description" content="{{ 'team.seo.description'|trans|raw }}">
+    <meta property="og:image" content="{{ absolute_url(asset('images/og.png')) }}">
+{% endblock %}
+
+{% block content %}
+    {% for member in members %}
+    <twig:team:MemberModal :member="member" />
+    {% endfor %}
+
+    <div class="isolate py-10 sm:pt-32">
+        {% include 'pages/_bg_shape.html.twig' %}
+
+        <section class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
+            <h1 class="mx-auto max-w-3xl text-center text-4xl font-bold tracking-tight text-slate-800 sm:text-5xl">
+                {{- 'team.title'|trans -}}
+            </h1>
+            <p class="mt-3 mx-auto text-center text-lg/8 text-gray-600 max-w-2xl">
+                {{- 'team.subtitle'|trans -}}
+            </p>
+        </section>
+
+        <section class="mt-16 md:mt-28">
+            <p class="text-center text-gray-900 text-xs sm:text-sm mb-6 sm:mb-8">{{ 'team.click_on_member'|trans }}</p>
+            <div class="container max-w-screen-xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-x-6">
+                    <div class="md:col-span-3 lg:col-span-4" data-test-review>
+                        {% include 'pages/team/index/_code_view_team.html.twig' %}
+                    </div>
+                    {% include 'pages/team/index/_reviewers.html.twig' %}
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

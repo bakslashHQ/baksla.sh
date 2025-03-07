@@ -83,3 +83,7 @@
     src: url(../fonts/Inter/Inter-Bold.woff2) format('woff2');
   }
 }
+
+html {
+  scrollbar-gutter: stable;
+}
