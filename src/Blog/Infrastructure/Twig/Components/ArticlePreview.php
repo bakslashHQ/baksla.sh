@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Blog\Infrastructure\Twig\Components;
 
 use App\Blog\Domain\Model\ArticlePreview as ArticlePreviewModel;
-use App\Blog\Domain\Model\Author;
+use App\Team\Domain\Model\Member;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent]
@@ -17,7 +17,7 @@ final class ArticlePreview
 
     public string $description;
 
-    public Author $author;
+    public Member $author;
 
     public bool $lazyLoadImage = false;
 

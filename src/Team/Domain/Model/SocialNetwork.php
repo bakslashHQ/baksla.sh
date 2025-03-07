@@ -6,35 +6,40 @@ namespace App\Team\Domain\Model;
 
 final readonly class SocialNetwork
 {
+    /**
+     * @param non-empty-string $url
+     * @param non-empty-string $uxIcon
+     * @param non-empty-string $uxIconLabel
+     */
     private function __construct(
-        public string $label,
         public string $url,
         public string $uxIcon,
+        public string $uxIconLabel,
     ) {
     }
 
     public static function github(string $username): self
     {
-        return new self($username, sprintf('https://github.com/%s', $username), 'logos:github');
+        return new self(sprintf('https://github.com/%s', $username), 'logos:github', 'Github');
     }
 
     public static function bluesky(string $username): self
     {
-        return new self($username, sprintf('https://bluesky.dev/%s', $username), 'logos:bluesky');
+        return new self(sprintf('https://bluesky.dev/%s', $username), 'logos:bluesky', 'Bluesky');
     }
 
     public static function twitter(string $username): self
     {
-        return new self($username, sprintf('https://twitter.com/%s', $username), 'logos:x');
+        return new self(sprintf('https://twitter.com/%s', $username), 'logos:x', 'X');
     }
 
     public static function symfony(string $username): self
     {
-        return new self($username, sprintf('https://connect.symfony.com/profile/%s', $username), 'logos:symfony');
+        return new self(sprintf('https://connect.symfony.com/profile/%s', $username), 'logos:symfony', 'Symfony');
     }
 
     public static function linkedin(string $username): self
     {
-        return new self($username, sprintf('https://www.linkedin.com/in/%s', $username), 'logos:linkedin-icon');
+        return new self(sprintf('https://www.linkedin.com/in/%s', $username), 'logos:linkedin-icon', 'Linkedin');
     }
 }

@@ -8,6 +8,8 @@ use App\Blog\Domain\Exception\MissingArticleException;
 use App\Blog\Domain\Factory\ArticlePreviewFactory;
 use App\Blog\Domain\Model\ArticlePreview;
 use App\Blog\Infrastructure\Filesystem\FilesystemArticlePreviewRepository;
+use App\Team\Domain\Model\MemberId;
+use App\Team\Infrastructure\InMemory\InMemoryMemberRepository;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -101,16 +103,14 @@ final class FilesystemArticlePreviewRepositoryTest extends TestCase
 
     private function getRepository(?string $showcasedArticle = null): FilesystemArticlePreviewRepository
     {
-        return new FilesystemArticlePreviewRepository(new ArticlePreviewFactory(), $showcasedArticle, $this->articlesDir);
+        return new FilesystemArticlePreviewRepository(new ArticlePreviewFactory(new InMemoryMemberRepository([aMember()->withId(MemberId::MathiasArlaud)->build()])), $showcasedArticle, $this->articlesDir);
     }
 
     private function createArticleFile(string $filename): void
     {
         $validContent = <<<MD
 ---
-author: Author
-authorPicture: author.jpg
-authorBsky: author.bsky.social
+author: mathias-arlaud
 title: Title
 description: Description
 ---

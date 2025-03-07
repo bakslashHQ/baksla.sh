@@ -1,0 +1,36 @@
+{% set textColor = '' %}
+{% set leftColor = '' %}
+{% set rightColor = '' %}
+{% set leftBorder = 'border-r border-0.5 border-gray-200' %}
+{% set py = 'py-0.5' %}
+
+{% if type is defined %}
+    {% if '-' == type %}
+        {% set leftColor = 'bg-red-200' %}
+        {% set rightColor = 'bg-red-100' %}
+        {% set leftBorder = '' %}
+    {% elseif '+' == type %}
+        {% set leftColor = 'bg-green-200' %}
+        {% set rightColor = 'bg-green-100' %}
+        {% set leftBorder = '' %}
+    {% elseif 'expand' == type %}
+        {% set textColor = 'text-gray-500' %}
+        {% set leftColor = 'bg-blue-200' %}
+        {% set rightColor = 'bg-blue-100' %}
+        {% set leftBorder = '' %}
+        {% set py = 'py-2' %}
+    {% endif %}
+{% else %}
+    {% set type = '' %}
+{% endif %}
+
+<div class="flex flex-row w-full">
+    <div class="flex items-center justify-end w-16 grow-0 shrink-0 px-3 {{ py }} {{ leftColor }} {{ leftBorder }} {{ textColor }}">
+        {% if 'expand' == type %}
+        <twig:UX:Icon aria-hidden="true" name="mdi:arrow-up-down" class="h-4" />
+        {% else %}
+        {{ number }}
+        {% endif %}
+    </div>
+    <div class="flex items-center grow overflow-x-hidden whitespace-pre px-3 {{ py }} {{ rightColor }} {{ textColor }}">{% block content %}{% endblock %}</div>
+</div>

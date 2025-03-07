@@ -7,10 +7,11 @@ home.hero.words.lovers: 'lovers.'
 home.hero.words.developers: 'developers.'
 home.hero.words.advocates: 'advocates.'
 
-home.kpi.contributions: contributions
 home.kpi.core_team: core team
+home.kpi.projects: projects
 home.kpi.talks: related talks
 home.kpi.love_in_ecosystem: for PHP
+home.kpi.collaborators: collaborators
 
 home.code.real_oss_company.title: A real <0>OSS company</0>
 home.code.real_oss_company.content_1: As core contributors to Symfony and its ecosystem, we don't just use tools, we shape them.
@@ -40,17 +41,19 @@ home.products.quote.content: “The less time we spend on a mission, the more su
 home.products.quote.author_role: CEO at baksla.sh
 home.products.quote.detail: |
     We don't tie ourselves tightly to your team, we work alongside you, sharing our expertise and building solutions that stand the test of time.
-    The less time we spend on a mission, the more value we’ve delivered, leaving your team stronger, smarter, and more independent.
+    The less time we spend on a mission, the more value we've delivered, leaving your team stronger, smarter, and more independent.
 
 home.blog.title: Echo from <0>the Blog</0>
 
 home.partners.they_trust_us.title: "They've already put their trust in us, be part of it and contact us at: <0/>"
 
 header.link.blog: The Blog
+header.link.team: The Team
 
 footer.copyright: © {year} baksla.sh™. All Rights Reserved.
 footer.link.legal_notices: Legal Notices
 footer.link.blog: The Blog
+footer.link.team: The Team
 
 legal_notices.title: Legal Notices
 legal_notices.seo.title: Legal notices | baksla.sh
@@ -72,3 +75,78 @@ blog.title: Tech, Teams and Tales
 blog.subtitle: echoes from baksla.sh
 blog.no_article_yet: There is no article yet, come back later!
 blog.article.more_from_the_blog: More from <0>The Blog</0>
+
+team.seo.title: Meet the Team
+team.seo.description: Discover the baksla.sh's crew at work
+team.title: Shhhht! The crew is at work 🤫
+team.subtitle: Discover the baksla.sh team members while they're working
+team.click_on_member: 💡 Click on a member to discover its full profile.
+team.modal.nice: Nice!
+team.reviewers: Reviewers
+team.review.twig_alias_1: Could we alias this import to <0>Twig</0> to make it a little more understandable?
+team.review.twig_alias_2: Another idea could be to extend the <0>AbstractController</0> and use the <0>render</0> method, WDYT?
+team.review.infra_1: Always use interfaces instead of concrete implementations.<0/>It takes advantage of <1>polymorphism</1> and reduce coupling between classes.
+team.review.infra_2: 👍 Plus, the <0>MemberRepository</0> belongs to the "Domain" layer.<1/>We must rely as much as possible on code from that layer.
+team.review.infra_3: If you want to have a specific implementation, you can use the <0>"Autowire" attribute</0>.
+team.review.get_method_1: "While it works, it's not the best way to achieve that. Instead, you should leverage <0>#[Route(methods: ['GET'])]</0>."
+team.review.get_method_2: He's right, while it makes it declarative, it allows us to see that only <0>GET</0> is allowed when using <0>debug:router</0>.
+team.review.pagination_1: Maybe we could get a paginated result instead?
+team.review.pagination_2: AFAIK, bakslash won't have enough members to need pagination any time soon 😉
+team.review.blank_line_1: Extra blank line 👀
+
+team.bio.arnaud-de-abreu: |-
+    A developer since 2004, Arnaud obtained a PHP certification in 2008, eager to move into web development as well as open source, particularly PHP.
+
+    Over the past 15 years, he had the opportunity to participate in the development of projects with technical or business challenges, as well as in production maintenance under heavy load.
+team.bio.hugo-alliaume: |-
+    A full-stack developer since 2009, Hugo likes to learn a lot of new things, so he's super versatile. Since then, he has specialized in web development, mainly with PHP and JavaScript, but also in back-end and browser-side performance optimization.
+
+    Hugo recently joined the Symfony UX Core team. A fan of open-source since the very beginning, he has contributed to it either with his own projects or by working on Symfony, more specifically on Webpack Encore and Symfony UX.
+
+    As a fine gourmet, you can probably find him at the conference food buffets.
+team.bio.felix-eymonot: |-
+    Félix is a PHP developer specializing in Symfony since 2017, certified "Advanced" in version 6. With agency experience across multiple industries, he builds robust, scalable solutions tailored to business needs.
+
+    Passionate about Symfony and open source, he actively contributes to the community and has even spoken at a tech conference.
+
+    When he's not engineering clean, maintainable code, he's drawn to the world of DC Comics—especially Nightwing, because whether in tech or in Gotham, agility, integrity, and a strong sense of justice always make the difference 🦇
+team.bio.jeremy-romey: |-
+    Jérémy is a certified Symfony developer. He contributes to the Symfony codebase and its ecosystem while participating in community events.
+
+    He helps PHP and Symfony developers build high-quality applications. His goal is to help teams improve the way they work and gain confidence in the code they produce.
+
+    He never says no to a good espresso ☕
+team.bio.jules-pietri: |-
+    Fond of PHP and open-source since more than ten years, Jules has become a trainer, an evengelist, and an advised conusltant who loves technical challenges.
+
+    And for a bio, this is far fair enough.
+
+    Cheers 🍺🍀
+team.bio.mathias-arlaud: |-
+    As a speaker, consultant, lead developer, and PHP/Symfony trainer, Mathias worked for two years with the creator of Symfony and two years with the creator of API Platform, Mercure, and FrankenPHP.
+
+    By being an open-source enthusiast, he greatly contributes to the Symfony framework and its ecosystem, especially focusing on the data serialization system. Specializing in API development, he brings his expertise to promote the development of fast, robust, and maintainable solutions.
+
+    Don't ask why, but to the question PHPStorm vs VsCode, he still answers VIM.
+team.bio.robin-chalas: |-
+    Robin is a Software Architect & OSS Maintainer involved into the PHP/Symfony ecosystem for more than a decade, working as CEO and consultant @baksla.sh.
+
+    As a Symfony Core Team Member, he contributes to the framework by fixing bugs and security vulnerabilities but also bringing new features to its core, continuously improving its design but also helping contributors to contribute on Symfony and other popular community packages he maintains.
+
+    As a Consultant, he enjoys pointing technical teams of any size to the right direction based on his experience with designing large software systems.
+
+    Also, he loves helping and sharing his knowledge by participating to support platforms, reviewing contributions and speaking at tech conferences.
+
+    When he's away from keyboard, Robin is either petting his cats or playing Pétanque.
+team.bio.valmont-pehaut-pietri: |-
+    Valmont is a developer specializing in PHP/Symfony. After 10 years in sales, he transitioned into web development two years ago. He focuses on backend development, code optimization, and occasionally works with Vue.js.
+
+    He is also active in the tech community through talks and open-source contributions.
+
+    Valmont is also deepening his knowledge in design patterns, software architectures, and preparing for the Symfony 7 certification.
+
+    A big fan of Lorcana, you'll often spot him at conferences, where instead of joining the usual after-work drinks, he'll be training with his friend Jérémy—though, of course, he's always up for both! He's also a craft beer enthusiast, but beware: if you bring up the subject, the conversation could get as intense as a political debate.
+team.bio.yazid-hassani: |-
+    Yazid is a front-end developer who is highly skilled in React and Vue.
+
+    He's such a perfectionist that his full biography is still on the way. Stay tuned!
