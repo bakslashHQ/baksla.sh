@@ -47,10 +47,12 @@ home.blog.title: Echo from <0>the Blog</0>
 home.partners.they_trust_us.title: "They've already put their trust in us, be part of it and contact us at: <0/>"
 
 header.link.blog: The Blog
+header.link.team: The Team
 
 footer.copyright: © {year} baksla.sh™. All Rights Reserved.
 footer.link.legal_notices: Legal Notices
 footer.link.blog: The Blog
+footer.link.team: The Team
 
 legal_notices.title: Legal Notices
 legal_notices.seo.title: Legal notices | baksla.sh
