@@ -42,17 +42,21 @@
         {% block body %}
             <header class="py-10">
                 <div class="container max-w-screen-xl mx-auto px-8 xl:px-4">
-                    <nav class="flex items-center justify-between">
-                        <a href="{{ path('app_home') }}" title="baksla.sh">
+                    <nav class="flex items-center justify-between gap-x-6">
+                        <a href="{{ path('app_home') }}" title="baksla.sh" class="min-w-8">
                             <img src="{{ asset('images/bakslash.svg') }}" alt="baksla.sh" class="h-11 hidden sm:block" loading="eager" fetchpriority="high" width="300" height="40">
                             <img src="{{ asset('images/bakslash-small.svg') }}" alt="baksla.sh" aria-hidden="true" class="size-11 sm:hidden" loading="eager" fetchpriority="high" width="62" height="62">
                         </a>
-                        <div class="flex justify-center items-center gap-x-6">
+                        <div class="flex justify-center items-center gap-x-2 sm:gap-x-4 lg:gap-x-6">
                             {% if app.request.get('_route') != 'app_blog' %}
-                            <a href="{{ path('app_blog') }}" class="py-2 font-medium text-slate-800 text-lg hover:underline underline-offset-3 decoration-4 decoration-indigo-500">{{ 'header.link.blog'|trans }}</a>
-                            <div class="border-r border-gray-300 h-6"></div>
+                            <a href="{{ path('app_blog') }}" class="py-4 font-medium text-slate-800 text-sm sm:text-lg hover:underline underline-offset-3 decoration-4 decoration-indigo-500 whitespace-nowrap">{{ 'header.link.blog'|trans }}</a>
+                            <div class="border-r border-gray-300 h-3 sm:h-6"></div>
                             {% endif %}
-                            <a href="mailto:hello@baksla.sh" class="py-2 font-medium text-slate-800 text-lg hover:underline underline-offset-3 decoration-4 decoration-indigo-500">hello@baksla.sh</a>
+                            {% if app.request.get('_route') != 'app_team' %}
+                            <a href="{{ path('app_team') }}" class="py-4 font-medium text-slate-800 text-sm sm:text-lg hover:underline underline-offset-3 decoration-4 decoration-indigo-500 whitespace-nowrap">{{ 'header.link.team'|trans }}</a>
+                            <div class="border-r border-gray-300 h-3 sm:h-6"></div>
+                            {% endif %}
+                            <a href="mailto:hello@baksla.sh" class="py-4 font-medium text-slate-800 text-sm sm:text-lg hover:underline underline-offset-3 decoration-4 decoration-indigo-500 whitespace-nowrap">hello@baksla.sh</a>
                         </div>
                     </nav>
                 </div>
@@ -71,6 +75,11 @@
                         <li>
                             <a href="{{ path('app_blog') }}" class="hover:underline me-4 md:me-6 py-4">
                                 {{- 'footer.link.blog'|trans -}}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('app_team') }}" class="hover:underline me-4 md:me-6 py-4">
+                                {{- 'footer.link.team'|trans -}}
                             </a>
                         </li>
                         <li>
