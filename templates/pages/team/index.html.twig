@@ -12,7 +12,9 @@
 {% endblock %}
 
 {% block content %}
-    <twig:team:MemberModal />
+    {% for member in members %}
+    <twig:team:MemberModal :member="member" />
+    {% endfor %}
 
     <section class="mt-10 sm:mt-20 mb-16 mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8 font-article">
         <section class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
@@ -20,7 +22,7 @@
                 Meet the Team
             </h1>
             <p class="max-w-xl mt-3 mx-auto text-center text-lg/8 text-gray-600">
-                Discover the baksla.sh team through this code review!
+                Discover the baksla.sh team at work through a code review
             </p>
         </section>
     </section>
@@ -75,7 +77,7 @@
                                 <div class="flex flex-row justify-between items-center">
                                     <div class="flex flex-row gap-x-4 items-center">
                                         <img class="size-8 rounded-full bg-gray-50" src="{{ asset('images/blog/author/mtarld.jpg') }}" alt="Mathias Arlaud" />
-                                        <h3 class="text-lg font-bold hover:underline hover:text-blue-500 cursor-pointer">Mathias Arlaud</h3>
+                                        <h3 data-open-member-modal="mathias-arlaud" class="text-lg font-bold hover:underline hover:text-blue-500 cursor-pointer">Mathias Arlaud</h3>
                                     </div>
                                     <div class="flex flex-row gap-x-3 items-center opacity-80">
                                         <div class="text-sm border border-1 border-gray-300 rounded-full py-.5 px-2 grow-0 flex flex-row items-center gap-x-1">
@@ -141,7 +143,7 @@
                         <ul class="flex flex-col gap-y-2">
                             <li class="flex flex-row gap-x-2 items-center">
                                 <img class="size-6 rounded-full bg-gray-50" src="{{ asset('images/blog/author/mtarld.jpg') }}" alt="Mathias Arlaud" />
-                                <h3 class="text-sm text-gray-900 font-bold hover:underline hover:text-blue-500 cursor-pointer">Mathias Arlaud</h3>
+                                <h3 data-open-member-modal="mathias-arlaud" class="text-sm text-gray-900 font-bold hover:underline hover:text-blue-500 cursor-pointer">Mathias Arlaud</h3>
                             </li>
                             <li class="flex flex-row gap-x-2 items-center">
                                 <img class="size-6 rounded-full bg-gray-50" src="{{ asset('images/blog/author/chalasr.webp') }}" alt="Robin Chalas" />
@@ -151,7 +153,7 @@
                     </div>
                     <div class="border-b border-gray-300 border-1 py-4">
                         <p class="text-gray-600 font-semibold text-sm mb-4">Useful tip</p>
-                        <p class="text-gray-900 text-sm mb-4">💡 If you wan't to know more about somebody click on its name to discover its full profile.</p>
+                        <p class="text-gray-900 text-sm mb-4">💡 If you want to know more about somebody click on its name to discover its full profile.</p>
                     </div>
                 </div>
             </div>

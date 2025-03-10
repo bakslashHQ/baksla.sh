@@ -16,23 +16,43 @@ export default class extends Controller {
     if (!this.hasBackdropTarget) {
       throw new Error('Missing "backdrop" target.');
     }
+
+    this.openers = Array.from(document.querySelectorAll('[data-open-member-modal]')).filter(el => el.dataset.openMemberModal === this.memberValue);
+    for (const opener of this.openers) {
+      opener.addEventListener('click', () => this.open());
+    }
   }
 
-  open(member) {
-    if (member !== this.memberValue) {
-      return;
-    }
+  open() {
+    this.element.classList.remove('hidden');
 
-    this.backdropTarget.classList.add('opacity-100');
-    this.modalTarget.classList.add('opacity-100', 'translate-y-0', 'scale-100');
+    this.timeoutOpen = setTimeout(() => {
+      this.backdropTarget.classList.add('opacity-100');
+      this.backdropTarget.classList.remove('opacity-0');
+
+      this.modalTarget.classList.add('opacity-100', 'translate-y-0', 'scale-100');
+      this.modalTarget.classList.remove('opacity-0', 'translate-y-4', 'scale-80');
+    }, 100);
   }
 
-  close(member) {
-    if (member !== this.memberValue) {
-      return;
-    }
+  close() {
+    this.timeoutClose = setTimeout(() => {
+      this.element.classList.add('hidden');
+    }, 300);
 
     this.backdropTarget.classList.add('opacity-0');
-    this.modalTarget.classList.add('opacity-0', 'translate-y-4', 'scale-95');
+    this.backdropTarget.classList.remove('opacity-100');
+
+    this.modalTarget.classList.add('opacity-0', 'translate-y-4', 'scale-80');
+    this.modalTarget.classList.remove('opacity-100', 'translate-y-0', 'scale-100');
+  }
+
+  disconnect() {
+    clearTimeout(this.timeoutOpen);
+    clearTimeout(this.timeoutClose);
+
+    for (const opener of this.openers) {
+      opener.removeEventListener('click');
+    }
   }
 }
