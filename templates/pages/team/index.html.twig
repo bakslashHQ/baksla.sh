@@ -12,4 +12,150 @@
 {% endblock %}
 
 {% block content %}
+    <twig:team:MemberModal />
+
+    <section class="mt-10 sm:mt-20 mb-16 mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8 font-article">
+        <section class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
+            <h1 class="mx-auto max-w-3xl text-center text-4xl font-bold tracking-tight text-slate-800 sm:text-5xl">
+                Meet the Team
+            </h1>
+            <p class="max-w-xl mt-3 mx-auto text-center text-lg/8 text-gray-600">
+                Discover the baksla.sh team through this code review!
+            </p>
+        </section>
+    </section>
+
+    <section aria-label="code review" class="bg-white">
+        <div class="container max-w-screen-xl mx-auto">
+            <div class="grid grid-cols-5 gap-x-6">
+                <div class="col-span-4">
+
+                    <div class="xl:rounded-lg border border-0.5 border-gray-300">
+                        <div class="flex bg-gray-100 border-b border-1 border-gray-300 xl:rounded-t-lg px-5" aria-hidden="true">
+                            <div class="flex text-sm/6 rounded-t-lg h-10 items-center leading-none font-mono text-gray-700">
+                                <div class="font-bold flex items-center gap-x-0.5 mr-4">
+                                    <span class="mr-2 mt-0.5">31</span>
+                                    <div class="size-2 bg-green-600"></div>
+                                    <div class="size-2 bg-green-600"></div>
+                                    <div class="size-2 bg-green-600"></div>
+                                    <div class="size-2 bg-red-700/80"></div>
+                                    <div class="size-2 bg-gray-300"></div>
+                                </div>
+                                <div class="sm:hidden">.../Controller/ViewTeam.php</div>
+                                <div class="max-sm:hidden">src/Team/Infrastructure/Symfony/Controller/ViewTeam.php</div>
+                            </div>
+                        </div>
+                        <figure class="w-full bg-white text-gray-700 text-md sm:text-lg whitespace-normal font-mono flex">
+                            <div class="h-full w-16 text-right text-sm max-sm:hidden">
+                                <pre class="bg-blue-200 py-2 px-3"><twig:UX:Icon aria-hidden="true" name="solar:arrow-up-broken" class="inline my-auto h-4" /></pre>
+                                <pre class="pt-0.5 px-3 border-r border-0.5 border-gray-200">12</pre>
+                                <pre class="pt-0.5 px-3 border-r border-0.5 border-gray-200">13</pre>
+                                <pre class="pt-0.5 px-3 border-r border-0.5 border-gray-200">12</pre>
+                                <pre class="pt-0.5 px-3 border-r border-0.5 border-gray-200">12</pre>
+                                <pre class="pt-0.5 px-3 border-r border-0.5 border-gray-200">12</pre>
+                                <pre class="pt-0.5 px-3 border-r border-0.5 border-gray-200">12</pre>
+                                <pre class="bg-red-200 pt-0.5 px-3">13</pre>
+                                <pre class="bg-green-300 pt-0.5 px-3">13</pre>
+                            </div>
+                            <div class="relative h-full w-full text-sm overflow-x-hidden">
+                                <pre class="bg-blue-100 py-2 px-3 text-gray-600">@@ -49,7 +49,7 @@ public function showMembers(Request $request): Response</pre>
+                                <pre class="pt-0.5 px-3">some code</pre>
+                                <pre class="pt-0.5 px-3">some code</pre>
+                                <pre class="pt-0.5 px-3">  some code</pre>
+                                <pre class="pt-0.5 px-3">  some code</pre>
+                                <pre class="pt-0.5 px-3">  some code</pre>
+                                <pre class="pt-0.5 px-3">  some other code</pre>
+                                <pre class="bg-red-100 pt-0.5 px-3">  some other code</pre>
+                                <pre class="bg-green-200 pt-0.5 px-3">  some other code</pre>
+                            </div>
+                        </figure>
+
+                        <div class="bg-gray-50/50 font-article p-4 border-t border-b border-gray-300">
+                            <div class="w-screen max-w-2xl flex-auto rounded-md bg-white text-sm/6 border border-1 border-gray-300 shadow-sm p-4">
+                                <div class="flex flex-row justify-between items-center">
+                                    <div class="flex flex-row gap-x-4 items-center">
+                                        <img class="size-8 rounded-full bg-gray-50" src="{{ asset('images/blog/author/mtarld.jpg') }}" alt="Mathias Arlaud" />
+                                        <h3 class="text-lg font-bold hover:underline hover:text-blue-500 cursor-pointer">Mathias Arlaud</h3>
+                                    </div>
+                                    <div class="flex flex-row gap-x-3 items-center opacity-80">
+                                        <div class="text-sm border border-1 border-gray-300 rounded-full py-.5 px-2 grow-0 flex flex-row items-center gap-x-1">
+                                            <twig:UX:Icon name="logos:bakslash" aria-label="Bakslash" class="size-4" />
+                                            COO
+                                        </div>
+                                        <div class="text-sm border border-1 border-gray-300 rounded-full py-.5 px-2 grow-0 flex flex-row items-center gap-x-1">
+                                            <twig:UX:Icon name="logos:symfony" aria-label="Symfony" class="h-4" />
+                                            Core Team
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ml-12">Can you add a test for that part?<br/>I think that <span class="font-mono bg-gray-100 rounded mx-1 pt-0.5 px-1">TheSuperDuperInterface</span> is great btw.</div>
+                                <div class="mt-6 flex flex-row justify-between items-center">
+                                    <div class="flex flex-row gap-x-4 items-center">
+                                        <img class="size-8 rounded-full bg-gray-50" src="{{ asset('images/blog/author/chalasr.webp') }}" alt="Robin Chalas" />
+                                        <h3 class="text-lg font-bold hover:underline hover:text-blue-500 cursor-pointer">Robin Chalas</h3>
+                                    </div>
+                                    <div class="flex flex-row gap-x-3 items-center opacity-80">
+                                        <div class="text-sm border border-1 border-gray-300 rounded-full py-.5 px-2 grow-0 flex flex-row items-center gap-x-1">
+                                            <twig:UX:Icon name="logos:bakslash" aria-label="Bakslash" class="size-4" />
+                                            CEO
+                                        </div>
+                                        <div class="text-sm border border-1 border-gray-300 rounded-full py-.5 px-2 grow-0 flex flex-row items-center gap-x-1">
+                                            <twig:UX:Icon name="logos:symfony" aria-label="Symfony" class="h-4" />
+                                            Core Team
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ml-12">Might be already tested elsewhere.</div>
+                            </div>
+                        </div>
+
+                        <figure class="w-full bg-white text-gray-700 text-md sm:text-lg whitespace-normal font-mono flex">
+                            <div class="h-full w-16 text-right text-sm max-sm:hidden">
+                                <pre class="pt-0.5 px-3 border-r border-0.5 border-gray-200">12</pre>
+                                <pre class="pt-0.5 px-3 border-r border-0.5 border-gray-200">13</pre>
+                                <pre class="pt-0.5 px-3 border-r border-0.5 border-gray-200">12</pre>
+                                <pre class="pt-0.5 px-3 border-r border-0.5 border-gray-200">12</pre>
+                                <pre class="pt-0.5 px-3 border-r border-0.5 border-gray-200">12</pre>
+                                <pre class="pt-0.5 px-3 border-r border-0.5 border-gray-200">12</pre>
+                                <pre class="bg-red-200 pt-0.5 px-3">13</pre>
+                                <pre class="bg-green-300 pt-0.5 px-3">13</pre>
+                            </div>
+                            <div class="relative h-full w-full text-sm overflow-x-hidden">
+                                <pre class="pt-0.5 px-3">some code</pre>
+                                <pre class="pt-0.5 px-3">some code</pre>
+                                <pre class="pt-0.5 px-3">  some code</pre>
+                                <pre class="pt-0.5 px-3">  some code</pre>
+                                <pre class="pt-0.5 px-3">  some code</pre>
+                                <pre class="pt-0.5 px-3">  some other code</pre>
+                                <pre class="bg-red-100 pt-0.5 px-3">  some other code</pre>
+                                <pre class="bg-green-200 pt-0.5 px-3">  some other code</pre>
+                            </div>
+                        </figure>
+
+                    </div>
+
+                </div>
+                <div class="font-article">
+                    <div class="border-b border-gray-300 border-1 pb-4">
+                        <p class="text-gray-600 font-semibold text-sm mb-4">Reviewers</p>
+                        <ul class="flex flex-col gap-y-2">
+                            <li class="flex flex-row gap-x-2 items-center">
+                                <img class="size-6 rounded-full bg-gray-50" src="{{ asset('images/blog/author/mtarld.jpg') }}" alt="Mathias Arlaud" />
+                                <h3 class="text-sm text-gray-900 font-bold hover:underline hover:text-blue-500 cursor-pointer">Mathias Arlaud</h3>
+                            </li>
+                            <li class="flex flex-row gap-x-2 items-center">
+                                <img class="size-6 rounded-full bg-gray-50" src="{{ asset('images/blog/author/chalasr.webp') }}" alt="Robin Chalas" />
+                                <h3 class="text-sm text-gray-900 font-bold hover:underline hover:text-blue-500 cursor-pointer">Robin Chalas</h3>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="border-b border-gray-300 border-1 py-4">
+                        <p class="text-gray-600 font-semibold text-sm mb-4">Useful tip</p>
+                        <p class="text-gray-900 text-sm mb-4">💡 If you wan't to know more about somebody click on its name to discover its full profile.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
 {% endblock %}
