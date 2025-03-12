@@ -68,6 +68,6 @@ final readonly class FilesystemArticlePreviewRepository implements ArticlePrevie
         $this->findShowcased();
         $this->findAll();
 
-        return md5(json_encode([array_column($this->findAll(), 'hash'), $this->showcasedArticle]) ?: '');
+        return hash('xxh128', json_encode([$this->findAll(), $this->showcasedArticle]) ?: '');
     }
 }
