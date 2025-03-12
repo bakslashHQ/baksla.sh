@@ -17,7 +17,7 @@ final class ViewArticleTest extends FunctionalTestCase
         $this->get('/blog/symfony-certification');
 
         $this->assertSelectorTextContains('h1', $article->title);
-        $this->assertSelectorTextContains('[data-test-author]', $article->author->name);
+        $this->assertSelectorTextContains('[data-test-author]', $article->author->getFullname());
         $this->assertSelectorExists('[data-test-article]');
         $this->assertSelectorExists('[data-test-more-articles]');
     }

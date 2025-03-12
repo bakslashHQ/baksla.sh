@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Blog\Domain\Model;
 
+use App\Team\Domain\Model\Member;
+
 final readonly class ArticlePreview
 {
     public string $hash;
@@ -12,7 +14,7 @@ final readonly class ArticlePreview
         public string $id,
         public string $title,
         public string $description,
-        public Author $author,
+        public Member $author,
     ) {
         $this->hash = hash('xxh128', json_encode($this) ?: '');
     }
