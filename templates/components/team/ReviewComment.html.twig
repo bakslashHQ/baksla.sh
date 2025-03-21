@@ -1,0 +1,19 @@
+<div data-test-review-comment>
+    <div class="flex flex-row justify-between items-center">
+        <div data-open-member-modal="{{ member.id.value }}" class="flex flex-row gap-x-4 items-center cursor-pointer">
+            <img class="size-8 rounded-full bg-gray-50" src="{{ asset('images/team/members/' ~ member.id.value ~ '.jpg') }}" alt="{{ member.fullName }}" />
+            <p data-test-review-comment-reviewer class="text-lg font-bold hover:underline hover:text-blue-500 whitespace-nowrap">{{ member.fullName }}</p>
+        </div>
+        <ul class="flex flex-row gap-x-3 items-center opacity-80 max-md:hidden">
+            {% for badge in member.badges %}
+            <li class="text-sm border border-1 border-gray-300 rounded-full py-.5 px-2 grow-0 flex flex-row items-center gap-x-1 whitespace-nowrap">
+                {% if badge.uxIcon %}
+                <twig:UX:Icon name="{{ badge.uxIcon }}" aria-label="{{ badge.uxIconLabel }}" class="size-4" />
+                {% endif %}
+                {{ badge.text }}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="ml-12 leading-6">{% block content %}{% endblock %}</div>
+</div>

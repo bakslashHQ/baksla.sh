@@ -7,18 +7,22 @@ namespace App\Team\Domain\Model;
 final readonly class Member
 {
     /**
-     * @param non-empty-string $firstName
-     * @param non-empty-string $lastName
-     * @param non-empty-string $picture Filename, relative to "assets/images/team/members" directory
+     * @param non-empty-string    $firstName
+     * @param non-empty-string    $lastName
      * @param list<SocialNetwork> $socialNetworks
+     * @param list<Badge>         $badges
      */
     public function __construct(
         public MemberId $id,
         public string $firstName,
         public string $lastName,
-        public string $picture,
         public array $socialNetworks = [],
-        public ?string $bio = null,
+        public array $badges = [],
     ) {
+    }
+
+    public function getFullname(): string
+    {
+        return sprintf('%s %s', $this->firstName, $this->lastName);
     }
 }
