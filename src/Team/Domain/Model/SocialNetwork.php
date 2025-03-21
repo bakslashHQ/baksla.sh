@@ -25,7 +25,7 @@ final readonly class SocialNetwork
 
     public static function bluesky(string $username): self
     {
-        return new self(sprintf('https://bluesky.dev/%s', $username), 'logos:bluesky', 'Bluesky');
+        return new self(sprintf('https://bsky.app/profile/%s', $username), 'logos:bluesky', 'Bluesky');
     }
 
     public static function twitter(string $username): self
