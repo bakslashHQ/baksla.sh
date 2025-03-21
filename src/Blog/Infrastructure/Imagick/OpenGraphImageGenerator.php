@@ -53,18 +53,18 @@ final readonly class OpenGraphImageGenerator implements ImageGenerator
         $authorFont = clone $fontPoppinsSemiBold;
         $authorFont->setFontSize(self::AUTHOR_FONT_SIZE);
 
-        $authorImage = new \Imagick(sprintf('%s/assets/images/blog/author/%s', $this->projectDir, $article->author->picture));
+        $authorImage = new \Imagick(sprintf('%s/assets/images/team/members/%s.jpg', $this->projectDir, $article->author->id->value));
         $authorImage->resizeImage(self::AUTHOR_AVATAR_SIZE, self::AUTHOR_AVATAR_SIZE, \Imagick::FILTER_LANCZOS, 1);
         $authorImage->roundCornersImage($authorImage->getImageWidth(), $authorImage->getImageHeight());
 
-        $authorNameMetrics = $image->queryFontMetrics($authorFont, $article->author->name);
+        $authorNameMetrics = $image->queryFontMetrics($authorFont, $article->author->getFullname());
         $authorWidth = $authorNameMetrics['textWidth'] + self::SPACING + $authorImage->getImageWidth();
         $authorHeight = $authorNameMetrics['textHeight'];
 
         $authorX = (int) ((self::WIDTH - $authorWidth) / 2);
         $authorY = $titleY + self::SPACING;
 
-        $image->annotateImage($authorFont, $authorX + $authorImage->getImageWidth() + self::SPACING, (int) ($authorY + ($authorHeight / 2) - abs($authorNameMetrics['descender'])), 0, $article->author->name);
+        $image->annotateImage($authorFont, $authorX + $authorImage->getImageWidth() + self::SPACING, (int) ($authorY + ($authorHeight / 2) - abs($authorNameMetrics['descender'])), 0, $article->author->getFullname());
         $image->compositeImage($authorImage, \Imagick::COMPOSITE_OVER, $authorX, (int) ($authorY - ($authorImage->getImageHeight() / 2)));
 
         // Draw logo

@@ -1,0 +1,121 @@
+<div class="xl:rounded-t-lg md:rounded-tr-lg md:border-x border-t border-0.5 border-gray-300">
+    <div class="flex bg-gray-100 md:rounded-t-lg px-5" aria-hidden="true">
+        <div class="flex text-sm/6 md:rounded-t-lg h-10 items-center leading-none font-mono text-gray-700 overflow-x-hidden">
+            <div aria-hidden="true" class="font-bold flex items-center gap-x-0.5 mr-4">
+                <span class="mr-2 mt-0.5">31</span>
+                <div class="size-2 bg-green-600"></div>
+                <div class="size-2 bg-green-600"></div>
+                <div class="size-2 bg-green-600"></div>
+                <div class="size-2 bg-red-700/80"></div>
+                <div class="size-2 bg-gray-300"></div>
+            </div>
+            <div class="sm:hidden">.../Controller/ViewTeam.php</div>
+            <div class="max-sm:hidden">src/Team/Infrastructure/Symfony/Controller/ViewTeam.php</div>
+        </div>
+    </div>
+
+    <figure class="w-full bg-white text-gray-700 text-sm font-mono flex flex-col border-y border-gray-300">
+        <twig:team:CodeLine type="expand">@@ -10,7 +10,7 @@</twig:team:CodeLine>
+        <twig:team:CodeLine number="10" type="+"><span class="hl-keyword">use </span><span class="hl-type">App\Team\Infrastructure\InMemory\InMemoryMemberRepository</span>;</twig:team:CodeLine>
+        <twig:team:CodeLine number="11"><span class="hl-keyword">use </span><span class="hl-type">Symfony\Component\HttpFoundation\Exception\NotFoundHttpException</span>;</twig:team:CodeLine>
+        <twig:team:CodeLine number="12"><span class="hl-keyword">use </span><span class="hl-type">Symfony\Component\HttpFoundation\Request</span>;</twig:team:CodeLine>
+        <twig:team:CodeLine number="13"><span class="hl-keyword">use </span><span class="hl-type">Symfony\Component\HttpFoundation\Response</span>;</twig:team:CodeLine>
+        <twig:team:CodeLine number="14"><span class="hl-keyword">use </span><span class="hl-type">Symfony\Component\HttpKernel\Attribute\AsController</span>;</twig:team:CodeLine>
+        <twig:team:CodeLine number="15"><span class="hl-keyword">use </span><span class="hl-type">Symfony\Component\Routing\Attribute\Route</span>;</twig:team:CodeLine>
+        <twig:team:CodeLine number="16" type="+"><span class="hl-keyword">use </span><span class="hl-type">Twig\Environment</span>;</twig:team:CodeLine>
+    </figure>
+
+    <twig:team:Review>
+        <twig:team:ReviewComment :member="members['hugo-alliaume']" data-test-review-comment>
+            {{ 'team.review.twig_alias_1'|trans|replace({'<0>': '<span class="font-mono bg-gray-100 rounded mx-1 pt-0.5 px-1 whitespace-nowrap">', '</0>': '</span>'})|raw }}
+        </twig:team:ReviewComment>
+        <twig:team:ReviewComment :member="members['felix-eymonot']">
+            {{ 'team.review.twig_alias_2'|trans|replace({'<0>': '<span class="font-mono bg-gray-100 rounded mx-1 pt-0.5 px-1 whitespace-nowrap">', '</0>': '</span>'})|raw }}
+        </twig:team:ReviewComment>
+    </twig:team:Review>
+
+    <figure class="w-full bg-white text-gray-700 text-sm font-mono flex flex-col border-y border-gray-300">
+        <twig:team:CodeLine number="17" />
+        <twig:team:CodeLine number="18"><span class="hl-generic">#[AsController]</span></twig:team:CodeLine>
+        <twig:team:CodeLine number="19"><span class="hl-keyword">final readonly class </span><span class="hl-type">ViewTeam</span></twig:team:CodeLine>
+        <twig:team:CodeLine number="20">{{ '{' }}</twig:team:CodeLine>
+        <twig:team:CodeLine number="21">&nbsp;&nbsp;&nbsp;&nbsp;<span class="hl-keyword">public function </span><span class="hl-type">__construct</span>(</twig:team:CodeLine>
+        <twig:team:CodeLine number="22" type="+">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hl-keyword">private </span><span class="hl-type">Environment </span><span class="hl-variable">$twig</span>,</twig:team:CodeLine>
+        <twig:team:CodeLine number="23" type="+">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hl-keyword">private </span><span class="hl-type">InMemoryMemberRepository </span><span class="hl-variable">$memberRepository</span>,</twig:team:CodeLine>
+    </figure>
+
+    <twig:team:Review>
+        <twig:team:ReviewComment :member="members['robin-chalas']">
+            {{ 'team.review.infra_1'|trans|replace({
+                '<0/>': '<br/>',
+                '<1>': '<a href="https://en.wikipedia.org/wiki/Polymorphism_(computer_science)" target="_blank" class="text-blue-800 underline underline-offset-4">',
+                '</1>': '</a>',
+            })|raw }}
+        </twig:team:ReviewComment>
+        <twig:team:ReviewComment :member="members['mathias-arlaud']">
+            {{ 'team.review.infra_2'|trans|replace({
+                '<0>': '<span class="font-mono bg-gray-100 rounded mx-1 pt-0.5 px-1 whitespace-nowrap">',
+                '</0>': '</span>',
+                '<1/>': '<br/>',
+            })|raw }}
+        </twig:team:ReviewComment>
+        <twig:team:ReviewComment :member="members['jeremy-romey']">
+            {{ 'team.review.infra_3'|trans|replace({
+                '<0>': '<a href="https://symfony.com/doc/current/service_container/autowiring.html" target="_blank" class="text-blue-800 underline underline-offset-4">',
+                '</0>': '</a>',
+            })|raw }}
+        </twig:team:ReviewComment>
+    </twig:team:Review>
+
+    <figure class="w-full bg-white text-gray-700 text-sm font-mono flex flex-col border-y border-gray-300">
+        <twig:team:CodeLine number="24">&nbsp;&nbsp;&nbsp;&nbsp;) {{ '{' }}</twig:team:CodeLine>
+        <twig:team:CodeLine number="25">&nbsp;&nbsp;&nbsp;&nbsp;{{ '}' }}</twig:team:CodeLine>
+        <twig:team:CodeLine number="26"></twig:team:CodeLine>
+        <twig:team:CodeLine number="27">&nbsp;&nbsp;&nbsp;&nbsp;<span class="hl-generic">#[Route</span>(<span class="hl-generic">name</span>: <span class="hl-literal">'app_team'</span>, <span class="hl-generic">path</span>: <span class="hl-literal">'/team'</span>)<span class="hl-generic">]</span></twig:team:CodeLine>
+        <twig:team:CodeLine number="28">&nbsp;&nbsp;&nbsp;&nbsp;<span class="hl-keyword">public function </span><span class="hl-type">__invoke</span>(<span class="hl-type">Request </span><span class="hl-variable">$request</span>): <span class="hl-type">Response</span></twig:team:CodeLine>
+        <twig:team:CodeLine number="29">&nbsp;&nbsp;&nbsp;&nbsp;{{ '{' }}</twig:team:CodeLine>
+        <twig:team:CodeLine number="30" type="-">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hl-keyword">return new </span><span class="hl-type">Response</span>();</twig:team:CodeLine>
+        <twig:team:CodeLine number="30" type="+">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hl-keyword">if </span>(<span class="hl-literal">'GET'</span> !== <span class="hl-variable">$request</span>-><span class="hl-generic">getMethod</span>()) {{ '{' }}</twig:team:CodeLine>
+        <twig:team:CodeLine number="31" type="+">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hl-keyword">throw new </span><span class="hl-generic">NotFoundHttpException</span>();</twig:team:CodeLine>
+    </figure>
+
+    <twig:team:Review>
+        <twig:team:ReviewComment :member="members['arnaud-de-abreu']">
+            {{ 'team.review.get_method_1'|trans|replace({'<0>': '<span class="font-mono bg-gray-100 rounded mx-1 pt-0.5 px-1 whitespace-nowrap">', '</0>': '</span>'})|raw }}
+        </twig:team:ReviewComment>
+        <twig:team:ReviewComment :member="members['valmont-pehaut-pietri']">
+            {{ 'team.review.get_method_2'|trans|replace({'<0>': '<span class="font-mono bg-gray-100 rounded mx-1 pt-0.5 px-1 whitespace-nowrap">', '</0>': '</span>'})|raw }}
+        </twig:team:ReviewComment>
+    </twig:team:Review>
+
+    <figure class="w-full bg-white text-gray-700 text-sm font-mono flex flex-col border-y border-gray-300">
+        <twig:team:CodeLine number="32" type="+">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ '}' }}</twig:team:CodeLine>
+        <twig:team:CodeLine number="33" type="+"></twig:team:CodeLine>
+        <twig:team:CodeLine number="34" type="+">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hl-keyword">return new </span><span class="hl-type">Response</span>(<span class="hl-variable">$this</span>->twig-><span class="hl-generic">render</span>(<span class="hl-literal">'pages/team/index.html.twig'</span>, [</twig:team:CodeLine>
+        <twig:team:CodeLine number="35" type="+">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hl-literal">'members' </span>=> <span class="hl-variable">$this</span>->memberRepository-><span class="hl-generic">findAll</span>(),</twig:team:CodeLine>
+    </figure>
+
+    <twig:team:Review>
+        <twig:team:ReviewComment :member="members['jules-pietri']">
+            {{ 'team.review.pagination_1'|trans }}
+        </twig:team:ReviewComment>
+        <twig:team:ReviewComment :member="members['yazid-hassani']">
+            {{ 'team.review.pagination_2'|trans }}
+        </twig:team:ReviewComment>
+    </twig:team:Review>
+
+    <figure class="w-full bg-white text-gray-700 text-sm font-mono flex flex-col border-y border-gray-300">
+        <twig:team:CodeLine number="36" type="+">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]);</twig:team:CodeLine>
+        <twig:team:CodeLine number="36" type="+"></twig:team:CodeLine>
+    </figure>
+
+    <twig:team:Review>
+        <twig:team:ReviewComment :member="members['jules-pietri']">
+            {{ 'team.review.blank_line_1'|trans }}
+        </twig:team:ReviewComment>
+    </twig:team:Review>
+
+    <figure class="w-full bg-white text-gray-700 text-sm font-mono flex flex-col border-y border-gray-300">
+        <twig:team:CodeLine number="30">&nbsp;&nbsp;&nbsp;&nbsp;{{ '}' }}</twig:team:CodeLine>
+    </figure>
+</div>

@@ -20,13 +20,8 @@
                 {{- article.title -}}
             </h1>
             <div class="mt-8 flex items-center sm:justify-center gap-x-4">
-                <img class="size-8 rounded-full bg-gray-50" src="{{ asset('images/blog/author/' ~ article.author.picture) }}" alt="{{ article.author.name }}" />
-                <div class="text-md">
-                    <span class="font-semibold text-gray-700" data-test-author>{{ article.author.name }}</span>
-                    {% if article.author.bsky is defined %}
-                        - <a href="https://bsky.app/profile/{{ article.author.bsky }}" class="text-gray-600 hover:underline">@{{ article.author.bsky }}</a>
-                    {% endif %}
-                </div>
+                <img class="size-8 rounded-full bg-gray-50" src="{{ asset('images/team/members/' ~ article.author.id.value ~ '.jpg') }}" alt="{{ article.author.fullName }}" />
+                <span class="text-md font-semibold text-gray-700" data-test-author>{{ article.author.fullName }}</span>
             </div>
         </section>
 

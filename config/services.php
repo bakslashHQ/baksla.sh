@@ -8,6 +8,8 @@ use App\Blog\Infrastructure\Cache\CacheArticlePreviewRepository;
 use App\Blog\Infrastructure\Cache\CacheArticleRepository;
 use App\Blog\Infrastructure\Filesystem\FilesystemArticlePreviewRepository;
 use App\Blog\Infrastructure\Filesystem\FilesystemArticleRepository;
+use App\Team\Domain\Repository\MemberRepository;
+use App\Team\Infrastructure\InMemory\InMemoryMemberRepository;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\inline_service;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
@@ -51,4 +53,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         inline_service(FilesystemArticlePreviewRepository::class),
     ]);
     $services->alias(ArticlePreviewRepository::class, 'article_preview_repository');
+
+    $services
+        ->get(InMemoryMemberRepository::class)
+        ->factory([InMemoryMemberRepository::class, 'createDefault']);
+    $services->alias(MemberRepository::class, InMemoryMemberRepository::class);
 };
