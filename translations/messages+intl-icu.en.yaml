@@ -80,7 +80,7 @@ team.seo.title: Meet the Team
 team.seo.description: Discover the baksla.sh's crew at work
 team.title: Shhhht! The crew is at work 🤫
 team.subtitle: Discover the baksla.sh team members while they're working
-team.click_on_member: 💡 Click on a member to discover its full profile.
+team.click_on_member: 💡 Click on a member to discover their full profile.
 team.modal.nice: Nice!
 team.reviewers: Reviewers
 team.review.twig_alias_1: Could we alias this import to <0>Twig</0> to make it a little more understandable?
