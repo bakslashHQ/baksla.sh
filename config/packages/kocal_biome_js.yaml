@@ -1,3 +1,3 @@
 when@dev:
     kocal_biome_js:
-        binary_version: 'latest_stable'
+        binary_version: 'v1.9.4'
