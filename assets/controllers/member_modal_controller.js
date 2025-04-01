@@ -2,11 +2,10 @@ import { Controller } from '@hotwired/stimulus';
 
 /**
  * @property {HTMLElement} modalTarget
- * @property {HTMLElement} backdropTarget
  * @property {String} memberValue
  */
 export default class extends Controller {
-  static targets = ['modal', 'backdrop'];
+  static targets = ['modal'];
   static values = {
     member: String,
   };
@@ -15,52 +14,49 @@ export default class extends Controller {
     if (!this.hasModalTarget) {
       throw new Error('Missing "modal" target.');
     }
-    if (!this.hasBackdropTarget) {
-      throw new Error('Missing "backdrop" target.');
-    }
 
     this.openers = Array.from(document.querySelectorAll(`[data-open-member-modal="${this.memberValue}"]`));
     for (const opener of this.openers) {
       opener.addEventListener('click', this.open.bind(this));
     }
 
+    this.element.addEventListener('cancel', this.closeOnEscape.bind(this));
     document.addEventListener('keydown', this.closeOnEscape.bind(this));
   }
 
   open() {
-    document.getElementById('modal-background').classList.add('fixed', 'overflow-y-hidden');
+    // Prevent page scroll
+    document.body.classList.add('overflow-hidden');
 
-    this.element.classList.remove('hidden');
+    // Prevent focus on the first interactive element inside the modal,
+    // because it's the buttons at the footer and it made the modal scrolled to the bottom
+    this.element.inert = true;
+
+    this.element.showModal();
 
     this.timeoutOpen = setTimeout(() => {
-      this.backdropTarget.classList.add('opacity-100');
-      this.backdropTarget.classList.remove('opacity-0');
-
-      this.modalTarget.classList.add('opacity-100', 'translate-y-0', 'scale-100');
+      this.modalTarget.classList.add('opacity-100', 'scale-100');
       this.modalTarget.classList.remove('opacity-0', 'translate-y-4', 'scale-80');
+      this.element.inert = false;
     }, 100);
   }
 
   close() {
-    document.getElementById('modal-background').classList.remove('fixed', 'overflow-y-hidden');
+    document.body.classList.remove('overflow-hidden');
 
     this.timeoutClose = setTimeout(() => {
-      this.element.classList.add('hidden');
+      this.element.close();
     }, 300);
 
-    this.backdropTarget.classList.add('opacity-0');
-    this.backdropTarget.classList.remove('opacity-100');
-
     this.modalTarget.classList.add('opacity-0', 'translate-y-4', 'scale-80');
-    this.modalTarget.classList.remove('opacity-100', 'translate-y-0', 'scale-100');
+    this.modalTarget.classList.remove('opacity-100', 'scale-100');
   }
 
   closeOnEscape(event) {
-    if (event.key !== 'Escape') {
-      return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      this.close();
     }
-
-    this.close();
   }
 
   disconnect() {
@@ -71,6 +67,7 @@ export default class extends Controller {
       opener.removeEventListener('click', this.open.bind(this));
     }
 
+    this.element.removeEventListener('cancel', this.closeOnEscape.bind(this));
     document.removeEventListener('keydown', this.closeOnEscape.bind(this));
   }
 }
