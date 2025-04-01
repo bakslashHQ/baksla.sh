@@ -34,11 +34,9 @@ export default class extends Controller {
 
     this.element.showModal();
 
-    this.timeoutOpen = setTimeout(() => {
-      this.modalTarget.classList.add('opacity-100', 'scale-100');
-      this.modalTarget.classList.remove('opacity-0', 'translate-y-4', 'scale-80');
-      this.element.inert = false;
-    }, 100);
+    this.modalTarget.classList.add('opacity-100', 'scale-100');
+    this.modalTarget.classList.remove('opacity-0', 'translate-y-4', 'scale-80');
+    this.element.inert = false;
   }
 
   close() {
@@ -46,7 +44,7 @@ export default class extends Controller {
 
     this.timeoutClose = setTimeout(() => {
       this.element.close();
-    }, 300);
+    }, 150);
 
     this.modalTarget.classList.add('opacity-0', 'translate-y-4', 'scale-80');
     this.modalTarget.classList.remove('opacity-100', 'scale-100');
@@ -60,7 +58,6 @@ export default class extends Controller {
   }
 
   disconnect() {
-    clearTimeout(this.timeoutOpen);
     clearTimeout(this.timeoutClose);
 
     for (const opener of this.openers) {
