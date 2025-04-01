@@ -28,7 +28,7 @@ export default class extends Controller {
   }
 
   open() {
-    document.body.classList.add('overflow-y-hidden');
+    document.body.classList.add('fixed', 'overflow-y-hidden');
 
     this.element.classList.remove('hidden');
 
@@ -42,7 +42,7 @@ export default class extends Controller {
   }
 
   close() {
-    document.body.classList.remove('overflow-y-hidden');
+    document.body.classList.remove('fixed', 'overflow-y-hidden');
 
     this.timeoutClose = setTimeout(() => {
       this.element.classList.add('hidden');
