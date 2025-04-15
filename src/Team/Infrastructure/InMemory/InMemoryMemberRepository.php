@@ -47,7 +47,7 @@ final readonly class InMemoryMemberRepository implements MemberRepository
                 SocialNetwork::symfony('hyanda'),
                 SocialNetwork::linkedin('felix-eymonot'),
             ], [
-                Badge::symfonyAward('Certified (advanced)'),
+                Badge::symfonyAward('Certified'),
             ]),
             new Member(MemberId::HugoAlliaume, 'Hugo', 'Alliaume', [
                 SocialNetwork::github('Kocal'),
@@ -65,14 +65,14 @@ final readonly class InMemoryMemberRepository implements MemberRepository
                 SocialNetwork::bluesky('jeremyfreeagent.bsky.social'),
                 SocialNetwork::linkedin('jeremyfreeagent'),
             ], [
-                Badge::symfonyAward('Certified (advanced)'),
+                Badge::symfonyAward('Certified'),
             ]),
             new Member(MemberId::JulesPietri, 'Jules', 'Pietri', [
                 SocialNetwork::github('HeahDude'),
                 SocialNetwork::symfony('heah'),
                 SocialNetwork::bluesky('heahdude.bsky.social'),
             ], [
-                Badge::symfonyAward('Certified (expert)'),
+                Badge::symfonyAward('Certified'),
                 Badge::symfonyAward('Former Core Team'),
             ]),
             new Member(MemberId::MathiasArlaud, 'Mathias', 'Arlaud', [
@@ -82,9 +82,9 @@ final readonly class InMemoryMemberRepository implements MemberRepository
                 SocialNetwork::bluesky('mtarld.bsky.social'),
                 SocialNetwork::linkedin('matarld'),
             ], [
-                Badge::bakslashPosition('COO'),
+                Badge::bakslashPosition('Co-Founder / Consultant'),
                 Badge::symfonyAward('Core Team'),
-                Badge::symfonyAward('Certified (expert)'),
+                Badge::symfonyAward('Certified'),
             ]),
             new Member(MemberId::RobinChalas, 'Robin', 'Chalas', [
                 SocialNetwork::github('chalasr'),
@@ -93,7 +93,7 @@ final readonly class InMemoryMemberRepository implements MemberRepository
                 SocialNetwork::bluesky('chalasr.bsky.social'),
                 SocialNetwork::linkedin('robinchalas'),
             ], [
-                Badge::bakslashPosition('CEO'),
+                Badge::bakslashPosition('Co-Founder / Consultant'),
                 Badge::symfonyAward('Core Team'),
             ]),
             new Member(MemberId::ValmontPehautPietri, 'Valmont', 'Pehaut Pietri', [
