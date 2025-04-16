@@ -54,9 +54,10 @@
         </twig:team:ReviewComment>
         <twig:team:ReviewComment :member="members['mathias-arlaud']">
             {{ 'team.review.infra_2'|trans|replace({
-                '<0>': '<span class="font-mono bg-gray-100 rounded mx-1 pt-0.5 px-1 whitespace-nowrap">',
-                '</0>': '</span>',
-                '<1/>': '<br/>',
+                '<0>': '<a href="https://martinfowler.com/eaaCatalog/repository.html" target="_blank" class="text-blue-800 underline underline-offset-4">',
+                '</0>': '</a>',
+                '<1>': '<span class="font-mono bg-gray-100 rounded mx-1 pt-0.5 px-1 whitespace-nowrap">',
+                '</1>': '</span>',
             })|raw }}
         </twig:team:ReviewComment>
         <twig:team:ReviewComment :member="members['jeremy-romey']">

@@ -84,14 +84,14 @@ team.click_on_member: 💡 Click on a member to discover their full profile.
 team.modal.nice: Nice!
 team.reviewers: Reviewers
 team.review.twig_alias_1: Could we alias this import to <0>Twig</0> to make it a little more understandable?
-team.review.twig_alias_2: Another idea could be to extend the <0>AbstractController</0> and use the <0>render</0> method, WDYT?
-team.review.infra_1: Always use interfaces instead of concrete implementations.<0/>It takes advantage of <1>polymorphism</1> and reduce coupling between classes.
-team.review.infra_2: 👍 Plus, the <0>MemberRepository</0> belongs to the "Domain" layer.<1/>We must rely as much as possible on code from that layer.
-team.review.infra_3: If you want to have a specific implementation, you can use the <0>"Autowire" attribute</0>.
-team.review.get_method_1: "While it works, it's not the best way to achieve that. Instead, you should leverage <0>#[Route(methods: ['GET'])]</0>."
-team.review.get_method_2: He's right, while it makes it declarative, it allows us to see that only <0>GET</0> is allowed when using <0>debug:router</0>.
-team.review.pagination_1: Maybe we could get a paginated result instead?
-team.review.pagination_2: AFAIK, bakslash won't have enough members to need pagination any time soon 😉
+team.review.twig_alias_2: What about extending <0>AbstractController</0> and use the <0>render()</0> method?
+team.review.infra_1: This should depend on an interface instead to avoid coupling to implementation details
+team.review.infra_2: 👍 That <0>Repository</0> contract belongs to the <1>Domain</1> layer IMHO.
+team.review.infra_3: To target a specific implementation, you can use the <0>Autowire attribute</0>.
+team.review.get_method_1: "While it works, <0>#[Route(methods: ['GET'])]</0> is a better way to achieve this."
+team.review.get_method_2: Indeed, better leverage Symfony Routing capabilities so you can focus on the business logic.
+team.review.pagination_1: Should it return a paginated result instead?
+team.review.pagination_2: AFAIK, the baksla.sh isn't gonna have enough members to need pagination anytime soon 😉
 team.review.blank_line_1: Extra blank line 👀
 
 team.bio.arnaud-de-abreu: |-
