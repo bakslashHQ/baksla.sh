@@ -91,7 +91,7 @@ team.review.infra_3: To target a specific implementation, you can use the <0>Aut
 team.review.get_method_1: "While it works, <0>#[Route(methods: ['GET'])]</0> is a better way to achieve this."
 team.review.get_method_2: Indeed, better leverage Symfony Routing capabilities so you can focus on the business logic.
 team.review.pagination_1: Should it return a paginated result instead?
-team.review.pagination_2: AFAIK, the baksla.sh isn't gonna have enough members to need pagination anytime soon 😉
+team.review.pagination_2: AFAIK, baksla.sh isn't gonna have enough members to need pagination anytime soon 😉
 team.review.blank_line_1: Extra blank line 👀
 
 team.bio.arnaud-de-abreu: |-
