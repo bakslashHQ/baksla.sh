@@ -1,4 +1,4 @@
-# [bakslash.sh](https://baksla.sh/)
+# [baksla.sh](https://baksla.sh/)
 
 ## Requirements
 
