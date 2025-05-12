@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 use App\Blog\Domain\Repository\ArticlePreviewRepository;
 use App\Blog\Domain\Repository\ArticleRepository;
-use App\Blog\Infrastructure\Cache\CacheArticlePreviewRepository;
-use App\Blog\Infrastructure\Cache\CacheArticleRepository;
-use App\Blog\Infrastructure\Filesystem\FilesystemArticlePreviewRepository;
-use App\Blog\Infrastructure\Filesystem\FilesystemArticleRepository;
+use App\Blog\Infrastructure\Repository\CachingArticlePreviewRepository;
+use App\Blog\Infrastructure\Repository\CachingArticleRepository;
+use App\Blog\Infrastructure\Repository\FilesystemArticlePreviewRepository;
+use App\Blog\Infrastructure\Repository\FilesystemArticleRepository;
 use App\Team\Domain\Repository\MemberRepository;
-use App\Team\Infrastructure\InMemory\InMemoryMemberRepository;
+use App\Team\Infrastructure\Repository\InMemoryMemberRepository;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\inline_service;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
@@ -35,7 +35,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ]);
 
     $services->stack('article_repository', [
-        inline_service(CacheArticleRepository::class)
+        inline_service(CachingArticleRepository::class)
             ->args([
                 service('article_cache'),
                 service('.inner'),
@@ -45,7 +45,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->alias(ArticleRepository::class, 'article_repository');
 
     $services->stack('article_preview_repository', [
-        inline_service(CacheArticlePreviewRepository::class)
+        inline_service(CachingArticlePreviewRepository::class)
             ->args([
                 service('article_preview_cache'),
                 service('.inner'),
