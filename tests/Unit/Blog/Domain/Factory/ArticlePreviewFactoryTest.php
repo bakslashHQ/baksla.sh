@@ -7,7 +7,7 @@ namespace App\Tests\Unit\Blog\Domain\Factory;
 use App\Blog\Domain\Factory\ArticlePreviewFactory;
 use App\Blog\Domain\Model\ArticlePreview;
 use App\Team\Domain\Model\MemberId;
-use App\Team\Infrastructure\InMemory\InMemoryMemberRepository;
+use App\Team\Infrastructure\Repository\InMemoryMemberRepository;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Yaml\Yaml;

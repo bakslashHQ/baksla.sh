@@ -6,8 +6,8 @@ namespace App\Tests\Builder;
 
 use App\Blog\Domain\Model\Article;
 use App\Blog\Domain\Model\ArticlePreview;
-use App\Blog\Infrastructure\League\CommonMark\LeagueMarkdownConverter;
-use App\Blog\Infrastructure\Tempest\Highlight\TempestCodeBlockRenderer;
+use App\Blog\Infrastructure\Rendering\CodeBlock\TempestCodeBlockRenderer;
+use App\Blog\Infrastructure\Rendering\LeagueMarkdownConverter;
 use App\Team\Domain\Model\Member;
 use Faker\Factory;
 use Symfony\Component\Finder\Finder;

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer;
 use PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
@@ -27,5 +28,6 @@ return ECSConfig::configure()
     )
     ->withSkip([
         NotOperatorWithSuccessorSpaceFixer::class,
+        ClassAttributesSeparationFixer::class,
     ])
 ;
