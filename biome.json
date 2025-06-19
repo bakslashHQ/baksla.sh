@@ -1,15 +1,14 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
   "files": {
-    "ignore": [
-      "assets/vendor/*",
-      "assets/controllers.json",
-      "composer.json",
-      "public/assets/*",
-      "public/bundles/*",
-      "var/cache/*",
-      "var/tailwind/*",
-      "vendor/*"
+    "includes": [
+      "**",
+      "!assets/vendor/*",
+      "!assets/controllers.json",
+      "!public/assets/*",
+      "!public/bundles/*",
+      "!var/*",
+      "!vendor/*",
+      "!composer.json"
     ]
   },
   "formatter": {

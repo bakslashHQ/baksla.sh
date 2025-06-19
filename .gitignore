@@ -32,3 +32,7 @@ phpstan.neon
 ###> vincentlanglet/twig-cs-fixer ###
 /.twig-cs-fixer.cache
 ###< vincentlanglet/twig-cs-fixer ###
+
+###> kocal/biome-js-bundle ###
+/bin/biome
+###< kocal/biome-js-bundle ###
