@@ -114,15 +114,17 @@ cs.back.fix:
 
 ## Coding style 📝 - Run frontend coding style checks
 cs.front:
+	$(SYMFONY) biomejs:download
 ifdef CI
-	$(SYMFONY) biomejs:ci . --linter-enabled=false
+	$(PHP_CONT) bin/biome ci . --linter-enabled=false
 else
-	$(SYMFONY) biomejs:check . --linter-enabled=false
+	$(PHP_CONT) bin/biome check . --linter-enabled=false
 endif
 
 ## Coding style 📝 - Run frontend coding style checks and fix issues
 cs.front.fix:
-	$(SYMFONY) biomejs:check . --linter-enabled=false --write --unsafe
+	$(SYMFONY) biomejs:download
+	$(PHP_CONT) bin/biome check . --linter-enabled=false --write --unsafe
 
 ## Linter ✅ - Run all linters
 lint: lint.back lint.front
@@ -140,15 +142,17 @@ lint.back:
 
 ## Linter ✅ - Run frontend linters
 lint.front:
+	$(SYMFONY) biomejs:download
 ifdef CI
-	$(SYMFONY) biomejs:ci . --formatter-enabled=false
+	$(PHP_CONT) bin/biome ci . --formatter-enabled=false
 else
-	$(SYMFONY) biomejs:check . --formatter-enabled=false
+	$(PHP_CONT) bin/biome check . --formatter-enabled=false
 endif
 
 ## Linter ✅ - Run frontend linters and fix issues
 lint.front.fix:
-	$(SYMFONY) biomejs:check . --formatter-enabled=false --write
+	$(SYMFONY) biomejs:download
+	$(PHP_CONT) bin/biome check . --formatter-enabled=false --write
 
 ## PHPStan 🐘 - Run PHPStan
 phpstan:

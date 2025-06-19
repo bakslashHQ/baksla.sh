@@ -104,7 +104,7 @@
         }
     },
     "require-dev": {
-        "kocal/biome-js-bundle": "^1.4",
+        "kocal/biome-js-bundle": "^2.0",
         "phpstan/phpstan": "^2.1.2",
         "phpstan/phpstan-symfony": "^2.0.2",
         "phpunit/phpunit": "^11.5.6",
