@@ -12,7 +12,13 @@ use League\CommonMark\Extension\CommonMark\Node\Block;
 use League\CommonMark\Extension\CommonMark\Node\Inline;
 use League\CommonMark\Extension\DefaultAttributes\DefaultAttributesExtension;
 use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
+use League\CommonMark\Extension\Table\Table;
+use League\CommonMark\Extension\Table\TableCell;
+use League\CommonMark\Extension\Table\TableRenderer;
+use League\CommonMark\Extension\Table\TableRow;
+use League\CommonMark\Extension\Table\TableSection;
 use League\CommonMark\Node\Block\Paragraph;
+use League\CommonMark\Renderer\HtmlDecorator;
 
 final class LeagueMarkdownConverter
 {
@@ -107,6 +113,18 @@ final class LeagueMarkdownConverter
                             return [$listBulletClass, $paddingClass, $marginClass];
                         },
                     ],
+                    Table::class => [
+                        'class' => 'w-full',
+                    ],
+                    TableSection::class => [
+                        'class' => static fn (TableSection $node): array => $node->isHead() ? ['border-b-4 border-indigo-700/60'] : [],
+                    ],
+                    TableRow::class => [
+                        'class' => static fn (TableRow $node): array => $node->parent() instanceof TableSection && $node->parent()->isHead() ? [] : ['border-b border-indigo-200'],
+                    ],
+                    TableCell::class => [
+                        'class' => 'p-2',
+                    ],
                 ],
             ]);
 
@@ -116,6 +134,9 @@ final class LeagueMarkdownConverter
             $environment->addExtension(new GithubEmojiExtension());
 
             $environment->addRenderer(Block\FencedCode::class, $this->codeBlockRenderer);
+            $environment->addRenderer(Table::class, new HtmlDecorator(new TableRenderer(), 'div', [
+                'class' => 'overflow-x-auto',
+            ]));
 
             $this->converter = new \League\CommonMark\MarkdownConverter($environment);
         }
