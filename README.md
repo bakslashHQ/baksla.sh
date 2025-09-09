@@ -25,3 +25,8 @@ Display available commands:
 ```shell
 make help
 ```
+
+Automatically clear Symfony cache when writing an article:
+```shell
+fswatch templates/articles -o | xargs -n1 -I{} docker compose exec -T php bin/console cache:clear
+```

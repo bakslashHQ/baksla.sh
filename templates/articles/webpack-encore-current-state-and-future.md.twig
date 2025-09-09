@@ -1,0 +1,100 @@
+---
+author: hugo-alliaume
+title: "Webpack Encore: Current State and Future 📦"
+description: Webpack Encore was the default asset management tool in Symfony for many years. However, with the rise of AssetMapper and Vite, its future is uncertain.
+---
+
+Symfony developers today face a choice: stick with **Webpack Encore**, adopt the new **AssetMapper**, or explore other alternatives...
+
+I'm often asked about the current state of Webpack Encore in the Symfony ecosystem, its relevance, and what the future holds.
+Is still a viable option? What about AssetMapper? Is there better alternative?
+
+This article reviews where we are today, compares the options, and looks ahead.
+
+## What's Webpack Encore?
+
+[Webpack Encore](https://www.npmjs.com/package/@symfony/webpack-encore) is a simple way to integrate webpack into your
+Symfony application. It was formerly the default asset management tool in Symfony applications, allowing developers
+to manage and compile their frontend assets (JavaScript, CSS, images, etc.) easily.
+
+Webpack Encore was created by [Ryan Weaver](https://github.com/weaverryan) (❤️) in March 2017 and has been the default
+asset management tool in Symfony for many years. It allows developers to use modern JavaScript features and libraries,
+such as ES6 modules, optimized chunks, React, Vue.js, and more.
+
+Many years later, Webpack Encore is still maintained and updated, but its popularity has declined with the introduction
+of [Symfony AssetMapper](https://symfony.com/doc/current/frontend/asset_mapper.html), and the rise of more modern and
+faster tools like [Vite](https://vite.dev/) (or [ESBuild](https://esbuild.github.io/), [Rspack](https://rspack.dev/), etc...).
+
+## Symfony AssetMapper
+
+Since Symfony 6.3, a new component called [AssetMapper](https://symfony.com/doc/current/frontend/asset_mapper.html) has
+been introduced.
+
+It's the new recommended way to manage frontend assets in Symfony applications, without the need for Node.js or a
+bundler like Webpack Encore. Thanks to browsers' native support for ES modules and import maps, AssetMapper allows
+you to use modern JavaScript features and libraries directly in the browser.
+
+The Symfony AssetMapper is a great alternative to Webpack Encore for small to medium-sized projects that don't require
+complex asset management.
+
+Personally, as a Node.js and bundlers enthusiast, I often prefer using a full Node.js toolchain
+(with code quality & testing tools) and Webpack Encore for my projects, except for very small projects that I don't
+really care about and where AssetMapper is perfectly fine.
+
+## The rise of Vite
+
+Vite is a modern frontend build tool that has gained popularity in recent years due to its speed and simplicity.
+It offers a much faster development experience compared to traditional bundlers based on webpack,
+thanks to its use of native ES modules and on-demand file serving.
+
+Recently, on July 27, 2025, [Vite](https://vitejs.dev/) overtook Webpack as the most
+downloaded JavaScript bundler on npm ([npmtrends.com/vite-vs-webpack](https://npmtrends.com/vite-vs-webpack)).
+
+Vite was already very fast and efficient, and it will soon integrate [Rolldown](http://rolldown.rs/), a Rust-based
+bundler, which will make it even **faster**.
+
+Vite can easily be integrated into Symfony applications using the [lhapaipai's Vite Bundle](https://github.com/lhapaipai/vite-bundle).
+
+## Quick Comparison
+
+Here's a quick comparison of Webpack Encore, Symfony AssetMapper, and Vite:
+
+| Feature               | Webpack Encore               | AssetMapper           | Vite              |
+|:----------------------|:-----------------------------|:----------------------|:------------------|
+| **Setup complexity**  | Medium                       | Very low              | Medium            |
+| **Performance**       | Good                         | Very good             | Excellent         |
+| **Ecosystem**         | Huge and stable              | Symfony-only          | Huge & growing    |
+| **Best for**          | Legacy/complex projects      | Small/medium projects | Modern projects   |
+| **Symfony status**    | Legacy, but still maintained | Recommended default   | Community bundle  |
+
+## The future of Webpack Encore
+
+With the rise of Symfony AssetMapper and Vite, the future of Webpack Encore may be uncertain.
+
+While it is still maintained and updated (especially Webpack & loaders upgrades), webpack itself is becoming less
+popular and relevant in the frontend ecosystem:
+- webpack's complexity and configuration can be overwhelming
+- Vite's API and speed are more appealing to developers looking for a modern and efficient build tool
+- The community around Vite is growing rapidly, with many plugins and integrations being developed
+
+In February 2024, I opened [a discussion about Webpack Encore's future](https://github.com/symfony/symfony/issues/59707)
+suggesting that Webpack Encore should be deprecated in favor of Vite, and make [lhapaipai's Vite Bundle](https://github.com/lhapaipai/vite-bundle)
+the _official_ alternative to Webpack Encore, under the Symfony organization.
+
+Things didn't move much since then, but I believe that in the next few years, Webpack Encore will be gradually phased out
+in favor of more modern and efficient tools like Vite.
+
+## Conclusion
+
+1. **Webpack Encore** is still a **viable option** for asset management in Symfony applications, especially for **legacy and complex projects**
+2. **Symfony AssetMapper** is a **great alternative for small to medium-sized projects** that don't require complex asset management
+3. **Vite** is a modern and efficient build tool that is gaining popularity in the frontend ecosystem, and can be easily
+   integrated into Symfony applications through **community bundles**
+
+The future of Webpack Encore is a bit uncertain, but it is still maintained and updated for now.
+As the frontend ecosystem continues to evolve, developers should consider their project requirements and choose the
+most suitable tool for their needs.
+
+In the future, Webpack Encore might internally use [Rspack](https://rspack.dev/) to stay relevant and fast… who knows! 👀
+
+Stay tuned! 🚀
