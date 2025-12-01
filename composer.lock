@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0c173f3c16329d26b2437604e5ed80c4",
+    "content-hash": "7059786e9727c5dc5bde1f0bec6366d6",
     "packages": [
         {
             "name": "composer/semver",
@@ -6778,29 +6778,29 @@
         },
         {
             "name": "kocal/biome-js-bundle",
-            "version": "v2.0.0",
+            "version": "v2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kocal/BiomeJsBundle.git",
-                "reference": "a33c1670bd9701f5dcd3a8d8be454f3abaf14530"
+                "reference": "f5b4f7281b682d43833130b9ada37c43e6b9a286"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kocal/BiomeJsBundle/zipball/a33c1670bd9701f5dcd3a8d8be454f3abaf14530",
-                "reference": "a33c1670bd9701f5dcd3a8d8be454f3abaf14530",
+                "url": "https://api.github.com/repos/Kocal/BiomeJsBundle/zipball/f5b4f7281b682d43833130b9ada37c43e6b9a286",
+                "reference": "f5b4f7281b682d43833130b9ada37c43e6b9a286",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.1",
-                "symfony/console": "^6.4|^7.0",
-                "symfony/filesystem": "^6.4|^7.0",
-                "symfony/http-client": "^6.4|^7.0",
-                "symfony/process": "^6.4|^7.0"
+                "symfony/console": "^6.4|^7.0|^8.0",
+                "symfony/filesystem": "^6.4|^7.0|^8.0",
+                "symfony/http-client": "^6.4|^7.0|^8.0",
+                "symfony/process": "^6.4|^7.0|^8.0"
             },
             "require-dev": {
-                "phpstan/phpstan": "^1.11",
-                "symfony/framework-bundle": "^6.4|^7.0",
-                "symplify/easy-coding-standard": "^12.1.2"
+                "phpstan/phpstan": "^2.1.21",
+                "symfony/framework-bundle": "^6.4|^7.0|^8.0",
+                "symplify/easy-coding-standard": "12.5.22"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -6827,9 +6827,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Kocal/BiomeJsBundle/issues",
-                "source": "https://github.com/Kocal/BiomeJsBundle/tree/v2.0.0"
+                "source": "https://github.com/Kocal/BiomeJsBundle/tree/v2.1.1"
             },
-            "time": "2025-06-19T17:32:54+00:00"
+            "time": "2025-08-26T10:36:22+00:00"
         },
         {
             "name": "masterminds/html5",
