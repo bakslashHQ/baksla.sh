@@ -44,7 +44,7 @@
         "symfony/validator": "7.2.*",
         "symfony/web-link": "7.2.*",
         "symfony/yaml": "7.2.*",
-        "symfonycasts/tailwind-bundle": "^0.6.1",
+        "symfonycasts/tailwind-bundle": "^0.11.1",
         "tempest/highlight": "^2.11",
         "twig/extra-bundle": "^2.12|^3.19",
         "twig/html-extra": "^3.19",
