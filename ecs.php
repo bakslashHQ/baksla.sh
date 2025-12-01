@@ -17,9 +17,6 @@ return ECSConfig::configure()
         __DIR__ . '/tests',
         __DIR__ . '/tools',
     ])
-    ->withSkip([
-        __DIR__ . '/config/bundles.php',
-    ])
     ->withPreparedSets(
         psr12: true,
         common: true,
@@ -27,6 +24,8 @@ return ECSConfig::configure()
         cleanCode: true,
     )
     ->withSkip([
+        __DIR__ . '/config/bundles.php',
+        __DIR__ . '/config/reference.php',
         NotOperatorWithSuccessorSpaceFixer::class,
         ClassAttributesSeparationFixer::class,
     ])

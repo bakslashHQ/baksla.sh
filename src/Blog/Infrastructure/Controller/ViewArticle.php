@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Twig\Environment;
 
 #[AsController]
@@ -27,7 +27,7 @@ final readonly class ViewArticle
     ) {
     }
 
-    #[Route(name: 'app_blog_article', path: '/blog/{id}', methods: ['GET'])]
+    #[Route(path: '/blog/{id}', name: 'app_blog_article', methods: ['GET'])]
     public function __invoke(Request $request, string $id): Response
     {
         $response = new Response();

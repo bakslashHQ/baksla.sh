@@ -13,6 +13,9 @@ parameters:
         - tools/
         - tests/
 
+    excludePaths:
+        - config/reference.php
+
     tmpDir: var/phpstan
 
     symfony:

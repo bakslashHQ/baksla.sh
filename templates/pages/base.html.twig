@@ -49,11 +49,11 @@
                             <img src="{{ asset('images/bakslash-small.svg') }}" alt="baksla.sh" aria-hidden="true" class="size-11 sm:hidden" loading="eager" fetchpriority="high" width="62" height="62">
                         </a>
                         <div class="flex justify-center items-center gap-x-2 sm:gap-x-4 lg:gap-x-6">
-                            {% if app.request.get('_route') != 'app_blog' %}
+                            {% if app.current_route != 'app_blog' %}
                             <a href="{{ path('app_blog') }}" class="py-4 font-medium text-slate-800 text-sm sm:text-lg hover:underline underline-offset-3 decoration-2 sm:decoration-4 decoration-indigo-500 whitespace-nowrap">{{ 'header.link.blog'|trans }}</a>
                             <div class="border-r border-gray-300 h-3 sm:h-6"></div>
                             {% endif %}
-                            {% if app.request.get('_route') != 'app_team' %}
+                            {% if app.current_route != 'app_team' %}
                             <a href="{{ path('app_team') }}" class="py-4 font-medium text-slate-800 text-sm sm:text-lg hover:underline underline-offset-3 decoration-2 sm:decoration-4 decoration-indigo-500 whitespace-nowrap">{{ 'header.link.team'|trans }}</a>
                             <div class="border-r border-gray-300 h-3 sm:h-6"></div>
                             {% endif %}
