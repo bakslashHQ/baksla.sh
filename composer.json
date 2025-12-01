@@ -117,6 +117,6 @@
         "symfony/stopwatch": "7.2.*",
         "symfony/web-profiler-bundle": "7.2.*",
         "symplify/easy-coding-standard": "^12.5.8",
-        "vincentlanglet/twig-cs-fixer": "^3.5.1"
+        "vincentlanglet/twig-cs-fixer": "^3.11"
     }
 }
