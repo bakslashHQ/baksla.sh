@@ -6,9 +6,11 @@
       "!assets/controllers.json",
       "!public/assets/*",
       "!public/bundles/*",
+      "!tests/*",
       "!var/*",
       "!vendor/*",
-      "!composer.json"
+      "!composer.json",
+      "!package.json"
     ]
   },
   "formatter": {

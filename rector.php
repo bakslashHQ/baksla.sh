@@ -31,6 +31,8 @@ return RectorConfig::configure()
         symfonyCodeQuality: true,
     )
     ->withSkip([
+        __DIR__ . '/config/bundles.php',
+        __DIR__ . '/config/reference.php',
         MakeInheritedMethodVisibilitySameAsParentRector::class,
         FirstClassCallableRector::class => [
             // e.g.: when calling ->factory() with a callable, we want to keep the array notation in place
