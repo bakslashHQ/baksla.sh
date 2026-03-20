@@ -8,6 +8,7 @@ enum MemberId: string
 {
     case ArnaudDeAbreu = 'arnaud-de-abreu';
     case FelixEymonot = 'felix-eymonot';
+    case FlorianMerle = 'florian-merle';
     case HugoAlliaume = 'hugo-alliaume';
     case JeremyRomey = 'jeremy-romey';
     case JulesPietri = 'jules-pietri';

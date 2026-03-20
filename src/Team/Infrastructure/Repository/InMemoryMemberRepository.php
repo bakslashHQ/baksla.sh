@@ -49,6 +49,17 @@ final readonly class InMemoryMemberRepository implements MemberRepository
             ], [
                 Badge::symfonyAward('Certified'),
             ]),
+            new Member(MemberId::FlorianMerle, 'Florian', 'Merle', [
+                SocialNetwork::github('florian-merle'),
+                SocialNetwork::twitter('florianm__'),
+                SocialNetwork::symfony('florian-merle'),
+                SocialNetwork::bluesky('floriandm.bsky.social'),
+                SocialNetwork::linkedin('🦘-florian-merle-2752b814a'),
+            ], [
+                Badge::syliusAward('Key Contributor'),
+                Badge::syliusAward('Certified'),
+                Badge::symfonyAward('Certified'),
+            ]),
             new Member(MemberId::HugoAlliaume, 'Hugo', 'Alliaume', [
                 SocialNetwork::github('Kocal'),
                 SocialNetwork::twitter('HugoAlliaume'),
