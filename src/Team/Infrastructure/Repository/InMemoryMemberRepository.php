@@ -59,7 +59,7 @@ final readonly class InMemoryMemberRepository implements MemberRepository
                 Badge::syliusAward('Key Contributor'),
                 Badge::syliusAward('Certified'),
                 Badge::symfonyAward('Certified'),
-            ]),
+            ], 'FloFlax'),
             new Member(MemberId::HugoAlliaume, 'Hugo', 'Alliaume', [
                 SocialNetwork::github('Kocal'),
                 SocialNetwork::twitter('HugoAlliaume'),
