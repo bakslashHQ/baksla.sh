@@ -18,6 +18,7 @@ final readonly class Member
         public string $lastName,
         public array $socialNetworks = [],
         public array $badges = [],
+        public ?string $nickName = null,
     ) {
     }
 

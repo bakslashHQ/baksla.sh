@@ -45,6 +45,14 @@ final readonly class Badge
     /**
      * @param non-empty-string $award
      */
+    public static function syliusAward(string $award): self
+    {
+        return new self($award, 'logos:sylius', 'Sylius');
+    }
+
+    /**
+     * @param non-empty-string $award
+     */
     public static function phpAward(string $award): self
     {
         return new self($award, 'logos:php', 'PHP');
