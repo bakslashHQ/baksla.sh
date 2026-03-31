@@ -12,7 +12,12 @@
         <div class="bg-white px-10 py-12 relative rounded-t-xl">
             <img class="absolute -translate-y-24 sm:-translate-y-28 left-1/2 -translate-x-1/2 size-36 sm:size-40 rounded-full bg-gray-50 shadow-xl shadow-blue-gray-900/50" src="{{ asset('images/team/members/' ~ member.id.value ~ '.jpg') }}" alt="{{ member.fullName }}" loading="lazy" />
             <div class="mt-12 flex flex-col gap-y-6">
-                <h3 class="text-center mt-6 text-4xl font-bold tracking-tight text-slate-800" id="modal-title">{{ member.fullName }}</h3>
+                <span class="text-center">
+                    <h3 class="mt-6 text-4xl font-bold tracking-tight text-slate-800" id="modal-title">{{ member.fullName }}</h3>
+                    {% if member.nickName %}
+                    <h4 class="text-xl font-bold tracking-tight text-slate-800">{{ member.nickName }}</h4>
+                    {% endif %}
+                </span>
                 <ul class="flex flex-row flex-wrap gap-x-3 gap-y-2 pb-8 justify-center items-center border-b border-gray-300">
                     {% for badge in member.badges %}
                     <li class="text-sm border border-1 border-gray-300 rounded-full py-.5 px-2 grow-0 flex flex-row items-center gap-x-1 whitespace-nowrap opacity-80">
