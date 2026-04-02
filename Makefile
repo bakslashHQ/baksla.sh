@@ -70,6 +70,7 @@ ssg:
 	@$(DOCKER_COMP) exec \
 		-e APP_ENV=prod \
 		-e DEFAULT_URI \
+		-e BASE_PATH \
 		-e GA_APP_NAME \
 		-e GA_MEASUREMENT_ID \
 		php sh -c " \

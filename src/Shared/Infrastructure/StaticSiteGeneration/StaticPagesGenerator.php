@@ -12,6 +12,8 @@ final readonly class StaticPagesGenerator
 {
     public function __construct(
         private HttpKernelInterface $kernel,
+        private string $baseUri,
+        private string $basePath,
     ) {
     }
 
@@ -22,7 +24,13 @@ final readonly class StaticPagesGenerator
      */
     public function generate(string $uri): array
     {
-        $request = Request::create($uri);
+        // SCRIPT_NAME tells Symfony which part of the URL is the base path (e.g. "/my-app")
+        // so that the router matches routes correctly and path() generates prefixed links.
+        $scriptName = $this->basePath . '/index.php';
+        $request = Request::create($this->baseUri . $uri, server: [
+            'SCRIPT_NAME' => $scriptName,
+            'SCRIPT_FILENAME' => $scriptName,
+        ]);
 
         try {
             $response = $this->kernel->handle($request, HttpKernelInterface::MAIN_REQUEST);

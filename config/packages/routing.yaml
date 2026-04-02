@@ -1,6 +1,6 @@
 framework:
     router:
-        default_uri: '%env(DEFAULT_URI)%'
+        default_uri: '%env(DEFAULT_URI)%%env(BASE_PATH)%'
 
 when@prod:
     framework:

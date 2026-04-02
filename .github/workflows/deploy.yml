@@ -50,6 +50,7 @@ jobs:
         run: make ssg
         env:
           DEFAULT_URI: ${{ vars.DEFAULT_URI }}
+          BASE_PATH: ${{ vars.BASE_PATH }}
           GA_APP_NAME: ${{ vars.GA_APP_NAME }}
           GA_MEASUREMENT_ID: ${{ vars.GA_MEASUREMENT_ID }}
       -

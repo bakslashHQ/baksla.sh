@@ -19,6 +19,8 @@ final readonly class StaticPageUrisProvider implements StaticPageUrisProviderInt
 
     public function provide(): iterable
     {
+        $baseUrl = $this->router->getContext()->getBaseUrl();
+
         foreach ($this->router->getRouteCollection() as $routeName => $route) {
             $config = $route->getDefaults()[Prerender::ROUTE_DEFAULTS_KEY] ?? null;
             if (!$config) {
@@ -36,7 +38,7 @@ final readonly class StaticPageUrisProvider implements StaticPageUrisProviderInt
             $compiledRoute = $route->compile();
 
             if ($compiledRoute->getPathVariables() === [] || $config === true) {
-                yield $this->router->generate($routeName);
+                yield $this->stripBaseUrl($this->router->generate($routeName, [], RouterInterface::ABSOLUTE_PATH), $baseUrl);
 
                 continue;
             }
@@ -48,9 +50,18 @@ final readonly class StaticPageUrisProvider implements StaticPageUrisProviderInt
             /** @var class-string<ParamsProviderInterface>|list<array<string, mixed>> $params */
             $params = $config['params'];
             foreach ($this->getParamsList($params) as $paramSet) {
-                yield $this->router->generate($routeName, $paramSet);
+                yield $this->stripBaseUrl($this->router->generate($routeName, $paramSet, RouterInterface::ABSOLUTE_PATH), $baseUrl);
             }
         }
+    }
+
+    private function stripBaseUrl(string $uri, string $baseUrl): string
+    {
+        if ($baseUrl !== '' && str_starts_with($uri, $baseUrl)) {
+            $uri = substr($uri, \strlen($baseUrl));
+        }
+
+        return $uri !== '' && $uri !== '0' ? $uri : '/';
     }
 
     /**

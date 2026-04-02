@@ -16,7 +16,7 @@ final class StaticPagesGeneratorTest extends TestCase
         $kernel = $this->createStub(HttpKernelInterface::class);
         $kernel->method('handle')->willReturn(new Response('foo-content'));
 
-        $generator = new StaticPagesGenerator($kernel);
+        $generator = new StaticPagesGenerator($kernel, 'http://localhost', '');
         ['content' => $content, 'format' => $format] = $generator->generate('/whatever');
 
         $this->assertSame('foo-content', $content);
@@ -28,7 +28,7 @@ final class StaticPagesGeneratorTest extends TestCase
         $kernel = $this->createStub(HttpKernelInterface::class);
         $kernel->method('handle')->willReturn(new Response('not-found', \Symfony\Component\HttpFoundation\Response::HTTP_NOT_FOUND));
 
-        $generator = new StaticPagesGenerator($kernel);
+        $generator = new StaticPagesGenerator($kernel, 'http://localhost', '');
 
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Expected URI "/whatever" to return status code 200, got 404.');
@@ -40,7 +40,7 @@ final class StaticPagesGeneratorTest extends TestCase
         $kernel = $this->createStub(HttpKernelInterface::class);
         $kernel->method('handle')->willThrowException(new \RuntimeException('Kernel error'));
 
-        $generator = new StaticPagesGenerator($kernel);
+        $generator = new StaticPagesGenerator($kernel, 'http://localhost', '');
 
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Cannot generate page for URI "/whatever".');

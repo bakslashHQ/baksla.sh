@@ -22,7 +22,9 @@ final class StaticSiteGenerationPass implements CompilerPassInterface
             ->setArgument('$paramsProviders', new ServiceLocatorArgument(new TaggedIteratorArgument('ssg.params_provider', indexAttribute: 'key')));
 
         $container->getDefinition(StaticPagesGenerator::class)
-            ->setArgument('$kernel', new Reference('http_kernel'));
+            ->setArgument('$kernel', new Reference('http_kernel'))
+            ->setArgument('$baseUri', '%env(DEFAULT_URI)%%env(BASE_PATH)%')
+            ->setArgument('$basePath', '%env(BASE_PATH)%');
 
         $container->getDefinition(FilesystemStaticPageDumper::class)
             ->setArgument('$outputDir', '%app.ssg_output_dir%');
