@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Website\Controller;
 
 use App\Blog\Domain\Repository\ArticlePreviewRepository;
+use App\Shared\Infrastructure\StaticSiteGeneration\Prerender;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Attribute\Route;
@@ -22,6 +23,7 @@ final readonly class ViewSitemap
     }
 
     #[Route(path: 'sitemap.xml', name: 'app_sitemap', methods: ['GET'], format: 'xml')]
+    #[Prerender]
     public function __invoke(): Response
     {
         $urls = [

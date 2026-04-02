@@ -16,6 +16,4 @@ interface ArticlePreviewRepository
      * @return list<ArticlePreview>
      */
     public function findAll(): array;
-
-    public function getHash(): string;
 }

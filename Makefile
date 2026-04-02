@@ -65,6 +65,31 @@ sf:
 cc: c=c:c ## Clear the cache
 cc: sf
 
+## Symfony 🎵 - Generate static site
+ssg:
+	@$(DOCKER_COMP) exec \
+		-e APP_ENV=prod \
+		-e DEFAULT_URI \
+		-e GA_APP_NAME \
+		-e GA_MEASUREMENT_ID \
+		php sh -c " \
+			bin/console cache:warmup && \
+			bin/console tailwind:build --minify && \
+			bin/console asset-map:compile && \
+			bin/console ssg:generate && \
+			bin/console blog:generate-og-images \
+		"
+	@rm -rf _site
+	@mkdir -p _site
+	@$(DOCKER_COMP) cp php:/app/public/. _site/
+	@rm -f _site/index.php
+	@cp -a _site/static-pages/. _site/
+	@rm -rf _site/static-pages
+
+## Symfony 🎵 - Serve the generated static site locally
+serve.static:
+	@$(PHP_CONT) frankenphp run --config /app/frankenphp/static.Caddyfile
+
 ## Symfony 🎵 - Run TailwindCSS watcher
 tailwind.watch:
 	@$(SYMFONY) tailwind:build --watch

@@ -12,8 +12,11 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 final class ArticlePreview
 {
     public string $id;
+
     public string $title;
+
     public string $description;
+
     public Member $author;
 
     public bool $lazyLoadImage = false;

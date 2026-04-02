@@ -19,6 +19,4 @@ interface MemberRepository
      * @throws MissingMemberException
      */
     public function get(MemberId $id): Member;
-
-    public function getHash(): string;
 }

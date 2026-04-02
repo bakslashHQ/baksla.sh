@@ -24,7 +24,7 @@ final class ArticlePreviewFactoryTest extends TestCase
         $content = sprintf("---\n%s\n---", $yaml);
         $memberRepository = new InMemoryMemberRepository([$member = aMember()->withId(MemberId::MathiasArlaud)->build()]);
 
-        $preview = (new ArticlePreviewFactory($memberRepository))->create('1', $content);
+        $preview = new ArticlePreviewFactory($memberRepository)->create('1', $content);
 
         $this->assertInstanceOf(ArticlePreview::class, $preview);
         $this->assertSame('title', $preview->title);
@@ -37,7 +37,7 @@ final class ArticlePreviewFactoryTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Cannot find metadata of file "1.md.twig".');
 
-        (new ArticlePreviewFactory(new InMemoryMemberRepository()))->create('1', 'anything');
+        new ArticlePreviewFactory(new InMemoryMemberRepository())->create('1', 'anything');
     }
 
     public function testCreateThrowsWhenInvalidYaml(): void
@@ -48,7 +48,7 @@ final class ArticlePreviewFactoryTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessageMatches('/^Cannot parse metadata of file "1\.md\.twig": ".+"\.$/');
 
-        (new ArticlePreviewFactory(new InMemoryMemberRepository()))->create('1', $content);
+        new ArticlePreviewFactory(new InMemoryMemberRepository())->create('1', $content);
     }
 
     /**
@@ -63,7 +63,7 @@ final class ArticlePreviewFactoryTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(sprintf('Missing "%s" metadata in file "1.md.twig".', $expectedMissing));
 
-        (new ArticlePreviewFactory(new InMemoryMemberRepository()))->create('1', $content);
+        new ArticlePreviewFactory(new InMemoryMemberRepository())->create('1', $content);
     }
 
     /**

@@ -22,9 +22,9 @@ final class TwigMarkdownHtmlGeneratorTest extends KernelTestCase
     public function testGenerateProperHtml(): void
     {
         /** @var TwigMarkdownHtmlGenerator $generator */
-        $generator = static::getContainer()->get(TwigMarkdownHtmlGenerator::class);
+        $generator = self::getContainer()->get(TwigMarkdownHtmlGenerator::class);
 
-        $articlesDir = sprintf('%s/articles', static::getContainer()->getParameter('twig.default_path'));
+        $articlesDir = sprintf('%s/articles', self::getContainer()->getParameter('twig.default_path'));
 
         $content = <<<MD
 ---

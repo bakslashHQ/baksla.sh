@@ -129,9 +129,4 @@ final readonly class InMemoryMemberRepository implements MemberRepository
     {
         return $this->members[$id->value] ?? throw new MissingMemberException($id);
     }
-
-    public function getHash(): string
-    {
-        return hash('xxh128', json_encode($this->members) ?: '');
-    }
 }

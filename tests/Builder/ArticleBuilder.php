@@ -80,7 +80,7 @@ final class ArticleBuilder
 
         $html = $this->html;
         if ($html === NotSet::VALUE) {
-            $markdowns = iterator_to_array((new Finder())
+            $markdowns = iterator_to_array(new Finder()
                 ->files()
                 ->in(sprintf('%s/templates/articles/', dirname(__DIR__, 2)))
                 ->name('*.md.twig')

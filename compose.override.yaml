@@ -10,6 +10,10 @@ services:
       # If you develop on Mac or Windows you can remove the vendor/ directory
       #  from the bind-mount for better performance by enabling the next line:
       #- /app/vendor
+    ports:
+      - target: 8080
+        published: 8080
+        protocol: tcp
     environment:
       XDEBUG_MODE: "${XDEBUG_MODE:-off}"
     extra_hosts:

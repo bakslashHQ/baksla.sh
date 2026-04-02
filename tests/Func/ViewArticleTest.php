@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Func;
 
-use App\Blog\Domain\Repository\ArticlePreviewRepository;
 use App\Blog\Domain\Repository\ArticleRepository;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -45,19 +44,5 @@ final class ViewArticleTest extends FunctionalTestCase
         $titles = $crawler->filter('[data-test-more-articles] article h2')->each(static fn (Crawler $a): string => $a->text());
 
         $this->assertNotContains($article->title, $titles);
-    }
-
-    public function testReturnCachedVersionWhenPossible(): void
-    {
-        $articleRepository = $this->getService(ArticleRepository::class);
-        $articlePreviewRepository = $this->getService(ArticlePreviewRepository::class);
-
-        $this->get('/blog/symfony-certification');
-        $this->assertResponseStatusCodeSame(200);
-
-        $this->get('/blog/symfony-certification', server: [
-            'HTTP_IF_NONE_MATCH' => sprintf('"%s%s"', $articleRepository->get('symfony-certification')->hash, $articlePreviewRepository->getHash()),
-        ]);
-        $this->assertResponseStatusCodeSame(304);
     }
 }

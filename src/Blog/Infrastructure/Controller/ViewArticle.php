@@ -8,7 +8,8 @@ use App\Blog\Domain\Exception\MissingArticleException;
 use App\Blog\Domain\Model\ArticlePreview;
 use App\Blog\Domain\Repository\ArticlePreviewRepository;
 use App\Blog\Domain\Repository\ArticleRepository;
-use Symfony\Component\HttpFoundation\Request;
+use App\Blog\Infrastructure\StaticSiteGeneration\BlogArticleParamsProvider;
+use App\Shared\Infrastructure\StaticSiteGeneration\Prerender;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -28,21 +29,13 @@ final readonly class ViewArticle
     }
 
     #[Route(path: '/blog/{id}', name: 'app_blog_article', methods: ['GET'])]
-    public function __invoke(Request $request, string $id): Response
+    #[Prerender(params: BlogArticleParamsProvider::class)]
+    public function __invoke(string $id): Response
     {
-        $response = new Response();
-
         try {
             $article = $this->articleRepository->get($id);
         } catch (MissingArticleException) {
             throw new NotFoundHttpException();
-        }
-
-        $response->setEtag($article->hash . $this->articlePreviewRepository->getHash());
-        $response->setPublic();
-
-        if ($response->isNotModified($request)) {
-            return $response;
         }
 
         $articles = $this->articlePreviewRepository->findAll();
@@ -50,19 +43,12 @@ final readonly class ViewArticle
             $articles = array_values(array_filter($articles, static fn (ArticlePreview $a): bool => $a->id !== $article->id));
         }
 
-        $more = [];
-        $keys = $articles !== [] ? (array) array_rand($articles, min(self::MORE_COUNT, \count($articles))) : [];
+        $more = \array_slice($articles, 0, self::MORE_COUNT);
+        $more = array_pad($more, self::MORE_COUNT, null);
 
-        for ($i = 0; $i < self::MORE_COUNT; ++$i) {
-            $key = $keys[$i] ?? null;
-            $more[] = $key !== null ? $articles[$key] : null;
-        }
-
-        $response->setContent($this->twig->render('pages/blog/article.html.twig', [
+        return new Response($this->twig->render('pages/blog/article.html.twig', [
             'article' => $article,
             'more' => $more,
         ]));
-
-        return $response;
     }
 }

@@ -24,7 +24,7 @@ final readonly class FilesystemArticlePreviewRepository implements ArticlePrevie
 
     public function get(string $id): ArticlePreview
     {
-        $files = iterator_to_array((new Finder())
+        $files = iterator_to_array(new Finder()
             ->in($this->articlesDir)
             ->name(sprintf('%s.md.twig', $id)));
 
@@ -37,7 +37,7 @@ final readonly class FilesystemArticlePreviewRepository implements ArticlePrevie
 
     public function findShowcased(): ?ArticlePreview
     {
-        if ($this->showcasedArticle === null || $this->showcasedArticle === '' || $this->showcasedArticle === '0') {
+        if (in_array($this->showcasedArticle, [null, '', '0'], true)) {
             return null;
         }
 
@@ -46,7 +46,7 @@ final readonly class FilesystemArticlePreviewRepository implements ArticlePrevie
 
     public function findAll(): array
     {
-        $files = (new Finder())
+        $files = new Finder()
             ->files()
             ->in($this->articlesDir)
             ->name('*.md.twig')
@@ -61,13 +61,5 @@ final readonly class FilesystemArticlePreviewRepository implements ArticlePrevie
         }
 
         return $previews;
-    }
-
-    public function getHash(): string
-    {
-        $this->findShowcased();
-        $this->findAll();
-
-        return hash('xxh128', json_encode([$this->findAll(), $this->showcasedArticle]) ?: '');
     }
 }

@@ -49,16 +49,4 @@ final class ViewBlogTest extends FunctionalTestCase
         $this->assertSameSize($titles, array_unique($titles));
     }
 
-    public function testReturnCachedVersionWhenPossible(): void
-    {
-        $articlePreviewRepository = $this->getService(ArticlePreviewRepository::class);
-
-        $this->get('/blog');
-        $this->assertResponseStatusCodeSame(200);
-
-        $this->get('/blog', server: [
-            'HTTP_IF_NONE_MATCH' => sprintf('"%s"', $articlePreviewRepository->getHash()),
-        ]);
-        $this->assertResponseStatusCodeSame(304);
-    }
 }
