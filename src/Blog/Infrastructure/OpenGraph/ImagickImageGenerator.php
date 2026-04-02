@@ -75,7 +75,7 @@ final readonly class ImagickImageGenerator implements ImageGenerator
 
         // Returns the image
         $image->setFormat('jpeg');
-        $image->setImageCompressionQuality(100);
+        $image->setImageCompressionQuality(85);
 
         return (string) $image;
     }
