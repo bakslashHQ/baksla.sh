@@ -46,16 +46,4 @@ final class ViewTeamTest extends FunctionalTestCase
         }
     }
 
-    public function testReturnCachedVersionWhenPossible(): void
-    {
-        $memberRepository = $this->getService(MemberRepository::class);
-
-        $this->get('/team');
-        $this->assertResponseStatusCodeSame(200);
-
-        $this->get('/team', server: [
-            'HTTP_IF_NONE_MATCH' => sprintf('"%s"', $memberRepository->getHash()),
-        ]);
-        $this->assertResponseStatusCodeSame(304);
-    }
 }

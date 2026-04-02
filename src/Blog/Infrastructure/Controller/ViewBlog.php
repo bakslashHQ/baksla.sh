@@ -6,7 +6,7 @@ namespace App\Blog\Infrastructure\Controller;
 
 use App\Blog\Domain\Model\ArticlePreview;
 use App\Blog\Domain\Repository\ArticlePreviewRepository;
-use Symfony\Component\HttpFoundation\Request;
+use App\Shared\Infrastructure\StaticSiteGeneration\Prerender;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Attribute\Route;
@@ -22,16 +22,9 @@ final readonly class ViewBlog
     }
 
     #[Route(path: '/blog', name: 'app_blog', methods: ['GET'])]
-    public function __invoke(Request $request): Response
+    #[Prerender]
+    public function __invoke(): Response
     {
-        $response = new Response();
-        $response->setEtag($this->articlePreviewRepository->getHash());
-        $response->setPublic();
-
-        if ($response->isNotModified($request)) {
-            return $response;
-        }
-
         $articles = $this->articlePreviewRepository->findAll();
         $showcased = $this->articlePreviewRepository->findShowcased();
 
@@ -39,11 +32,9 @@ final readonly class ViewBlog
             $articles = array_values(array_filter($articles, static fn (ArticlePreview $a): bool => $a->id !== $showcased->id));
         }
 
-        $response->setContent($this->twig->render('pages/blog/index.html.twig', [
+        return new Response($this->twig->render('pages/blog/index.html.twig', [
             'showcased' => $showcased,
             'articles' => $articles,
         ]));
-
-        return $response;
     }
 }

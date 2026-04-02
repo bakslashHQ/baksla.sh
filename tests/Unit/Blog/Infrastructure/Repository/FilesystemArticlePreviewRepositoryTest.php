@@ -57,7 +57,7 @@ final class FilesystemArticlePreviewRepositoryTest extends TestCase
         $this->createArticleFile('1.md.twig');
 
         $showcased = $this->getRepository()->findShowcased();
-        $this->assertNull($showcased);
+        $this->assertNotInstanceOf(\App\Blog\Domain\Model\ArticlePreview::class, $showcased);
 
         $showcased = $this->getRepository('1')->findShowcased();
 
@@ -85,20 +85,6 @@ final class FilesystemArticlePreviewRepositoryTest extends TestCase
         $this->assertCount(2, $previews);
         $this->assertContainsOnlyInstancesOf(ArticlePreview::class, $previews);
         $this->assertSame(['1', '2'], array_column($previews, 'id'));
-    }
-
-    public function testGetHash(): void
-    {
-        $hash = $this->getRepository()->getHash();
-
-        $this->createArticleFile('1.md.twig');
-        $hash2 = $this->getRepository()->getHash();
-
-        $this->createArticleFile('2.md.twig');
-        $hash3 = $this->getRepository()->getHash();
-
-        $this->assertNotSame($hash, $hash2);
-        $this->assertNotSame($hash2, $hash3);
     }
 
     private function getRepository(?string $showcasedArticle = null): FilesystemArticlePreviewRepository

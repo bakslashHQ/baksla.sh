@@ -53,7 +53,7 @@ abstract class FunctionalTestCase extends WebTestCase
         ?string $content = null,
         bool $changeHistory = true
     ): Crawler {
-        $this->assertNotNull(self::$client, 'The client must be set.');
+        $this->assertInstanceOf(\Symfony\Bundle\FrameworkBundle\KernelBrowser::class, self::$client, 'The client must be set.');
 
         return self::$client->request(
             method: \Symfony\Component\HttpFoundation\Request::METHOD_GET,
@@ -68,7 +68,7 @@ abstract class FunctionalTestCase extends WebTestCase
 
     protected function followRedirect(): Crawler
     {
-        $this->assertNotNull(self::$client, 'The client must be set.');
+        $this->assertInstanceOf(\Symfony\Bundle\FrameworkBundle\KernelBrowser::class, self::$client, 'The client must be set.');
 
         return self::$client->followRedirect();
     }
@@ -89,7 +89,7 @@ abstract class FunctionalTestCase extends WebTestCase
 
     protected function getResponse(): Response
     {
-        $this->assertNotNull(self::$client, 'The client must be set.');
+        $this->assertInstanceOf(\Symfony\Bundle\FrameworkBundle\KernelBrowser::class, self::$client, 'The client must be set.');
 
         return self::$client->getResponse();
     }

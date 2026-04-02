@@ -1,4 +1,6 @@
 /public/open-graph/article
+/public/static-pages
+/_site
 
 ###> symfony/framework-bundle ###
 /.env.local

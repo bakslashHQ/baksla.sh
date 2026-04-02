@@ -49,6 +49,6 @@ final class LeagueMarkdownConverterTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Titles of level 1 are not accepted, please use the "title" metadata instead.');
 
-        (new LeagueMarkdownConverter(new TempestCodeBlockRenderer()))->convert('# Level 1');
+        new LeagueMarkdownConverter(new TempestCodeBlockRenderer())->convert('# Level 1');
     }
 }

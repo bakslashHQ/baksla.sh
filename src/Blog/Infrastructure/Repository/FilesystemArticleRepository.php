@@ -22,7 +22,7 @@ final readonly class FilesystemArticleRepository implements ArticleRepository
 
     public function get(string $id): Article
     {
-        $files = iterator_to_array((new Finder())
+        $files = iterator_to_array(new Finder()
             ->in($this->articlesDir)
             ->name(sprintf('%s.md.twig', $id)));
 
@@ -35,7 +35,7 @@ final readonly class FilesystemArticleRepository implements ArticleRepository
 
     public function findAll(): array
     {
-        $files = (new Finder())
+        $files = new Finder()
             ->files()
             ->in($this->articlesDir)
             ->name('*.md.twig')

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Shared\Infrastructure\StaticSiteGeneration\Prerender;
 use Symfony\Bundle\FrameworkBundle\Controller\RedirectController;
 use Symfony\Bundle\FrameworkBundle\Controller\TemplateController;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
@@ -12,6 +13,7 @@ return static function (RoutingConfigurator $routingConfigurator): void {
         ->controller(TemplateController::class)
         ->defaults([
             'template' => 'pages/website/home.html.twig',
+            Prerender::ROUTE_DEFAULTS_KEY => true,
         ]);
 
     $routingConfigurator
@@ -19,6 +21,7 @@ return static function (RoutingConfigurator $routingConfigurator): void {
         ->controller(TemplateController::class)
         ->defaults([
             'template' => 'pages/website/legal_notices.html.twig',
+            Prerender::ROUTE_DEFAULTS_KEY => true,
         ]);
 
     $routingConfigurator
@@ -35,6 +38,7 @@ return static function (RoutingConfigurator $routingConfigurator): void {
         ->format('txt')
         ->defaults([
             'template' => 'pages/website/robots.txt.twig',
+            Prerender::ROUTE_DEFAULTS_KEY => true,
         ]);
 
     $routingConfigurator

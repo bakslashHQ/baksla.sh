@@ -22,7 +22,7 @@ final class ArticleFactoryTest extends TestCase
         $htmlGenerator = $this->createStub(HtmlGenerator::class);
         $htmlGenerator->method('generate')->willReturn('html');
 
-        $article = (new ArticleFactory($articlePreviewRepository, $htmlGenerator))->create($preview->id);
+        $article = new ArticleFactory($articlePreviewRepository, $htmlGenerator)->create($preview->id);
 
         $this->assertInstanceOf(Article::class, $article);
         $this->assertSame($preview->id, $article->id);

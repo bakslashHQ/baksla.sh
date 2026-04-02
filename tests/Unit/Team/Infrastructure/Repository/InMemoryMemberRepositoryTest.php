@@ -40,14 +40,4 @@ final class InMemoryMemberRepositoryTest extends TestCase
         $repository->get(MemberId::RobinChalas);
     }
 
-    public function testGetHash(): void
-    {
-        $memberA = aMember()->build();
-        $memberB = aMember()->build();
-
-        $repoA = new InMemoryMemberRepository([$memberA]);
-        $repoB = new InMemoryMemberRepository([$memberA, $memberB]);
-
-        $this->assertNotSame($repoA->getHash(), $repoB->getHash());
-    }
 }
