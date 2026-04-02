@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Team\Infrastructure\Repository;
 
 use App\Team\Domain\Exception\MissingMemberException;
-use App\Team\Domain\Model\Member;
 use App\Team\Domain\Model\MemberId;
 use App\Team\Infrastructure\Repository\InMemoryMemberRepository;
 use PHPUnit\Framework\TestCase;
@@ -16,7 +15,7 @@ final class InMemoryMemberRepositoryTest extends TestCase
     {
         $repository = new InMemoryMemberRepository([aMember()->build()]);
 
-        $this->assertContainsOnlyInstancesOf(Member::class, $repository->findAll());
+        $this->assertCount(1, $repository->findAll());
     }
 
     public function testFindAllReturnsMembersIndexedById(): void
