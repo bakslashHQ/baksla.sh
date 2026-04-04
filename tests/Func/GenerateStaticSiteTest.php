@@ -29,11 +29,9 @@ final class GenerateStaticSiteTest extends KernelTestCase
         }
     }
 
-    #[\Override]
     protected function tearDown(): void
     {
         parent::tearDown();
-
         if ($this->filesystem->exists($this->outputDir)) {
             $this->filesystem->remove($this->outputDir);
         }

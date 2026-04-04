@@ -23,7 +23,7 @@ final readonly class ArticlePreviewFactory
     {
         $filename = sprintf('%s.md.twig', $id);
 
-        if (in_array(preg_match(self::METADATA_REGEX, $content, $matches), [0, false], true)) {
+        if (preg_match(self::METADATA_REGEX, $content, $matches) !== 1) {
             throw new \InvalidArgumentException(sprintf('Cannot find metadata of file "%s".', $filename));
         }
 

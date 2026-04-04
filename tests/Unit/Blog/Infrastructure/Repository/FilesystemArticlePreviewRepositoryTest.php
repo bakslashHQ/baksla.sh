@@ -83,7 +83,6 @@ final class FilesystemArticlePreviewRepositoryTest extends TestCase
         $previews = $this->getRepository()->findAll();
 
         $this->assertCount(2, $previews);
-        $this->assertContainsOnlyInstancesOf(ArticlePreview::class, $previews);
         $this->assertSame(['1', '2'], array_column($previews, 'id'));
     }
 

@@ -21,7 +21,6 @@ abstract class FunctionalTestCase extends WebTestCase
         self::$client = self::createClient();
     }
 
-    #[\Override]
     protected function tearDown(): void
     {
         parent::tearDown();
