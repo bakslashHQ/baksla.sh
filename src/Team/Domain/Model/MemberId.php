@@ -6,7 +6,6 @@ namespace App\Team\Domain\Model;
 
 enum MemberId: string
 {
-    case ArnaudDeAbreu = 'arnaud-de-abreu';
     case FelixEymonot = 'felix-eymonot';
     case FlorianMerle = 'florian-merle';
     case HugoAlliaume = 'hugo-alliaume';
