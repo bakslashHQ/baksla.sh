@@ -1,0 +1,91 @@
+---
+author: hugo-alliaume
+title: "Webpack Encore: What's New 8 Months Later?"
+description: "A lot happened since my last article about Webpack Encore. Encore 6.0 is out, 7.0 is in the works with ESM-only support, and the contributor experience got a serious upgrade."
+---
+
+A few months ago, I wrote about [the current state and future of Webpack Encore](webpack-encore-current-state-and-future).
+The conclusion was clear: Encore is still maintained but its future is uncertain, with Vite and AssetMapper gaining traction.
+
+Well, things have moved. **A lot.**
+
+## Encore 6.0: Spring Cleaning
+
+[Encore 6.0](https://github.com/symfony/webpack-encore/blob/main/CHANGELOG.md#600) is a **housekeeping release**.
+No flashy new features, but a necessary cleanup to keep the project healthy.
+
+The idea is simple: **drop everything that was holding Encore back**, and pave the way for future
+evolutions, like [Rspack](https://rspack.dev/) support down the line.
+
+The minimum Node.js version jumps to **22+** (the current LTS), which unlocks upgrading all major
+dependencies to their latest versions: babel-loader, style-loader, postcss-loader, webpack-cli, and more.
+If you're not using custom configurations for these loaders, you probably won't notice anything.
+
+Several pieces of accumulated legacy have also been cleaned up: the unmaintained `file-loader` is gone
+(webpack 5's [Asset Modules](https://webpack.js.org/guides/asset-modules/) took over long ago),
+the deprecated `--https` dev-server flag has been removed, the **last Vue 2 leftovers** have been finally purged,
+and `chalk` has been swapped for the much lighter [`picocolors`](https://www.npmjs.com/package/picocolors).
+
+**Leaner, cleaner, and ready for what comes next.**
+
+## Encore 7.0: The ESM Leap
+
+This is the big one. And it's **not released yet**.
+
+[Encore 7.0](https://github.com/symfony/webpack-encore/blob/main/CHANGELOG.md#700---the-esm-only--async-first-release)
+makes Webpack Encore **ESM-only**. No more `require()`, no more `module.exports`.
+
+The Node.js ecosystem has reached a tipping point: most actively maintained packages now ship ESM-only.
+Continuing to publish as CommonJS would mean fighting against the current, pinning older dependencies,
+adding workarounds, missing out on tree-shaking and top-level `await`.
+
+But the real win is deeper. Migrating to ESM unlocks **async/await at the top level**, which solves a problem
+that has haunted Encore for years: `Encore.getWebpackConfig()` was always synchronous, forcing ugly `sync-rpc`
+workarounds whenever a dependency exposed an async-only API (ESLint, Babel config detection...).
+
+Now, your webpack config simply becomes:
+
+```js
+import Encore from '@symfony/webpack-encore';
+
+// ... your Encore configuration
+
+export default await Encore.getWebpackConfig();
+```
+
+The migration is straightforward: switch to `import`/`export`, add `"type": "module"` to your `package.json`
+(or rename to `webpack.config.mjs`), and update a few Node.js globals (`__dirname` becomes `import.meta.dirname`).
+The [full migration guide](https://github.com/symfony/webpack-encore/blob/main/CHANGELOG.md#700---the-esm-only--async-first-release)
+covers all edge cases.
+
+### Call for Testers!
+
+**Encore 7.0 needs your feedback before the official release.** If you're using Webpack Encore, please give it a try:
+
+```bash
+npm install symfony/webpack-encore#main
+```
+
+Found a bug? Something unclear? [Open an issue](https://github.com/symfony/webpack-encore/issues), every report helps.
+
+## A Better Experience for Contributors
+
+Beyond user-facing changes, the **contributor experience** has been completely overhauled:
+
+- **Vitest replaces Mocha/Sinon/Chai** ([#1404](https://github.com/symfony/webpack-encore/pull/1404)):
+  50+ test files migrated to a modern, unified test runner with built-in mocking and watch mode
+- **PNPM replaces Yarn** ([#1405](https://github.com/symfony/webpack-encore/pull/1405)):
+  faster installs, better disk efficiency, and the go-to package manager for many open-source projects today
+- **Oxfmt replaces ESLint formatting** ([#1408](https://github.com/symfony/webpack-encore/pull/1408)):
+  a Rust-based formatter from the [Oxc project](https://oxc.rs/), purpose-built for the job and very fast
+
+Faster tests, faster installs, faster formatting. If you've ever wanted to contribute to Webpack Encore,
+now is a good time.
+
+## Conclusion
+
+Webpack Encore is far from a dead project. **Encore 6.0** dropped years of legacy baggage, **Encore 7.0** goes
+all-in on ESM, and the **contributor tooling** has been fully modernized.
+
+Whether you think webpack's days are numbered or not (and I still believe Vite is the way forward for new projects),
+Encore is being actively maintained for those who depend on it. Give 7.0 a try, and stay tuned!
