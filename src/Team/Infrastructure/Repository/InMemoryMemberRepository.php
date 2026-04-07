@@ -35,13 +35,6 @@ final readonly class InMemoryMemberRepository implements MemberRepository
     public static function createDefault(): self
     {
         return new self([
-            new Member(MemberId::ArnaudDeAbreu, 'Arnaud', 'De Abreu', [
-                SocialNetwork::github('arnaud-deabreu'),
-                SocialNetwork::symfony('arnaud-deabreu'),
-                SocialNetwork::linkedin('arnaud-de-abreu'),
-            ], [
-                Badge::phpAward('Certified'),
-            ]),
             new Member(MemberId::FelixEymonot, 'Félix', 'Eymonot', [
                 SocialNetwork::github('feymo'),
                 SocialNetwork::symfony('hyanda'),
