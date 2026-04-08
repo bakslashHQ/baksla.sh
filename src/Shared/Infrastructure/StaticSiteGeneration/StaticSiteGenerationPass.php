@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\StaticSiteGeneration;
 
+use Sensiolabs\MinifyBundle\Minifier\MinifierInterface;
 use Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
 use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -27,6 +28,7 @@ final class StaticSiteGenerationPass implements CompilerPassInterface
             ->setArgument('$basePath', '%env(BASE_PATH)%');
 
         $container->getDefinition(FilesystemStaticPageDumper::class)
+            ->setArgument('$minify', new Reference(MinifierInterface::class))
             ->setArgument('$outputDir', '%app.ssg_output_dir%');
     }
 }

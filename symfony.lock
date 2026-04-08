@@ -47,6 +47,15 @@
             "tests/bootstrap.php"
         ]
     },
+    "sensiolabs/minify-bundle": {
+        "version": "1.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "0.9",
+            "ref": "b762016c180efbeff79b7a0eb95db7ec74c8e9d6"
+        }
+    },
     "symfony/asset-mapper": {
         "version": "7.2",
         "recipe": {
