@@ -38,7 +38,10 @@ final class FilesystemStaticPageDumperTest extends TestCase
 
     public function testDumpContent(): void
     {
-        $dumper = new FilesystemStaticPageDumper($this->createStub(MinifierInterface::class), $this->outputDir);
+        $minify = $this->createMock(MinifierInterface::class);
+        $minify->expects($this->never())->method('minify');
+
+        $dumper = new FilesystemStaticPageDumper($minify, $this->outputDir);
         $dumper->dump('/page-foo', 'dummy-content');
 
         $expectedPath = \sprintf('%s/page-foo', $this->outputDir);
@@ -73,6 +76,33 @@ final class FilesystemStaticPageDumperTest extends TestCase
 
         $this->assertTrue($this->filesystem->exists($expectedPath));
         $this->assertSame('dummy-content', $this->filesystem->readFile($expectedPath));
+    }
+
+    public function testMinifyHtml(): void
+    {
+        $minify = $this->createMock(MinifierInterface::class);
+        $minify->expects($this->once())->method('minify')->with('<html></html>', 'html')->willReturnArgument(0);
+
+        $dumper = new FilesystemStaticPageDumper($minify, $this->outputDir);
+        $dumper->dump('/page', '<html></html>', 'html');
+    }
+
+    public function testMinifyXml(): void
+    {
+        $minify = $this->createMock(MinifierInterface::class);
+        $minify->expects($this->once())->method('minify')->with('<xml/>', 'xml')->willReturnArgument(0);
+
+        $dumper = new FilesystemStaticPageDumper($minify, $this->outputDir);
+        $dumper->dump('/sitemap.xml', '<xml/>', 'xml');
+    }
+
+    public function testDoNotMinifyOtherFormats(): void
+    {
+        $minify = $this->createMock(MinifierInterface::class);
+        $minify->expects($this->never())->method('minify');
+
+        $dumper = new FilesystemStaticPageDumper($minify, $this->outputDir);
+        $dumper->dump('/data.json', '{}', 'json');
     }
 
     public function testDoNotAppendFormatIfAlreadyPresent(): void
