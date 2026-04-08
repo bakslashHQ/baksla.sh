@@ -41,6 +41,10 @@
         <div data-controller="analytics" data-analytics-measurement-id-value="{{ ga_measurement_id }}" data-analytics-app-name-value="{{ ga_app_name }}"></div>
 
         {% block body %}
+            <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-white focus:text-slate-800 focus:underline">
+                {{- 'header.skip_to_content'|trans -}}
+            </a>
+
             <header class="py-10">
                 <div class="container max-w-screen-xl mx-auto px-8 xl:px-4">
                     <nav class="flex items-center justify-between gap-x-2 md:gap-x-6">
@@ -63,7 +67,7 @@
                 </div>
             </header>
 
-            <main class="grow">
+            <main id="main-content" class="grow">
                 {% block content %}{% endblock %}
             </main>
 
@@ -91,23 +95,23 @@
                     </ul>
                     <ul class="flex flex-wrap justify-center items-center mt-3 text-sm font-medium sm:mt-0">
                         <li class="h-full">
-                            <a href="https://github.com/bakslashHQ" aria-label="github" class="hover:underline me-4 md:me-6 h-full flex items-center">
-                                <twig:UX:Icon name="logos:github" alt="github" class="h-5 mt-2 md:h-6 md:mt-0 opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition" />
+                            <a href="https://github.com/bakslashHQ" aria-label="{{ 'footer.social.github'|trans }}" target="_blank" class="hover:underline me-4 md:me-6 h-full flex items-center">
+                                <twig:UX:Icon name="logos:github" aria-hidden="true" class="h-5 mt-2 md:h-6 md:mt-0 opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition" />
                             </a>
                         </li>
                         <li>
-                            <a href="https://x.com/BakslashHQ" aria-label="x" class="hover:underline me-4 md:me-6 h-full flex items-center">
-                                <twig:UX:Icon name="logos:x" alt="X (Twitter)" class="h-5 mt-2 md:h-6 md:mt-0 opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition" />
+                            <a href="https://x.com/BakslashHQ" aria-label="{{ 'footer.social.x'|trans }}" target="_blank" class="hover:underline me-4 md:me-6 h-full flex items-center">
+                                <twig:UX:Icon name="logos:x" aria-hidden="true" class="h-5 mt-2 md:h-6 md:mt-0 opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition" />
                             </a>
                         </li>
                         <li>
-                            <a href="https://bsky.app/profile/baksla.sh" aria-label="bluesky" class="hover:underline me-4 md:me-6 h-full flex items-center">
-                                <twig:UX:Icon name="logos:bluesky" alt="Bluesky" class="h-5 mt-2 md:h-6 md:mt-0 opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition" />
+                            <a href="https://bsky.app/profile/baksla.sh" aria-label="{{ 'footer.social.bluesky'|trans }}" target="_blank" class="hover:underline me-4 md:me-6 h-full flex items-center">
+                                <twig:UX:Icon name="logos:bluesky" aria-hidden="true" class="h-5 mt-2 md:h-6 md:mt-0 opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition" />
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.linkedin.com/company/bakslashhq" aria-label="linkedin" class="hover:underline me-4 md:me-6 h-full flex items-center">
-                                <twig:UX:Icon name="logos:linkedin" alt="LinkedIn" class="h-5 mt-2 md:h-6 md:mt-0 opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition" />
+                            <a href="https://www.linkedin.com/company/bakslashhq" aria-label="{{ 'footer.social.linkedin'|trans }}" target="_blank" class="hover:underline me-4 md:me-6 h-full flex items-center">
+                                <twig:UX:Icon name="logos:linkedin" aria-hidden="true" class="h-5 mt-2 md:h-6 md:mt-0 opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition" />
                             </a>
                         </li>
                     </ul>
