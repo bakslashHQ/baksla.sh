@@ -49,11 +49,16 @@ home.partners.they_trust_us.title: "They've already put their trust in us, be pa
 
 header.link.blog: The Blog
 header.link.team: The Team
+header.skip_to_content: Skip to content
 
 footer.copyright: © {year} baksla.sh™. All Rights Reserved.
 footer.link.legal_notices: Legal Notices
 footer.link.blog: The Blog
 footer.link.team: The Team
+footer.social.github: baksla.sh on GitHub
+footer.social.x: baksla.sh on X
+footer.social.bluesky: baksla.sh on Bluesky
+footer.social.linkedin: baksla.sh on LinkedIn
 
 legal_notices.title: Legal Notices
 legal_notices.seo.title: Legal notices | baksla.sh
@@ -82,6 +87,8 @@ team.title: Shhhht! The crew is at work 🤫
 team.subtitle: Discover the baksla.sh team members while they're working
 team.click_on_member: 💡 Click on a member to discover their full profile.
 team.modal.nice: Nice!
+team.modal.close: Close dialog
+team.view_profile: View {name}''s profile
 team.reviewers: Reviewers
 team.review.twig_alias_1: Could we alias this import to <0>Twig</0> to make it a little more understandable?
 team.review.twig_alias_2: What about extending <0>AbstractController</0> and use the <0>render()</0> method?

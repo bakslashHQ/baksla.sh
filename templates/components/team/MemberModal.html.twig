@@ -1,7 +1,6 @@
 <dialog
-    aria-labelledby="modal-title"
-    aria-describedby="modal-description"
-    role="dialog"
+    aria-labelledby="modal-title-{{ member.id.value }}"
+    aria-describedby="modal-description-{{ member.id.value }}"
     aria-modal="true"
     data-controller="member-modal"
     data-member-modal-member-value="{{ member.id.value }}"
@@ -13,7 +12,7 @@
             <img class="absolute -translate-y-24 sm:-translate-y-28 left-1/2 -translate-x-1/2 size-36 sm:size-40 rounded-full bg-gray-50 shadow-xl shadow-blue-gray-900/50" src="{{ asset('images/team/members/' ~ member.id.value ~ '.jpg') }}" alt="{{ member.fullName }}" loading="lazy" />
             <div class="mt-12 flex flex-col gap-y-6">
                 <span class="text-center">
-                    <h3 class="mt-6 text-4xl font-bold tracking-tight text-slate-800" id="modal-title">{{ member.fullName }}</h3>
+                    <h3 class="mt-6 text-4xl font-bold tracking-tight text-slate-800" id="modal-title-{{ member.id.value }}">{{ member.fullName }}</h3>
                     {% if member.nickName %}
                     <h4 class="text-xl font-bold tracking-tight text-slate-800">{{ member.nickName }}</h4>
                     {% endif %}
@@ -28,20 +27,20 @@
                     </li>
                     {% endfor %}
                 </ul>
-                <p id="modal-description" class="mt-2 text-base text-gray-700 font-article">{{ ('team.bio.' ~ member.id.value)|trans|nl2br }}</p>
+                <p id="modal-description-{{ member.id.value }}" class="mt-2 text-base text-gray-700 font-article">{{ ('team.bio.' ~ member.id.value)|trans|nl2br }}</p>
             </div>
         </div>
         <div class="flex justify-between items-center bg-gray-50 py-3 px-6 border-t border-gray-200 rounded-b-xl">
             <ul class="flex justify-center items-center text-sm font-medium h-full">
             {% for socialNetwork in member.socialNetworks %}
                 <li>
-                    <a href="{{ socialNetwork.url }}" class="hover:underline me-5 h-full flex items-center">
+                    <a href="{{ socialNetwork.url }}" target="_blank" class="hover:underline me-5 h-full flex items-center">
                         <twig:UX:Icon name="{{ socialNetwork.uxIcon }}" aria-label="{{ socialNetwork.uxIconLabel }}" class="h-5 opacity-70 hover:opacity-100 transition" />
                     </a>
                 </li>
             {% endfor %}
             </ul>
-            <button type="button" data-action="click->member-modal#close" class="inline-flex justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0">👍 {{ 'team.modal.nice'|trans }}</button>
+            <button type="button" data-action="click->member-modal#close" aria-label="{{ 'team.modal.close'|trans }}" class="inline-flex justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0">👍 {{ 'team.modal.nice'|trans }}</button>
         </div>
     </div>
 </dialog>
