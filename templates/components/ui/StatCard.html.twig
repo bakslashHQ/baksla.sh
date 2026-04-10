@@ -1,0 +1,26 @@
+{% props value, label, icon, iconLabel, description = null, shortLabel = null, color = 'indigo' %}
+
+{% set colorMap = {
+    indigo: { text: 'text-indigo-600', border: 'border-l-indigo-500' },
+    purple: { text: 'text-purple-600', border: 'border-l-purple-500' },
+    violet: { text: 'text-violet-600', border: 'border-l-violet-500' },
+    blue: { text: 'text-blue-600', border: 'border-l-blue-500' },
+    pink: { text: 'text-pink-600', border: 'border-l-pink-500' },
+} %}
+{% set c = colorMap[color] %}
+
+<div {{ attributes.defaults({class: 'bg-white rounded-xl ring-1 ring-gray-200 shadow-sm p-5 flex flex-col border-l-4 ' ~ c.border}) }}>
+    <span class="text-3xl sm:text-4xl font-bold {{ c.text }} tracking-tight">{{ value }}</span>
+    <div class="flex items-center gap-1.5 mt-1 sm:mt-2">
+        <twig:UX:Icon name="{{ icon }}" aria-label="{{ iconLabel }}" class="size-4 sm:size-5 shrink-0 opacity-80" />
+        {% if shortLabel %}
+            <span class="text-xs font-semibold text-slate-600 sm:hidden">{{ shortLabel }}</span>
+            <span class="text-base font-semibold text-slate-600 max-sm:hidden">{{ label }}</span>
+        {% else %}
+            <span class="text-xs sm:text-base font-semibold text-slate-600">{{ label }}</span>
+        {% endif %}
+    </div>
+    {% if description %}
+        <p class="text-xs text-gray-500 mt-2 max-sm:hidden">{{ description }}</p>
+    {% endif %}
+</div>

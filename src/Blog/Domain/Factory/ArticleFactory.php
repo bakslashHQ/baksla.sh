@@ -26,6 +26,7 @@ final readonly class ArticleFactory
             description: $preview->description,
             html: $this->htmlGenerator->generate($id),
             author: $preview->author,
+            publishedAt: $preview->publishedAt,
         );
     }
 }

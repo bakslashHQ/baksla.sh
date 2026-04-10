@@ -12,10 +12,74 @@
 {% endblock %}
 
 {% block content %}
-    {% include 'pages/website/home/_hero.html.twig' %}
-    {% include 'pages/website/home/_kpi.html.twig' %}
-    {% include 'pages/website/home/_code.html.twig' %}
-    {% include 'pages/website/home/_products.html.twig' %}
-    {% include 'pages/website/home/_blog.html.twig' %}
-    {% include 'pages/website/home/_partners.html.twig' %}
+    <twig:home:Hero />
+    <twig:Overview />
+
+    {# Tab navigation + tab content #}
+    <div data-controller="tabs"
+         data-tabs-hidden-class="hidden"
+         data-tabs-active-class="border-indigo-500 text-slate-800"
+         data-tabs-inactive-class="border-transparent text-gray-500"
+         data-tabs-autoplay-value="false"
+    >
+        {# Tab bar #}
+        <div class="sticky top-16 z-40 bg-white border-b border-gray-200">
+        <div class="mx-auto max-w-5xl px-6 lg:px-8">
+            <nav class="flex gap-6 text-sm overflow-x-auto" aria-label="Sections">
+                <button data-tabs-target="command" data-action="tabs#select" data-index="0" data-fragment="values"
+                    class="py-2.5 border-b-2 flex items-center gap-1.5 whitespace-nowrap transition cursor-pointer">
+                    <twig:UX:Icon name="octicon:tag" aria-hidden="true" class="size-4" />
+                    {{ 'home.tabs.values'|trans }}
+                </button>
+                <button data-tabs-target="command" data-action="tabs#select" data-index="1" data-fragment="team"
+                    class="py-2.5 border-b-2 flex items-center gap-1.5 whitespace-nowrap transition cursor-pointer">
+                    <twig:UX:Icon name="octicon:people" aria-hidden="true" class="size-4" />
+                    {{ 'home.tabs.team'|trans }}
+                </button>
+                <button data-tabs-target="command" data-action="tabs#select" data-index="2" data-fragment="open-source"
+                    class="py-2.5 border-b-2 flex items-center gap-1.5 whitespace-nowrap transition cursor-pointer">
+                    <twig:UX:Icon name="octicon:git-pull-request" aria-hidden="true" class="size-4" />
+                    {{ 'home.tabs.open_source'|trans }}
+                </button>
+                <button data-tabs-target="command" data-action="tabs#select" data-index="3" data-fragment="solutions"
+                    class="py-2.5 border-b-2 flex items-center gap-1.5 whitespace-nowrap transition cursor-pointer">
+                    <twig:UX:Icon name="octicon:code" aria-hidden="true" class="size-4" />
+                    {{ 'home.tabs.solutions'|trans }}
+                </button>
+                <button data-tabs-target="command" data-action="tabs#select" data-index="4" data-fragment="blog"
+                    class="py-2.5 border-b-2 flex items-center gap-1.5 whitespace-nowrap transition cursor-pointer">
+                    <twig:UX:Icon name="octicon:file" aria-hidden="true" class="size-4" />
+                    {{ 'home.tabs.blog'|trans }}
+                </button>
+                <button data-tabs-target="command" data-action="tabs#select" data-index="5" data-fragment="sponsors"
+                    class="py-2.5 border-b-2 flex items-center gap-1.5 whitespace-nowrap transition cursor-pointer">
+                    <twig:UX:Icon name="octicon:heart" aria-hidden="true" class="size-4" />
+                    {{ 'home.tabs.sponsors'|trans }}
+                </button>
+            </nav>
+        </div>
+        </div>
+
+        {# Tab panels #}
+        <div class="bg-gray-50">
+            <div data-tabs-target="output">
+                <twig:home:Values />
+            </div>
+            <div data-tabs-target="output" class="hidden">
+                <twig:Team />
+            </div>
+            <div data-tabs-target="output" class="hidden">
+                <twig:OpenSourceOverview />
+            </div>
+            <div data-tabs-target="output" class="hidden">
+                <twig:home:Solutions />
+            </div>
+            <div data-tabs-target="output" class="hidden">
+                <twig:Blog />
+            </div>
+            <div data-tabs-target="output" class="hidden">
+                <twig:home:Partners />
+            </div>
+        </div>
+    </div>
 {% endblock %}

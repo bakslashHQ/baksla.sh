@@ -1,20 +1,19 @@
-<div class="xl:rounded-t-lg md:rounded-tr-lg md:border-x border-t border-0.5 border-gray-300">
-    <div class="flex bg-gray-100 md:rounded-t-lg px-5" aria-hidden="true">
-        <div class="flex text-sm/6 md:rounded-t-lg h-10 items-center leading-none font-mono text-gray-700 overflow-x-hidden">
-            <div aria-hidden="true" class="font-bold flex items-center gap-x-0.5 mr-4">
-                <span class="mr-2 mt-0.5">31</span>
-                <div class="size-2 bg-green-600"></div>
-                <div class="size-2 bg-green-600"></div>
-                <div class="size-2 bg-green-600"></div>
-                <div class="size-2 bg-red-700/80"></div>
-                <div class="size-2 bg-gray-300"></div>
+<div class="rounded-lg border border-gray-200 overflow-hidden">
+    <div class="flex items-center bg-gray-50 px-4 py-2 border-b border-gray-200" aria-hidden="true">
+        <div class="flex text-xs items-center gap-2 text-gray-500 font-mono">
+            <div class="flex items-center gap-0.5">
+                <div class="size-2 rounded-sm bg-green-500"></div>
+                <div class="size-2 rounded-sm bg-green-500"></div>
+                <div class="size-2 rounded-sm bg-green-500"></div>
+                <div class="size-2 rounded-sm bg-red-400"></div>
+                <div class="size-2 rounded-sm bg-gray-200"></div>
             </div>
-            <div class="sm:hidden">.../Controller/ViewTeam.php</div>
-            <div class="max-sm:hidden">src/Team/Infrastructure/Controller/ViewTeam.php</div>
+            <span class="max-sm:hidden">src/Team/Infrastructure/Controller/ViewTeam.php</span>
+            <span class="sm:hidden">.../Controller/ViewTeam.php</span>
         </div>
     </div>
 
-    <figure class="w-full bg-white text-gray-700 text-sm font-mono flex flex-col border-y border-gray-300">
+    <figure class="w-full bg-white text-gray-700 text-xs sm:text-sm font-mono flex flex-col">
         <twig:team:CodeLine type="expand">@@ -10,7 +10,7 @@</twig:team:CodeLine>
         <twig:team:CodeLine number="10" type="+"><span class="hl-keyword">use </span><span class="hl-type">App\Team\Infrastructure\Repository\InMemoryMemberRepository</span>;</twig:team:CodeLine>
         <twig:team:CodeLine number="11"><span class="hl-keyword">use </span><span class="hl-type">Symfony\Component\HttpFoundation\Exception\NotFoundHttpException</span>;</twig:team:CodeLine>
@@ -27,14 +26,14 @@
 
     <twig:team:Review>
         <twig:team:ReviewComment :member="members['hugo-alliaume']" data-test-review-comment>
-            {{ 'team.review.twig_alias_1'|trans|replace({'<0>': '<span class="font-mono bg-gray-100 rounded mx-1 pt-0.5 px-1 whitespace-nowrap">', '</0>': '</span>'})|raw }}
+            {{ 'team.review.twig_alias_1'|trans|replace({'<0>': '<code class="bg-gray-100 rounded px-1 py-0.5 text-xs">', '</0>': '</code>'})|raw }}
         </twig:team:ReviewComment>
         <twig:team:ReviewComment :member="members['felix-eymonot']">
-            {{ 'team.review.twig_alias_2'|trans|replace({'<0>': '<span class="font-mono bg-gray-100 rounded mx-1 pt-0.5 px-1 whitespace-nowrap">', '</0>': '</span>'})|raw }}
+            {{ 'team.review.twig_alias_2'|trans|replace({'<0>': '<code class="bg-gray-100 rounded px-1 py-0.5 text-xs">', '</0>': '</code>'})|raw }}
         </twig:team:ReviewComment>
     </twig:team:Review>
 
-    <figure class="w-full bg-white text-gray-700 text-sm font-mono flex flex-col border-y border-gray-300">
+    <figure class="w-full bg-white text-gray-700 text-xs sm:text-sm font-mono flex flex-col">
         <twig:team:CodeLine number="17" />
         <twig:team:CodeLine number="18"><span class="hl-generic">#[AsController]</span></twig:team:CodeLine>
         <twig:team:CodeLine number="19"><span class="hl-keyword">final readonly class </span><span class="hl-type">ViewTeam</span></twig:team:CodeLine>
@@ -48,27 +47,27 @@
         <twig:team:ReviewComment :member="members['robin-chalas']">
             {{ 'team.review.infra_1'|trans|replace({
                 '<0/>': '<br/>',
-                '<1>': '<a href="https://en.wikipedia.org/wiki/Polymorphism_(computer_science)" target="_blank" class="text-blue-800 underline underline-offset-4">',
+                '<1>': '<a href="https://en.wikipedia.org/wiki/Polymorphism_(computer_science)" target="_blank" class="text-indigo-600 hover:underline underline-offset-2">',
                 '</1>': '<span class="sr-only"> (opens in new window)</span></a>',
             })|raw }}
         </twig:team:ReviewComment>
         <twig:team:ReviewComment :member="members['mathias-arlaud']">
             {{ 'team.review.infra_2'|trans|replace({
-                '<0>': '<a href="https://martinfowler.com/eaaCatalog/repository.html" target="_blank" class="text-blue-800 underline underline-offset-4">',
+                '<0>': '<a href="https://martinfowler.com/eaaCatalog/repository.html" target="_blank" class="text-indigo-600 hover:underline underline-offset-2">',
                 '</0>': '<span class="sr-only"> (opens in new window)</span></a>',
-                '<1>': '<span class="font-mono bg-gray-100 rounded mx-1 pt-0.5 px-1 whitespace-nowrap">',
-                '</1>': '</span>',
+                '<1>': '<code class="bg-gray-100 rounded px-1 py-0.5 text-xs">',
+                '</1>': '</code>',
             })|raw }}
         </twig:team:ReviewComment>
         <twig:team:ReviewComment :member="members['jeremy-romey']">
             {{ 'team.review.infra_3'|trans|replace({
-                '<0>': '<a href="https://symfony.com/doc/current/service_container/autowiring.html" target="_blank" class="text-blue-800 underline underline-offset-4">',
+                '<0>': '<a href="https://symfony.com/doc/current/service_container/autowiring.html" target="_blank" class="text-indigo-600 hover:underline underline-offset-2">',
                 '</0>': '<span class="sr-only"> (opens in new window)</span></a>',
             })|raw }}
         </twig:team:ReviewComment>
     </twig:team:Review>
 
-    <figure class="w-full bg-white text-gray-700 text-sm font-mono flex flex-col border-y border-gray-300">
+    <figure class="w-full bg-white text-gray-700 text-xs sm:text-sm font-mono flex flex-col">
         <twig:team:CodeLine number="24">&nbsp;&nbsp;&nbsp;&nbsp;) {{ '{' }}</twig:team:CodeLine>
         <twig:team:CodeLine number="25">&nbsp;&nbsp;&nbsp;&nbsp;{{ '}' }}</twig:team:CodeLine>
         <twig:team:CodeLine number="26"></twig:team:CodeLine>
@@ -82,14 +81,14 @@
 
     <twig:team:Review>
         <twig:team:ReviewComment :member="members['florian-merle']">
-            {{ 'team.review.get_method_1'|trans|replace({'<0>': '<span class="font-mono bg-gray-100 rounded mx-1 pt-0.5 px-1 whitespace-nowrap">', '</0>': '</span>'})|raw }}
+            {{ 'team.review.get_method_1'|trans|replace({'<0>': '<code class="bg-gray-100 rounded px-1 py-0.5 text-xs">', '</0>': '</code>'})|raw }}
         </twig:team:ReviewComment>
         <twig:team:ReviewComment :member="members['valmont-pehaut-pietri']">
-            {{ 'team.review.get_method_2'|trans|replace({'<0>': '<span class="font-mono bg-gray-100 rounded mx-1 pt-0.5 px-1 whitespace-nowrap">', '</0>': '</span>'})|raw }}
+            {{ 'team.review.get_method_2'|trans|replace({'<0>': '<code class="bg-gray-100 rounded px-1 py-0.5 text-xs">', '</0>': '</code>'})|raw }}
         </twig:team:ReviewComment>
     </twig:team:Review>
 
-    <figure class="w-full bg-white text-gray-700 text-sm font-mono flex flex-col border-y border-gray-300">
+    <figure class="w-full bg-white text-gray-700 text-xs sm:text-sm font-mono flex flex-col">
         <twig:team:CodeLine number="32" type="+">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ '}' }}</twig:team:CodeLine>
         <twig:team:CodeLine number="33" type="+"></twig:team:CodeLine>
         <twig:team:CodeLine number="34" type="+">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hl-keyword">return new </span><span class="hl-type">Response</span>(<span class="hl-variable">$this</span>->twig-><span class="hl-generic">render</span>(<span class="hl-literal">'pages/team/index.html.twig'</span>, [</twig:team:CodeLine>
@@ -105,7 +104,7 @@
         </twig:team:ReviewComment>
     </twig:team:Review>
 
-    <figure class="w-full bg-white text-gray-700 text-sm font-mono flex flex-col border-y border-gray-300">
+    <figure class="w-full bg-white text-gray-700 text-xs sm:text-sm font-mono flex flex-col">
         <twig:team:CodeLine number="36" type="+">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]);</twig:team:CodeLine>
         <twig:team:CodeLine number="36" type="+"></twig:team:CodeLine>
     </figure>
@@ -116,7 +115,7 @@
         </twig:team:ReviewComment>
     </twig:team:Review>
 
-    <figure class="w-full bg-white text-gray-700 text-sm font-mono flex flex-col border-y border-gray-300">
+    <figure class="w-full bg-white text-gray-700 text-xs sm:text-sm font-mono flex flex-col">
         <twig:team:CodeLine number="30">&nbsp;&nbsp;&nbsp;&nbsp;{{ '}' }}</twig:team:CodeLine>
     </figure>
 </div>

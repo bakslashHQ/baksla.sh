@@ -15,13 +15,16 @@ export default class extends Controller {
       throw new Error('Missing "modal" target.');
     }
 
+    this._boundOpen = this.open.bind(this);
+    this._boundCloseOnEscape = this.closeOnEscape.bind(this);
+
     this.openers = Array.from(document.querySelectorAll(`[data-open-member-modal="${this.memberValue}"]`));
     for (const opener of this.openers) {
-      opener.addEventListener('click', this.open.bind(this));
+      opener.addEventListener('click', this._boundOpen);
     }
 
-    this.element.addEventListener('cancel', this.closeOnEscape.bind(this));
-    document.addEventListener('keydown', this.closeOnEscape.bind(this));
+    this.element.addEventListener('cancel', this._boundCloseOnEscape);
+    document.addEventListener('keydown', this._boundCloseOnEscape);
   }
 
   open() {
@@ -61,10 +64,10 @@ export default class extends Controller {
     clearTimeout(this.timeoutClose);
 
     for (const opener of this.openers) {
-      opener.removeEventListener('click', this.open.bind(this));
+      opener.removeEventListener('click', this._boundOpen);
     }
 
-    this.element.removeEventListener('cancel', this.closeOnEscape.bind(this));
-    document.removeEventListener('keydown', this.closeOnEscape.bind(this));
+    this.element.removeEventListener('cancel', this._boundCloseOnEscape);
+    document.removeEventListener('keydown', this._boundCloseOnEscape);
   }
 }

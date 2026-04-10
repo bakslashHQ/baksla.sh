@@ -1,0 +1,68 @@
+{% set showcased = this.showcased %}
+{% set articles = this.articles %}
+
+<section aria-label="Blog" class="pt-12 sm:pt-16 pb-24 sm:pb-32">
+    <div class="mx-auto max-w-5xl px-6 lg:px-8">
+
+        {# Repo header #}
+        <div class="flex items-center gap-2 text-lg sm:text-xl mb-8">
+            <twig:UX:Icon name="octicon:repo" aria-hidden="true" class="size-5 sm:size-6 text-gray-400" />
+            <h2 class="font-semibold text-indigo-600">
+                baksla.sh
+                <span class="text-gray-300 mx-1">/</span>
+                {{ 'blog.title'|trans }}
+            </h2>
+            <span class="ml-1 rounded-full border border-gray-300 px-2.5 py-0.5 text-xs font-medium text-gray-500">Public</span>
+        </div>
+
+        {% if not articles and not showcased %}
+            <div class="bg-white rounded-xl ring-1 ring-gray-200 shadow-sm p-12 text-center">
+                <p class="text-gray-500">{{ 'blog.no_article_yet'|trans }}</p>
+            </div>
+        {% else %}
+
+            {# Articles list card #}
+            <div class="bg-white rounded-xl ring-1 ring-gray-200 shadow-sm overflow-hidden">
+
+                {# Showcased article #}
+                {% if showcased %}
+                    <a href="{{ path('app_blog_article', {id: showcased.id}) }}" class="group flex items-start gap-4 px-6 py-6 sm:py-8 border-b border-gray-200 hover:bg-gray-50 transition">
+                        <twig:UX:Icon name="octicon:pin" aria-hidden="true" class="size-5 text-green-600 shrink-0 mt-1" />
+                        <div class="min-w-0 flex-1">
+                            <div class="flex flex-wrap items-start justify-between gap-x-4 gap-y-1">
+                                <h2 class="text-xl sm:text-2xl font-bold text-slate-900 group-hover:text-indigo-600 transition">{{ showcased.title }}</h2>
+                                <span class="text-xs text-gray-400 shrink-0 mt-1.5">{{ showcased.publishedAt|date('M j, Y') }}</span>
+                            </div>
+                            <p class="mt-2 text-sm text-gray-500">{{ showcased.description }}</p>
+                            <div class="mt-3 flex items-center gap-2.5 text-sm text-gray-500">
+                                <img class="size-5 rounded-full ring-1 ring-gray-200" src="{{ asset('images/team/members/' ~ showcased.author.id.value ~ '.jpg') }}" alt="{{ showcased.author.fullName }}" loading="lazy" width="20" height="20">
+                                <span class="font-medium text-slate-700">{{ showcased.author.fullName }}</span>
+                            </div>
+                        </div>
+                    </a>
+                {% endif %}
+
+                {# Other articles #}
+                {% for article in articles %}
+                    <a href="{{ path('app_blog_article', {id: article.id}) }}" class="group flex items-start gap-4 px-6 py-5 {{ not loop.last ? 'border-b border-gray-200' }} hover:bg-gray-50 transition">
+                        <twig:UX:Icon name="octicon:file" aria-hidden="true" class="size-5 text-gray-300 shrink-0 mt-0.5" />
+                        <div class="min-w-0 flex-1">
+                            <div class="flex flex-wrap items-start justify-between gap-x-4 gap-y-1">
+                                <h2 class="text-lg font-semibold text-slate-900 group-hover:text-indigo-600 transition">{{ article.title }}</h2>
+                                <span class="text-xs text-gray-400 shrink-0 mt-0.5">{{ article.publishedAt|date('M j, Y') }}</span>
+                            </div>
+                            <p class="mt-2 text-sm text-gray-500 line-clamp-2">{{ article.description }}</p>
+                            <div class="mt-3 flex items-center gap-2 text-xs text-gray-400">
+                                <img class="size-4 rounded-full" src="{{ asset('images/team/members/' ~ article.author.id.value ~ '.jpg') }}" alt="{{ article.author.fullName }}" loading="lazy" width="16" height="16">
+                                <span>{{ article.author.fullName }}</span>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+    </div>
+</section>

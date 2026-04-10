@@ -1,5 +1,3 @@
-{% set updated_at = '2025-02-05' %}
-
 {% extends 'pages/base.html.twig' %}
 
 {% block title %}{{ 'legal_notices.seo.title'|trans|raw }}{% endblock %}
@@ -13,30 +11,54 @@
     <meta property="og:image" content="{{ absolute_url(asset('images/og.png')) }}">
 {% endblock %}
 
+{% block main_class %}bg-gray-50{% endblock %}
+
 {% block content %}
-    <section class="isolate bg-white px-6 py-32 lg:px-8">
-        {% include 'pages/_bg_shape.html.twig' %}
+    <section aria-label="Legal notices" class="py-12 sm:py-16">
+        <div class="mx-auto max-w-5xl px-6 lg:px-8">
 
-        <div class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8 text-center text-gray-700">
-            <h1 class="text-4xl font-bold tracking-tight text-slate-800 sm:text-5xl">
-                {{- 'legal_notices.title'|trans -}}
-            </h1>
-            <p class="mt-3 text-lg/8 text-gray-600">
-                {{- 'legal_notices.last_updated_at'|trans({'date': updated_at|date('F jS, Y')}) -}}
-            </p>
+            {# Document card #}
+            <div class="bg-white rounded-xl ring-1 ring-gray-200 shadow-sm overflow-hidden">
 
-            <h2 class="mt-24 mb-4 text-pretty text-3xl font-semibold tracking-tight text-slate-800">baksla.sh</h2>
-            <p>{{ 'legal_notices.website_editor.address'|trans }}</p>
-            <p><span class="font-semibold">{{ 'legal_notices.website_editor.siren'|trans }}</span> 987479318</p>
-            <p><span class="font-semibold">{{ 'legal_notices.website_editor.siret'|trans }}</span> 987479318 00014</p>
-            <p><span class="font-semibold">{{ 'legal_notices.website_editor.code_eap'|trans }}</span> 62.01Z</p>
+                {# File header #}
+                <div class="px-6 py-3 bg-gray-50 border-b border-gray-200 flex items-center justify-between text-sm">
+                    <div class="flex items-center gap-2">
+                        <twig:UX:Icon name="octicon:file" aria-hidden="true" class="size-4 text-gray-400" />
+                        <span class="font-semibold text-slate-700">LEGAL.md</span>
+                    </div>
+                </div>
 
-            <h2 class="mt-16 mb-4 text-pretty text-3xl font-semibold tracking-tight text-slate-800">{{ 'legal_notices.publishing_directors.title'|trans }}</h2>
-            <p>{{ 'legal_notices.publishing_directors.names'|trans }}</p>
+                {# Rendered markdown content #}
+                <div class="px-6 sm:px-10 py-8 sm:py-10">
 
-            <h2 class="mt-16 mb-4 text-pretty text-3xl font-semibold tracking-tight text-slate-800">{{ 'legal_notices.hosting_providers.title'|trans }}</h2>
-            <a href="https://pages.github.com/" class="hover:underline">GitHub Pages</a>
-            <p>GitHub, Inc. — 88 Colin P Kelly Jr St, San Francisco, CA 94107, United States</p>
+                    <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight pb-4 border-b border-gray-200">
+                        {{ 'legal_notices.title'|trans }}
+                    </h1>
+
+                    {# Website Editor #}
+                    <h2 class="text-xl font-semibold text-slate-900 mt-8 mb-4">baksla.sh</h2>
+                    <div class="text-sm text-gray-600 leading-7 space-y-1">
+                        <p>{{ 'legal_notices.website_editor.address'|trans }}</p>
+                        <p><span class="font-semibold text-slate-800">{{ 'legal_notices.website_editor.siren'|trans }}</span> 987479318</p>
+                        <p><span class="font-semibold text-slate-800">{{ 'legal_notices.website_editor.siret'|trans }}</span> 987479318 00014</p>
+                        <p><span class="font-semibold text-slate-800">{{ 'legal_notices.website_editor.code_eap'|trans }}</span> 62.01Z</p>
+                    </div>
+
+                    {# Publishing Directors #}
+                    <h2 class="text-xl font-semibold text-slate-900 mt-8 mb-4">{{ 'legal_notices.publishing_directors.title'|trans }}</h2>
+                    <p class="text-sm text-gray-600 leading-7">{{ 'legal_notices.publishing_directors.names'|trans }}</p>
+
+                    {# Hosting Provider #}
+                    <h2 class="text-xl font-semibold text-slate-900 mt-8 mb-4">{{ 'legal_notices.hosting_providers.title'|trans }}</h2>
+                    <div class="text-sm text-gray-600 leading-7 space-y-1">
+                        <p><a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:underline underline-offset-2">GitHub Pages</a></p>
+                        <p>GitHub, Inc. - 88 Colin P Kelly Jr St, San Francisco, CA 94107, United States</p>
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
     </section>
 {% endblock %}

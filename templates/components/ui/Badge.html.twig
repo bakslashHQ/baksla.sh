@@ -1,0 +1,21 @@
+{% props color = 'gray', size = 'sm' %}
+
+{% set colorMap = {
+    indigo: 'bg-indigo-100 text-indigo-700 ring-indigo-200',
+    purple: 'bg-purple-50 text-purple-700 ring-purple-200',
+    violet: 'bg-violet-100 text-violet-700 ring-violet-200',
+    green: 'bg-green-100 text-green-700 ring-green-200',
+    emerald: 'bg-emerald-100 text-emerald-700 ring-emerald-200',
+    blue: 'bg-blue-50 text-blue-700 ring-blue-200',
+    pink: 'bg-pink-100 text-pink-700 ring-pink-200',
+    gray: 'bg-gray-100 text-gray-700 ring-gray-200',
+} %}
+
+{% set sizeMap = {
+    xs: 'px-2 py-0.5 text-xs',
+    sm: 'px-2.5 py-0.5 text-xs',
+} %}
+
+<span class="inline-flex items-center gap-1 rounded-full font-medium ring-1 ring-inset align-middle {{ colorMap[color] }} {{ sizeMap[size] }}">
+    {%- block content %}{% endblock -%}
+</span>
