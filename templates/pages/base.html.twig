@@ -52,6 +52,9 @@
                             <img src="{{ asset('images/bakslash-white.svg') }}" alt="baksla.sh" class="h-7 sm:h-8 w-auto" loading="eager" fetchpriority="high">
                         </a>
                         <div class="flex items-center gap-x-1 sm:gap-x-2">
+                            <a href="{{ path('app_open_source') }}" class="px-3 py-1.5 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/10 rounded-md transition whitespace-nowrap max-sm:hidden">{{ 'home.tabs.open_source'|trans }}</a>
+                            <a href="{{ path('app_team') }}" class="px-3 py-1.5 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/10 rounded-md transition whitespace-nowrap max-sm:hidden">{{ 'home.tabs.team'|trans }}</a>
+                            <a href="{{ path('app_blog') }}" class="px-3 py-1.5 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/10 rounded-md transition whitespace-nowrap max-sm:hidden">{{ 'home.tabs.blog'|trans }}</a>
                             <a href="mailto:hello@baksla.sh" aria-label="hello@baksla.sh" class="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 text-sm font-medium text-white bg-green-600 hover:bg-green-500 rounded-md transition whitespace-nowrap">
                                 <twig:UX:Icon name="octicon:mail" aria-hidden="true" class="size-4" />
                                 <span class="hidden sm:inline">hello@baksla.sh</span>

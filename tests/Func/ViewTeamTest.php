@@ -6,11 +6,10 @@ namespace App\Tests\Func;
 
 final class ViewTeamTest extends FunctionalTestCase
 {
-    public function testRedirectsToTeamTab(): void
+    public function testRenderProperHtml(): void
     {
         $this->get('/team');
 
-        $this->assertResponseStatusCodeSame(301);
-        $this->assertResponseRedirects('/#team');
+        $this->assertResponseStatusCodeSame(200);
     }
 }

@@ -46,34 +46,19 @@
                 {{ 'home.hero.open_for_missions'|trans }}
             </a>
 
-            <a href="#solutions" class="inline-flex items-center gap-1.5 rounded-md bg-gray-100 px-3 py-2 text-xs font-medium text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-200 transition">
-                <twig:UX:Icon name="octicon:code" aria-hidden="true" class="size-4 text-gray-400" />
-                {{ 'home.tabs.solutions'|trans }}
-            </a>
-
-            <a href="#team" class="inline-flex items-center gap-1.5 rounded-md bg-gray-100 px-3 py-2 text-xs font-medium text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-200 transition">
-                <twig:UX:Icon name="octicon:people" aria-hidden="true" class="size-4 text-gray-400" />
-                {{ 'home.tabs.team'|trans }}
-            </a>
-
-            <a href="#open-source" class="inline-flex items-center gap-1.5 rounded-md bg-gray-100 px-3 py-2 text-xs font-medium text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-200 transition">
+            <a href="{{ path('app_open_source') }}" class="inline-flex items-center gap-1.5 rounded-md bg-gray-100 px-3 py-2 text-xs font-medium text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-200 transition">
                 <twig:UX:Icon name="octicon:git-pull-request" aria-hidden="true" class="size-4 text-gray-400" />
                 {{ 'home.tabs.open_source'|trans }}
             </a>
 
-            <a href="#blog" class="inline-flex items-center gap-1.5 rounded-md bg-gray-100 px-3 py-2 text-xs font-medium text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-200 transition">
+            <a href="{{ path('app_team') }}" class="inline-flex items-center gap-1.5 rounded-md bg-gray-100 px-3 py-2 text-xs font-medium text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-200 transition">
+                <twig:UX:Icon name="octicon:people" aria-hidden="true" class="size-4 text-gray-400" />
+                {{ 'home.tabs.team'|trans }}
+            </a>
+
+            <a href="{{ path('app_blog') }}" class="inline-flex items-center gap-1.5 rounded-md bg-gray-100 px-3 py-2 text-xs font-medium text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-200 transition">
                 <twig:UX:Icon name="octicon:file" aria-hidden="true" class="size-4 text-gray-400" />
                 {{ 'home.tabs.blog'|trans }}
-            </a>
-
-            <a href="#sponsors" class="inline-flex items-center gap-1.5 rounded-md bg-gray-100 px-3 py-2 text-xs font-medium text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-200 transition">
-                <twig:UX:Icon name="octicon:heart" aria-hidden="true" class="size-4 text-gray-400" />
-                {{ 'home.tabs.sponsors'|trans }}
-            </a>
-
-            <a href="#values" class="inline-flex items-center gap-1.5 rounded-md bg-gray-100 px-3 py-2 text-xs font-medium text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-200 transition">
-                <twig:UX:Icon name="octicon:tag" aria-hidden="true" class="size-4 text-gray-400" />
-                {{ 'home.tabs.values'|trans }}
             </a>
         </div>
 

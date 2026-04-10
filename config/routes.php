@@ -49,4 +49,7 @@ return static function (RoutingConfigurator $routingConfigurator): void {
 
     $routingConfigurator
         ->import(sprintf('%s/src/Team/Infrastructure/Controller/', dirname(__DIR__)), 'attribute');
+
+    $routingConfigurator
+        ->import(sprintf('%s/src/OpenSource/Infrastructure/Controller/', dirname(__DIR__)), 'attribute');
 };

@@ -1,0 +1,13 @@
+{% extends 'pages/base.html.twig' %}
+
+{% block title %}{{ 'home.tabs.team'|trans }} | {{ 'home.seo.title'|trans|raw }}{% endblock %}
+
+{% block seo %}
+    <meta name="description" content="{{ 'team.subtitle'|trans }}">
+{% endblock %}
+
+{% block main_class %}bg-gray-50{% endblock %}
+
+{% block content %}
+    <twig:Team />
+{% endblock %}

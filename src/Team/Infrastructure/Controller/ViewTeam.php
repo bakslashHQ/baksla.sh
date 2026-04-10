@@ -4,25 +4,24 @@ declare(strict_types=1);
 
 namespace App\Team\Infrastructure\Controller;
 
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use App\Shared\Infrastructure\StaticSiteGeneration\Prerender;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Twig\Environment;
 
 #[AsController]
 final readonly class ViewTeam
 {
     public function __construct(
-        private UrlGeneratorInterface $urlGenerator,
+        private Environment $twig,
     ) {
     }
 
     #[Route(path: '/team', name: 'app_team', methods: ['GET'])]
-    public function __invoke(): RedirectResponse
+    #[Prerender]
+    public function __invoke(): Response
     {
-        return new RedirectResponse(
-            $this->urlGenerator->generate('app_home') . '#team',
-            301,
-        );
+        return new Response($this->twig->render('pages/team/index.html.twig'));
     }
 }

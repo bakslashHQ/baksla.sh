@@ -6,11 +6,10 @@ namespace App\Tests\Func;
 
 final class ViewBlogTest extends FunctionalTestCase
 {
-    public function testRedirectsToBlogTab(): void
+    public function testRenderProperHtml(): void
     {
         $this->get('/blog');
 
-        $this->assertResponseStatusCodeSame(301);
-        $this->assertResponseRedirects('/#blog');
+        $this->assertResponseStatusCodeSame(200);
     }
 }

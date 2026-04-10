@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Blog\Infrastructure\Controller;
+namespace App\OpenSource\Infrastructure\Controller;
 
 use App\Shared\Infrastructure\StaticSiteGeneration\Prerender;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,17 +11,17 @@ use Symfony\Component\Routing\Attribute\Route;
 use Twig\Environment;
 
 #[AsController]
-final readonly class ViewBlog
+final readonly class ViewOpenSource
 {
     public function __construct(
         private Environment $twig,
     ) {
     }
 
-    #[Route(path: '/blog', name: 'app_blog', methods: ['GET'])]
+    #[Route(path: '/open-source', name: 'app_open_source', methods: ['GET'])]
     #[Prerender]
     public function __invoke(): Response
     {
-        return new Response($this->twig->render('pages/blog/index.html.twig'));
+        return new Response($this->twig->render('pages/open-source/index.html.twig'));
     }
 }
