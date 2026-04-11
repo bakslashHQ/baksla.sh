@@ -21,8 +21,8 @@ build:
 up:
 	@$(DOCKER_COMP) up --wait --detach
 	@echo "Web server running on"
-	@echo "\thttp://localhost"
-	@echo "\thttps://localhost"
+	@echo "\thttp://localhost:$$($(DOCKER_COMP) port php 80 | cut -d: -f2)"
+	@echo "\thttps://localhost:$$($(DOCKER_COMP) port php 443 | cut -d: -f2)"
 
 ## Docker 🐳 - Build and start the containers
 start: build up
