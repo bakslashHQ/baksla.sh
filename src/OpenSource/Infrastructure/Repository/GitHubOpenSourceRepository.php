@@ -75,7 +75,7 @@ final readonly class GitHubOpenSourceRepository implements OpenSourceRepository
             new MajorContribution(
                 name: 'JsonStreamer',
                 description: 'A blazing fast, low-memory JSON serialization/deserialization component.',
-                url: 'https://github.com/symfony/symfony/tree/7.3/src/Symfony/Component/JsonStreamer',
+                url: 'https://github.com/symfony/json-streamer',
                 project: Project::Symfony,
                 creator: MemberId::MathiasArlaud,
             ),
@@ -87,14 +87,14 @@ final readonly class GitHubOpenSourceRepository implements OpenSourceRepository
                 creator: MemberId::MathiasArlaud,
             ),
             new MajorContribution(
-                name: 'Symfony UX Map',
+                name: 'UX Map',
                 description: 'An interactive map integration for Symfony UX with Google Maps and Leaflet support.',
                 url: 'https://github.com/symfony/ux-map',
                 project: Project::Symfony,
                 creator: MemberId::HugoAlliaume,
             ),
             new MajorContribution(
-                name: 'Symfony UX Translator',
+                name: 'UX Translator',
                 description: 'An integration to use Symfony translations directly in JavaScript.',
                 url: 'https://github.com/symfony/ux-translator',
                 project: Project::Symfony,
@@ -131,7 +131,7 @@ final readonly class GitHubOpenSourceRepository implements OpenSourceRepository
             new MajorContribution(
                 name: 'UX Toolkit',
                 description: 'A set of ready-to-use UI components for Symfony UX.',
-                url: 'https://github.com/symfony/ux/tree/2.x/src/Toolkit',
+                url: 'https://github.com/symfony/ux-toolkit',
                 project: Project::Symfony,
                 creator: MemberId::HugoAlliaume,
             ),
