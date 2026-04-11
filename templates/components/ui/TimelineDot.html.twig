@@ -1,11 +1,16 @@
 {% props color = 'gray' %}
 
-{% set colorMap = {
-    gray: 'bg-gray-100 text-gray-500',
-    green: 'bg-green-600 text-white',
-    purple: 'bg-purple-600 text-white',
-} %}
+{% set style = html_cva(
+    base: 'absolute -left-[13px] -top-0.5 flex items-center justify-center size-6 rounded-full border-2 border-gray-50',
+    variants: {
+        color: {
+            gray: 'bg-gray-100 text-gray-500',
+            green: 'bg-green-600 text-white',
+            purple: 'bg-purple-600 text-white',
+        },
+    },
+) %}
 
-<div class="absolute -left-[13px] -top-0.5 flex items-center justify-center size-6 rounded-full border-2 border-gray-50 {{ colorMap[color] }}">
+<div class="{{ style.apply({color}) }}">
     {% block content %}{% endblock %}
 </div>
