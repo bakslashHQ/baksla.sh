@@ -65,13 +65,17 @@
                             <ul class="space-y-1">
                                 {% for contribution in contributionsByProject['symfony'] %}
                                     <li>
-                                        <div class="relative group flex items-center gap-3 rounded-lg px-3 py-2.5 -mx-3 transition hover:bg-blue-50">
-                                            <img class="size-7 rounded-full ring-1 ring-gray-200 shrink-0" src="{{ asset('images/team/members/' ~ contribution.creator.value ~ '.jpg') }}" alt="{{ contribution.creator.value|replace({'-': ' '})|title }}" loading="lazy" width="28" height="28">
-                                            <div class="min-w-0 flex-1">
+                                        <div class="relative group flex items-center gap-4 rounded-lg px-3 py-2.5 -mx-3 transition hover:bg-blue-50">
+                                            <img class="size-10 rounded-full ring-1 ring-gray-200 shrink-0" src="{{ asset('images/team/members/' ~ contribution.creator.value ~ '.jpg') }}" alt="{{ contribution.creator.value|replace({'-': ' '})|title }}" loading="lazy" width="28" height="28">
+                                            <div class="min-w-0 flex-1 flex flex-col gap-1">
                                                 <span class="text-sm font-semibold text-slate-800 group-hover:text-indigo-600 transition">{{ contribution.name }}</span>
-                                                <p class="text-xs text-gray-500 truncate max-sm:hidden">{{ contribution.description }}</p>
+                                                <p class="text-xs text-gray-500 max-sm:hidden">{{ contribution.description }}</p>
+                                                <div class="flex items-center gap-1">
+                                                    <twig:ux:icon name="{{ contribution.project.icon }}" aria-label="{{ contribution.project.label }}" class="size-4 shrink-0" />
+                                                    <span class="text-xs">{{ contribution.shortUrl }}</span>
+                                                </div>
                                             </div>
-                                            <twig:ui:Badge color="purple" class="hidden sm:inline-flex">{{ 'home.open_source.merged'|trans|lower }}</twig:ui:Badge>
+
                                             <a href="{{ contribution.url }}" class="absolute inset-0 w-full h-full" aria-label="{{ contribution.name }} {{ contribution.description }}"></a>
                                         </div>
                                     </li>
