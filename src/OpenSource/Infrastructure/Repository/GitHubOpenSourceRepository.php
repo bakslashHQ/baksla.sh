@@ -18,7 +18,22 @@ final readonly class GitHubOpenSourceRepository implements OpenSourceRepository
      * @var array<string, list<string>>
      */
     private const array REPOS = [
-        'symfony' => ['symfony/symfony', 'symfony/ux', 'symfony/symfony-docs', 'symfony/maker-bundle'],
+        'symfony' => [
+            'symfony/symfony',
+            'symfony/symfony-docs',
+            'symfony/demo',
+            'symfony/polyfill',
+            'symfony/recipes',
+            'symfony/recipes-contrib',
+            'symfony/maker-bundle',
+            'symfony/monolog-bundle',
+            'symfony/mercure',
+            'symfony/mercure-bundle',
+            'symfony/panther',
+            'symfony/ux',
+            'symfony/ux.symfony.com',
+            'symfony/ai',
+        ],
         'api-platform' => ['api-platform/core'],
         'sylius' => ['Sylius/Sylius'],
         'lexik-jwt' => ['lexik/LexikJWTAuthenticationBundle'],
