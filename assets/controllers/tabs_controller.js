@@ -37,20 +37,33 @@ export default class extends Controller {
     this.#updateFragment(index);
   }
 
+  showOnFocus(event) {
+    const index = parseInt(event.currentTarget.dataset.index, 10);
+    this.stopAutoplay();
+    this.show(index);
+  }
+
   show(index) {
     this.currentIndex = index;
 
     this.commandTargets.forEach((el, i) => {
-      if (i === index) {
+      const elIndex = parseInt(el.dataset.index, 10);
+      const isActive = elIndex === index;
+      
+      if (isActive) {
         el.classList.add(...this.activeClasses);
         if (this.hasInactiveClass) {
           el.classList.remove(...this.inactiveClasses);
         }
+        // Update ARIA selected state
+        el.setAttribute('aria-selected', 'true');
       } else {
         el.classList.remove(...this.activeClasses);
         if (this.hasInactiveClass) {
           el.classList.add(...this.inactiveClasses);
         }
+        // Update ARIA selected state
+        el.setAttribute('aria-selected', 'false');
       }
     });
 

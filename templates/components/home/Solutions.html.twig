@@ -64,9 +64,16 @@
             <div class="bg-white rounded-xl shadow-sm ring-1 ring-gray-200 overflow-hidden">
 
                 {# Mobile: IDE-style file tabs #}
-                <div class="lg:hidden flex border-b border-gray-200 overflow-x-auto bg-gray-50">
+                <div role="tablist" aria-label="{{ 'home.products.solutions_folder'|trans }}" class="lg:hidden flex border-b border-gray-200 overflow-x-auto bg-gray-50">
                     {% for solution in solutions %}
-                        <button data-tabs-target="command" data-action="tabs#select" data-index="{{ loop.index0 }}" data-filename="{{ solution.filename }}"
+                        <button role="tab"
+                            id="tab-mobile-{{ loop.index0 }}"
+                            aria-controls="tabpanel-{{ loop.index0 }}"
+                            aria-selected="{{ loop.index0 == 0 ? 'true' : 'false' }}"
+                            data-tabs-target="command"
+                            data-action="tabs#select focus->tabs#showOnFocus"
+                            data-index="{{ loop.index0 }}"
+                            data-filename="{{ solution.filename }}"
                             class="flex items-center gap-1.5 px-4 py-3.5 text-xs text-gray-500 whitespace-nowrap border-r border-gray-200 transition cursor-pointer">
                             <twig:UX:Icon name="octicon:file" aria-hidden="true" class="size-3.5 text-gray-400 shrink-0" />
                             {{ solution.filename }}
@@ -82,13 +89,22 @@
                             <span class="font-semibold text-slate-700">{{ 'home.products.solutions_folder'|trans }}</span>
                         </div>
 
-                        {% for solution in solutions %}
-                            <button data-tabs-target="command" data-action="tabs#select" data-index="{{ loop.index0 }}" data-filename="{{ solution.filename }}"
-                                class="w-full text-left px-4 py-3 flex items-center gap-2.5 {{ not loop.last ? 'border-b border-gray-100' }} transition-colors cursor-pointer">
-                                {{ fileIcon }}
-                                <span class="text-sm text-slate-700 truncate">{{ solution.filename }}</span>
-                            </button>
-                        {% endfor %}
+                        <div role="tablist" aria-label="{{ 'home.products.solutions_folder'|trans }}">
+                            {% for solution in solutions %}
+                                <button role="tab"
+                                    id="tab-desktop-{{ loop.index0 }}"
+                                    aria-controls="tabpanel-{{ loop.index0 }}"
+                                    aria-selected="{{ loop.index0 == 0 ? 'true' : 'false' }}"
+                                    data-tabs-target="command"
+                                    data-action="tabs#select focus->tabs#showOnFocus"
+                                    data-index="{{ loop.index0 }}"
+                                    data-filename="{{ solution.filename }}"
+                                    class="w-full text-left px-4 py-3 flex items-center gap-2.5 {{ not loop.last ? 'border-b border-gray-100' }} transition-colors cursor-pointer">
+                                    {{ fileIcon }}
+                                    <span class="text-sm text-slate-700 truncate">{{ solution.filename }}</span>
+                                </button>
+                            {% endfor %}
+                        </div>
                     </div>
 
                     {# Content area #}
@@ -100,7 +116,11 @@
 
                         <div class="p-6 sm:p-8 sm:min-h-[18rem]">
                             {% for solution in solutions %}
-                                <div data-tabs-target="output" {{ loop.index0 > 0 ? 'class="hidden"' }}>
+                                <div role="tabpanel"
+                                    id="tabpanel-{{ loop.index0 }}"
+                                    aria-labelledby="tab-mobile-{{ loop.index0 }}"
+                                    data-tabs-target="output"
+                                    {{ loop.index0 > 0 ? 'class="hidden"' }}>
                                     <h3 class="text-xl sm:text-2xl font-bold text-slate-900 pb-3 mb-4 border-b border-gray-200">{{ solution.titleKey|trans }}</h3>
                                     <p class="text-sm sm:text-base/relaxed text-gray-600">
                                         {{- solution.contentKey|trans|replace(solution.replacements)|raw -}}
