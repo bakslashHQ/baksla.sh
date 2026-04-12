@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\OpenSource\Infrastructure\GitHub\GitHubClient;
 use App\Team\Infrastructure\Repository\InMemoryMemberRepository;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\env;
@@ -32,8 +31,4 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services
         ->get(InMemoryMemberRepository::class)
         ->factory([InMemoryMemberRepository::class, 'createDefault']);
-
-    $services
-        ->get(GitHubClient::class)
-        ->arg('$githubToken', param('app.github_token'));
 };

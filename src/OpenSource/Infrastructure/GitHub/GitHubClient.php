@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\OpenSource\Infrastructure\GitHub;
 
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -17,6 +18,8 @@ final readonly class GitHubClient
     public function __construct(
         private HttpClientInterface $httpClient,
         private CacheInterface $cache,
+        #[Autowire(param: 'app.github_token')]
+        #[\SensitiveParameter]
         string $githubToken = '',
     ) {
         $this->githubToken = $githubToken !== '' ? $githubToken : null;
