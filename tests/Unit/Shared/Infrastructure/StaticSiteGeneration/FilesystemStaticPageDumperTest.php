@@ -41,7 +41,7 @@ final class FilesystemStaticPageDumperTest extends TestCase
         $minify = $this->createMock(MinifierInterface::class);
         $minify->expects($this->never())->method('minify');
 
-        $dumper = new FilesystemStaticPageDumper($minify, $this->outputDir);
+        $dumper = new FilesystemStaticPageDumper($minify, $this->filesystem, $this->outputDir);
         $dumper->dump('/page-foo', 'dummy-content');
 
         $expectedPath = \sprintf('%s/page-foo', $this->outputDir);
@@ -55,7 +55,7 @@ final class FilesystemStaticPageDumperTest extends TestCase
         $minify = $this->createMock(MinifierInterface::class);
         $minify->method('minify')->willReturnArgument(0);
 
-        $dumper = new FilesystemStaticPageDumper($minify, $this->outputDir);
+        $dumper = new FilesystemStaticPageDumper($minify, $this->filesystem, $this->outputDir);
         $dumper->dump('/', '<html></html>');
 
         $expectedPath = \sprintf('%s/index.html', $this->outputDir);
@@ -69,7 +69,7 @@ final class FilesystemStaticPageDumperTest extends TestCase
         $minify = $this->createMock(MinifierInterface::class);
         $minify->method('minify')->willReturnArgument(0);
 
-        $dumper = new FilesystemStaticPageDumper($minify, $this->outputDir);
+        $dumper = new FilesystemStaticPageDumper($minify, $this->filesystem, $this->outputDir);
         $dumper->dump('/page-foo', 'dummy-content', 'html');
 
         $expectedPath = \sprintf('%s/page-foo.html', $this->outputDir);
@@ -83,7 +83,7 @@ final class FilesystemStaticPageDumperTest extends TestCase
         $minify = $this->createMock(MinifierInterface::class);
         $minify->expects($this->once())->method('minify')->with('<html></html>', 'html')->willReturnArgument(0);
 
-        $dumper = new FilesystemStaticPageDumper($minify, $this->outputDir);
+        $dumper = new FilesystemStaticPageDumper($minify, $this->filesystem, $this->outputDir);
         $dumper->dump('/page', '<html></html>', 'html');
     }
 
@@ -92,7 +92,7 @@ final class FilesystemStaticPageDumperTest extends TestCase
         $minify = $this->createMock(MinifierInterface::class);
         $minify->expects($this->once())->method('minify')->with('<xml/>', 'xml')->willReturnArgument(0);
 
-        $dumper = new FilesystemStaticPageDumper($minify, $this->outputDir);
+        $dumper = new FilesystemStaticPageDumper($minify, $this->filesystem, $this->outputDir);
         $dumper->dump('/sitemap.xml', '<xml/>', 'xml');
     }
 
@@ -101,7 +101,7 @@ final class FilesystemStaticPageDumperTest extends TestCase
         $minify = $this->createMock(MinifierInterface::class);
         $minify->expects($this->never())->method('minify');
 
-        $dumper = new FilesystemStaticPageDumper($minify, $this->outputDir);
+        $dumper = new FilesystemStaticPageDumper($minify, $this->filesystem, $this->outputDir);
         $dumper->dump('/data.json', '{}', 'json');
     }
 
@@ -110,7 +110,7 @@ final class FilesystemStaticPageDumperTest extends TestCase
         $minify = $this->createMock(MinifierInterface::class);
         $minify->method('minify')->willReturnArgument(0);
 
-        $dumper = new FilesystemStaticPageDumper($minify, $this->outputDir);
+        $dumper = new FilesystemStaticPageDumper($minify, $this->filesystem, $this->outputDir);
         $dumper->dump('/sitemap.xml', '<xml/>', 'xml');
 
         $expectedPath = \sprintf('%s/sitemap.xml', $this->outputDir);

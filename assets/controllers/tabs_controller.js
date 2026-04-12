@@ -49,7 +49,7 @@ export default class extends Controller {
     this.commandTargets.forEach((el, i) => {
       const elIndex = parseInt(el.dataset.index, 10);
       const isActive = elIndex === index;
-      
+
       if (isActive) {
         el.classList.add(...this.activeClasses);
         if (this.hasInactiveClass) {

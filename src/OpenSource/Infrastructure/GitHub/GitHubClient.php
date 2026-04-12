@@ -30,7 +30,7 @@ final readonly class GitHubClient
      */
     public function countPullRequests(string $repo, array $usernames): int
     {
-        $authorQuery = implode(' ', array_map(fn (string $u) => sprintf('author:%s', $u), $usernames));
+        $authorQuery = implode(' ', array_map(fn (string $u): string => sprintf('author:%s', $u), $usernames));
 
         return $this->cachedSearchCount(
             cacheKey: sprintf('github_prs_%s', str_replace('/', '_', $repo)),
@@ -44,7 +44,7 @@ final readonly class GitHubClient
      */
     public function countReviews(string $repo, array $usernames): int
     {
-        $reviewerQuery = implode(' ', array_map(fn (string $u) => sprintf('reviewed-by:%s', $u), $usernames));
+        $reviewerQuery = implode(' ', array_map(fn (string $u): string => sprintf('reviewed-by:%s', $u), $usernames));
 
         return $this->cachedSearchCount(
             cacheKey: sprintf('github_reviews_%s', str_replace('/', '_', $repo)),

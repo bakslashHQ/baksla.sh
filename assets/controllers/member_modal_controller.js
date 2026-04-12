@@ -41,7 +41,7 @@ export default class extends Controller {
 
     this.modalTarget.classList.add('opacity-100', 'scale-100');
     this.modalTarget.classList.remove('opacity-0', 'translate-y-4', 'scale-80');
-    
+
     // Re-enable focus - showModal() already traps focus natively in the dialog
     this.element.inert = false;
 

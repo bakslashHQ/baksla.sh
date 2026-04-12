@@ -30,7 +30,7 @@ final readonly class Blog
         $showcased = $this->getShowcased();
 
         if ($articles !== [] && $showcased instanceof ArticlePreview) {
-            $articles = array_values(array_filter($articles, static fn (ArticlePreview $a): bool => $a->id !== $showcased->id));
+            return array_values(array_filter($articles, static fn (ArticlePreview $a): bool => $a->id !== $showcased->id));
         }
 
         return $articles;

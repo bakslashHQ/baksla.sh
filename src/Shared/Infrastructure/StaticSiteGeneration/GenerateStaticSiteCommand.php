@@ -10,14 +10,13 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(name: 'ssg:generate', description: 'Generates static pages')]
-final class GenerateStaticSiteCommand extends Command
+final readonly class GenerateStaticSiteCommand
 {
     public function __construct(
-        private readonly StaticPagesGenerator $staticPagesGenerator,
-        private readonly StaticPageDumperInterface $staticPageDumper,
-        private readonly StaticPageUrisProviderInterface $staticPageUrisProvider,
+        private StaticPagesGenerator $staticPagesGenerator,
+        private StaticPageDumperInterface $staticPageDumper,
+        private StaticPageUrisProviderInterface $staticPageUrisProvider,
     ) {
-        parent::__construct();
     }
 
     public function __invoke(

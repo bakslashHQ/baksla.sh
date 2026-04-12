@@ -57,7 +57,7 @@ final readonly class OpenSourceOverview
     {
         return array_values(array_filter(
             $this->getStats(),
-            fn (ContributionStats $s) => !$s->project->isBundle(),
+            fn (ContributionStats $s): bool => !$s->project->isBundle(),
         ));
     }
 
@@ -87,7 +87,7 @@ final readonly class OpenSourceOverview
      */
     public function getBundles(): array
     {
-        return array_values(array_filter(Project::cases(), fn (Project $p) => $p->isBundle()));
+        return array_values(array_filter(Project::cases(), fn (Project $p): bool => $p->isBundle()));
     }
 
     /**

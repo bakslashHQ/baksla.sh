@@ -11,12 +11,18 @@
   margin-bottom: 0.5em;
 }
 
-.markdown-body h1 { @apply text-2xl; }
+.markdown-body h1 {
+  @apply text-2xl;
+}
 .markdown-body h2 {
   @apply text-xl pb-2 border-b border-gray-200;
 }
-.markdown-body h3 { @apply text-lg; }
-.markdown-body h4 { @apply text-base; }
+.markdown-body h3 {
+  @apply text-lg;
+}
+.markdown-body h4 {
+  @apply text-base;
+}
 
 .markdown-body p {
   @apply my-4 leading-7;
