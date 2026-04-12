@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Blog\Infrastructure\League\CommonMark;
+namespace App\Tests\Unit\Blog\Infrastructure\Rendering;
 
 use App\Blog\Infrastructure\Rendering\CodeBlock\TempestCodeBlockRenderer;
 use App\Blog\Infrastructure\Rendering\LeagueMarkdownConverter;

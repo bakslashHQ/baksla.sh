@@ -1,0 +1,64 @@
+{% set members = this.members %}
+
+{% for member in members %}
+    <twig:team:MemberModal :member="member" />
+{% endfor %}
+
+<section aria-label="The team" class="pt-12 sm:pt-16 pb-24 sm:pb-32">
+    <div class="mx-auto max-w-5xl px-6 lg:px-8">
+
+        <h2 class="text-2xl sm:text-3xl font-normal text-slate-800 tracking-tight mb-6">{{ 'home.tabs.team.title'|trans }}</h2>
+
+        <div class="flex gap-8 lg:gap-12">
+
+            {# Main: bot comment + code review #}
+            <div class="flex-1 min-w-0" data-test-review>
+                <div class="mb-6 rounded-lg border border-gray-200 bg-white overflow-hidden">
+                    <div class="px-4 py-2 bg-gray-50 border-b border-gray-200 flex items-center gap-2">
+                        <img src="{{ asset('images/bakslash-small.svg') }}" alt="bakslash-bot" class="size-5" width="20" height="20">
+                        <span class="text-sm font-semibold text-slate-800">bakslash-bot</span>
+                        <span class="inline-flex items-center rounded-full bg-gray-200 px-1.5 py-0.5 text-xs font-medium text-gray-600">bot</span>
+                    </div>
+                    <div class="px-4 py-3">
+                        <p class="text-sm font-semibold text-slate-800">{{ 'team.title'|trans }}</p>
+                        <p class="text-sm text-gray-500 mt-1">{{ 'team.click_on_member'|trans }}</p>
+                    </div>
+                </div>
+                {% include 'pages/team/index/_code_view_team.html.twig' %}
+            </div>
+
+            {# Sidebar: reviewers #}
+            <aside class="hidden lg:block w-56 shrink-0 border-l border-gray-200 pl-8">
+                <div class="sticky top-[8rem] space-y-8">
+                    <div>
+                        <h3 class="text-xs font-semibold text-slate-800 mb-3">{{ 'team.reviewers'|trans }} ({{ members|length }})</h3>
+                        <ul class="space-y-2.5">
+                            {% for member in members %}
+                                <li>
+                                    <button type="button" data-open-member-modal="{{ member.id.value }}" aria-label="{{ 'team.view_profile'|trans({'name': member.fullName}) }}" class="flex items-center gap-2.5 cursor-pointer group">
+                                        <img class="size-6 rounded-full ring-1 ring-gray-200" src="{{ asset('images/team/members/' ~ member.id.value ~ '.jpg') }}" alt="{{ member.fullName }}" loading="lazy" width="24" height="24" />
+                                        <span class="text-sm text-slate-700 font-medium group-hover:text-indigo-600 transition">{{ member.fullName }}</span>
+                                    </button>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+
+        </div>
+
+        {# Mobile: avatar row #}
+        <div class="lg:hidden flex flex-col items-center justify-center mt-10">
+            <p class="text-xs font-semibold text-slate-800 mb-3">{{ 'team.reviewers'|trans }} ({{ members|length }})</p>
+            <div class="flex flex-row justify-center flex-wrap gap-2">
+                {% for member in members %}
+                    <button type="button" data-open-member-modal="{{ member.id.value }}" aria-label="{{ 'team.view_profile'|trans({'name': member.fullName}) }}" class="cursor-pointer p-1">
+                        <img class="size-9 rounded-full ring-1 ring-gray-200" src="{{ asset('images/team/members/' ~ member.id.value ~ '.jpg') }}" alt="{{ member.fullName }}" loading="lazy" />
+                    </button>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</section>

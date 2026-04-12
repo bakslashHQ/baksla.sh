@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app.request.locale }}">
+<html lang="{{ app.request.locale }}" class="bg-gray-900">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,76 +45,64 @@
                 {{- 'header.skip_to_content'|trans -}}
             </a>
 
-            <header class="py-10">
-                <div class="container max-w-screen-xl mx-auto px-8 xl:px-4">
-                    <nav class="flex items-center justify-between gap-x-2 md:gap-x-6">
+            <header class="bg-gray-900 sticky top-0 z-50">
+                <div class="mx-auto max-w-5xl px-6 lg:px-8">
+                    <nav class="flex items-center justify-between h-16">
                         <a href="{{ path('app_home') }}" title="baksla.sh" class="min-w-6">
-                            <img src="{{ asset('images/bakslash.svg') }}" alt="baksla.sh" class="h-11 hidden sm:block" loading="eager" fetchpriority="high" width="300" height="40">
-                            <img src="{{ asset('images/bakslash-small.svg') }}" alt="baksla.sh" aria-hidden="true" class="size-11 sm:hidden" loading="eager" fetchpriority="high" width="62" height="62">
+                            <img src="{{ asset('images/bakslash-white.svg') }}" alt="baksla.sh" class="h-7 sm:h-8 w-auto" loading="eager" fetchpriority="high">
                         </a>
-                        <div class="flex justify-center items-center gap-x-2 sm:gap-x-4 lg:gap-x-6">
-                            {% if app.current_route != 'app_blog' %}
-                            <a href="{{ path('app_blog') }}" class="py-4 font-medium text-slate-800 text-sm sm:text-lg hover:underline underline-offset-3 decoration-2 sm:decoration-4 decoration-indigo-500 whitespace-nowrap">{{ 'header.link.blog'|trans }}</a>
-                            <div class="border-r border-gray-300 h-3 sm:h-6"></div>
-                            {% endif %}
-                            {% if app.current_route != 'app_team' %}
-                            <a href="{{ path('app_team') }}" class="py-4 font-medium text-slate-800 text-sm sm:text-lg hover:underline underline-offset-3 decoration-2 sm:decoration-4 decoration-indigo-500 whitespace-nowrap">{{ 'header.link.team'|trans }}</a>
-                            <div class="border-r border-gray-300 h-3 sm:h-6"></div>
-                            {% endif %}
-                            <a href="mailto:hello@baksla.sh" class="py-4 font-medium text-slate-800 text-sm sm:text-lg hover:underline underline-offset-3 decoration-2 sm:decoration-4 decoration-indigo-500 whitespace-nowrap">hello@baksla.sh</a>
+                        <div class="flex items-center gap-x-1 sm:gap-x-2">
+                            <a href="{{ path('app_open_source') }}" class="px-3 py-1.5 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/10 rounded-md transition whitespace-nowrap max-sm:hidden">{{ 'home.tabs.open_source'|trans }}</a>
+                            <a href="{{ path('app_team') }}" class="px-3 py-1.5 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/10 rounded-md transition whitespace-nowrap max-sm:hidden">{{ 'home.tabs.team'|trans }}</a>
+                            <a href="{{ path('app_blog') }}" class="px-3 py-1.5 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/10 rounded-md transition whitespace-nowrap max-sm:hidden">{{ 'home.tabs.blog'|trans }}</a>
+                            <a href="mailto:hello@baksla.sh" aria-label="hello@baksla.sh" class="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 text-sm font-medium text-white bg-green-600 hover:bg-green-500 rounded-md transition whitespace-nowrap">
+                                <twig:UX:Icon name="octicon:mail" aria-hidden="true" class="size-4" />
+                                <span class="hidden sm:inline">hello@baksla.sh</span>
+                            </a>
                         </div>
                     </nav>
                 </div>
             </header>
 
-            <main id="main-content" class="grow">
+            <main id="main-content" class="grow {% block main_class %}{% endblock %}">
                 {% block content %}{% endblock %}
             </main>
 
-            <footer class="py-10">
-                <div class="container max-w-screen-xl mx-auto px-4 md:px-8 flex items-center md:flex-row flex-col md:justify-between">
-                    <span class="text-sm text-slate-700 flex items-center md:justify-start justify-center">
-                        {{- 'footer.copyright'|trans({year: 'now'|date('Y')}) -}}
-                    </span>
-                    <ul class="flex flex-wrap justify-center items-center mt-3 text-slate-700 text-sm sm:mt-0">
-                        <li>
-                            <a href="{{ path('app_blog') }}" class="hover:underline me-4 md:me-6 py-4">
-                                {{- 'footer.link.blog'|trans -}}
+            <footer class="border-t border-gray-200 py-6">
+                <div class="mx-auto max-w-5xl px-6 lg:px-8">
+                    <div class="flex flex-col sm:grid sm:grid-cols-3 items-center gap-4">
+
+                        {# Left: logo + copyright #}
+                        <div class="flex items-center gap-4">
+                            <a href="{{ path('app_home') }}" class="opacity-60 hover:opacity-100 transition">
+                                <img src="{{ asset('images/bakslash-small.svg') }}" alt="baksla.sh" class="size-6" loading="lazy">
                             </a>
-                        </li>
-                        <li>
-                            <a href="{{ path('app_team') }}" class="hover:underline me-4 md:me-6 py-4">
-                                {{- 'footer.link.team'|trans -}}
+                            <span class="text-xs text-gray-500">{{ 'footer.copyright'|trans({year: 'now'|date('Y')}) }}</span>
+                        </div>
+
+                        {# Center: links #}
+                        <nav class="flex flex-wrap items-center justify-center gap-x-5 text-xs text-gray-500">
+                            <a href="{{ path('app_legal_notices') }}" class="hover:text-indigo-600 transition">{{ 'footer.link.legal_notices'|trans }}</a>
+                            <a href="mailto:hello@baksla.sh" class="hover:text-indigo-600 transition">hello@baksla.sh</a>
+                        </nav>
+
+                        {# Right: social icons #}
+                        <div class="flex items-center justify-end gap-3">
+                            <a href="https://github.com/bakslashHQ" aria-label="{{ 'footer.social.github'|trans }}" target="_blank" class="opacity-60 hover:opacity-100 transition p-2">
+                                <twig:UX:Icon name="logos:github" aria-hidden="true" class="size-4" />
                             </a>
-                        </li>
-                        <li>
-                            <a href="{{ path('app_legal_notices') }}" class="hover:underline me-4 md:me-6 py-4">
-                                {{- 'footer.link.legal_notices'|trans -}}
+                            <a href="https://x.com/BakslashHQ" aria-label="{{ 'footer.social.x'|trans }}" target="_blank" class="opacity-60 hover:opacity-100 transition p-2">
+                                <twig:UX:Icon name="logos:x" aria-hidden="true" class="size-4" />
                             </a>
-                        </li>
-                    </ul>
-                    <ul class="flex flex-wrap justify-center items-center mt-3 text-sm font-medium sm:mt-0">
-                        <li class="h-full">
-                            <a href="https://github.com/bakslashHQ" aria-label="{{ 'footer.social.github'|trans }}" target="_blank" class="hover:underline me-4 md:me-6 h-full flex items-center">
-                                <twig:UX:Icon name="logos:github" aria-hidden="true" class="h-5 mt-2 md:h-6 md:mt-0 opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition" />
+                            <a href="https://bsky.app/profile/baksla.sh" aria-label="{{ 'footer.social.bluesky'|trans }}" target="_blank" class="opacity-60 hover:opacity-100 transition p-2">
+                                <twig:UX:Icon name="logos:bluesky" aria-hidden="true" class="size-4" />
                             </a>
-                        </li>
-                        <li>
-                            <a href="https://x.com/BakslashHQ" aria-label="{{ 'footer.social.x'|trans }}" target="_blank" class="hover:underline me-4 md:me-6 h-full flex items-center">
-                                <twig:UX:Icon name="logos:x" aria-hidden="true" class="h-5 mt-2 md:h-6 md:mt-0 opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition" />
+                            <a href="https://www.linkedin.com/company/bakslashhq" aria-label="{{ 'footer.social.linkedin'|trans }}" target="_blank" class="opacity-60 hover:opacity-100 transition p-2">
+                                <twig:UX:Icon name="logos:linkedin" aria-hidden="true" class="size-4" />
                             </a>
-                        </li>
-                        <li>
-                            <a href="https://bsky.app/profile/baksla.sh" aria-label="{{ 'footer.social.bluesky'|trans }}" target="_blank" class="hover:underline me-4 md:me-6 h-full flex items-center">
-                                <twig:UX:Icon name="logos:bluesky" aria-hidden="true" class="h-5 mt-2 md:h-6 md:mt-0 opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition" />
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.linkedin.com/company/bakslashhq" aria-label="{{ 'footer.social.linkedin'|trans }}" target="_blank" class="hover:underline me-4 md:me-6 h-full flex items-center">
-                                <twig:UX:Icon name="logos:linkedin" aria-hidden="true" class="h-5 mt-2 md:h-6 md:mt-0 opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition" />
-                            </a>
-                        </li>
-                    </ul>
+                        </div>
+
+                    </div>
                 </div>
             </footer>
         {% endblock %}

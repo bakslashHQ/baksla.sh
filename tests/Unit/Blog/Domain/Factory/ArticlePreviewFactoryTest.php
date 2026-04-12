@@ -20,6 +20,7 @@ final class ArticlePreviewFactoryTest extends TestCase
             'author' => MemberId::MathiasArlaud->value,
             'title' => 'title',
             'description' => 'description',
+            'published_at' => '2024-01-01',
         ]);
         $content = sprintf("---\n%s\n---", $yaml);
         $memberRepository = new InMemoryMemberRepository([$member = aMember()->withId(MemberId::MathiasArlaud)->build()]);
@@ -75,18 +76,28 @@ final class ArticlePreviewFactoryTest extends TestCase
             'author', [
                 'title' => 'title',
                 'description' => 'description',
+                'published_at' => '2024-01-01',
             ],
         ];
         yield [
             'title', [
                 'author' => 'author',
                 'description' => 'description',
+                'published_at' => '2024-01-01',
             ],
         ];
         yield [
             'description', [
                 'author' => 'author',
                 'title' => 'title',
+                'published_at' => '2024-01-01',
+            ],
+        ];
+        yield [
+            'published_at', [
+                'author' => 'author',
+                'title' => 'title',
+                'description' => 'description',
             ],
         ];
     }

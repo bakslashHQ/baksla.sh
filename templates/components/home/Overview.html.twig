@@ -1,0 +1,20 @@
+<section aria-label="Overview" class="pb-8 sm:pb-12">
+    <div class="mx-auto max-w-5xl px-6 lg:px-8">
+
+        {# Section label #}
+        <div class="flex items-center gap-2 mb-4">
+            <twig:UX:Icon name="octicon:pin" aria-hidden="true" class="size-4 text-gray-400" />
+            <h2 class="text-sm font-semibold text-slate-800">{{ 'home.kpi.overview'|trans }}</h2>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+            <twig:ui:StatCard value="20+" :label="'home.kpi.projects'|trans" icon="ix:project-simulation" iconLabel="Projects" :description="'home.kpi.projects.description'|trans" color="indigo" />
+            <twig:ui:StatCard :value="this.coreTeamCount" :label="'home.kpi.core_team'|trans" icon="logos:symfony" iconLabel="Symfony" :description="'home.kpi.core_team.description'|trans" color="purple" />
+            <twig:ui:StatCard :value="this.certifiedCount" :label="'home.kpi.certified'|trans" :shortLabel="'home.kpi.certified.short'|trans" icon="logos:symfony" iconLabel="Symfony" :description="'home.kpi.certified.description'|trans" color="violet" />
+            <twig:ui:StatCard :value="this.collaboratorsCount" :label="'home.kpi.collaborators'|trans" icon="mdi:duck" iconLabel="Team" :description="'home.kpi.collaborators.description'|trans" color="blue" />
+            <twig:ui:StatCard value="30+" :label="'home.kpi.talks'|trans" icon="logos:php" iconLabel="PHP" :description="'home.kpi.talks.description'|trans" color="pink" />
+            <twig:ui:StatCard value="∞" :label="'home.kpi.love_in_ecosystem'|trans" icon="noto:red-heart" iconLabel="Open Source" :description="'home.kpi.love_in_ecosystem.description'|trans" color="indigo" />
+        </div>
+
+    </div>
+</section>

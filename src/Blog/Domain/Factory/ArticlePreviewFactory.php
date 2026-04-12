@@ -28,19 +28,21 @@ final readonly class ArticlePreviewFactory
         }
 
         try {
-            /** @var array{author?: string, title?: string, description?: string} $metadata */
+            /** @var array{author?: string, title?: string, description?: string, published_at?: string} $metadata */
             $metadata = Yaml::parse($matches['metadata']);
         } catch (ParseException $parseException) {
             throw new \InvalidArgumentException(sprintf('Cannot parse metadata of file "%s": "%s".', $filename, $parseException->getMessage()), $parseException->getCode(), previous: $parseException);
         }
 
         $authorId = $metadata['author'] ?? throw new \InvalidArgumentException(sprintf('Missing "author" metadata in file "%s".', $filename));
+        $publishedAt = $metadata['published_at'] ?? throw new \InvalidArgumentException(sprintf('Missing "published_at" metadata in file "%s".', $filename));
 
         return new ArticlePreview(
             id: $id,
             title: $metadata['title'] ?? throw new \InvalidArgumentException(sprintf('Missing "title" metadata in file "%s".', $filename)),
             description: $metadata['description'] ?? throw new \InvalidArgumentException(sprintf('Missing "description" metadata in file "%s".', $filename)),
             author: $this->memberRepository->get(MemberId::from($authorId)),
+            publishedAt: new \DateTimeImmutable($publishedAt),
         );
     }
 }

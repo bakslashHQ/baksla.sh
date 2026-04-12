@@ -1,0 +1,40 @@
+<section aria-label="baksla.sh's partners" class="pt-12 sm:pt-16 pb-24 sm:pb-32">
+    <div class="mx-auto max-w-5xl px-6 lg:px-8">
+
+        <div class="bg-white rounded-xl ring-1 ring-gray-200 shadow-sm overflow-hidden">
+
+            {# Header — like a GitHub discussion/issue #}
+            <div class="flex items-center gap-2 px-6 py-3 bg-gray-50 border-b border-gray-200 text-sm">
+                <twig:UX:Icon name="octicon:heart" aria-hidden="true" class="size-4 text-pink-500" />
+                <span class="font-semibold text-slate-800">{{ 'home.partners.trusted_by'|trans }}</span>
+            </div>
+
+            {# Body #}
+            <div class="px-6 py-8 sm:py-10">
+
+                {# Logos grid #}
+                <div class="grid grid-cols-2 sm:grid-cols-5 items-center gap-x-6 sm:gap-x-10 gap-y-8">
+                    <img class="max-h-8 w-full object-contain" src="{{ asset('images/clients/drdata.png') }}" alt="DrData" width="250" height="63" loading="lazy">
+                    <img class="max-h-10 w-full object-contain" src="{{ asset('images/clients/fdj.png') }}" alt="FDJ" width="250" height="119" loading="lazy">
+                    <img class="max-h-8 w-full object-contain" src="{{ asset('images/clients/yousign.png') }}" alt="Yousign" width="250" height="73" loading="lazy">
+                    <img class="max-h-6 w-full object-contain" src="{{ asset('images/clients/sensiolabs.png') }}" alt="Sensiolabs" width="250" height="39" loading="lazy">
+                    <img class="max-h-6 w-full object-contain" src="{{ asset('images/clients/authwire.png') }}" alt="Authwire" width="248" height="37" loading="lazy">
+                </div>
+
+                {# CTA #}
+                <div class="mt-8 pt-6 border-t border-gray-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <p class="text-sm text-gray-500">{{- 'home.partners.they_trust_us.title'|trans|replace({
+                        '<0/>': '',
+                    }) -}}</p>
+                    <a href="mailto:hello@baksla.sh" class="inline-flex items-center gap-1.5 rounded-md bg-green-600 hover:bg-green-700 px-4 py-2 text-sm font-medium text-white transition shrink-0">
+                        <twig:UX:Icon name="octicon:mail" aria-hidden="true" class="size-4" />
+                        hello@baksla.sh
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>

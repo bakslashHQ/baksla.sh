@@ -1,0 +1,7 @@
+{% props memberId, name %}
+
+<li class="flex items-center gap-2.5">
+    <img class="size-6 rounded-full" src="{{ asset('images/team/members/' ~ memberId ~ '.jpg') }}" alt="{{ name }}" loading="lazy" width="24" height="24">
+    <span class="text-sm text-slate-700">{{ name }}</span>
+    <twig:UX:Icon name="octicon:check" aria-hidden="true" class="size-4 text-green-600 ml-auto" />
+</li>

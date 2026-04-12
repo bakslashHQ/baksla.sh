@@ -49,6 +49,7 @@ final class GenerateStaticSiteTest extends KernelTestCase
         $this->assertFileExists($this->outputDir . '/sitemap.xml');
         $this->assertFileExists($this->outputDir . '/blog.html');
         $this->assertFileExists($this->outputDir . '/team.html');
+        $this->assertFileExists($this->outputDir . '/open-source.html');
         $this->assertFileExists($this->outputDir . '/blog/symfony-certification.html');
     }
 

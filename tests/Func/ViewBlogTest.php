@@ -13,17 +13,19 @@ final class ViewBlogTest extends FunctionalTestCase
     {
         $this->get('/blog');
 
-        $this->assertSelectorTextContains('h1', 'blog.title');
-        $this->assertSelectorExists('[data-test-articles] article');
+        $this->assertResponseStatusCodeSame(200);
+        $this->assertSelectorTextContains('h2', 'blog.title');
     }
 
     public function testEveryArticleAreDisplayed(): void
     {
         $articlePreviewRepository = $this->getService(ArticlePreviewRepository::class);
+        $articles = $articlePreviewRepository->findAll();
 
         $this->get('/blog');
 
-        $this->assertSelectorCount(count($articlePreviewRepository->findAll()), '[data-test-articles] article h2 > a');
+        // Each article has an h2 inside a link
+        $this->assertSelectorCount(count($articles), 'a h2');
     }
 
     public function testShowcasedArticleIsDisplayedIfEnabled(): void
@@ -32,11 +34,11 @@ final class ViewBlogTest extends FunctionalTestCase
 
         $this->get('/blog');
 
-        $showcasedSelector = '[data-test-articles] article[showcased]';
+        // Showcased uses h2.font-bold (bigger/bolder than regular h2.font-semibold)
         if ($showcased = $articlePreviewRepository->findShowcased()) {
-            $this->assertSelectorExists($showcasedSelector);
+            $this->assertSelectorExists('h2.font-bold');
         } else {
-            $this->assertSelectorNotExists($showcasedSelector);
+            $this->assertSelectorNotExists('h2.font-bold');
         }
     }
 
@@ -44,9 +46,9 @@ final class ViewBlogTest extends FunctionalTestCase
     {
         $crawler = $this->get('/blog');
 
-        $titles = $crawler->filter('[data-test-articles] article h2')->each(static fn (Crawler $a): string => $a->text());
+        // Collect all article titles (both h2 and h3)
+        $titles = $crawler->filter('h2 > a, h3 > a')->each(static fn (Crawler $a): string => $a->text());
 
         $this->assertSameSize($titles, array_unique($titles));
     }
-
 }

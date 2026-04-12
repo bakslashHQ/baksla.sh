@@ -9,13 +9,11 @@ use Symfony\Component\Filesystem\Filesystem;
 
 final readonly class FilesystemStaticPageDumper implements StaticPageDumperInterface
 {
-    private Filesystem $filesystem;
-
     public function __construct(
         private MinifierInterface $minify,
+        private Filesystem $filesystem,
         private string $outputDir,
     ) {
-        $this->filesystem = new Filesystem();
     }
 
     public function dump(string $uri, string $content, ?string $format = null): void

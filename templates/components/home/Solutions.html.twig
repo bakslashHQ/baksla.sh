@@ -1,0 +1,169 @@
+{% set solutions = [
+    {
+        filename: 'custom-development.md',
+        titleKey: 'home.products.product.custom_symfony_development.title',
+        contentKey: 'home.products.product.custom_symfony_development.content',
+        replacements: {'<0>': '<span class="font-semibold text-slate-900">', '</0>': '</span>'},
+    },
+    {
+        filename: 'coaching.md',
+        titleKey: 'home.products.product.coaching.title',
+        contentKey: 'home.products.product.coaching.content',
+        replacements: {
+            '<0>': '<span class="inline-flex items-center gap-1 rounded-full bg-purple-50 px-2.5 py-0.5 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-200 align-middle mx-0.5">' ~ component('UX:Icon', {name: 'mdi:brain', 'aria-hidden': true, class: 'size-3.5'}),
+            '</0>': '</span>',
+            '<1>': '<span class="inline-flex items-center gap-1 rounded-full bg-purple-50 px-2.5 py-0.5 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-200 align-middle mx-0.5">' ~ component('UX:Icon', {name: 'mdi:tooltip-question-outline', 'aria-hidden': true, class: 'size-3.5'}),
+            '</1>': '</span>',
+            '<2>': '<span class="inline-flex items-center gap-1 rounded-full bg-purple-50 px-2.5 py-0.5 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-200 align-middle mx-0.5">' ~ component('UX:Icon', {name: 'mdi:format-list-bulleted-type', 'aria-hidden': true, class: 'size-3.5'}),
+            '</2>': '</span>',
+            '<3>': '<span class="inline-flex items-center gap-1 rounded-full bg-purple-50 px-2.5 py-0.5 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-200 align-middle mx-0.5">' ~ component('UX:Icon', {name: 'mdi:magnify-scan', 'aria-hidden': true, class: 'size-3.5'}),
+            '</3>': '</span>',
+        },
+    },
+    {
+        filename: 'architecture-audit.md',
+        titleKey: 'home.products.product.architecture.title',
+        contentKey: 'home.products.product.architecture.content',
+        replacements: {'<0>': '<span class="font-semibold text-slate-900">', '</0>': '</span>', '<1>': '<span class="font-semibold text-slate-900">', '</1>': '</span>'},
+    },
+    {
+        filename: 'cto-as-a-service.md',
+        titleKey: 'home.products.product.cto_as_a_service.title',
+        contentKey: 'home.products.product.cto_as_a_service.content',
+        replacements: {'<0>': '<span class="font-semibold text-slate-900">', '</0>': '</span>', '<1>': '<span class="font-semibold text-slate-900">', '</1>': '</span>'},
+    },
+    {
+        filename: 'workshops-trainings.md',
+        titleKey: 'home.products.product.workshops_and_trainings.title',
+        contentKey: 'home.products.product.workshops_and_trainings.content',
+        replacements: {
+            '<0>': '<span class="inline-flex items-center gap-1 rounded-full bg-purple-50 px-2.5 py-0.5 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-200 align-middle mx-0.5">' ~ component('UX:Icon', {name: 'logos:symfony', 'aria-hidden': true, class: 'size-3.5'}),
+            '</0>': '</span>',
+            '<1>': '<span class="inline-flex items-center gap-1 rounded-full bg-purple-50 px-2.5 py-0.5 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-200 align-middle mx-0.5">' ~ component('UX:Icon', {name: 'logos:api-platform', 'aria-hidden': true, class: 'size-3.5'}),
+            '</1>': '</span>',
+            '<2>': '<span class="inline-flex items-center gap-1 rounded-full bg-purple-50 px-2.5 py-0.5 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-200 align-middle mx-0.5">' ~ component('UX:Icon', {name: 'hugeicons:clean', 'aria-hidden': true, class: 'size-3.5 text-purple-600'}),
+            '</2>': '</span>',
+        },
+    },
+] %}
+
+{% set fileIcon %}
+    <twig:UX:Icon name="octicon:file" aria-hidden="true" class="size-4 text-gray-400 shrink-0" />
+{% endset %}
+
+<section aria-label="baksla.sh's solutions" class="pt-12 sm:pt-16 pb-24 sm:pb-32">
+    <div class="mx-auto max-w-5xl px-6 lg:px-8">
+
+        {# File browser card #}
+        <div data-controller="tabs"
+            data-tabs-hidden-class="hidden"
+            data-tabs-active-class="bg-white text-slate-800"
+            data-tabs-inactive-class=""
+            data-tabs-interval-value="8000"
+        >
+            <div class="bg-white rounded-xl shadow-sm ring-1 ring-gray-200 overflow-hidden">
+
+                {# Mobile: IDE-style file tabs #}
+                <div role="tablist" aria-label="{{ 'home.products.solutions_folder'|trans }}" class="lg:hidden flex border-b border-gray-200 overflow-x-auto bg-gray-50">
+                    {% for solution in solutions %}
+                        <button role="tab"
+                            id="tab-mobile-{{ loop.index0 }}"
+                            aria-controls="tabpanel-{{ loop.index0 }}"
+                            aria-selected="{{ loop.index0 == 0 ? 'true' : 'false' }}"
+                            data-tabs-target="command"
+                            data-action="tabs#select focus->tabs#showOnFocus"
+                            data-index="{{ loop.index0 }}"
+                            data-filename="{{ solution.filename }}"
+                            class="flex items-center gap-1.5 px-4 py-3.5 text-xs text-gray-500 whitespace-nowrap border-r border-gray-200 transition cursor-pointer">
+                            <twig:UX:Icon name="octicon:file" aria-hidden="true" class="size-3.5 text-gray-400 shrink-0" />
+                            {{ solution.filename }}
+                        </button>
+                    {% endfor %}
+                </div>
+                <div class="flex lg:items-stretch">
+
+                    {# Desktop: file tree sidebar #}
+                    <div class="hidden lg:flex lg:w-72 shrink-0 border-r border-gray-200 flex-col">
+                        <div class="px-4 py-3 bg-gray-50 border-b border-gray-200 flex items-center gap-2 text-sm">
+                            <twig:UX:Icon name="octicon:folder" aria-hidden="true" class="size-4 text-gray-400" />
+                            <span class="font-semibold text-slate-700">{{ 'home.products.solutions_folder'|trans }}</span>
+                        </div>
+
+                        <div role="tablist" aria-label="{{ 'home.products.solutions_folder'|trans }}">
+                            {% for solution in solutions %}
+                                <button role="tab"
+                                    id="tab-desktop-{{ loop.index0 }}"
+                                    aria-controls="tabpanel-{{ loop.index0 }}"
+                                    aria-selected="{{ loop.index0 == 0 ? 'true' : 'false' }}"
+                                    data-tabs-target="command"
+                                    data-action="tabs#select focus->tabs#showOnFocus"
+                                    data-index="{{ loop.index0 }}"
+                                    data-filename="{{ solution.filename }}"
+                                    class="w-full text-left px-4 py-3 flex items-center gap-2.5 {{ not loop.last ? 'border-b border-gray-100' }} transition-colors cursor-pointer">
+                                    {{ fileIcon }}
+                                    <span class="text-sm text-slate-700 truncate">{{ solution.filename }}</span>
+                                </button>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    {# Content area #}
+                    <div class="flex-1 min-w-0">
+                        <div class="px-6 py-3 bg-gray-50 border-b border-gray-200 flex items-center gap-2 text-sm max-lg:hidden">
+                            {{ fileIcon }}
+                            <span class="font-semibold text-slate-700" data-tabs-target="filename">{{ solutions[0].filename }}</span>
+                        </div>
+
+                        <div class="p-6 sm:p-8 sm:min-h-[18rem]">
+                            {% for solution in solutions %}
+                                <div role="tabpanel"
+                                    id="tabpanel-{{ loop.index0 }}"
+                                    aria-labelledby="tab-mobile-{{ loop.index0 }}"
+                                    data-tabs-target="output"
+                                    {{ loop.index0 > 0 ? 'class="hidden"' }}>
+                                    <h3 class="text-xl sm:text-2xl font-bold text-slate-900 pb-3 mb-4 border-b border-gray-200">{{ solution.titleKey|trans }}</h3>
+                                    <p class="text-sm sm:text-base/relaxed text-gray-600">
+                                        {{- solution.contentKey|trans|replace(solution.replacements)|raw -}}
+                                    </p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        {# Testimonial — GitHub Discussion "Marked as answer" #}
+        <div class="mt-10 sm:mt-12 bg-white rounded-xl ring-1 ring-gray-200 shadow-sm overflow-hidden">
+            <div class="flex items-center gap-2 px-6 py-3 bg-green-50 border-b border-green-200 text-sm">
+                <twig:UX:Icon name="octicon:check" aria-hidden="true" class="size-4 text-green-600" />
+                <span class="font-medium text-green-700">{{ 'home.products.marked_as_answer'|trans }}</span>
+            </div>
+
+            <div class="px-6 py-6 sm:py-8">
+                <div class="flex items-center gap-2.5 mb-4">
+                    <img class="size-8 sm:size-10 rounded-full ring-1 ring-gray-200 shrink-0" src="{{ asset('images/team/members/robin-chalas.jpg') }}" alt="Robin Chalas" loading="lazy" width="40" height="40">
+                    <div>
+                        <span class="font-semibold text-sm text-slate-900">Robin Chalas</span>
+                        <span class="text-xs text-gray-500 ml-1 max-sm:hidden">{{ 'home.products.quote.author_role'|trans }}</span>
+                    </div>
+                </div>
+                <div>
+                        <blockquote class="text-base sm:text-lg font-semibold text-slate-900 leading-7 sm:leading-8">
+                            {{- 'home.products.quote.content'|trans -}}
+                        </blockquote>
+                        <p class="mt-4 text-sm sm:text-base/relaxed text-gray-600">
+                            {{- 'home.products.quote.detail'|trans -}}
+                        </p>
+                        <div class="flex gap-2 mt-5" aria-hidden="true">
+                            <span class="inline-flex items-center gap-1 bg-gray-100 rounded-full px-2.5 py-1 text-xs text-gray-600">👍 <span class="font-medium">24</span></span>
+                            <span class="inline-flex items-center gap-1 bg-gray-100 rounded-full px-2.5 py-1 text-xs text-gray-600">🎉 <span class="font-medium">12</span></span>
+                            <span class="inline-flex items-center gap-1 bg-gray-100 rounded-full px-2.5 py-1 text-xs text-gray-600">❤️ <span class="font-medium">18</span></span>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>

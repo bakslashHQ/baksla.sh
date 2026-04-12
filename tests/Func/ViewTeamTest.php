@@ -13,7 +13,8 @@ final class ViewTeamTest extends FunctionalTestCase
     {
         $this->get('/team');
 
-        $this->assertSelectorTextContains('h1', 'team.title');
+        $this->assertResponseStatusCodeSame(200);
+        $this->assertSelectorTextContains('h2', 'home.tabs.team.title');
         $this->assertSelectorExists('[data-test-review]');
     }
 
@@ -29,7 +30,8 @@ final class ViewTeamTest extends FunctionalTestCase
     public function testEveryTeamMemberIsListedAsReviewer(): void
     {
         $crawler = $this->get('/team');
-        $reviewers = $crawler->filter('[data-test-reviewers] [data-test-member-full-name]')->each(static fn (Crawler $a): string => $a->text());
+        // New structure uses buttons with data-open-member-modal
+        $reviewers = $crawler->filter('[data-open-member-modal]')->each(static fn (Crawler $button): string => trim($button->text()));
 
         foreach ($this->getService(MemberRepository::class)->findAll() as $member) {
             $this->assertContains($member->getFullname(), $reviewers);
@@ -45,5 +47,4 @@ final class ViewTeamTest extends FunctionalTestCase
             $this->assertContains($member->getFullname(), $commenters);
         }
     }
-
 }

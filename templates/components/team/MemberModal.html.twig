@@ -7,40 +7,60 @@
     data-action="click->member-modal#close:self"
     class="bg-transparent px-4 py-5 w-screen max-w-2xl backdrop:bg-black/20 backdrop:backdrop-blur-sm"
 >
-    <div data-member-modal-target="modal" class="transform rounded-xl text-left shadow-lg transition-all mt-12  pointer-events-auto ease-in-out duration-300 opacity-0 translate-y-4 scale-80">
-        <div class="bg-white px-10 py-12 relative rounded-t-xl">
-            <img class="absolute -translate-y-24 sm:-translate-y-28 left-1/2 -translate-x-1/2 size-36 sm:size-40 rounded-full bg-gray-50 shadow-xl shadow-blue-gray-900/50" src="{{ asset('images/team/members/' ~ member.id.value ~ '.jpg') }}" alt="{{ member.fullName }}" loading="lazy" />
-            <div class="mt-12 flex flex-col gap-y-6">
-                <span class="text-center">
-                    <h3 class="mt-6 text-4xl font-bold tracking-tight text-slate-800" id="modal-title-{{ member.id.value }}">{{ member.fullName }}</h3>
-                    {% if member.nickName %}
-                    <h4 class="text-xl font-bold tracking-tight text-slate-800">{{ member.nickName }}</h4>
-                    {% endif %}
-                </span>
-                <ul class="flex flex-row flex-wrap gap-x-3 gap-y-2 pb-8 justify-center items-center border-b border-gray-300">
-                    {% for badge in member.badges %}
-                    <li class="text-sm border border-1 border-gray-300 rounded-full py-.5 px-2 grow-0 flex flex-row items-center gap-x-1 whitespace-nowrap opacity-80">
-                        {% if badge.uxIcon %}
-                        <twig:UX:Icon name="{{ badge.uxIcon }}" aria-label="{{ badge.uxIconLabel }}" class="size-4" />
+    <div data-member-modal-target="modal" class="transform rounded-xl text-left shadow-lg transition-all mt-6 sm:mt-12 pointer-events-auto ease-in-out duration-300 opacity-0 translate-y-4 scale-80 bg-white ring-1 ring-gray-300 overflow-hidden max-h-[85vh] overflow-y-auto">
+
+        {# Header — GitHub profile style #}
+        <div class="px-6 py-4 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <img class="size-10 rounded-full ring-2 ring-white shadow-sm" src="{{ asset('images/team/members/' ~ member.id.value ~ '.jpg') }}" alt="{{ member.fullName }}" loading="lazy" />
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900" id="modal-title-{{ member.id.value }}">
+                        {{ member.fullName }}
+                        {% if member.nickName %}
+                            <span class="text-gray-400 font-normal text-sm ml-1">{{ member.nickName }}</span>
                         {% endif %}
-                        {{ badge.text }}
-                    </li>
-                    {% endfor %}
-                </ul>
-                <p id="modal-description-{{ member.id.value }}" class="mt-2 text-base text-gray-700 font-article">{{ ('team.bio.' ~ member.id.value)|trans|nl2br }}</p>
+                    </h3>
+                    <div class="flex flex-wrap gap-1.5 mt-1">
+                        {% for badge in member.badges %}
+                            <span class="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-600">
+                                {% if badge.uxIcon %}
+                                    <twig:UX:Icon name="{{ badge.uxIcon }}" aria-label="{{ badge.uxIconLabel }}" class="size-3" />
+                                {% endif %}
+                                {{ badge.text }}
+                            </span>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
+            <button type="button" data-action="click->member-modal#close" aria-label="{{ 'team.modal.close'|trans }}" autofocus class="text-gray-400 hover:text-gray-600 transition p-2 rounded-md hover:bg-gray-100 cursor-pointer">
+                <twig:UX:Icon name="octicon:x" aria-hidden="true" class="size-5" />
+            </button>
         </div>
-        <div class="flex justify-between items-center bg-gray-50 py-3 px-6 border-t border-gray-200 rounded-b-xl">
-            <ul class="flex justify-center items-center text-sm font-medium h-full">
-            {% for socialNetwork in member.socialNetworks %}
-                <li>
-                    <a href="{{ socialNetwork.url }}" target="_blank" class="hover:underline me-5 h-full flex items-center">
-                        <twig:UX:Icon name="{{ socialNetwork.uxIcon }}" aria-label="{{ socialNetwork.uxIconLabel }}" class="h-5 opacity-70 hover:opacity-100 transition" />
-                    </a>
-                </li>
-            {% endfor %}
+
+        {# Bio — styled as a README #}
+        <div class="px-6 py-6">
+            <div class="flex items-center gap-2 text-xs text-gray-500 mb-4">
+                <twig:UX:Icon name="octicon:file" aria-hidden="true" class="size-4" />
+                README.md
+            </div>
+            <p id="modal-description-{{ member.id.value }}" class="text-sm text-gray-700 leading-relaxed">{{ ('team.bio.' ~ member.id.value)|trans|nl2br }}</p>
+        </div>
+
+        {# Footer — social links #}
+        <div class="flex items-center justify-between px-6 py-3 bg-gray-50 border-t border-gray-200">
+            <ul class="flex items-center gap-3">
+                {% for socialNetwork in member.socialNetworks %}
+                    <li>
+                        <a href="{{ socialNetwork.url }}" target="_blank" aria-label="{{ socialNetwork.uxIconLabel }}" class="text-gray-400 hover:text-slate-700 transition">
+                            <twig:UX:Icon name="{{ socialNetwork.uxIcon }}" aria-hidden="true" class="size-5" />
+                        </a>
+                    </li>
+                {% endfor %}
             </ul>
-            <button type="button" data-action="click->member-modal#close" aria-label="{{ 'team.modal.close'|trans }}" class="inline-flex justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0">👍 {{ 'team.modal.nice'|trans }}</button>
+            <button type="button" data-action="click->member-modal#close" class="inline-flex items-center gap-1.5 rounded-md bg-white px-3 py-1.5 text-sm font-medium text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-100 transition cursor-pointer">
+                👍 {{ 'team.modal.nice'|trans }}
+            </button>
         </div>
+
     </div>
 </dialog>

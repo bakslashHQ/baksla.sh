@@ -1,0 +1,66 @@
+<section aria-label="baksla.sh in sentences" class="pt-12 sm:pt-20 pb-12 sm:pb-16">
+    <div class="mx-auto max-w-5xl px-6 lg:px-8"
+        data-controller="header-typing"
+        data-header-typing-hidden-class="hidden"
+        data-header-typing-words-value="{{ [
+            'home.hero.words.experts',
+            'home.hero.words.lovers',
+            'home.hero.words.developers',
+            'home.hero.words.advocates'
+        ]|map(word => word|trans)|json_encode }}"
+    >
+
+        {# Main headline #}
+        <h1 class="flex flex-wrap flex-row items-center text-4xl lg:text-6xl text-slate-900 leading-tight tracking-tight" aria-label="{{ 'home.hero.we_are_experts'|trans|replace({
+                '<0>': '',
+                '</0>': '',
+                '<1>': 'Symfony',
+                '</1>': '',
+                '<2>': 'home.hero.words.experts'|trans,
+                '</2>': '',
+                '<3>': '',
+                '</3>': '',
+        }) }}">
+            {{- 'home.hero.we_are_experts'|trans|replace({
+                '<0>': '<span class="whitespace-nowrap">',
+                '</0>': '</span>',
+                '<1>': '<span class="tools w-12 h-12 lg:w-20 lg:h-20 mx-2 lg:mx-4 flex items-center">'
+                    ~ component('UX:Icon', {name: 'logos:symfony', 'data-header-typing-target': 'tool', width: 80, height: 80, class: 'size-12 lg:size-20'})
+                    ~ component('UX:Icon', {name: 'devicon:php', 'data-header-typing-target': 'tool', width: 80, height: 80, class: 'size-12 lg:size-20 hidden'})
+                    ~ component('UX:Icon', {name: 'logos:api-platform', 'data-header-typing-target': 'tool', width: 80, height: 80, class: 'size-12 lg:size-20 hidden'}),
+                '</1>': '</span>',
+                '<2>': '<div class="block md:hidden w-full">',
+                '</2>': '</div>',
+                '<3>': '<span class="font-bold" data-header-typing-target="typewriter">',
+                '</3>': '</span>',
+            })|raw -}}
+        </h1>
+
+        {# Repo description #}
+        <p class="mt-4 text-lg text-gray-500 max-w-2xl">{{ 'home.seo.description'|trans }}</p>
+
+        {# Action bar #}
+        <div class="mt-6 flex flex-wrap items-center gap-3">
+            <a href="mailto:hello@baksla.sh" class="inline-flex items-center gap-1.5 rounded-md bg-gray-100 px-3 py-2 text-xs font-medium text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-200 transition">
+                <span class="size-2 rounded-full bg-green-500" aria-hidden="true"></span>
+                {{ 'home.hero.open_for_missions'|trans }}
+            </a>
+
+            <a href="{{ path('app_open_source') }}" class="inline-flex items-center gap-1.5 rounded-md bg-gray-100 px-3 py-2 text-xs font-medium text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-200 transition">
+                <twig:UX:Icon name="octicon:git-pull-request" aria-hidden="true" class="size-4 text-gray-400" />
+                {{ 'home.tabs.open_source'|trans }}
+            </a>
+
+            <a href="{{ path('app_team') }}" class="inline-flex items-center gap-1.5 rounded-md bg-gray-100 px-3 py-2 text-xs font-medium text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-200 transition">
+                <twig:UX:Icon name="octicon:people" aria-hidden="true" class="size-4 text-gray-400" />
+                {{ 'home.tabs.team'|trans }}
+            </a>
+
+            <a href="{{ path('app_blog') }}" class="inline-flex items-center gap-1.5 rounded-md bg-gray-100 px-3 py-2 text-xs font-medium text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-200 transition">
+                <twig:UX:Icon name="octicon:file" aria-hidden="true" class="size-4 text-gray-400" />
+                {{ 'home.tabs.blog'|trans }}
+            </a>
+        </div>
+
+    </div>
+</section>

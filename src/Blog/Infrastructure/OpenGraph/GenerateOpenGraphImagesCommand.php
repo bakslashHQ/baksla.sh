@@ -13,16 +13,15 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Filesystem\Filesystem;
 
 #[AsCommand(name: 'blog:generate-og-images', description: 'Generates OpenGraph images for blog articles')]
-final class GenerateOpenGraphImagesCommand extends Command
+final readonly class GenerateOpenGraphImagesCommand
 {
     public function __construct(
-        private readonly ArticleRepository $articleRepository,
-        private readonly ImageGenerator $imageGenerator,
-        private readonly Filesystem $filesystem,
+        private ArticleRepository $articleRepository,
+        private ImageGenerator $imageGenerator,
+        private Filesystem $filesystem,
         #[Autowire(param: 'app.public_dir')]
-        private readonly string $publicDir,
+        private string $publicDir,
     ) {
-        parent::__construct();
     }
 
     public function __invoke(SymfonyStyle $io): int

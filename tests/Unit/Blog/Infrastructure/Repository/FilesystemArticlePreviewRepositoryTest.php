@@ -57,7 +57,7 @@ final class FilesystemArticlePreviewRepositoryTest extends TestCase
         $this->createArticleFile('1.md.twig');
 
         $showcased = $this->getRepository()->findShowcased();
-        $this->assertNotInstanceOf(\App\Blog\Domain\Model\ArticlePreview::class, $showcased);
+        $this->assertNotInstanceOf(ArticlePreview::class, $showcased);
 
         $showcased = $this->getRepository('1')->findShowcased();
 
@@ -98,6 +98,7 @@ final class FilesystemArticlePreviewRepositoryTest extends TestCase
 author: mathias-arlaud
 title: Title
 description: Description
+published_at: '2024-01-01'
 ---
 MD;
 
