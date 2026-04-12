@@ -3,16 +3,19 @@
 {% set rightColor = '' %}
 {% set leftBorder = 'border-r border-gray-200' %}
 {% set py = 'py-0.5' %}
+{% set beforeContent = '' %}
 
 {% if type is defined %}
     {% if '-' == type %}
         {% set leftColor = 'bg-red-100' %}
         {% set rightColor = 'bg-red-50' %}
         {% set leftBorder = '' %}
+        {% set beforeContent = 'before:content-["-"] before:mr-2 before:font-bold before:text-red-600' %}
     {% elseif '+' == type %}
         {% set leftColor = 'bg-green-100' %}
         {% set rightColor = 'bg-green-50' %}
         {% set leftBorder = '' %}
+        {% set beforeContent = 'before:content-["+"] before:mr-2 before:font-bold before:text-green-600' %}
     {% elseif 'expand' == type %}
         {% set textColor = 'text-gray-400' %}
         {% set leftColor = 'bg-blue-50' %}
@@ -29,7 +32,7 @@
         {% if 'expand' == type %}
         <twig:UX:Icon aria-hidden="true" name="mdi:arrow-up-down" class="h-3.5 text-gray-400" />
         {% else %}
-        {{ number }}
+        <span class="{{ beforeContent }}">{{ number }}</span>
         {% endif %}
     </div>
     <div class="flex items-center grow overflow-x-hidden whitespace-pre px-3 {{ py }} {{ rightColor }} {{ textColor }}">{% block content %}{% endblock %}</div>
