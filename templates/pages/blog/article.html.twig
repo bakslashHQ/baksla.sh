@@ -35,7 +35,7 @@
                     <div class="flex items-center gap-2.5">
                         <img class="size-5 rounded-full ring-1 ring-gray-200" src="{{ asset('images/team/members/' ~ article.author.id.value ~ '.jpg') }}" alt="{{ article.author.fullName }}" loading="lazy" width="20" height="20">
                         <span class="font-semibold text-slate-800">{{ article.author.fullName }}</span>
-                        <span class="text-gray-400 max-sm:hidden">{{ 'home.team.authored_this_article'|trans }}</span>
+                        <span class="text-gray-400 max-sm:hidden">{{ 'team.authored_this_article'|trans }}</span>
                     </div>
                     <span class="text-xs text-gray-400">{{ article.publishedAt|date('M j, Y') }}</span>
                 </div>

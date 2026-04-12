@@ -35,6 +35,7 @@ home.code.symfony_evangelist.content_1: Passionate advocates for the PHP and Sym
 home.code.pragmatic_technologists.title: <0>Pragmatic</0> technologists
 home.code.pragmatic_technologists.content_1: We always take the pragmatic approach, ensuring that <0>our solutions are built for long-term maintainability without falling into the trap of over-engineering</0>.
 home.code.pragmatic_technologists.content_2: We help our clients craft architectures that are tailored to their actual needs, keeping the business at the center of the discussion, and making sure that our technical decisions align with the client's goals and drive real value.
+home.code.released_this: released this
 
 home.products.marked_as_answer: Marked as answer
 
@@ -66,31 +67,27 @@ home.products.quote.author_role: CEO at baksla.sh
 home.products.quote.detail: |
     We don't tie ourselves tightly to your team, we work alongside you, sharing our expertise and building solutions that stand the test of time.
     The less time we spend on a mission, the more value we've delivered, leaving your team stronger, smarter, and more independent.
-
-home.open_source.title: Our <0>Open Source</0> impact
-home.open_source.merged: Merged
-home.open_source.tab.contributions: Contributions
-home.open_source.contributions_count: "{count} components and features shaped by the team"
-home.open_source.merged_into: merged all contributions into
-home.open_source.sidebar.labels: Labels
-home.open_source.sidebar.milestone: Milestone
-home.open_source.sidebar.milestone.ecosystem: ecosystem
-
-home.team.review_thread: Review thread
-home.team.authored_this_article: authored this article
-
-home.code.released_this: released this
-
 home.products.solutions_folder: solutions
-home.open_source.subtitle: Shaping the tools we use every day
-home.open_source.stats.reviews: reviews
-home.open_source.stats.pull_requests: pull requests
-home.open_source.major_contributions.title: Shaped by <0>our team</0>
-home.open_source.maintained_bundles: Maintained bundles
-home.open_source.sidebar.reviewers: Core contributors
-home.open_source.contributors.mathias_apip: Worked 2 years alongside the creator
-home.open_source.contributors.robin_apip: Active contributor
-home.open_source.contributors.florian_sylius: Key Contributor & Certified
+
+open_source.seo.title: Open Source | baksla.sh
+open_source.seo.description: Discover baksla.sh's open source contributions to Symfony and the PHP ecosystem
+open_source.title: Our <0>Open Source</0> impact
+open_source.merged: Merged
+open_source.tab.contributions: Contributions
+open_source.contributions_count: "{count} components and features shaped by the team"
+open_source.merged_into: merged all contributions into
+open_source.sidebar.labels: Labels
+open_source.sidebar.milestone: Milestone
+open_source.sidebar.milestone.ecosystem: ecosystem
+open_source.subtitle: Shaping the tools we use every day
+open_source.stats.reviews: reviews
+open_source.stats.pull_requests: pull requests
+open_source.major_contributions.title: Shaped by <0>our team</0>
+open_source.maintained_bundles: Maintained bundles
+open_source.sidebar.reviewers: Core contributors
+open_source.contributors.mathias_apip: Worked 2 years alongside the creator
+open_source.contributors.robin_apip: Active contributor
+open_source.contributors.florian_sylius: Key Contributor & Certified
 
 home.blog.title: Echo from <0>the Blog</0>
 
@@ -132,6 +129,7 @@ blog.article.more_from_the_blog: More from <0>The Blog</0>
 
 team.seo.title: Meet the Team
 team.seo.description: Discover the baksla.sh's crew at work
+
 team.title: Shhhht! The crew is at work 🤫
 team.subtitle: Discover the baksla.sh team members while they're working
 team.click_on_member: 💡 Click on a member to discover their full profile.
@@ -149,6 +147,8 @@ team.review.get_method_2: Indeed, better leverage Symfony Routing capabilities s
 team.review.pagination_1: Should it return a paginated result instead?
 team.review.pagination_2: AFAIK, baksla.sh isn't gonna have enough members to need pagination anytime soon 😉
 team.review.blank_line_1: Extra blank line 👀
+team.review_thread: Review thread
+team.authored_this_article: authored this article
 
 team.bio.hugo-alliaume: |-
     A full-stack developer since 2009, Hugo likes to learn a lot of new things, so he's super versatile. Since then, he has specialized in web development, mainly with PHP and JavaScript, but also in back-end and browser-side performance optimization.

@@ -28,6 +28,9 @@ final class ViewSitemapTest extends FunctionalTestCase
 
         $this->assertContains('https://localhost/', $urls);
         $this->assertContains('https://localhost/blog', $urls);
+        $this->assertContains('https://localhost/team', $urls);
+        $this->assertContains('https://localhost/open-source', $urls);
+        $this->assertContains('https://localhost/legal-notices', $urls);
 
         $articleUrls = array_map(static fn (ArticlePreview $a): string => sprintf('https://localhost/blog/%s', $a->id), $articlePreviewRepository->findAll());
         foreach ($articleUrls as $articleUrl) {
