@@ -1,0 +1,34 @@
+{
+    "symfony": {
+        "reviews": 4756,
+        "pullRequests": 1784
+    },
+    "api-platform": {
+        "reviews": 38,
+        "pullRequests": 21
+    },
+    "sylius": {
+        "reviews": 24,
+        "pullRequests": 33
+    },
+    "lexik-jwt": {
+        "reviews": 128,
+        "pullRequests": 148
+    },
+    "oauth2-server-bundle": {
+        "reviews": 78,
+        "pullRequests": 30
+    },
+    "tactician": {
+        "reviews": 11,
+        "pullRequests": 12
+    },
+    "biome-js-bundle": {
+        "reviews": 3,
+        "pullRequests": 20
+    },
+    "oxc-bundle": {
+        "reviews": 0,
+        "pullRequests": 0
+    }
+}

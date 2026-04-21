@@ -32,10 +32,14 @@ final class MemberBuilder
         /** @var non-empty-string $lastName */
         $lastName = $faker->lastName();
 
+        /** @var non-empty-string $github */
+        $github = $faker->userName();
+
         return new Member(
             id: $id,
             firstName: $firstName,
             lastName: $lastName,
+            github: $github,
         );
     }
 }

@@ -14,7 +14,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->set('app.public_dir', sprintf('%s/public', param('kernel.project_dir')))
         ->set('app.showcased_article', 'webpack-encore-whats-new-8-months-later') // The filename without the ".md.twig" extension
         ->set('app.articles_dir', sprintf('%s/templates/articles', param('kernel.project_dir')))
-        ->set('app.ssg_output_dir', sprintf('%s/static-pages', param('app.public_dir')));
+        ->set('app.ssg_output_dir', sprintf('%s/static-pages', param('app.public_dir')))
+        ->set('app.open_source_stats_file', $containerConfigurator->env() === 'test'
+            ? sprintf('%s/bakslash_test/open-source-stats.json', sys_get_temp_dir())
+            : sprintf('%s/data/open-source-stats.json', param('kernel.project_dir')));
 
     $services->defaults()
         ->autowire()
