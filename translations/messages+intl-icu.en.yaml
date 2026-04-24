@@ -1,8 +1,14 @@
 home.seo.title: baksla.sh
 home.seo.description: A real OSS company, Symfony evangelist with pragmatic technologists
 
-home.hero.we_are_experts: <0>We are</0> <1></1> <2></2> <3></3>
-home.hero.words.experts: 'experts.'
+home.hero.aria_label: 'Baksla.sh: a real OSS company, everywhere in France'
+home.hero.eyebrow: A real OSS company · everywhere in France
+home.hero.heading_text: We are
+home.hero.heading_aria_label: We are Symfony maintainers, lovers, advocates, and developers.
+home.hero.tagline: We're the people you read on the Symfony changelog. A small company that builds, maintains, and teaches PHP. No pitch deck, just commits.
+home.hero.cta.primary: What we do
+home.hero.cta.secondary: Say hi
+home.hero.words.maintainers: 'maintainers.'
 home.hero.words.lovers: 'lovers.'
 home.hero.words.developers: 'developers.'
 home.hero.words.advocates: 'advocates.'
