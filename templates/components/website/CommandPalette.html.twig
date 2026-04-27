@@ -1,0 +1,93 @@
+<dialog
+    data-command-palette-target="dialog"
+    data-action="click->command-palette#closeOnBackdrop"
+    aria-label="{{ 'header.cmd.title'|trans }}"
+    class="m-auto p-0 max-w-full bg-transparent border-0 rounded-2xl backdrop:bg-ink/40 backdrop:backdrop-blur-sm"
+>
+    <div class="w-[min(32rem,92vw)] bg-paper border border-ink/15 rounded-2xl overflow-hidden shadow-2xl">
+        <div class="flex items-center gap-3 px-4 py-3 border-b border-ink/10 font-mono text-sm">
+            <twig:ux:icon name="mdi:magnify" aria-hidden="true" class="size-4 text-accent shrink-0" />
+            <input
+                type="text"
+                role="combobox"
+                aria-expanded="true"
+                aria-controls="cmd-palette-listbox"
+                aria-activedescendant=""
+                aria-autocomplete="list"
+                data-command-palette-target="input"
+                data-action="input->command-palette#filter keydown->command-palette#navigate"
+                placeholder="{{ 'header.cmd.placeholder'|trans }}"
+                aria-label="{{ 'header.cmd.placeholder'|trans }}"
+                autocomplete="off"
+                class="flex-1 bg-transparent border-0 focus:outline-none font-mono text-sm text-ink placeholder:text-muted"
+            >
+            <kbd aria-hidden="true" class="hidden sm:inline-block font-mono text-xs bg-ink/5 border border-ink/15 rounded px-1.5 py-0.5 text-muted">enter</kbd>
+            <kbd aria-hidden="true" class="hidden sm:inline-block font-mono text-xs bg-ink/5 border border-ink/15 rounded px-1.5 py-0.5 text-muted">esc</kbd>
+            <button
+                type="button"
+                data-action="command-palette#close"
+                aria-label="{{ 'header.cmd.close'|trans }}"
+                class="sm:hidden inline-flex items-center justify-center size-9 text-muted hover:text-ink bg-transparent border-0 cursor-pointer leading-none"
+            >
+                <twig:ux:icon name="mdi:close" aria-hidden="true" class="size-5" />
+            </button>
+        </div>
+
+        <div id="cmd-palette-listbox" role="listbox" class="p-2">
+            <section role="group" aria-labelledby="cmd-palette-section-pages" data-command-palette-target="section">
+                <div id="cmd-palette-section-pages" class="px-3 pt-1 pb-1 font-mono text-xs uppercase tracking-widest text-muted/80">
+                    {{ 'header.cmd.section.pages'|trans }}
+                </div>
+                <ul role="presentation" class="list-none m-0 p-0">
+                    {% if app.current_route != 'app_home' %}
+                        <twig:website:CommandPaletteItem :href="path('app_home')" icon="mdi:arrow-right" :label="'header.cmd.home'|trans" />
+                    {% endif %}
+                    {% if app.current_route != 'app_blog' %}
+                        <twig:website:CommandPaletteItem :href="path('app_blog')" icon="mdi:arrow-right" :label="'header.cmd.blog'|trans" />
+                    {% endif %}
+                    {% if app.current_route != 'app_team' %}
+                        <twig:website:CommandPaletteItem :href="path('app_team')" icon="mdi:arrow-right" :label="'header.cmd.team'|trans" />
+                    {% endif %}
+                    {% set showcasedArticle = this.showcasedArticle %}
+                    {% if showcasedArticle and (app.current_route != 'app_blog_article' or app.request.attributes.get('id') != showcasedArticle.id) %}
+                        <twig:website:CommandPaletteItem
+                            :href="path('app_blog_article', { id: showcasedArticle.id })"
+                            icon="mdi:arrow-right"
+                            :label="'header.cmd.latest_article'|trans({ title: showcasedArticle.title })"
+                        />
+                    {% endif %}
+                </ul>
+            </section>
+
+            <section role="group" aria-labelledby="cmd-palette-section-actions" data-command-palette-target="section">
+                <div id="cmd-palette-section-actions" class="px-3 pt-3 pb-1 font-mono text-xs uppercase tracking-widest text-muted/80">
+                    {{ 'header.cmd.section.actions'|trans }}
+                </div>
+                <ul role="presentation" class="list-none m-0 p-0">
+                    <twig:website:CommandPaletteItem href="mailto:hello@baksla.sh" icon="mdi:email-outline" :label="'header.cmd.mail'|trans" />
+                </ul>
+            </section>
+
+            <section role="group" aria-labelledby="cmd-palette-section-external" data-command-palette-target="section">
+                <div id="cmd-palette-section-external" class="px-3 pt-3 pb-1 font-mono text-xs uppercase tracking-widest text-muted/80">
+                    {{ 'header.cmd.section.external'|trans }}
+                </div>
+                <ul role="presentation" class="list-none m-0 p-0">
+                    <twig:website:CommandPaletteItem href="https://x.com/BakslashHQ" icon="mdi:open-in-new" :label="'header.cmd.x'|trans" />
+                    <twig:website:CommandPaletteItem href="https://bsky.app/profile/baksla.sh" icon="mdi:open-in-new" :label="'header.cmd.bluesky'|trans" />
+                    <twig:website:CommandPaletteItem href="https://www.linkedin.com/company/bakslashhq" icon="mdi:open-in-new" :label="'header.cmd.linkedin'|trans" />
+                    <twig:website:CommandPaletteItem href="https://symfony.com/doc/current/index.html" icon="mdi:open-in-new" :label="'header.cmd.symfony_docs'|trans" />
+                    <twig:website:CommandPaletteItem href="https://github.com/bakslashHQ/baksla.sh" icon="mdi:open-in-new" :label="'header.cmd.source'|trans" />
+                </ul>
+            </section>
+        </div>
+
+        <p
+            data-command-palette-target="empty"
+            aria-live="polite"
+            class="hidden m-0 px-5 py-3 font-mono text-sm text-muted"
+        >
+            {{ 'header.cmd.no_match'|trans }}
+        </p>
+    </div>
+</dialog>
