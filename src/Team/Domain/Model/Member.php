@@ -7,15 +7,18 @@ namespace App\Team\Domain\Model;
 final readonly class Member
 {
     /**
-     * @param non-empty-string    $firstName
-     * @param non-empty-string    $lastName
-     * @param list<SocialNetwork> $socialNetworks
-     * @param list<Badge>         $badges
+     * @param non-empty-string      $firstName
+     * @param non-empty-string      $lastName
+     * @param non-empty-string      $github
+     * @param list<SocialNetwork>   $socialNetworks
+     * @param list<Badge>           $badges
+     * @param non-empty-string|null $nickName
      */
     public function __construct(
         public MemberId $id,
         public string $firstName,
         public string $lastName,
+        public string $github,
         public array $socialNetworks = [],
         public array $badges = [],
         public ?string $nickName = null,

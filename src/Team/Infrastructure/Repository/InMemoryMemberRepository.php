@@ -35,14 +35,14 @@ final readonly class InMemoryMemberRepository implements MemberRepository
     public static function createDefault(): self
     {
         return new self([
-            new Member(MemberId::FelixEymonot, 'Félix', 'Eymonot', [
+            new Member(MemberId::FelixEymonot, 'Félix', 'Eymonot', 'feymo', [
                 SocialNetwork::github('feymo'),
                 SocialNetwork::symfony('hyanda'),
                 SocialNetwork::linkedin('felix-eymonot'),
             ], [
                 Badge::symfonyAward('Certified'),
             ]),
-            new Member(MemberId::FlorianMerle, 'Florian', 'Merle', [
+            new Member(MemberId::FlorianMerle, 'Florian', 'Merle', 'florian-merle', [
                 SocialNetwork::github('florian-merle'),
                 SocialNetwork::twitter('florianm__'),
                 SocialNetwork::symfony('florian-merle'),
@@ -52,8 +52,8 @@ final readonly class InMemoryMemberRepository implements MemberRepository
                 Badge::syliusAward('Key Contributor'),
                 Badge::syliusAward('Certified'),
                 Badge::symfonyAward('Certified'),
-            ], 'FloFlax'),
-            new Member(MemberId::HugoAlliaume, 'Hugo', 'Alliaume', [
+            ], nickName: 'FloFlax'),
+            new Member(MemberId::HugoAlliaume, 'Hugo', 'Alliaume', 'Kocal', [
                 SocialNetwork::github('Kocal'),
                 SocialNetwork::twitter('HugoAlliaume'),
                 SocialNetwork::symfony('kocal'),
@@ -62,7 +62,7 @@ final readonly class InMemoryMemberRepository implements MemberRepository
             ], [
                 Badge::symfonyAward('UX Core Team'),
             ]),
-            new Member(MemberId::JeremyRomey, 'Jérémy', 'Romey', [
+            new Member(MemberId::JeremyRomey, 'Jérémy', 'Romey', 'jeremyfreeagent', [
                 SocialNetwork::github('jeremyfreeagent'),
                 SocialNetwork::twitter('jeremyfreeagent'),
                 SocialNetwork::symfony('jeremyfreeagent'),
@@ -71,7 +71,7 @@ final readonly class InMemoryMemberRepository implements MemberRepository
             ], [
                 Badge::symfonyAward('Certified'),
             ]),
-            new Member(MemberId::JulesPietri, 'Jules', 'Pietri', [
+            new Member(MemberId::JulesPietri, 'Jules', 'Pietri', 'HeahDude', [
                 SocialNetwork::github('HeahDude'),
                 SocialNetwork::symfony('heah'),
                 SocialNetwork::bluesky('heahdude.bsky.social'),
@@ -79,7 +79,7 @@ final readonly class InMemoryMemberRepository implements MemberRepository
                 Badge::symfonyAward('Certified'),
                 Badge::symfonyAward('Former Core Team'),
             ]),
-            new Member(MemberId::MathiasArlaud, 'Mathias', 'Arlaud', [
+            new Member(MemberId::MathiasArlaud, 'Mathias', 'Arlaud', 'mtarld', [
                 SocialNetwork::github('mtarld'),
                 SocialNetwork::symfony('mtarld'),
                 SocialNetwork::twitter('matarld'),
@@ -90,7 +90,7 @@ final readonly class InMemoryMemberRepository implements MemberRepository
                 Badge::symfonyAward('Core Team'),
                 Badge::symfonyAward('Certified'),
             ]),
-            new Member(MemberId::RobinChalas, 'Robin', 'Chalas', [
+            new Member(MemberId::RobinChalas, 'Robin', 'Chalas', 'chalasr', [
                 SocialNetwork::github('chalasr'),
                 SocialNetwork::symfony('chalas_r'),
                 SocialNetwork::twitter('chalas_r'),
@@ -100,14 +100,14 @@ final readonly class InMemoryMemberRepository implements MemberRepository
                 Badge::bakslashPosition('Co-Founder / Consultant'),
                 Badge::symfonyAward('Core Team'),
             ]),
-            new Member(MemberId::ValmontPehautPietri, 'Valmont', 'Pehaut Pietri', [
+            new Member(MemberId::ValmontPehautPietri, 'Valmont', 'Pehaut Pietri', 'Valmonzo', [
                 SocialNetwork::github('Valmonzo'),
                 SocialNetwork::symfony('Valmonzo'),
                 SocialNetwork::twitter('valmontpp'),
                 SocialNetwork::bluesky('valmonzo.bsky.social'),
                 SocialNetwork::linkedin('valmontpp'),
             ]),
-            new Member(MemberId::YazidHassani, 'Yazid', 'Hassani', [
+            new Member(MemberId::YazidHassani, 'Yazid', 'Hassani', 'Yazid82', [
                 SocialNetwork::linkedin('yazid-hassani-71975416b'),
             ]),
         ]);
