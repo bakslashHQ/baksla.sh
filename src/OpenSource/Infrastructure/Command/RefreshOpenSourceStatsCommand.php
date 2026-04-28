@@ -54,7 +54,6 @@ final readonly class RefreshOpenSourceStatsCommand
             'thephpleague/tactian-logger',
         ],
         'biome-js-bundle' => ['Kocal/BiomeJsBundle'],
-        'oxc-bundle' => ['Kocal/OxcBundle'],
     ];
 
     public function __construct(
@@ -73,6 +72,8 @@ final readonly class RefreshOpenSourceStatsCommand
             array_values(array_map(fn (Member $member): string => $member->github, $this->memberRepository->findAll())),
         );
 
+        $previous = $this->readPreviousStats();
+
         $stats = [];
         foreach (self::REPOS as $project => $repos) {
             $reviews = 0;
@@ -82,9 +83,11 @@ final readonly class RefreshOpenSourceStatsCommand
                 $pullRequests += $counts[$repo]->authored;
             }
 
+            // GitHub's search.issueCount is an estimate for large result sets and drifts run-to-run;
+            // ratchet upward so the published numbers never regress.
             $stats[$project] = [
-                'reviews' => $reviews,
-                'pullRequests' => $pullRequests,
+                'reviews' => max($previous[$project]['reviews'] ?? 0, $reviews),
+                'pullRequests' => max($previous[$project]['pullRequests'] ?? 0, $pullRequests),
             ];
         }
 
@@ -93,5 +96,25 @@ final readonly class RefreshOpenSourceStatsCommand
         $io->success(\sprintf('Wrote stats to "%s"', $this->statsFile));
 
         return Command::SUCCESS;
+    }
+
+    /**
+     * @return array<string, array{reviews: int, pullRequests: int}>
+     */
+    private function readPreviousStats(): array
+    {
+        if (!$this->filesystem->exists($this->statsFile)) {
+            return [];
+        }
+
+        $contents = file_get_contents($this->statsFile);
+        if ($contents === false) {
+            return [];
+        }
+
+        /** @var array<string, array{reviews: int, pullRequests: int}> $data */
+        $data = json_decode($contents, true, flags: \JSON_THROW_ON_ERROR);
+
+        return $data;
     }
 }

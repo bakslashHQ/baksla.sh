@@ -87,6 +87,16 @@ home.products.service.workshops_and_trainings.bullet_1: Symfony
 home.products.service.workshops_and_trainings.bullet_2: Testing strategies
 home.products.service.workshops_and_trainings.bullet_3: Modern PHP
 
+home.oss.aria_label: baksla.sh's open source contributions
+home.oss.heading: 'Contributing every <0>{hours}h</0>, for {years} years.'
+home.oss.totals_tagline: 'contributions <0>shipped upstream</0>, across {count, spellout} main open-source projects.'
+home.oss.bar_aria_label: '{total, number} contributions across {count} projects'
+home.oss.project_aria_label: '{sum, number} contributions on {label}: {reviews, number} reviews, {prs, number} pull requests'
+home.oss.stats.reviews: reviews
+home.oss.stats.prs: pull requests
+home.oss.line.on: 'on'
+home.oss.line.contributions: contributions
+
 home.blog.title: Echo from <0>the Blog</0>
 
 home.partners.they_trust_us.title: "They've already put their trust in us, be part of it and contact us at: <0/>"
