@@ -97,7 +97,11 @@ home.oss.stats.prs: pull requests
 home.oss.line.on: 'on'
 home.oss.line.contributions: contributions
 
-home.blog.title: Echo from <0>the Blog</0>
+home.blog.aria_label: Latest from the blog
+home.blog.title: 'Tales from <0>the changelog.</0>'
+home.blog.by: by
+home.blog.read: read
+home.blog.all_posts: All posts
 
 home.partners.they_trust_us.title: "They've already put their trust in us, be part of it and contact us at: <0/>"
 

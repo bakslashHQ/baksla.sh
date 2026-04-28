@@ -1,0 +1,96 @@
+{% set showcased = this.showcased %}
+{% if showcased %}
+    <section id="blog" aria-label="{{ 'home.blog.aria_label'|trans }}">
+        <div class="container max-w-screen-xl mx-auto px-4 sm:px-8 xl:px-4">
+            <h2 class="text-center lg:text-left font-sans font-medium leading-tight tracking-tight text-3xl lg:text-4xl m-0 pb-10 md:pb-14">
+                {{- 'home.blog.title'|trans|replace({
+                    '<0>': '<em class="text-accent font-medium">',
+                    '</0>': '</em>',
+                })|raw -}}
+            </h2>
+
+            <div class="grid lg:grid-cols-[2fr_1fr] gap-6 lg:gap-8">
+                <a
+                    href="{{ path('app_blog_article', {id: showcased.id}) }}"
+                    class="group block bg-paper border border-ink/10 rounded-xl overflow-hidden no-underline transition-all duration-200 hover:-translate-y-px hover:shadow-xl hover:border-ink/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+                >
+                    <article class="flex flex-col h-full">
+                        <div aria-hidden="true" class="flex flex-wrap items-center justify-between gap-2 px-5 sm:px-6 py-3 border-b border-ink/10 font-mono text-xs text-muted">
+                            <span class="inline-flex items-center gap-1.5">
+                                <twig:ux:icon name="mdi:circle" class="size-2 text-accent" />
+                                <span class="text-ink-soft"><span class="hidden md:inline">/blog/</span>{{ showcased.id }}</span>
+                            </span>
+                            <span>@{{ showcased.author.id.value }}</span>
+                        </div>
+
+                        <div class="flex-1 flex flex-col p-6 sm:p-10">
+                            <div class="flex-1 flex flex-col justify-center">
+                                <h3 class="font-sans font-medium tracking-tighter leading-[0.98] m-0 text-3xl sm:text-4xl lg:text-5xl text-ink">
+                                    {{ showcased.title }}
+                                </h3>
+
+                                <p class="font-sans text-base sm:text-lg leading-snug text-ink-soft mt-6 sm:mt-7 max-w-prose">
+                                    {{ showcased.description }}
+                                </p>
+                            </div>
+
+                            <div class="pt-8 sm:pt-9">
+                                <div class="pt-5 border-t border-ink/10 flex items-center gap-3">
+                                    <img
+                                        src="{{ asset('images/team/members/' ~ showcased.author.id.value ~ '.jpg') }}"
+                                        alt=""
+                                        loading="lazy"
+                                        class="size-9 rounded-full object-cover"
+                                    >
+                                    <span class="text-sm text-ink-soft leading-none">
+                                        {{ 'home.blog.by'|trans }} <span class="text-ink font-medium">{{ showcased.author.fullName }}</span>
+                                    </span>
+                                    <span aria-hidden="true" class="ml-auto inline-flex items-center gap-1 font-mono text-sm text-ink leading-none">
+                                        {{ 'home.blog.read'|trans }}
+                                        <twig:ux:icon name="mdi:arrow-right" class="size-4 transition-transform duration-200 group-hover:translate-x-1" />
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </a>
+
+                <div class="grid gap-4 content-start">
+                    <ul class="list-none m-0 p-0 grid gap-4">
+                        {% for article in this.others %}
+                            <li>
+                                <a
+                                    href="{{ path('app_blog_article', {id: article.id}) }}"
+                                    class="group block bg-paper border border-ink/10 rounded-xl p-5 sm:p-6 no-underline transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:border-ink/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+                                >
+                                    <article>
+                                        <div class="font-mono text-xs uppercase tracking-widest text-muted mb-2">
+                                            <time datetime="{{ article.publishedAt.format('Y-m-d') }}">{{ article.publishedAt.format('M Y') }}</time>
+                                        </div>
+                                        <h4 class="font-sans font-semibold tracking-tight leading-tight m-0 text-lg sm:text-xl text-ink group-hover:text-accent transition-colors">
+                                            {{ article.title }}
+                                        </h4>
+                                        <p class="text-sm text-ink-soft mt-2 mb-3 leading-snug line-clamp-3">
+                                            {{ article.description }}
+                                        </p>
+                                        <div class="font-mono text-xs text-muted">
+                                            @{{ article.author.id.value }}
+                                        </div>
+                                    </article>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+
+                    <a
+                        href="{{ path('app_blog') }}"
+                        class="group inline-flex items-center justify-self-start gap-2.5 px-5 py-3 rounded-full border border-ink text-ink font-mono text-sm font-medium no-underline transition duration-200 hover:bg-ink hover:text-paper hover:-translate-y-px focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+                    >
+                        {{ 'home.blog.all_posts'|trans }}
+                        <twig:ux:icon name="mdi:arrow-right" aria-hidden="true" class="size-4 transition-transform duration-200 group-hover:translate-x-1" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endif %}
