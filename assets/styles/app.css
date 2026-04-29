@@ -6,25 +6,18 @@
 
 @layer base {
   @font-face {
-    font-family: 'Kalam';
+    font-family: 'Space Grotesk';
     font-style: normal;
-    font-weight: 300;
+    font-weight: 300 700;
     font-display: swap;
-    src: url(../fonts/Kalam/Kalam-Light.woff2) format('woff2');
+    src: url(../fonts/SpaceGrotesk/SpaceGrotesk-Variable.woff2) format('woff2');
   }
   @font-face {
-    font-family: 'Kalam';
+    font-family: 'JetBrains Mono';
     font-style: normal;
-    font-weight: 400;
+    font-weight: 400 700;
     font-display: swap;
-    src: url(../fonts/Kalam/Kalam-Regular.woff2) format('woff2');
-  }
-  @font-face {
-    font-family: 'Kalam';
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
-    src: url(../fonts/Kalam/Kalam-Bold.woff2) format('woff2');
+    src: url(../fonts/JetBrainsMono/JetBrainsMono-Variable.woff2) format('woff2');
   }
   @font-face {
     font-family: 'Poppins';

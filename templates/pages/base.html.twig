@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app.request.locale }}">
+<html lang="{{ app.request.locale }}" class="scroll-pt-[10rem]">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,9 +9,6 @@
         {% block stylesheets %}
             <style>
                 /* Generated through fontpie, e.g.: "pnpx fontpie ./Poppins-SemiBold.woff2" */
-                @font-face { font-family: 'Kalam Light Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 114.42%; descent-override: 57.16%; line-gap-override: 0.00%; size-adjust: 92.90%; }
-                @font-face { font-family: 'Kalam Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 110.75%; descent-override: 55.32%; line-gap-override: 0.00%; size-adjust: 95.98%; }
-                @font-face { font-family: 'Kalam Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 104.53%; descent-override: 52.22%; line-gap-override: 0.00%; size-adjust: 101.69%; }
                 @font-face { font-family: 'Poppins Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 92.83%; descent-override: 30.94%; line-gap-override: 8.84%; size-adjust: 113.11%; }
                 @font-face { font-family: 'Poppins Medium Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 91.82%; descent-override: 30.61%; line-gap-override: 8.74%; size-adjust: 114.36%; }
                 @font-face { font-family: 'Poppins SemiBold Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 90.85%; descent-override: 30.28%; line-gap-override: 8.65%; size-adjust: 115.57%; }
@@ -20,6 +17,8 @@
                 @font-face { font-family: 'Inter Light Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 91.42%; descent-override: 22.76%; line-gap-override: 0.00%; size-adjust: 105.97%; }
                 @font-face { font-family: 'Inter Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 86.99%; descent-override: 21.66%; line-gap-override: 0.00%; size-adjust: 111.36%; }
                 @font-face { font-family: 'Inter Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 89.79%; descent-override: 22.36%; line-gap-override: 0.00%; size-adjust: 107.89%; }
+                @font-face { font-family: 'JetBrains Mono Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 77.57%; descent-override: 22.82%; line-gap-override: 0.00%; size-adjust: 131.49%; }
+                @font-face { font-family: 'Space Grotesk Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 88.78%; descent-override: 26.34%; line-gap-override: 0.00%; size-adjust: 110.84%; }
             </style>
         {% endblock %}
 
@@ -37,7 +36,7 @@
         <link rel="icon" type="image/svg+xml" href="{{ asset('images/favicon.svg') }}">
         <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}">
     </head>
-    <body class="bg-white min-h-screen flex flex-col">
+    <body class="bg-paper min-h-screen flex flex-col font-poppins">
         <div data-controller="analytics" data-analytics-measurement-id-value="{{ ga_measurement_id }}" data-analytics-app-name-value="{{ ga_app_name }}"></div>
 
         {% block body %}
