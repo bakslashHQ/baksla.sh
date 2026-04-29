@@ -2,12 +2,7 @@
 {% if showcased %}
     <section id="blog" aria-label="{{ 'home.blog.aria_label'|trans }}">
         <div class="container max-w-screen-xl mx-auto px-4 sm:px-8 xl:px-4">
-            <h2 class="text-center lg:text-left font-sans font-medium leading-tight tracking-tight text-3xl lg:text-4xl m-0 pb-10 md:pb-14">
-                {{- 'home.blog.title'|trans|replace({
-                    '<0>': '<em class="text-accent font-medium">',
-                    '</0>': '</em>',
-                })|raw -}}
-            </h2>
+            <twig:Home:Heading transKey="home.blog.title" />
 
             <div class="grid lg:grid-cols-[2fr_1fr] gap-6 lg:gap-8">
                 <a

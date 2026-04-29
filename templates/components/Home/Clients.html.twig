@@ -1,0 +1,42 @@
+{% set clients = [
+    {name: 'DrData', file: 'images/clients/drdata.png', width: 250, height: 63},
+    {name: 'FDJ', file: 'images/clients/fdj.png', width: 250, height: 119},
+    {name: 'Yousign', file: 'images/clients/yousign.png', width: 250, height: 73},
+    {name: 'SensioLabs', file: 'images/clients/sensiolabs.png', width: 250, height: 39},
+    {name: 'Authwire', file: 'images/clients/authwire.png', width: 248, height: 37},
+    {name: 'Wamiz', file: 'images/clients/wamiz.png', width: 225, height: 86},
+    {name: 'Zeturf', file: 'images/clients/zeturf.png', width: 250, height: 141},
+] %}
+
+<section id="clients" aria-label="{{ 'home.clients.aria_label'|trans }}">
+    <div class="container max-w-screen-xl mx-auto px-4 sm:px-8 xl:px-4">
+        <twig:Home:Heading transKey="home.clients.heading" />
+
+        <ul class="list-none m-0 p-0 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-px bg-ink/10 border-y border-ink/10">
+            {% for client in clients %}
+                <li class="group grid place-items-center py-8 px-4 sm:py-10 sm:px-6 bg-paper">
+                    <img
+                        src="{{ asset(client.file) }}"
+                        alt="{{ client.name }}"
+                        width="{{ client.width }}"
+                        height="{{ client.height }}"
+                        loading="lazy"
+                        class="max-h-8 sm:max-h-10 max-w-[80%] w-auto h-auto object-contain grayscale opacity-75 group-hover:grayscale-0 group-hover:opacity-100 transition duration-200"
+                    >
+                </li>
+            {% endfor %}
+            <li class="group grid bg-paper">
+                <a
+                    href="mailto:hello@baksla.sh"
+                    aria-label="{{ 'home.clients.cta_aria_label'|trans }}"
+                    class="grid place-items-center py-8 px-2 sm:py-10 sm:px-3 text-ink no-underline transition-colors duration-200 hover:bg-accent hover:text-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent"
+                >
+                    <span class="inline-flex items-center gap-1.5 whitespace-nowrap font-sans italic font-medium text-xs sm:text-sm">
+                        {{ 'home.clients.cta'|trans }}
+                        <twig:ux:icon name="mdi:plus" aria-hidden="true" class="size-3.5 transition-transform duration-200 group-hover:rotate-90" />
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</section>

@@ -103,7 +103,10 @@ home.blog.by: by
 home.blog.read: read
 home.blog.all_posts: All posts
 
-home.partners.they_trust_us.title: "They've already put their trust in us, be part of it and contact us at: <0/>"
+home.clients.aria_label: baksla.sh's clients
+home.clients.heading: 'Teams we <0>shipped</0> with.'
+home.clients.cta: Your logo?
+home.clients.cta_aria_label: Add your logo; email hello@baksla.sh
 
 header.skip_to_content: Skip to content
 header.cmd.press: press
