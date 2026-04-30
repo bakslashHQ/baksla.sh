@@ -1,0 +1,71 @@
+<section aria-labelledby="kpi-heading" class="bg-paper pt-20 sm:pt-24">
+    <h2 id="kpi-heading" class="sr-only">{{ 'home.kpi.aria_label'|trans }}</h2>
+    <div data-controller="kpi-terminal" class="container max-w-screen-xl mx-auto px-4 sm:px-8 xl:px-4">
+        <div aria-hidden="true" class="bg-ink text-paper rounded-2xl overflow-hidden font-mono shadow-2xl">
+            <div class="flex items-center gap-2.5 px-5 py-4 border-b border-ink-soft bg-ink/50">
+                <span class="w-3 h-3 rounded-full bg-terminal-red"></span>
+                <span class="w-3 h-3 rounded-full bg-terminal-yellow"></span>
+                <span class="w-3 h-3 rounded-full bg-terminal-green"></span>
+                <span class="ml-4 text-terminal-mute text-sm">~/baksla.sh — 112×28</span>
+            </div>
+
+            <div class="p-6 sm:p-8 text-base sm:text-xl leading-loose">
+                <div>
+                    <span class="text-terminal-prompt">$</span>
+                    ./baksla.sh stats
+                    <span class="text-terminal-flag hidden md:inline-block">--year {{ 'now'|date('Y') }}</span>
+                    <span
+                        data-kpi-terminal-target="promptCursor"
+                        class="inline-block w-2 h-5 sm:w-2.5 sm:h-6 bg-paper align-text-bottom animate-blink"
+                    ></span>
+                </div>
+
+                {% for kpi in this.kpis %}
+                    <div data-kpi-terminal-target="line" class="hidden mt-2 flex flex-wrap items-baseline gap-x-3.5 gap-y-1">
+                        <twig:ux:icon name="mdi:check" aria-hidden="true" class="size-5 text-terminal-prompt self-center" />
+                        <span
+                            data-kpi-terminal-target="number"
+                            data-value="{{ kpi.value }}"
+                            data-suffix="{{ kpi.suffix }}"
+                            class="min-w-12 md:min-w-20 text-terminal-number font-bold text-2xl sm:text-3xl tracking-tight"
+                        >{{ kpi.value }}{{ kpi.suffix }}</span>
+                        <span class="text-terminal-label font-medium">{{ kpi.label|trans }}</span>
+                        <span class="text-terminal-mute text-sm sm:text-base font-sans hidden md:block"># {{ kpi.hint|trans }}</span>
+                    </div>
+                {% endfor %}
+
+                <div data-kpi-terminal-target="finale" class="hidden">
+                    <div class="mt-4 text-terminal-mute text-base">
+                        {{ 'home.kpi.done'|trans }}.
+                    </div>
+                    <div class="mt-3 flex items-center gap-x-3.5 gap-y-1">
+                        <span class="text-terminal-prompt">$</span>
+                        <span class="inline-block w-2 h-5 sm:w-2.5 sm:h-6 bg-paper align-text-bottom animate-blink"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ul class="sr-only">
+            {% for kpi in this.kpis %}
+                <li>{{ kpi.value }}{{ kpi.suffix }} {{ kpi.label|trans }} — {{ kpi.hint|trans }}</li>
+            {% endfor %}
+        </ul>
+
+        <div data-kpi-terminal-target="runArea" class="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-3">
+            <button
+                type="button"
+                data-action="kpi-terminal#run"
+                aria-label="{{ 'home.kpi.run_aria_label'|trans }}"
+                class="inline-flex items-center gap-2 bg-ink text-paper font-mono text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-accent transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+            >
+                <twig:ux:icon name="mdi:play" aria-hidden="true" class="size-4" />
+                {{ 'home.kpi.run'|trans }}
+            </button>
+            <span data-kpi-terminal-target="runHint" class="hidden lg:inline text-ink-soft text-sm font-mono">
+                {{ 'home.kpi.run_hint'|trans }}
+                <twig:ux:icon name="mdi:keyboard-return" aria-hidden="true" class="inline size-4 align-middle" />
+            </span>
+        </div>
+    </div>
+</section>

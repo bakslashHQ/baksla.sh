@@ -61,7 +61,7 @@ final readonly class InMemoryMemberRepository implements MemberRepository
                 SocialNetwork::linkedin('hugo-alliaume'),
             ], [
                 Badge::symfonyAward('UX Core Team'),
-            ]),
+            ], isSymfonyCoreTeamMember: true),
             new Member(MemberId::JeremyRomey, 'Jérémy', 'Romey', 'jeremyfreeagent', [
                 SocialNetwork::github('jeremyfreeagent'),
                 SocialNetwork::twitter('jeremyfreeagent'),
@@ -89,7 +89,7 @@ final readonly class InMemoryMemberRepository implements MemberRepository
                 Badge::bakslashPosition('Co-Founder / Consultant'),
                 Badge::symfonyAward('Core Team'),
                 Badge::symfonyAward('Certified'),
-            ]),
+            ], isSymfonyCoreTeamMember: true),
             new Member(MemberId::RobinChalas, 'Robin', 'Chalas', 'chalasr', [
                 SocialNetwork::github('chalasr'),
                 SocialNetwork::symfony('chalas_r'),
@@ -99,7 +99,7 @@ final readonly class InMemoryMemberRepository implements MemberRepository
             ], [
                 Badge::bakslashPosition('Co-Founder / Consultant'),
                 Badge::symfonyAward('Core Team'),
-            ]),
+            ], isSymfonyCoreTeamMember: true),
             new Member(MemberId::ValmontPehautPietri, 'Valmont', 'Pehaut Pietri', 'Valmonzo', [
                 SocialNetwork::github('Valmonzo'),
                 SocialNetwork::symfony('Valmonzo'),
