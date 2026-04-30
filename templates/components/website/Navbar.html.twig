@@ -1,0 +1,48 @@
+<header
+    data-controller="command-palette navbar"
+    class="sticky top-0 z-50 bg-paper/85 backdrop-blur-md border-b border-transparent transition-[border-color] duration-200 py-4 sm:py-5"
+>
+    <div class="container max-w-screen-xl mx-auto px-4 sm:px-8 xl:px-4">
+        <nav class="flex items-center justify-between gap-4">
+            <a href="{{ path('app_home') }}" class="group flex items-center gap-4 font-sans font-bold text-ink text-lg sm:text-3xl no-underline">
+                <img
+                    src="{{ asset('images/bakslash-small.svg') }}"
+                    alt=""
+                    aria-hidden="true"
+                    class="size-8 sm:size-10 -rotate-3 transition-transform duration-300 ease-[cubic-bezier(.3,1.6,.5,1)] group-hover:rotate-6 group-hover:scale-105"
+                    loading="eager"
+                    fetchpriority="high"
+                    width="62" height="62"
+                >
+                <span>baksla<span class="text-accent">.</span>sh</span>
+            </a>
+
+            <div class="flex items-center gap-3 sm:gap-5">
+                <button
+                    type="button"
+                    data-action="command-palette#open"
+                    aria-label="{{ 'header.cmd.title'|trans }}"
+                    class="md:hidden inline-flex items-center justify-center size-9 text-ink/70 border border-ink/15 rounded-md hover:border-ink transition-colors"
+                >
+                    <twig:ux:icon name="mdi:magnify" aria-hidden="true" class="size-5" />
+                </button>
+
+                <button
+                    type="button"
+                    data-action="command-palette#open"
+                    aria-label="{{ 'header.cmd.title'|trans }}"
+                    class="hidden md:inline-flex items-center gap-2 font-mono text-xs text-muted border border-ink/15 rounded-md px-2.5 py-1.5 hover:border-ink hover:text-ink transition-colors"
+                >
+                    <span>{{ 'header.cmd.press'|trans }}</span>
+                    <kbd class="font-mono text-xs bg-ink/5 border border-ink/15 rounded px-1 py-px text-ink">/</kbd>
+                </button>
+
+                <a href="mailto:hello@baksla.sh" class="hidden md:inline-flex items-center font-mono text-sm font-medium bg-ink text-paper rounded-full px-4 py-2 hover:bg-accent transition-colors whitespace-nowrap no-underline">
+                    hello@baksla.sh
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <twig:website:CommandPalette />
+</header>
