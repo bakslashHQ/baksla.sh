@@ -1,8 +1,51 @@
+@import 'tailwindcss';
 @import './code.css';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@source '../../assets/**/*.js';
+@source '../../templates/**/*.html.twig';
+@source '../../src/Blog/Infrastructure/Rendering/LeagueMarkdownConverter.php';
+
+@theme {
+  --font-sans: 'Space Grotesk', 'Space Grotesk Fallback', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'JetBrains Mono Fallback', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-poppins: 'Poppins', 'Poppins Fallback';
+  --font-article: 'Inter', 'Inter Fallback';
+
+  --color-accent: #860dff;
+  --color-paper: #f6f2e8;
+  --color-ink: #1f2130;
+  --color-ink-2: #3b3e4a;
+  --color-muted: #5e646c;
+
+  --color-charade: #282c34;
+  --color-code-yellow: #e6c07b;
+  --color-code-blue: #61aeee;
+  --color-code-cyan: #56b6c2;
+  --color-code-violet: #c678dd;
+  --color-code-orange: #d19a66;
+  --color-code-white: #abb2bf;
+  --color-code-dark-gray: #282c34;
+
+  --animate-blink: blink 2s steps(5, start) infinite;
+  --animate-word-in: word-in 420ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+
+  @keyframes blink {
+    to {
+      visibility: hidden;
+    }
+  }
+
+  @keyframes word-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px) scale(0.95) rotate(var(--tilt, 0deg));
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1) rotate(var(--tilt, 0deg));
+    }
+  }
+}
 
 @layer base {
   @font-face {
