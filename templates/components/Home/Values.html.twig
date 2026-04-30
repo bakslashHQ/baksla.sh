@@ -1,0 +1,74 @@
+{% set diff_lines = [
+    {type: 'ctx', text: '// ' ~ 'home.values.filename'|trans},
+    {type: 'ctx', text: ''},
+    {type: 'del', text: 'home.values.line_1_del'|trans},
+    {type: 'add', text: 'home.values.line_1_add_1'|trans},
+    {type: 'add', text: 'home.values.line_1_add_2'|trans},
+    {type: 'ctx', text: ''},
+    {type: 'del', text: 'home.values.line_2_del'|trans},
+    {type: 'add', text: 'home.values.line_2_add_1'|trans},
+    {type: 'add', text: 'home.values.line_2_add_2'|trans},
+    {type: 'ctx', text: ''},
+    {type: 'del', text: 'home.values.line_3_del'|trans},
+    {type: 'add', text: 'home.values.line_3_add_1'|trans},
+    {type: 'add', text: 'home.values.line_3_add_2'|trans},
+    {type: 'ctx', text: ''},
+    {type: 'del', text: 'home.values.line_4_del'|trans},
+    {type: 'add', text: 'home.values.line_4_add_1'|trans},
+    {type: 'add', text: 'home.values.line_4_add_2'|trans},
+] %}
+
+{% set additions = diff_lines|filter(l => l.type == 'add')|length %}
+{% set deletions = diff_lines|filter(l => l.type == 'del')|length %}
+
+<section id="values" aria-label="{{ 'home.values.aria_label'|trans }}">
+    <div class="container max-w-screen-xl mx-auto px-4 sm:px-8 xl:px-4">
+        <h2 class="text-center lg:text-left font-sans font-medium leading-tight tracking-tight text-3xl lg:text-4xl m-0 pb-10 md:pb-14">
+            {{- 'home.values.heading'|trans|replace({
+                '<0>': '<em class="text-accent font-medium">',
+                '</0>': '</em>',
+            })|raw -}}
+        </h2>
+
+        <div class="bg-paper border border-ink/10 rounded-2xl overflow-hidden shadow-lg">
+            <div class="flex flex-wrap items-center justify-between gap-2 px-5 py-3 border-b border-ink/10 font-mono text-xs text-muted">
+                <span class="inline-flex items-center gap-1.5">
+                    <twig:ux:icon name="mdi:circle" aria-hidden="true" class="size-2 text-accent" />
+                    <span class="text-accent font-bold">feat/values</span>
+                    <span class="ml-1 hidden md:inline-block">{{ 'home.values.commit_meta'|trans }}</span>
+                </span>
+                <span>
+                    <span class="text-green-700 font-bold">+{{ additions }}</span>
+                    <span class="ml-2 text-red-700 font-bold">−{{ deletions }}</span>
+                </span>
+            </div>
+
+            <ol class="list-none font-mono text-sm sm:text-base leading-loose py-4 m-0 p-0">
+                {% for line in diff_lines %}
+                    {% set is_blank = line.type == 'ctx' and line.text is empty %}
+                    {% if line.type == 'add' %}
+                        {% set line_n = diff_lines|slice(0, loop.index)|filter(l => l.type != 'del')|length %}
+                    {% else %}
+                        {% set line_n = diff_lines|slice(0, loop.index)|filter(l => l.type != 'add')|length %}
+                    {% endif %}
+                    <li
+                        {% if is_blank %}aria-hidden="true"{% endif %}
+                        class="flex min-h-8 {% if line.type == 'add' %}bg-green-500/10{% elseif line.type == 'del' %}bg-red-500/10{% endif %}"
+                    >
+                        <span aria-hidden="true" class="w-14 sm:w-16 shrink-0 pr-3 sm:pr-4 text-right text-muted text-sm leading-loose border-r border-ink/10 select-none">
+                            {{ line_n }}
+                        </span>
+                        <span aria-hidden="true" class="w-8 sm:w-10 shrink-0 text-center font-bold select-none {% if line.type == 'add' %}text-green-700{% elseif line.type == 'del' %}text-red-700{% endif %}">
+                            {% if line.type == 'add' %}+{% elseif line.type == 'del' %}−{% endif %}
+                        </span>
+                        <span class="flex-1 pr-4 sm:pr-6 {% if line.type == 'del' %}line-through text-muted{% elseif line.type == 'add' %}text-ink{% else %}text-ink-soft{% endif %}">
+                            {% if line.type == 'add' %}<span class="sr-only">{{ 'home.values.sr_added'|trans }} </span>{% endif %}
+                            {% if line.type == 'del' %}<span class="sr-only">{{ 'home.values.sr_removed'|trans }} </span>{% endif %}
+                            {% if line.text %}{{ line.text }}{% else %}&nbsp;{% endif %}
+                        </span>
+                    </li>
+                {% endfor %}
+            </ol>
+        </div>
+    </div>
+</section>
