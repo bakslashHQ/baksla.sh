@@ -161,6 +161,7 @@ legal_notices.hosting_providers.title: Hosting Provider
 
 blog.seo.title: 'Blog | baksla.sh'
 blog.seo.description: The baksla.sh's blog
+blog.label: the blog
 blog.title: 'What we shipped<0>,</0><br>and what we learned.'
 blog.caption: '# BLOG.md'
 blog.subtitle: Half changelog, half post-mortem, all PHP.
@@ -176,7 +177,15 @@ blog.articles_count: '{count, plural, one {# article} other {# articles}}'
 blog.author: 'Author:'
 blog.git_command: git log --oneline --all
 blog.no_article_yet: There is no article yet, come back later!
-blog.article.more_from_the_blog: More from <0>The Blog</0>
+blog.article.more_from_the_blog: 'More from <0>the blog</0>'
+blog.article.back_to_blog: back to the blog
+blog.article.reading_time: '{minutes} min read'
+blog.article.top: top
+blog.article.copy_link: copy link
+blog.article.copy_link_done: copied
+blog.article.nav_label: article reader
+blog.article.scroll_to_top: scroll to top
+blog.article.code_sample: '{language} code sample'
 
 team.seo.title: Meet the Team
 team.seo.description: Discover the baksla.sh's crew at work

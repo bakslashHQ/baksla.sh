@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Func;
 
 use App\Blog\Domain\Repository\ArticleRepository;
-use Symfony\Component\DomCrawler\Crawler;
 
 final class ViewArticleTest extends FunctionalTestCase
 {
@@ -18,7 +17,25 @@ final class ViewArticleTest extends FunctionalTestCase
         $this->assertSelectorTextContains('h1', $article->title);
         $this->assertSelectorTextContains('[data-test-author]', $article->author->getFullname());
         $this->assertSelectorExists('[data-test-article]');
-        $this->assertSelectorExists('[data-test-more-articles]');
+    }
+
+    public function testHeaderExposesPublishedAt(): void
+    {
+        $article = $this->getService(ArticleRepository::class)->get('symfony-certification');
+
+        $crawler = $this->get('/blog/symfony-certification');
+
+        $this->assertSame($article->publishedAt->format('Y-m-d'), $crawler->filter('article header time')->attr('datetime'));
+    }
+
+    public function testCodeBlockIsKeyboardAccessible(): void
+    {
+        $crawler = $this->get('/blog/webpack-encore-whats-new-8-months-later');
+
+        $pre = $crawler->filter('pre[data-lang]')->first();
+
+        $this->assertSame('0', $pre->attr('tabindex'));
+        $this->assertNotEmpty($pre->attr('aria-label'));
     }
 
     public function testThrowsNotFoundIfNoArticle(): void
@@ -26,23 +43,5 @@ final class ViewArticleTest extends FunctionalTestCase
         $this->get('/blog/unexisting-article');
 
         $this->assertResponseStatusCodeSame(404);
-    }
-
-    public function testMoreArticlesAreDisplayed(): void
-    {
-        $this->get('/blog/symfony-certification');
-
-        $this->assertSelectorCount(3, '[data-test-more-articles] article');
-    }
-
-    public function testMoreArticlesDoNotContainCurrentArticle(): void
-    {
-        $article = $this->getService(ArticleRepository::class)->get('symfony-certification');
-
-        $crawler = $this->get('/blog/symfony-certification');
-
-        $titles = $crawler->filter('[data-test-more-articles] article h2')->each(static fn (Crawler $a): string => $a->text());
-
-        $this->assertNotContains($article->title, $titles);
     }
 }

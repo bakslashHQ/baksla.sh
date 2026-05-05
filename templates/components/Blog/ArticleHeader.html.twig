@@ -1,0 +1,50 @@
+<header
+    data-controller="article-header"
+    data-article-header-copy-done-label-value="{{ 'blog.article.copy_link_done'|trans }}"
+    class="pb-8 border-b border-ink/15"
+>
+    <a
+        href="{{ path('app_blog') }}"
+        class="inline-flex items-center gap-2 mb-8 font-mono text-xs uppercase tracking-widest text-muted hover:text-ink no-underline transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper rounded-sm"
+    >
+        <twig:ux:icon name="mdi:arrow-left" class="size-3" />
+        {{ 'blog.article.back_to_blog'|trans }}
+    </a>
+
+    <div class="flex flex-wrap items-baseline gap-x-4 gap-y-1 mb-4 font-mono text-xs uppercase tracking-widest text-muted">
+        <time datetime="{{ article.publishedAt|date('Y-m-d') }}" class="text-accent">{{ article.publishedAt|date('M d, Y') }}</time>
+        <span><span aria-hidden="true">· </span>{{ 'blog.article.reading_time'|trans({minutes: article.readingTime}) }}</span>
+    </div>
+
+    <h1 class="m-0 font-sans font-bold leading-[0.92] tracking-tighter text-4xl sm:text-5xl lg:text-7xl text-ink text-balance">
+        {{ article.title }}
+    </h1>
+
+    <p class="mt-6 max-w-2xl text-base sm:text-lg italic leading-snug text-ink-soft text-pretty">
+        {{ article.description }}
+    </p>
+
+    <div class="flex flex-wrap items-center gap-3 mt-8">
+        <img
+            src="{{ asset('images/team/members/' ~ article.author.id.value ~ '.jpg') }}"
+            alt=""
+            loading="lazy"
+            class="size-10 rounded-full object-cover"
+        >
+        <div class="flex flex-col leading-tight">
+            <span data-test-author class="text-sm text-ink font-medium">{{ article.author.fullname }}</span>
+            <span aria-hidden="true" class="font-mono text-xs text-muted">@{{ article.author.id.value }}</span>
+        </div>
+        <div class="ml-auto flex items-center gap-2">
+            <button
+                type="button"
+                data-action="article-header#copyLink"
+                data-article-header-target="copyButton"
+                class="px-3 py-1.5 rounded-full border border-ink/20 font-mono text-xs uppercase tracking-widest text-ink-soft hover:bg-ink hover:text-paper hover:border-ink transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+            >
+                <span data-article-header-target="copyLabel">{{ 'blog.article.copy_link'|trans }}</span>
+                <span data-article-header-target="copyAnnounce" aria-live="polite" class="sr-only"></span>
+            </button>
+        </div>
+    </div>
+</header>
