@@ -37,7 +37,7 @@ final readonly class FilesystemArticlePreviewRepository implements ArticlePrevie
 
     public function findShowcased(): ?ArticlePreview
     {
-        if (in_array($this->showcasedArticle, [null, '', '0'], true)) {
+        if ($this->showcasedArticle === null) {
             return null;
         }
 
@@ -61,5 +61,18 @@ final readonly class FilesystemArticlePreviewRepository implements ArticlePrevie
         }
 
         return $previews;
+    }
+
+    public function findLatest(int $limit, bool $excludeShowcased = false): array
+    {
+        $previews = $this->findAll();
+
+        if ($excludeShowcased && $this->showcasedArticle !== null) {
+            $previews = array_values(array_filter($previews, fn (ArticlePreview $p): bool => $p->id !== $this->showcasedArticle));
+        }
+
+        usort($previews, static fn (ArticlePreview $a, ArticlePreview $b): int => $b->publishedAt <=> $a->publishedAt);
+
+        return \array_slice($previews, 0, $limit);
     }
 }
