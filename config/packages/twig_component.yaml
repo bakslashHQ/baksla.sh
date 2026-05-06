@@ -2,4 +2,5 @@ twig_component:
     anonymous_template_directory: 'components/'
     defaults:
         App\Blog\Infrastructure\Rendering\Components\: 'components/blog/'
+        App\Home\Infrastructure\Rendering\Components\: 'components/home/'
         App\Team\Infrastructure\Rendering\Components\: 'components/team/'
