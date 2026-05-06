@@ -49,25 +49,43 @@ home.values.line_4_del: We chase shiny.
 home.values.line_4_add_1: We pick boring, battle-tested tech.
 home.values.line_4_add_2: The business comes first; the stack serves it.
 
-home.products.title: Our tailored solutions <0>built to last</0>.
+home.products.aria_label: baksla.sh's services
+home.products.panels_aria_label: Service details
+home.products.title: Tailored work, <0>built to last</0>.
+
 home.products.product.tag.expertise: Expertise
 home.products.product.tag.implementation: Implementation
 home.products.product.tag.upskill: Upskill
-home.products.product.custom_symfony_development.title: Custom Symfony development
-home.products.product.custom_symfony_development.content: We help you to create scalable and maintainable applications tailored to your specific needs, leveraging the expertise of our talented and passionate developers.
-home.products.product.coaching.title: Coaching "à la carte"
-home.products.product.coaching.content: "Whether starting a new project or tackling challenges as your project grows, our on-demand consulting offers tailored support, including: <0>Brainstorming</0><1>Q&A</1><2>Specifications</2><3>Code reviews</3>This will help your team make the right decisions during this crucial moment."
-home.products.product.architecture.title: Architecture study and Audit
-home.products.product.architecture.content: We help you to build solid foundations for your project with a future-proof architecture, while our audits reveal technical debt, security risks, and performance bottlenecks to ensure long-term stability and scalability.
-home.products.product.cto_as_a_service.title: CTO as a service
-home.products.product.cto_as_a_service.content: If you're launching new products, or if you're optimizing existing systems, we can provide you a strategic technical leadership to ensure your technology aligns with your business vision and growth objectives.
-home.products.product.workshops_and_trainings.title: Workshops and trainings
-home.products.product.workshops_and_trainings.content: "Whether your team is composed by beginners looking to understand the fundamentals or experienced developers, we can empower your team by providing in-depth training of: <0>Symfony</0><1>API Platform</1><2>Clean Code</2>Each training will be tailored to their specific needs and skills."
-home.products.quote.content: “The less time we spend on a mission, the more successful we've been.”
-home.products.quote.author_role: CEO at baksla.sh
-home.products.quote.detail: |
-    We don't tie ourselves tightly to your team, we work alongside you, sharing our expertise and building solutions that stand the test of time.
-    The less time we spend on a mission, the more value we've delivered, leaving your team stronger, smarter, and more independent.
+
+home.products.service.custom_symfony_development.title: Custom Symfony development
+home.products.service.custom_symfony_development.summary: Greenfield builds and full rewrites, shaped around your domain. We default to clear architecture, short feedback loops, and code that reads like documentation.
+home.products.service.custom_symfony_development.bullet_1: DDD & Hexagonal
+home.products.service.custom_symfony_development.bullet_2: API Platform
+home.products.service.custom_symfony_development.bullet_3: Async & messaging
+
+home.products.service.cto_as_a_service.title: CTO as a service
+home.products.service.cto_as_a_service.summary: Senior technical judgment without the full hire. Roadmaps, hiring loops, vendor decisions, and the awkward conversations that keep delivery honest.
+home.products.service.cto_as_a_service.bullet_1: Roadmapping
+home.products.service.cto_as_a_service.bullet_2: Hiring & team design
+home.products.service.cto_as_a_service.bullet_3: Vendor selection
+
+home.products.service.architecture.title: Architecture study & audit
+home.products.service.architecture.summary: We read your codebase the way we'd review a Symfony PR. You leave with prioritized findings and a sequenced plan, not a 90-page deck.
+home.products.service.architecture.bullet_1: ADR workshops
+home.products.service.architecture.bullet_2: Performance deep-dives
+home.products.service.architecture.bullet_3: Security review
+
+home.products.service.coaching.title: Coaching à la carte
+home.products.service.coaching.summary: Pair on hard problems, unblock stuck decisions, and review the diff that's been open for a week. We plug into your team's rhythm, not the other way around.
+home.products.service.coaching.bullet_1: Brainstorming
+home.products.service.coaching.bullet_2: Code reviews
+home.products.service.coaching.bullet_3: Spec writing
+
+home.products.service.workshops_and_trainings.title: Workshops & trainings
+home.products.service.workshops_and_trainings.summary: We don't run slides at your team; we open your repo and write code with them. Symfony, API Platform, testing, and modern PHP, taught against problems you actually face.
+home.products.service.workshops_and_trainings.bullet_1: Symfony
+home.products.service.workshops_and_trainings.bullet_2: Testing strategies
+home.products.service.workshops_and_trainings.bullet_3: Modern PHP
 
 home.blog.title: Echo from <0>the Blog</0>
 

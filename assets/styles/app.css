@@ -1,5 +1,4 @@
 @import 'tailwindcss';
-@import './code.css';
 
 @source '../../assets/**/*.js';
 @source '../../templates/**/*.html.twig';
@@ -16,15 +15,6 @@
   --color-ink: #1f2130;
   --color-ink-soft: #3b3e4a;
   --color-muted: #5e646c;
-
-  --color-charade: #282c34;
-  --color-code-yellow: #e6c07b;
-  --color-code-blue: #61aeee;
-  --color-code-cyan: #56b6c2;
-  --color-code-violet: #c678dd;
-  --color-code-orange: #d19a66;
-  --color-code-white: #abb2bf;
-  --color-code-dark-gray: #282c34;
 
   --color-terminal-red: #ff5f56;
   --color-terminal-yellow: #ffbd2e;
@@ -143,4 +133,14 @@
 
 html {
   scrollbar-gutter: stable;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+html:has(dialog[data-command-palette-target][open]) {
+  overflow: hidden;
 }
