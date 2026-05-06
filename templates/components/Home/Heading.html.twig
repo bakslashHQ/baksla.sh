@@ -1,0 +1,8 @@
+{% props transKey, transParams = {} %}
+
+<h2 class="text-center lg:text-left font-sans font-medium leading-tight tracking-tight text-3xl lg:text-4xl m-0 pb-10 md:pb-14">
+    {{- transKey|trans(transParams)|replace({
+        '<0>': '<em class="text-accent font-medium">',
+        '</0>': '</em>',
+    })|raw -}}
+</h2>

@@ -11,7 +11,7 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 #[AsTwigComponent(name: 'Home:BlogOverview', template: 'components/Home/BlogOverview.html.twig')]
 final readonly class BlogOverview
 {
-    private const int OTHERS_LIMIT = 3;
+    private const int OTHERS_LIMIT = 2;
 
     public function __construct(
         private ArticlePreviewRepository $articlePreviewRepository,

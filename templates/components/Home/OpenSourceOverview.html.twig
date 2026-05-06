@@ -20,17 +20,12 @@
 
 <section id="oss" aria-label="{{ 'home.oss.aria_label'|trans }}">
     <div class="container max-w-screen-xl mx-auto px-4 sm:px-8 xl:px-4">
-        <h2 class="text-center lg:text-left font-sans font-medium leading-tight tracking-tight text-3xl lg:text-4xl m-0">
-            {{- 'home.oss.heading'|trans({
-                hours: this.hoursPerContribution,
-                years: this.years,
-            })|replace({
-                '<0>': '<em class="text-accent font-medium">',
-                '</0>': '</em>',
-            })|raw -}}
-        </h2>
+        <twig:Home:Heading
+            transKey="home.oss.heading"
+            :transParams="{hours: this.hoursPerContribution, years: this.years}"
+        />
 
-        <div class="mt-10 lg:mt-14 grid lg:grid-cols-[auto_minmax(0,1fr)] gap-x-8 gap-y-4 items-end">
+        <div class="grid lg:grid-cols-[auto_minmax(0,1fr)] gap-x-8 gap-y-4 items-end">
             <div class="font-sans font-bold text-6xl sm:text-7xl lg:text-8xl tracking-tighter leading-none tabular-nums text-ink">
                 {{- this.total|number_format -}}
             </div>

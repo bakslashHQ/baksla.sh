@@ -8,12 +8,7 @@
 
 <section id="services" aria-label="{{ 'home.products.aria_label'|trans }}">
     <div data-controller="services" class="container max-w-screen-xl mx-auto px-4 sm:px-8 xl:px-4">
-        <h2 class="text-center lg:text-left font-sans font-medium leading-tight tracking-tight text-3xl lg:text-4xl m-0 pb-10 md:pb-14">
-            {{- 'home.products.title'|trans|replace({
-                '<0>': '<em class="text-accent font-medium">',
-                '</0>': '</em>',
-            })|raw -}}
-        </h2>
+        <twig:Home:Heading transKey="home.products.title" />
 
         <div class="grid lg:grid-cols-3 gap-6 lg:gap-8 items-start">
             <div role="tablist" aria-orientation="vertical" class="hidden lg:grid lg:col-span-1 gap-2">
