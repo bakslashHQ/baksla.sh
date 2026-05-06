@@ -1,3 +1,5 @@
+common.opens_new_tab: (opens in a new tab)
+
 home.seo.title: baksla.sh
 home.seo.description: A real OSS company, Symfony evangelist with pragmatic technologists
 
@@ -95,7 +97,6 @@ home.oss.project_aria_label: '{sum, number} contributions on {label}: {reviews, 
 home.oss.stats.reviews: reviews
 home.oss.stats.prs: pull requests
 home.oss.line.on: 'on'
-home.oss.line.contributions: contributions
 
 home.blog.aria_label: Latest from the blog
 home.blog.title: 'Tales from <0>the changelog.</0>'
@@ -124,15 +125,21 @@ header.cmd.bluesky: Follow us on Bluesky
 header.cmd.linkedin: Follow us on LinkedIn
 header.cmd.close: close
 header.cmd.no_match: no match
-header.cmd.opens_new_tab: (opens in a new tab)
 header.cmd.section.pages: pages
 header.cmd.section.external: external
 header.cmd.section.actions: actions
 
 footer.copyright: © {year} baksla.sh™. All Rights Reserved.
-footer.link.legal_notices: Legal Notices
-footer.link.blog: The Blog
-footer.link.team: The Team
+footer.about: 'A real OSS company. Symfony evangelists, pragmatic technologists. We build, maintain, teach PHP, and ship everything we learn back upstream.'
+footer.signature: 'Built with <0/>, coffee & Symfony.'
+footer.signature_heart_aria_label: love
+footer.section.pages: pages
+footer.section.social: social
+footer.section.contact: contact
+footer.link.home: Index
+footer.link.blog: Blog
+footer.link.team: Crew
+footer.link.legal_notices: Legal
 footer.social.github: baksla.sh on GitHub
 footer.social.x: baksla.sh on X
 footer.social.bluesky: baksla.sh on Bluesky

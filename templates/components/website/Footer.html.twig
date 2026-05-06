@@ -1,0 +1,59 @@
+<footer class="border-t border-ink/10 pt-10 md:pt-16 pb-10 font-mono text-xs uppercase tracking-widest text-muted">
+    <div class="container max-w-screen-xl mx-auto px-4 sm:px-8 xl:px-4">
+        <div class="grid grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1fr] gap-x-6 gap-y-10 md:gap-10">
+            <div class="hidden md:block md:col-span-1">
+                <h3 class="m-0 mb-4 text-ink text-xs uppercase tracking-widest"><span aria-hidden="true">— </span>baksla.sh</h3>
+                <p class="m-0 max-w-[34ch] font-sans text-sm text-muted normal-case tracking-normal leading-relaxed">
+                    {{ 'footer.about'|trans }}
+                </p>
+            </div>
+
+            <nav aria-label="{{ 'footer.section.pages'|trans }}">
+                <h3 class="m-0 mb-4 text-ink text-xs uppercase tracking-widest"><span aria-hidden="true">— </span>{{ 'footer.section.pages'|trans }}</h3>
+                <ul class="list-none m-0 p-0 flex flex-wrap gap-x-4 gap-y-2 md:grid md:gap-2.5">
+                    {% if app.current_route != 'app_home' %}
+                        <li><a href="{{ path('app_home') }}" class="hover:underline underline-offset-4 focus-visible:underline focus-visible:underline-offset-4 focus-visible:text-ink">{{ 'footer.link.home'|trans }}</a></li>
+                    {% endif %}
+                    {% if app.current_route != 'app_blog' %}
+                    <li><a href="{{ path('app_blog') }}" class="hover:underline underline-offset-4 focus-visible:underline focus-visible:underline-offset-4 focus-visible:text-ink">{{ 'footer.link.blog'|trans }}</a></li>
+                    {% endif %}
+                    {% if app.current_route != 'app_team' %}
+                    <li><a href="{{ path('app_team') }}" class="hover:underline underline-offset-4 focus-visible:underline focus-visible:underline-offset-4 focus-visible:text-ink">{{ 'footer.link.team'|trans }}</a></li>
+                    {% endif %}
+                    {% if app.current_route != 'app_legal_notices' %}
+                        <li><a href="{{ path('app_legal_notices') }}" class="hover:underline underline-offset-4 focus-visible:underline focus-visible:underline-offset-4 focus-visible:text-ink">{{ 'footer.link.legal_notices'|trans }}</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+
+            <nav aria-label="{{ 'footer.section.social'|trans }}">
+                <h3 class="m-0 mb-4 text-ink text-xs uppercase tracking-widest"><span aria-hidden="true">— </span>{{ 'footer.section.social'|trans }}</h3>
+                <ul class="list-none m-0 p-0 flex flex-wrap gap-x-4 gap-y-2 md:grid md:gap-2.5">
+                    <li><a href="https://github.com/bakslashHQ" target="_blank" rel="noopener noreferrer" aria-label="{{ 'footer.social.github'|trans }} {{ 'common.opens_new_tab'|trans }}" class="hover:underline underline-offset-4 focus-visible:underline focus-visible:underline-offset-4 focus-visible:text-ink">Github</a></li>
+                    <li><a href="https://x.com/BakslashHQ" target="_blank" rel="noopener noreferrer" aria-label="{{ 'footer.social.x'|trans }} {{ 'common.opens_new_tab'|trans }}" class="hover:underline underline-offset-4 focus-visible:underline focus-visible:underline-offset-4 focus-visible:text-ink">Twitter</a></li>
+                    <li><a href="https://bsky.app/profile/baksla.sh" target="_blank" rel="noopener noreferrer" aria-label="{{ 'footer.social.bluesky'|trans }} {{ 'common.opens_new_tab'|trans }}" class="hover:underline underline-offset-4 focus-visible:underline focus-visible:underline-offset-4 focus-visible:text-ink">Bluesky</a></li>
+                    <li><a href="https://www.linkedin.com/company/bakslashhq" target="_blank" rel="noopener noreferrer" aria-label="{{ 'footer.social.linkedin'|trans }} {{ 'common.opens_new_tab'|trans }}" class="hover:underline underline-offset-4 focus-visible:underline focus-visible:underline-offset-4 focus-visible:text-ink">LinkedIn</a></li>
+                </ul>
+            </nav>
+
+            <div class="col-span-2 md:col-span-1">
+                <h3 class="m-0 mb-4 text-ink text-xs uppercase tracking-widest"><span aria-hidden="true">— </span>{{ 'footer.section.contact'|trans }}</h3>
+                <ul class="list-none m-0 p-0 flex flex-wrap gap-x-4 gap-y-2 md:grid md:gap-2.5">
+                    <li><a href="mailto:hello@baksla.sh" class="normal-case tracking-normal hover:underline underline-offset-4 focus-visible:underline focus-visible:underline-offset-4 focus-visible:text-ink">hello@baksla.sh</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div aria-hidden="true" class="mt-12 md:mt-14 mb-4 font-sans font-bold normal-case tracking-normal text-ink text-lg sm:text-3xl">
+            baksla<span class="text-accent">.</span>sh
+        </div>
+
+        <div class="flex flex-wrap justify-between items-center gap-x-6 gap-y-2 text-xs">
+            <span>{{ 'footer.copyright'|trans({year: 'now'|date('Y')}) }}</span>
+            <span class="inline-flex items-center gap-1.5">
+                {%- set heart -%}<twig:ux:icon name="mdi:heart" role="img" aria-label="{{ 'footer.signature_heart_aria_label'|trans }}" class="size-3 text-accent" />{%- endset -%}
+                {{- 'footer.signature'|trans|replace({'<0/>': heart})|raw -}}
+            </span>
+        </div>
+    </div>
+</footer>

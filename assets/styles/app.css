@@ -7,7 +7,6 @@
 @theme {
   --font-sans: 'Space Grotesk', 'Space Grotesk Fallback', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'JetBrains Mono Fallback', ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-poppins: 'Poppins', 'Poppins Fallback';
   --font-article: 'Inter', 'Inter Fallback';
 
   --color-accent: #860dff;
@@ -60,48 +59,6 @@
     font-weight: 400 700;
     font-display: swap;
     src: url(../fonts/JetBrainsMono/JetBrainsMono-Variable.woff2) format('woff2');
-  }
-  @font-face {
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url(../fonts/Poppins/Poppins-Regular.woff2) format('woff2');
-  }
-  @font-face {
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 500;
-    font-display: swap;
-    src: url(../fonts/Poppins/Poppins-Medium.woff2) format('woff2');
-  }
-  @font-face {
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 600;
-    font-display: swap;
-    src: url(../fonts/Poppins/Poppins-SemiBold.woff2) format('woff2');
-  }
-  @font-face {
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
-    src: url(../fonts/Poppins/Poppins-Bold.woff2) format('woff2');
-  }
-  @font-face {
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 800;
-    font-display: swap;
-    src: url(../fonts/Poppins/Poppins-ExtraBold.woff2) format('woff2');
-  }
-  @font-face {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 300;
-    font-display: swap;
-    src: url(../fonts/Inter/Inter-Light.woff2) format('woff2');
   }
   @font-face {
     font-family: 'Inter';
