@@ -1,0 +1,17 @@
+{% props href, icon, label %}
+
+{% set external = href starts with 'http' %}
+
+<li role="option" aria-selected="false" data-command-palette-target="item">
+    <a
+        href="{{ href }}"
+        {% if external %}target="_blank" rel="noopener noreferrer"{% endif %}
+        class="flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-ink/5 font-mono text-sm text-ink no-underline"
+    >
+        <twig:ux:icon name="{{ icon }}" aria-hidden="true" class="size-4 text-accent shrink-0" />
+        <span class="flex-1">{{ label }}</span>
+        {% if external %}
+            <span class="sr-only">{{ 'header.cmd.opens_new_tab'|trans }}</span>
+        {% endif %}
+    </a>
+</li>
