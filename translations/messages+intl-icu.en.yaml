@@ -29,15 +29,25 @@ home.kpi.talks_hint: conferences, meetups
 home.kpi.love_in_ecosystem: ❤️ for PHP
 home.kpi.love_in_ecosystem_hint: a long love letter
 
-home.code.real_oss_company.title: A real <0>OSS company</0>
-home.code.real_oss_company.content_1: As core contributors to Symfony and its ecosystem, we don't just use tools, we shape them.
-home.code.real_oss_company.content_2: That's why we've created several Symfony components, and our two founders are part of the core team members.
-home.code.real_oss_company.content_3: Who knows a framework better than someone who contributes to its creation?
-home.code.symfony_evangelist.title: <0/> <1>evangelist</1>
-home.code.symfony_evangelist.content_1: Passionate advocates for the PHP and Symfony communities, <0>we share our expertise worldwide through conference talks, workshops, and training sessions</0>. While working on client projects, we love sharing our expertise with their development teams, empowering them to enhance their skills.
-home.code.pragmatic_technologists.title: <0>Pragmatic</0> technologists
-home.code.pragmatic_technologists.content_1: We always take the pragmatic approach, ensuring that <0>our solutions are built for long-term maintainability without falling into the trap of over-engineering</0>.
-home.code.pragmatic_technologists.content_2: We help our clients craft architectures that are tailored to their actual needs, keeping the business at the center of the discussion, and making sure that our technical decisions align with the client's goals and drive real value.
+home.values.aria_label: baksla.sh's values
+home.values.heading: Lines we won't <0>revert</0>.
+home.values.filename: who-we-are.md
+home.values.commit_meta: committed · merged by @baksla.sh
+home.values.sr_added: 'Added:'
+home.values.sr_removed: 'Removed:'
+
+home.values.line_1_del: We are just another agency.
+home.values.line_1_add_1: We are a real OSS company.
+home.values.line_1_add_2: The same people you read on the Symfony changelog.
+home.values.line_2_del: We use the tools we're given.
+home.values.line_2_add_1: We shape the tools we use.
+home.values.line_2_add_2: When Symfony is broken, we fix it upstream.
+home.values.line_3_del: We hoard our knowledge.
+home.values.line_3_add_1: We share it, loudly and often!
+home.values.line_3_add_2: Conferences, workshops, pair programming, mentoring.
+home.values.line_4_del: We chase shiny.
+home.values.line_4_add_1: We pick boring, battle-tested tech.
+home.values.line_4_add_2: The business comes first; the stack serves it.
 
 home.products.title: Our tailored solutions <0>built to last</0>.
 home.products.product.tag.expertise: Expertise
