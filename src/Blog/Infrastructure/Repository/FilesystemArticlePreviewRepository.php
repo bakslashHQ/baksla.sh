@@ -60,19 +60,8 @@ final readonly class FilesystemArticlePreviewRepository implements ArticlePrevie
             $previews[] = $this->articlePreviewFactory->create($id, $file->getContents());
         }
 
-        return $previews;
-    }
-
-    public function findLatest(int $limit, bool $excludeShowcased = false): array
-    {
-        $previews = $this->findAll();
-
-        if ($excludeShowcased && $this->showcasedArticle !== null) {
-            $previews = array_values(array_filter($previews, fn (ArticlePreview $p): bool => $p->id !== $this->showcasedArticle));
-        }
-
         usort($previews, static fn (ArticlePreview $a, ArticlePreview $b): int => $b->publishedAt <=> $a->publishedAt);
 
-        return \array_slice($previews, 0, $limit);
+        return $previews;
     }
 }

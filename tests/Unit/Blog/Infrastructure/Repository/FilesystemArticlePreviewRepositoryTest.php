@@ -86,39 +86,15 @@ final class FilesystemArticlePreviewRepositoryTest extends TestCase
         $this->assertSame(['1', '2'], array_column($previews, 'id'));
     }
 
-    public function testFindLatestSortsByPublishedAtDescending(): void
+    public function testFindAllOrdersByPublishedAtDesc(): void
     {
-        $this->createArticleFile('older.md.twig', publishedAt: '2025-01-01');
-        $this->createArticleFile('middle.md.twig', publishedAt: '2025-06-15');
-        $this->createArticleFile('newest.md.twig', publishedAt: '2026-02-10');
+        $this->createArticleFile('older.md.twig', '2024-01-01');
+        $this->createArticleFile('newest.md.twig', '2026-05-01');
+        $this->createArticleFile('middle.md.twig', '2025-06-15');
 
-        $previews = $this->getRepository()->findLatest(10);
+        $previews = $this->getRepository()->findAll();
 
         $this->assertSame(['newest', 'middle', 'older'], array_column($previews, 'id'));
-    }
-
-    public function testFindLatestRespectsLimit(): void
-    {
-        $this->createArticleFile('a.md.twig', publishedAt: '2025-01-01');
-        $this->createArticleFile('b.md.twig', publishedAt: '2025-02-01');
-        $this->createArticleFile('c.md.twig', publishedAt: '2025-03-01');
-        $this->createArticleFile('d.md.twig', publishedAt: '2025-04-01');
-
-        $previews = $this->getRepository()->findLatest(2);
-
-        $this->assertCount(2, $previews);
-        $this->assertSame(['d', 'c'], array_column($previews, 'id'));
-    }
-
-    public function testFindLatestExcludesShowcased(): void
-    {
-        $this->createArticleFile('a.md.twig', publishedAt: '2025-01-01');
-        $this->createArticleFile('b.md.twig', publishedAt: '2025-02-01');
-        $this->createArticleFile('c.md.twig', publishedAt: '2025-03-01');
-
-        $previews = $this->getRepository('a')->findLatest(3, excludeShowcased: true);
-
-        $this->assertSame(['c', 'b'], array_column($previews, 'id'));
     }
 
     private function getRepository(?string $showcasedArticle = null): FilesystemArticlePreviewRepository
@@ -126,14 +102,14 @@ final class FilesystemArticlePreviewRepositoryTest extends TestCase
         return new FilesystemArticlePreviewRepository(new ArticlePreviewFactory(new InMemoryMemberRepository([aMember()->withId(MemberId::MathiasArlaud)->build()])), $showcasedArticle, $this->articlesDir);
     }
 
-    private function createArticleFile(string $filename, string $publishedAt = '2025-04-01'): void
+    private function createArticleFile(string $filename, string $publishedAt = '2025-01-01'): void
     {
         $validContent = <<<MD
 ---
 author: mathias-arlaud
 title: Title
 description: Description
-publishedAt: {$publishedAt}
+published_at: {$publishedAt}
 ---
 MD;
 
