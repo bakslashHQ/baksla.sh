@@ -14,11 +14,18 @@
 {% block content %}
     <twig:Blog:ArticleNav :article="article" />
 
-    <article class="container max-w-3xl mx-auto px-4 sm:px-8 pt-12">
-        <twig:Blog:ArticleHeader :article="article" />
+    <article>
+        <section class="relative overflow-hidden">
+            <div aria-hidden="true" class="absolute inset-0 dot-grid pointer-events-none"></div>
+            <div class="container max-w-3xl mx-auto px-4 sm:px-8 pt-12 relative">
+                <twig:Blog:ArticleHeader :article="article" />
+            </div>
+        </section>
 
-        <div data-article-body data-test-article tabindex="-1" class="prose-body pt-10 mx-auto max-w-[68ch] font-article text-base sm:text-[1.125rem] leading-[1.7] text-ink text-pretty hyphens-auto focus:outline-none">
-            {{- article.html|raw -}}
+        <div class="container max-w-3xl mx-auto px-4 sm:px-8">
+            <div data-article-body data-test-article tabindex="-1" class="prose-body pt-10 mx-auto max-w-[68ch] font-article text-base sm:text-[1.125rem] leading-[1.7] text-ink text-pretty hyphens-auto focus:outline-none">
+                {{- article.html|raw -}}
+            </div>
         </div>
     </article>
 {% endblock %}

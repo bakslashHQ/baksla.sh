@@ -86,6 +86,14 @@
       transparent 0.375rem,
       transparent 1.25rem
     );
+    height: 1px;
+  }
+
+  .dot-grid {
+    background-image: radial-gradient(color-mix(in oklab, var(--color-ink) 10%, transparent) 1px, transparent 1px);
+    background-size: 22px 22px;
+    background-position: 0 0;
+    mask-image: radial-gradient(ellipse 60% 60% at 50% 30%, #000 30%, transparent 75%);
   }
 }
 
