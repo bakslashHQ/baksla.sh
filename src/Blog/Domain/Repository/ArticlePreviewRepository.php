@@ -16,9 +16,4 @@ interface ArticlePreviewRepository
      * @return list<ArticlePreview>
      */
     public function findAll(): array;
-
-    /**
-     * @return list<ArticlePreview>
-     */
-    public function findLatest(int $limit, bool $excludeShowcased = false): array;
 }

@@ -60,7 +60,7 @@
                                 >
                                     <article>
                                         <div class="font-mono text-xs uppercase tracking-widest text-muted mb-2">
-                                            <time datetime="{{ article.publishedAt.format('Y-m-d') }}">{{ article.publishedAt.format('M Y') }}</time>
+                                            <time datetime="{{ article.publishedAt|date('Y-m-d') }}">{{ article.publishedAt|format_date(pattern: 'MMM y') }}</time>
                                         </div>
                                         <h4 class="font-sans font-semibold tracking-tight leading-tight m-0 text-lg sm:text-xl text-ink group-hover:text-accent transition-colors">
                                             {{ article.title }}

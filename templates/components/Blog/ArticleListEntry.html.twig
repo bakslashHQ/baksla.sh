@@ -1,0 +1,20 @@
+<li
+    data-article-search-target="item"
+    data-search-haystack="{{ (article.title ~ ' ' ~ article.description ~ ' ' ~ article.author.fullname)|lower }}"
+    class="border-b border-ink/10 last:border-b-0 odd:bg-ink/[0.035] hover:bg-ink/[0.04] transition-colors"
+>
+    <a
+        data-test-article-link
+        href="{{ path('app_blog_article', {id: article.id}) }}"
+        class="group block px-6 sm:px-8 py-5 sm:py-6 lg:py-8 no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset"
+    >
+        <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-3 font-mono text-xs text-muted">
+            <time datetime="{{ article.publishedAt|date('Y-m-d') }}" class="text-accent font-bold tabular-nums">{{ article.publishedAt|format_date(pattern: 'MMM dd, y') }}</time>
+            <span>{{ 'blog.author'|trans }} {{ article.author.fullname }}</span>
+        </div>
+        <h3 class="m-0 font-sans font-medium tracking-tight text-2xl lg:text-3xl text-ink group-focus-visible:text-accent transition-colors">{{ article.title }}</h3>
+        <p class="m-0 mt-2 font-sans text-sm text-ink-soft max-w-3xl leading-snug">
+            {{ article.description }}
+        </p>
+    </a>
+</li>

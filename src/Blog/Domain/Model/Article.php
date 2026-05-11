@@ -14,6 +14,7 @@ final readonly class Article
         public string $description,
         public string $html,
         public Member $author,
+        public \DateTimeImmutable $publishedAt,
     ) {
     }
 }
