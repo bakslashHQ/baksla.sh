@@ -11,6 +11,7 @@ use App\Blog\Infrastructure\Rendering\LeagueMarkdownConverter;
 use App\Team\Domain\Model\Member;
 use Faker\Factory;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Translation\IdentityTranslator;
 
 final class ArticleBuilder
 {
@@ -99,7 +100,7 @@ final class ArticleBuilder
 
             $markdown = $markdowns[array_rand($markdowns)];
 
-            $converter = new LeagueMarkdownConverter(new TempestCodeBlockRenderer());
+            $converter = new LeagueMarkdownConverter(new TempestCodeBlockRenderer(new IdentityTranslator()));
             $html = $converter->convert($markdown->getContents());
         }
 

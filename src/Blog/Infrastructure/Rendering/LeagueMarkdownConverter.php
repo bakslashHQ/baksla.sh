@@ -39,91 +39,56 @@ final class LeagueMarkdownConverter
         if (!$this->converter instanceof \League\CommonMark\MarkdownConverter) {
             $environment = new Environment([
                 'default_attributes' => [
-                    Paragraph::class => [
-                        'class' => static function (Paragraph $node): array {
-                            if (!$node->next() instanceof Block\Heading) {
-                                return ['mb-6'];
-                            }
-
-                            return [];
+                    Block\Heading::class => [
+                        'class' => static fn (Block\Heading $node): array => match ($node->getLevel()) {
+                            1 => throw new \InvalidArgumentException('Titles of level 1 are not accepted, please use the "title" metadata instead.'),
+                            2 => [],
+                            3 => ['mt-9', 'mb-3', 'font-sans', 'font-bold', 'tracking-tight', 'leading-tight', 'text-2xl', 'sm:text-3xl', 'text-ink', 'text-balance'],
+                            default => throw new \InvalidArgumentException(sprintf('Heading level %d is not supported, please use level 2 or 3 only.', $node->getLevel())),
                         },
                     ],
-                    Inline\Code::class => [
-                        'class' => ['bg-gray-100', 'px-1', 'py-0.5', 'rounded'],
+                    Paragraph::class => [
+                        'class' => ['my-5'],
                     ],
                     Inline\Strong::class => [
-                        'class' => ['font-semibold'],
+                        'class' => ['font-bold', 'text-ink'],
                     ],
-                    Inline\Link::class => [
-                        'class' => ['text-blue-800', 'underline', 'underline-offset-4'],
+                    Inline\Code::class => [
+                        'class' => ['rounded', 'bg-ink/[0.07]', 'px-1', 'py-0.5', 'font-mono', 'text-[0.9em]', 'text-ink', 'hyphens-none'],
                     ],
                     Inline\Image::class => [
-                        'class' => ['rounded-lg', 'shadow-lg', 'mx-auto', 'my-20'],
+                        'class' => ['my-6', 'mx-auto', 'max-w-full', 'h-auto', 'rounded-lg'],
+                    ],
+                    Inline\Link::class => [
+                        'class' => ['text-accent', 'underline', 'underline-offset-2', 'hover:text-ink', 'transition-colors'],
                     ],
                     Block\BlockQuote::class => [
-                        'class' => ['border-s-4', 'border-gray-300', 'px-4', 'my-6', 'text-gray-700'],
-                    ],
-                    Block\Heading::class => [
-                        'class' => static function (Block\Heading $node): array {
-                            $borderClasses = match ($node->getLevel()) {
-                                1 => throw new \InvalidArgumentException('Titles of level 1 are not accepted, please use the "title" metadata instead.'),
-                                2 => ['border-b', 'border-indigo-500/50', 'border-b-8'],
-                                default => [],
-                            };
-
-                            $sizeClasses = match ($node->getLevel()) {
-                                2 => ['text-3xl'],
-                                default => ['text-2xl'],
-                            };
-
-                            $marginClasses = match ($node->getLevel()) {
-                                2 => ['mb-8'],
-                                default => ['mb-4'],
-                            };
-
-                            if (!$node->previous() instanceof Block\Heading) {
-                                $marginClasses = [
-                                    ...$marginClasses,
-                                    ...match ($node->getLevel()) {
-                                        2 => ['mt-10', 'sm:mt-20'],
-                                        default => ['mt-10'],
-                                    },
-                                ];
-                            }
-
-                            return ['text-pretty', 'font-bold', 'text-gray-800', ...$borderClasses, ...$marginClasses, ...$sizeClasses];
-                        },
+                        'class' => ['my-6', 'pl-5', 'border-l-[3px]', 'border-accent', 'italic', 'text-ink-soft'],
                     ],
                     Block\ListBlock::class => [
-                        'class' => static function (Block\ListBlock $node): array {
-                            $listBulletClass = match (true) {
-                                $node->getListData()->type === 'ordered' => 'list-decimal',
-                                $node->getListData()->bulletChar === '-' => 'list-disc',
-                                default => '',
-                            };
-                            $paddingClass = match ($node->getListData()->padding) {
-                                3 => 'pl-8',
-                                2 => 'pl-12',
-                                1 => 'pl-16',
-                                default => '',
-                            };
-
-                            $marginClass = $node->next() instanceof Block\ListBlock ? 'mb-3' : 'mb-6';
-
-                            return [$listBulletClass, $paddingClass, $marginClass];
-                        },
+                        'class' => static fn (Block\ListBlock $node): array => [
+                            'my-5',
+                            'pl-5',
+                            'sm:pl-7',
+                            '[&>li]:mb-2',
+                            $node->getListData()->type === 'ordered' ? 'list-decimal' : 'list-disc',
+                        ],
                     ],
                     Table::class => [
-                        'class' => 'w-full',
+                        'class' => ['w-full', 'border-collapse', 'text-sm', 'sm:text-base'],
                     ],
                     TableSection::class => [
-                        'class' => static fn (TableSection $node): array => $node->isHead() ? ['border-b-4 border-indigo-700/60'] : [],
+                        'class' => static fn (TableSection $node): array => $node->getType() === TableSection::TYPE_HEAD
+                            ? ['border-b-2', 'border-ink/30']
+                            : [],
                     ],
                     TableRow::class => [
-                        'class' => static fn (TableRow $node): array => $node->parent() instanceof TableSection && $node->parent()->isHead() ? [] : ['border-b border-indigo-200'],
+                        'class' => ['border-b', 'border-ink/10', 'last:border-b-0'],
                     ],
                     TableCell::class => [
-                        'class' => 'p-2',
+                        'class' => static fn (TableCell $node): array => $node->getType() === TableCell::TYPE_HEADER
+                            ? ['px-3', 'sm:px-4', 'py-3', 'text-left', 'align-bottom', 'font-mono', 'text-xs', 'uppercase', 'tracking-widest', 'text-ink-soft']
+                            : ['px-3', 'sm:px-4', 'py-3', 'text-left', 'align-top'],
                     ],
                 ],
             ]);
@@ -135,7 +100,7 @@ final class LeagueMarkdownConverter
 
             $environment->addRenderer(Block\FencedCode::class, $this->codeBlockRenderer);
             $environment->addRenderer(Table::class, new HtmlDecorator(new TableRenderer(), 'div', [
-                'class' => 'overflow-x-auto',
+                'class' => 'my-6 -mx-4 sm:mx-0 px-4 sm:px-0 overflow-x-auto',
             ]));
 
             $this->converter = new \League\CommonMark\MarkdownConverter($environment);
