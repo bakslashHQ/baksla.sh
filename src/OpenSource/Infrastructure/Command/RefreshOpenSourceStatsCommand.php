@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\OpenSource\Infrastructure\Command;
 
+use App\OpenSource\Domain\Model\OpenSourceStats;
 use App\OpenSource\Infrastructure\GitHub\GitHubClient;
 use App\Team\Domain\Model\Member;
 use App\Team\Domain\Repository\MemberRepository;
@@ -72,7 +73,7 @@ final readonly class RefreshOpenSourceStatsCommand
             array_values(array_map(fn (Member $member): string => $member->github, $this->memberRepository->findAll())),
         );
 
-        $previous = $this->readPreviousStats();
+        $previous = OpenSourceStats::fromJsonFile($this->statsFile);
 
         $stats = [];
         foreach (self::REPOS as $project => $repos) {
@@ -86,8 +87,8 @@ final readonly class RefreshOpenSourceStatsCommand
             // GitHub's search.issueCount is an estimate for large result sets and drifts run-to-run;
             // ratchet upward so the published numbers never regress.
             $stats[$project] = [
-                'reviews' => max($previous[$project]['reviews'] ?? 0, $reviews),
-                'pullRequests' => max($previous[$project]['pullRequests'] ?? 0, $pullRequests),
+                'reviews' => max($previous->reviewsFor($project), $reviews),
+                'pullRequests' => max($previous->pullRequestsFor($project), $pullRequests),
             ];
         }
 
@@ -96,25 +97,5 @@ final readonly class RefreshOpenSourceStatsCommand
         $io->success(\sprintf('Wrote stats to "%s"', $this->statsFile));
 
         return Command::SUCCESS;
-    }
-
-    /**
-     * @return array<string, array{reviews: int, pullRequests: int}>
-     */
-    private function readPreviousStats(): array
-    {
-        if (!$this->filesystem->exists($this->statsFile)) {
-            return [];
-        }
-
-        $contents = file_get_contents($this->statsFile);
-        if ($contents === false) {
-            return [];
-        }
-
-        /** @var array<string, array{reviews: int, pullRequests: int}> $data */
-        $data = json_decode($contents, true, flags: \JSON_THROW_ON_ERROR);
-
-        return $data;
     }
 }

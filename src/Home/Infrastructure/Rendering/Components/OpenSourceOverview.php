@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Home\Infrastructure\Rendering\Components;
 
+use App\OpenSource\Domain\Model\OpenSourceStats;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
@@ -53,10 +54,13 @@ final readonly class OpenSourceOverview
         ],
     ];
 
+    private OpenSourceStats $stats;
+
     public function __construct(
         #[Autowire(param: 'app.open_source_stats_file')]
-        private string $statsFile,
+        string $statsFile,
     ) {
+        $this->stats = OpenSourceStats::fromJsonFile($statsFile);
     }
 
     /**
@@ -64,25 +68,13 @@ final readonly class OpenSourceOverview
      */
     public function getProjects(): array
     {
-        if (!is_file($this->statsFile)) {
-            return [];
-        }
-
-        $contents = file_get_contents($this->statsFile);
-        if ($contents === false) {
-            return [];
-        }
-
-        /** @var array<string, array{reviews: int, pullRequests: int}> $stats */
-        $stats = json_decode($contents, true, flags: \JSON_THROW_ON_ERROR);
-
         $projects = [];
         foreach (self::META as $id => $meta) {
-            if (!isset($stats[$id])) {
+            if (!$this->stats->hasProject($id)) {
                 continue;
             }
-            $reviews = $stats[$id]['reviews'];
-            $prs = $stats[$id]['pullRequests'];
+            $reviews = $this->stats->reviewsFor($id);
+            $prs = $this->stats->pullRequestsFor($id);
             $projects[] = [
                 'id' => $id,
                 'label' => $meta['label'],
@@ -101,27 +93,22 @@ final readonly class OpenSourceOverview
 
     public function getTotalReviews(): int
     {
-        return array_sum(array_column($this->getProjects(), 'reviews'));
+        return $this->stats->getTotalReviews();
     }
 
     public function getTotalPullRequests(): int
     {
-        return array_sum(array_column($this->getProjects(), 'prs'));
+        return $this->stats->getTotalPullRequests();
     }
 
     public function getTotal(): int
     {
-        return $this->getTotalReviews() + $this->getTotalPullRequests();
+        return $this->stats->getTotal();
     }
 
     public function getHoursPerContribution(): int
     {
-        $total = $this->getTotal();
-        if ($total === 0) {
-            return 0;
-        }
-
-        return (int) round($this->getYears() * 365 * 24 / $total);
+        return $this->stats->getHoursPerContribution($this->getYears());
     }
 
     public function getYears(): int
