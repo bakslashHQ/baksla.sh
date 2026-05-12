@@ -1,0 +1,64 @@
+<aside data-test-reviewers class="font-article" aria-label="{{ 'team.reviewers'|trans }}">
+    <div class="flex flex-col gap-6 lg:sticky lg:top-28">
+        <div class="hidden lg:block">
+            <twig:Team:ProTip />
+        </div>
+
+        <div class="lg:hidden bg-paper border border-ink/15 rounded-2xl overflow-hidden shadow-sm">
+            <div class="px-5 py-3 border-b border-ink/10 font-mono text-[0.6875rem] uppercase tracking-widest text-muted">
+                <span>{{ 'team.reviewers'|trans }} <span class="ml-1 text-ink">({{ members|length }})</span></span>
+            </div>
+            <ul class="flex flex-wrap gap-3 p-4 m-0 list-none">
+                {% for member in members %}
+                    <li>
+                        <button
+                            type="button"
+                            data-open-member-modal="{{ member.id.value }}"
+                            aria-label="{{ member.fullName }}"
+                            class="block rounded-full cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                        >
+                            <img
+                                class="size-11 rounded-full object-cover bg-paper-shade ring-2 ring-ink/10 hover:ring-accent transition"
+                                src="{{ asset('images/team/members/' ~ member.id.value ~ '.jpg') }}"
+                                alt=""
+                                loading="lazy"
+                                width="44"
+                                height="44"
+                            />
+                        </button>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="hidden lg:block bg-paper border border-ink/15 rounded-2xl overflow-hidden shadow-sm">
+            <div class="px-5 py-3 border-b border-ink/10 font-mono text-[0.6875rem] uppercase tracking-widest text-muted">
+                <span>{{ 'team.reviewers'|trans }} <span class="ml-1 text-ink">({{ members|length }})</span></span>
+            </div>
+            <ul class="m-0 p-0 list-none divide-y divide-ink/10">
+                {% for member in members %}
+                    <li>
+                        <button
+                            type="button"
+                            data-open-member-modal="{{ member.id.value }}"
+                            class="w-full text-left flex items-center gap-3 px-4 py-3 hover:bg-ink/[0.04] focus-visible:bg-ink/[0.06] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent transition-colors group cursor-pointer"
+                        >
+                            <img
+                                class="size-9 rounded-full object-cover bg-paper-shade"
+                                src="{{ asset('images/team/members/' ~ member.id.value ~ '.jpg') }}"
+                                alt=""
+                                loading="lazy"
+                                width="36"
+                                height="36"
+                            />
+                            <span class="flex-1 min-w-0">
+                                <span data-test-member-full-name class="block text-[0.9375rem] font-semibold text-ink truncate group-hover:text-accent transition-colors">{{ member.fullName }}</span>
+                                <span class="block font-mono text-[0.6875rem] text-muted truncate">@{{ member.github }}</span>
+                            </span>
+                        </button>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</aside>

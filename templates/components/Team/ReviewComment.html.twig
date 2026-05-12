@@ -1,0 +1,23 @@
+<div data-test-review-comment class="px-5 py-4 font-article">
+    <button
+        type="button"
+        data-open-member-modal="{{ member.id.value }}"
+        class="flex items-center gap-3 w-full text-left cursor-pointer group rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+    >
+        <img
+            class="shrink-0 size-9 rounded-full bg-paper-shade object-cover transition-shadow group-hover:ring-2 group-hover:ring-paper group-hover:shadow-[0_0_0_4px_var(--color-accent)]"
+            src="{{ asset('images/team/members/' ~ member.id.value ~ '.jpg') }}"
+            alt=""
+            loading="lazy"
+            width="36"
+            height="36"
+        />
+        <span class="min-w-0 flex flex-wrap items-baseline gap-x-2 gap-y-1">
+            <span data-test-review-comment-reviewer class="font-sans font-semibold text-ink group-hover:text-accent group-hover:underline underline-offset-4 transition-colors text-[0.9375rem]">{{ member.fullName }}</span>
+            <span class="font-mono text-[0.6875rem] text-muted">@{{ member.github }}</span>
+        </span>
+    </button>
+    <p class="mt-1.5 ml-12 font-article text-[0.9375rem] leading-relaxed text-ink-soft">
+        {% block content %}{% endblock %}
+    </p>
+</div>

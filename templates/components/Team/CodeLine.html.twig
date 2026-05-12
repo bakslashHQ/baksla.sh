@@ -1,0 +1,51 @@
+{% set textColor = '' %}
+{% set leftColor = '' %}
+{% set rightColor = '' %}
+{% set leftBorder = 'border-r border-ink/10' %}
+{% set py = 'py-0.5' %}
+{% set markerIcon = null %}
+{% set markerColor = '' %}
+{% set srLabel = '' %}
+{% set indents = ['', '    ', '        ', '            ', '                '] %}
+
+{% if type is defined %}
+    {% if '-' == type %}
+        {% set leftColor = 'bg-red-200/70' %}
+        {% set rightColor = 'bg-red-100/70' %}
+        {% set leftBorder = 'border-r border-red-300/40' %}
+        {% set markerIcon = 'mdi:minus' %}
+        {% set markerColor = 'text-red-700' %}
+        {% set srLabel = 'team.pr.diff.removed' %}
+    {% elseif '+' == type %}
+        {% set leftColor = 'bg-green-200/70' %}
+        {% set rightColor = 'bg-green-100/70' %}
+        {% set leftBorder = 'border-r border-green-300/40' %}
+        {% set markerIcon = 'mdi:plus' %}
+        {% set markerColor = 'text-green-700' %}
+        {% set srLabel = 'team.pr.diff.added' %}
+    {% elseif 'expand' == type %}
+        {% set textColor = 'text-blue-800' %}
+        {% set leftColor = 'bg-blue-200/70' %}
+        {% set rightColor = 'bg-blue-100/70' %}
+        {% set leftBorder = 'border-r border-blue-300/40' %}
+        {% set py = 'py-2' %}
+    {% endif %}
+{% else %}
+    {% set type = '' %}
+{% endif %}
+
+<div class="flex flex-row w-full">
+    <div class="flex items-center justify-end w-14 sm:w-16 shrink-0 px-3 text-right text-muted tabular-nums {{ py }} {{ leftColor }} {{ leftBorder }} {{ textColor }}">
+        {% if 'expand' == type %}
+            <twig:ux:icon aria-hidden="true" name="mdi:arrow-up-down" class="size-3" />
+        {% else %}
+            {{ number ?? '' }}
+        {% endif %}
+    </div>
+    <div class="w-7 shrink-0 flex items-center justify-center {{ rightColor }} {{ markerColor }}">
+        {% if markerIcon %}
+            <twig:ux:icon aria-hidden="true" name="{{ markerIcon }}" class="size-3.5" />
+        {% endif %}
+    </div>
+    <div class="flex items-center grow min-w-0 px-3 whitespace-pre overflow-x-hidden {{ py }} {{ rightColor }} {{ textColor }}"><span>{% if srLabel %}<span class="sr-only">{{ srLabel|trans }} </span>{% endif %}{{ indents[indent|default(0)] ?? '' }}{% block content %}{% endblock %}</span></div>
+</div>
