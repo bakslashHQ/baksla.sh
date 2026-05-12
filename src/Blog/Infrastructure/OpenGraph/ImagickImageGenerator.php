@@ -10,6 +10,14 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 final readonly class ImagickImageGenerator implements ImageGenerator
 {
+    private const string COLOR_PAPER = '#f6f2e8';
+
+    private const string COLOR_INK = '#1f2130';
+
+    private const string COLOR_MUTED = '#5e646c';
+
+    private const string COLOR_ACCENT = '#860dff';
+
     public function __construct(
         #[Autowire(param: 'kernel.project_dir')]
         private string $projectDir,
@@ -22,60 +30,114 @@ final readonly class ImagickImageGenerator implements ImageGenerator
     public function generate(Article $article): string
     {
         $image = new \Imagick();
-        $image->newImage(self::WIDTH, self::HEIGHT, new \ImagickPixel('#aff'));
+        $image->newImage(self::WIDTH, self::HEIGHT, new \ImagickPixel(self::COLOR_PAPER));
 
-        $backgroundImage = new \Imagick(sprintf('%s/assets/images/og-image-bg.webp', $this->projectDir));
-        $image->compositeImage($backgroundImage, \Imagick::COMPOSITE_OVER, 0, 0);
+        $spaceGroteskBold = $this->font('SpaceGrotesk/SpaceGrotesk-Bold.woff2');
+        $jetBrainsMono = $this->font('JetBrainsMono/JetBrainsMono-Variable.woff2');
 
-        $fontPoppinsBold = new \ImagickDraw();
-        $fontPoppinsBold->setFont(sprintf('%s/assets/fonts/Poppins/Poppins-Bold.woff2', $this->projectDir));
-        $fontPoppinsBold->setFillColor(new \ImagickPixel('#1e293b'));
+        // Title: Space Grotesk Bold, ink
+        $titleDraw = new \ImagickDraw();
+        $titleDraw->setFont($spaceGroteskBold);
+        $titleDraw->setFontSize(self::TITLE_FONT_SIZE);
+        $titleDraw->setTextKerning(-2.0);
+        $titleDraw->setFillColor(new \ImagickPixel(self::COLOR_INK));
+        $titleDraw->setTextAlignment(\Imagick::ALIGN_LEFT);
 
-        $fontPoppinsSemiBold = new \ImagickDraw();
-        $fontPoppinsSemiBold->setFont(sprintf('%s/assets/fonts/Poppins/Poppins-SemiBold.woff2', $this->projectDir));
-        $fontPoppinsSemiBold->setFillColor(new \ImagickPixel('#1e293b'));
+        $titleLineSpacing = (int) (self::TITLE_FONT_SIZE * 1.05);
+        $titleLines = $this->wrapText($article->title, self::WIDTH - 2 * self::MARGIN, $titleDraw);
+        $lastIndex = \count($titleLines) - 1;
 
-        // Draw title
-        $titleFont = clone $fontPoppinsBold;
-        $titleFont->setFontSize(self::TITLE_FONT_SIZE);
-        $titleFont->setTextKerning(-3.0);
-        $titleFont->setTextAlignment(\Imagick::ALIGN_CENTER);
+        $captionTitleGap = 88;
+        $titleMetaGap = 48;
 
-        $titleLines = $this->wrapText($article->title, self::WIDTH - 2 * self::SPACING, $titleFont);
-        $titleLineHeight = 1.15;
-        $titleY = self::HEIGHT / 2 + (3 * self::SPACING);
+        // Vertically center the caption / title / meta block in the area above the footer row.
+        // Realistic article titles fit in 1-3 lines; very long titles may approach the footer.
+        $footerTop = self::HEIGHT - self::MARGIN - self::AUTHOR_AVATAR_SIZE;
+        $blockHeight = self::CAPTION_FONT_SIZE + $captionTitleGap + $lastIndex * $titleLineSpacing + $titleMetaGap;
+        $blockTop = max(self::MARGIN, (int) (($footerTop - $blockHeight) / 2));
+
+        // Caption: `# BLOG.md`
+        $captionDraw = new \ImagickDraw();
+        $captionDraw->setFont($jetBrainsMono);
+        $captionDraw->setFontSize(self::CAPTION_FONT_SIZE);
+        $captionDraw->setFillColor(new \ImagickPixel(self::COLOR_ACCENT));
+        $captionDraw->setTextAlignment(\Imagick::ALIGN_LEFT);
+
+        $captionBaselineY = $blockTop + self::CAPTION_FONT_SIZE;
+        $image->annotateImage($captionDraw, self::MARGIN, $captionBaselineY, 0, '# BLOG.md');
+
+        $titleBaselineY = $captionBaselineY + $captionTitleGap;
         foreach ($titleLines as $i => $line) {
-            $lineY = (int) ($titleY - ($titleFont->getFontSize() * $titleLineHeight) * (count($titleLines) - $i));
-            $image->annotateImage($titleFont, self::WIDTH / 2, $lineY, 0, $line);
+            $image->annotateImage($titleDraw, self::MARGIN, $titleBaselineY + $i * $titleLineSpacing, 0, $line);
         }
+        $lastTitleBaselineY = $titleBaselineY + $lastIndex * $titleLineSpacing;
 
-        // Draw author
-        $authorFont = clone $fontPoppinsSemiBold;
-        $authorFont->setFontSize(self::AUTHOR_FONT_SIZE);
+        // Meta: date · reading time, monospace, muted
+        $metaDraw = new \ImagickDraw();
+        $metaDraw->setFont($jetBrainsMono);
+        $metaDraw->setFontSize(self::META_FONT_SIZE);
+        $metaDraw->setFillColor(new \ImagickPixel(self::COLOR_MUTED));
+        $metaDraw->setTextAlignment(\Imagick::ALIGN_LEFT);
 
-        $authorImage = new \Imagick(sprintf('%s/assets/images/team/members/%s.jpg', $this->projectDir, $article->author->id->value));
-        $authorImage->resizeImage(self::AUTHOR_AVATAR_SIZE, self::AUTHOR_AVATAR_SIZE, \Imagick::FILTER_LANCZOS, 1);
-        $authorImage->roundCornersImage($authorImage->getImageWidth(), $authorImage->getImageHeight());
+        $meta = sprintf('%s  ·  %d min read', strtoupper($article->publishedAt->format('M j, Y')), $article->readingTime);
+        $image->annotateImage($metaDraw, self::MARGIN, $lastTitleBaselineY + $titleMetaGap, 0, $meta);
 
-        $authorNameMetrics = $image->queryFontMetrics($authorFont, $article->author->getFullname());
-        $authorWidth = $authorNameMetrics['textWidth'] + self::SPACING + $authorImage->getImageWidth();
-        $authorHeight = $authorNameMetrics['textHeight'];
+        // Bottom row: avatar + author name (left), `baksla.sh` wordmark (right)
+        $avatarTop = self::HEIGHT - self::MARGIN - self::AUTHOR_AVATAR_SIZE;
 
-        $authorX = (int) ((self::WIDTH - $authorWidth) / 2);
-        $authorY = $titleY + self::SPACING;
+        $avatar = new \Imagick(sprintf('%s/assets/images/team/members/%s.jpg', $this->projectDir, $article->author->id->value));
+        $avatar->resizeImage(self::AUTHOR_AVATAR_SIZE, self::AUTHOR_AVATAR_SIZE, \Imagick::FILTER_LANCZOS, 1);
+        $avatar->roundCornersImage($avatar->getImageWidth(), $avatar->getImageHeight());
 
-        $image->annotateImage($authorFont, $authorX + $authorImage->getImageWidth() + self::SPACING, (int) ($authorY + ($authorHeight / 2) - abs($authorNameMetrics['descender'])), 0, $article->author->getFullname());
-        $image->compositeImage($authorImage, \Imagick::COMPOSITE_OVER, $authorX, (int) ($authorY - ($authorImage->getImageHeight() / 2)));
+        $image->compositeImage($avatar, \Imagick::COMPOSITE_OVER, self::MARGIN, $avatarTop);
 
-        // Draw logo
-        $logoImage = new \Imagick(sprintf('%s/assets/images/bakslash.png', $this->projectDir));
-        $logoImage->resizeImage((int) ($logoImage->getImageWidth() * self::LOGO_HEIGHT / $logoImage->getImageHeight()), self::LOGO_HEIGHT, \Imagick::FILTER_LANCZOS, 1);
+        $authorDraw = new \ImagickDraw();
+        $authorDraw->setFont($spaceGroteskBold);
+        $authorDraw->setFontSize(self::AUTHOR_FONT_SIZE);
+        $authorDraw->setFillColor(new \ImagickPixel(self::COLOR_INK));
+        $authorDraw->setTextAlignment(\Imagick::ALIGN_LEFT);
 
-        $image->compositeImage($logoImage, \Imagick::COMPOSITE_OVER, (int) ((self::WIDTH - $logoImage->getImageWidth()) / 2), self::HEIGHT - self::SPACING - $logoImage->getImageHeight());
+        $authorMetrics = $image->queryFontMetrics($authorDraw, $article->author->getFullname());
+        $authorBaselineY = $avatarTop + (int) ((self::AUTHOR_AVATAR_SIZE + $authorMetrics['textHeight']) / 2 - abs($authorMetrics['descender']));
+        $image->annotateImage($authorDraw, self::MARGIN + self::AUTHOR_AVATAR_SIZE + 20, $authorBaselineY, 0, $article->author->getFullname());
 
-        // Returns the image
+        // Wordmark: circle logo + `baksla.sh` with accent period
+        $wordmarkDraw = new \ImagickDraw();
+        $wordmarkDraw->setFont($spaceGroteskBold);
+        $wordmarkDraw->setFontSize(self::WORDMARK_FONT_SIZE);
+        $wordmarkDraw->setTextKerning(-1.0);
+        $wordmarkDraw->setFillColor(new \ImagickPixel(self::COLOR_INK));
+        $wordmarkDraw->setTextAlignment(\Imagick::ALIGN_LEFT);
+
+        $headMetrics = $image->queryFontMetrics($wordmarkDraw, 'baksla');
+        $dotMetrics = $image->queryFontMetrics($wordmarkDraw, '.');
+        $tailMetrics = $image->queryFontMetrics($wordmarkDraw, 'sh');
+        $textWidth = (int) ($headMetrics['textWidth'] + $dotMetrics['textWidth'] + $tailMetrics['textWidth']);
+
+        $svgDpi = 300;
+        $logo = new \Imagick();
+        $logo->setBackgroundColor(new \ImagickPixel('transparent'));
+        $logo->setResolution($svgDpi, $svgDpi);
+        $logo->readImage(sprintf('%s/assets/images/bakslash-small.svg', $this->projectDir));
+        $logo->setImageFormat('png');
+        $logo->resizeImage(self::LOGO_SIZE, self::LOGO_SIZE, \Imagick::FILTER_LANCZOS, 1);
+
+        $logoTextGap = 16;
+        $wordmarkWidth = self::LOGO_SIZE + $logoTextGap + $textWidth;
+        $wordmarkX = self::WIDTH - self::MARGIN - $wordmarkWidth;
+        $wordmarkBaselineY = $avatarTop + (int) ((self::AUTHOR_AVATAR_SIZE + $headMetrics['textHeight']) / 2 - abs($headMetrics['descender']));
+
+        $image->compositeImage($logo, \Imagick::COMPOSITE_OVER, $wordmarkX, $avatarTop + (self::AUTHOR_AVATAR_SIZE - self::LOGO_SIZE) / 2);
+
+        $textX = $wordmarkX + self::LOGO_SIZE + $logoTextGap;
+        $image->annotateImage($wordmarkDraw, $textX, $wordmarkBaselineY, 0, 'baksla');
+        $wordmarkDraw->setFillColor(new \ImagickPixel(self::COLOR_ACCENT));
+        $image->annotateImage($wordmarkDraw, $textX + (int) $headMetrics['textWidth'], $wordmarkBaselineY, 0, '.');
+        $wordmarkDraw->setFillColor(new \ImagickPixel(self::COLOR_INK));
+        $image->annotateImage($wordmarkDraw, $textX + (int) ($headMetrics['textWidth'] + $dotMetrics['textWidth']), $wordmarkBaselineY, 0, 'sh');
+
         $image->setFormat('jpeg');
-        $image->setImageCompressionQuality(85);
+        $image->setImageCompressionQuality(88);
 
         return (string) $image;
     }
@@ -111,5 +173,10 @@ final readonly class ImagickImageGenerator implements ImageGenerator
         $lines[] = implode(' ', $line);
 
         return $lines;
+    }
+
+    private function font(string $relativePath): string
+    {
+        return sprintf('%s/assets/fonts/%s', $this->projectDir, $relativePath);
     }
 }
