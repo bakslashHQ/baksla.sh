@@ -33,12 +33,19 @@ final readonly class ViewSitemap
             [
                 'loc' => $this->urlGenerator->generate('app_blog', referenceType: UrlGeneratorInterface::ABSOLUTE_URL),
             ],
+            [
+                'loc' => $this->urlGenerator->generate('app_team', referenceType: UrlGeneratorInterface::ABSOLUTE_URL),
+            ],
+            [
+                'loc' => $this->urlGenerator->generate('app_legal_notices', referenceType: UrlGeneratorInterface::ABSOLUTE_URL),
+            ],
         ];
         foreach ($this->articlePreviewRepository->findAll() as $preview) {
             $urls[] = [
                 'loc' => $this->urlGenerator->generate('app_blog_article', [
                     'id' => $preview->id,
                 ], UrlGeneratorInterface::ABSOLUTE_URL),
+                'lastmod' => $preview->publishedAt->format('Y-m-d'),
             ];
         }
 

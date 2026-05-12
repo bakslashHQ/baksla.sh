@@ -22,6 +22,9 @@
         {% endblock %}
 
         <!-- Metadata & cie -->
+        <link rel="canonical" href="{{ app.request.uri|split('?')|first }}">
+        <meta property="og:site_name" content="baksla.sh">
+        <meta property="og:locale" content="en_US">
         {% block seo %}
         {% endblock %}
 

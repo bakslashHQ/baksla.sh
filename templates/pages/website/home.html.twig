@@ -9,6 +9,24 @@
     <meta property="og:title" content="{{ 'home.seo.title'|trans|raw }}">
     <meta property="og:description" content="{{ 'home.seo.description'|trans|raw }}">
     <meta property="og:image" content="{{ absolute_url(asset('images/og.png')) }}">
+    <meta property="og:image:alt" content="{{ 'home.seo.title'|trans|raw }}">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "baksla.sh",
+        "url": "{{ url('app_home') }}",
+        "logo": "{{ absolute_url(asset('images/bakslash-small.svg')) }}",
+        "description": {{ 'home.seo.description'|trans|json_encode|raw }},
+        "sameAs": [
+            "https://github.com/bakslashHQ",
+            "https://x.com/BakslashHQ",
+            "https://bsky.app/profile/baksla.sh",
+            "https://www.linkedin.com/company/bakslashhq"
+        ]
+    }
+    </script>
 {% endblock %}
 
 {% block content %}
