@@ -107,7 +107,7 @@ home.blog.all_posts: All posts
 home.clients.aria_label: baksla.sh's clients
 home.clients.heading: 'Teams we <0>shipped</0> with.'
 home.clients.cta: Your logo?
-home.clients.cta_aria_label: Add your logo; email hello@baksla.sh
+home.clients.cta_aria_label: 'Your logo? Email hello@baksla.sh to add it'
 
 header.skip_to_content: Skip to content
 header.cmd.open_menu: open menu
@@ -194,7 +194,6 @@ blog.articles_count: '{count, plural, one {# article} other {# articles}}'
 blog.author: 'Author:'
 blog.git_command: git log --oneline --all
 blog.no_article_yet: There is no article yet, come back later!
-blog.article.more_from_the_blog: 'More from <0>the blog</0>'
 blog.article.back_to_blog: back to the blog
 blog.article.reading_time: '{minutes} min read'
 blog.article.top: top

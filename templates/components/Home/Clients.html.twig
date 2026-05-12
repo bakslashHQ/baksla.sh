@@ -12,7 +12,7 @@
     <div class="container max-w-screen-xl mx-auto px-4 sm:px-8 xl:px-4">
         <twig:Home:Heading transKey="home.clients.heading" />
 
-        <ul class="list-none m-0 p-0 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-px bg-ink/10 border-y border-ink/10">
+        <ul role="list" class="list-none m-0 p-0 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-px bg-ink/10 border-y border-ink/10">
             {% for client in clients %}
                 <li class="group grid place-items-center py-8 px-4 sm:py-10 sm:px-6 bg-paper">
                     <img

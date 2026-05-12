@@ -38,7 +38,7 @@
                 </span>
             </div>
 
-            <ol class="list-none font-mono text-sm sm:text-base leading-loose py-4 m-0 p-0">
+            <ol role="list" class="list-none font-mono text-sm sm:text-base leading-loose py-4 m-0 p-0">
                 {% for line in diff_lines %}
                     {% set is_blank = line.type == 'ctx' and line.text is empty %}
                     {% if line.type == 'add' %}
