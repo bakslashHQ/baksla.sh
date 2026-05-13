@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Website\Controller;
+namespace App\Website\Infrastructure\Controller;
 
 use App\Blog\Domain\Repository\ArticlePreviewRepository;
 use App\Shared\Infrastructure\StaticSiteGeneration\Prerender;

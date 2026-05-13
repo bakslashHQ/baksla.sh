@@ -9,6 +9,7 @@
     <meta property="og:description" content="{{ 'blog.seo.description'|trans|raw }}">
     <meta property="og:image" content="{{ absolute_url(asset('images/og.png')) }}">
     <meta property="og:image:alt" content="{{ 'blog.seo.title'|trans|raw }}">
+    <link rel="alternate" type="application/atom+xml" title="baksla.sh Blog" href="{{ url('app_blog_feed') }}">
 {% endblock %}
 
 {% block content %}

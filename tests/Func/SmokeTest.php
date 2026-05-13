@@ -30,10 +30,13 @@ final class SmokeTest extends FunctionalTestCase
         yield ['/'];
         yield ['/sitemap.xml'];
         yield ['/robots.txt'];
+        yield ['/llms.txt'];
         yield ['/legal-notices'];
         yield ['/legal-notices.html', 301, '/legal-notices'];
         yield ['/blog'];
+        yield ['/blog/feed.xml'];
         yield ['/blog/symfony-certification'];
+        yield ['/blog/symfony-certification.md'];
         yield ['/team'];
     }
 }

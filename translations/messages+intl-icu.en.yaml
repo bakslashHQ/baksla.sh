@@ -298,3 +298,18 @@ team.bio.yazid-hassani: |-
     Always in pursuit of innovation, he thrives on tackling complex challenges, optimizing interfaces, and turning ideas into interactive experiences.
 
     When he's not refining his code, you might find him perfecting his coffee brewing technique—because great code, like great coffee, is all about precision and balance. ☕🚀
+
+llms.section.pages: Pages
+llms.section.blog: Blog
+llms.section.optional: Optional
+llms.page.home.label: Home
+llms.page.home.description: Services, values, open-source contributions, and selected blog posts.
+llms.page.blog.label: Blog
+llms.page.blog.description: 'Tales from the changelog. Symfony, API Platform, modern PHP.'
+llms.page.team.label: Team
+llms.page.team.description: The crew behind baksla.sh.
+llms.page.legal.label: Legal Notices
+llms.page.legal.description: Company details, hosting, and rights.
+llms.article.markdown_source_label: markdown source
+llms.link.sitemap: Sitemap
+llms.link.feed: RSS Feed

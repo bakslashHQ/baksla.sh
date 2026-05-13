@@ -42,7 +42,7 @@ return static function (RoutingConfigurator $routingConfigurator): void {
         ]);
 
     $routingConfigurator
-        ->import(sprintf('%s/src/Website/Controller/', dirname(__DIR__)), 'attribute');
+        ->import(sprintf('%s/src/Website/Infrastructure/Controller/', dirname(__DIR__)), 'attribute');
 
     $routingConfigurator
         ->import(sprintf('%s/src/Blog/Infrastructure/Controller/', dirname(__DIR__)), 'attribute');
