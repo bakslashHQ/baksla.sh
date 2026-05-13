@@ -14,29 +14,137 @@
 {% endblock %}
 
 {% block content %}
-    <section class="isolate bg-white px-6 py-32 lg:px-8">
-        {% include 'pages/_bg_shape.html.twig' %}
-
-        <div class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8 text-center text-gray-700">
-            <h1 class="text-4xl font-bold tracking-tight text-slate-800 sm:text-5xl">
-                {{- 'legal_notices.title'|trans -}}
-            </h1>
-            <p class="mt-3 text-lg/8 text-gray-600">
-                {{- 'legal_notices.last_updated_at'|trans({'date': updated_at|date('F jS, Y')}) -}}
-            </p>
-
-            <h2 class="mt-24 mb-4 text-pretty text-3xl font-semibold tracking-tight text-slate-800">baksla.sh</h2>
-            <p>{{ 'legal_notices.website_editor.address'|trans }}</p>
-            <p><span class="font-semibold">{{ 'legal_notices.website_editor.siren'|trans }}</span> 987479318</p>
-            <p><span class="font-semibold">{{ 'legal_notices.website_editor.siret'|trans }}</span> 987479318 00014</p>
-            <p><span class="font-semibold">{{ 'legal_notices.website_editor.code_eap'|trans }}</span> 62.01Z</p>
-
-            <h2 class="mt-16 mb-4 text-pretty text-3xl font-semibold tracking-tight text-slate-800">{{ 'legal_notices.publishing_directors.title'|trans }}</h2>
-            <p>{{ 'legal_notices.publishing_directors.names'|trans }}</p>
-
-            <h2 class="mt-16 mb-4 text-pretty text-3xl font-semibold tracking-tight text-slate-800">{{ 'legal_notices.hosting_providers.title'|trans }}</h2>
-            <a href="https://pages.github.com/" class="hover:underline">GitHub Pages</a>
-            <p>GitHub, Inc. — 88 Colin P Kelly Jr St, San Francisco, CA 94107, United States</p>
+    <section class="relative overflow-hidden">
+        <div aria-hidden="true" class="absolute inset-0 dot-grid pointer-events-none"></div>
+        <div class="container max-w-screen-xl mx-auto px-4 sm:px-8 xl:px-4 pt-12 sm:pt-16 lg:pt-24 relative">
+            <header class="pb-16 sm:pb-20 lg:pb-28">
+                <h1 class="m-0 font-sans font-bold leading-[0.92] tracking-tighter text-5xl sm:text-6xl lg:text-8xl text-ink text-balance">
+                    {{- 'legal_notices.title'|trans|replace({
+                        '<0>': '<span class="text-accent">',
+                        '</0>': '</span>',
+                    })|raw -}}
+                </h1>
+                <div class="mt-6 sm:mt-8 font-mono text-xs uppercase tracking-widest text-muted">
+                    {{- 'legal_notices.meta.last_commit'|trans({
+                        date: '<time datetime="' ~ updated_at ~ '" class="text-accent font-bold">' ~ updated_at|date('M jS, Y') ~ '</time>'
+                    })|raw -}}
+                </div>
+            </header>
         </div>
     </section>
+
+    <div class="container max-w-screen-xl mx-auto px-4 sm:px-8 xl:px-4 pb-20 lg:pb-32">
+        <article class="bg-paper border border-ink/15 rounded-2xl overflow-hidden shadow-lg">
+            <section aria-labelledby="legal-editor" class="px-6 sm:px-10 py-10 sm:py-14 border-b border-ink/10">
+                <div class="grid grid-cols-1 lg:grid-cols-[18rem_1fr] gap-8 lg:gap-12">
+                    <div>
+                        <div aria-hidden="true" class="font-mono text-xs uppercase tracking-widest text-muted mb-3">{{ 'legal_notices.editor.label'|trans }}</div>
+                        <h2 id="legal-editor" class="m-0 font-sans font-bold tracking-tighter text-3xl sm:text-4xl text-ink leading-[0.95]">
+                            {{- 'legal_notices.editor.heading'|trans|replace({
+                                '<0>': '<span class="text-accent">',
+                                '</0>': '</span>',
+                            })|raw -}}
+                        </h2>
+                    </div>
+
+                    <dl class="font-mono text-sm sm:text-base text-ink-soft">
+                        <div class="grid grid-cols-[7.5rem_1fr] sm:grid-cols-[9rem_1fr] gap-x-4 py-3 border-b border-ink/10">
+                            <dt class="text-muted uppercase text-xs tracking-widest pt-1">{{ 'legal_notices.editor.fields.name'|trans }}</dt>
+                            <dd class="m-0 font-sans text-ink text-lg sm:text-xl font-medium tracking-tight">bakslash</dd>
+                        </div>
+                        <div class="grid grid-cols-[7.5rem_1fr] sm:grid-cols-[9rem_1fr] gap-x-4 py-3 border-b border-ink/10">
+                            <dt class="text-muted uppercase text-xs tracking-widest pt-1">{{ 'legal_notices.editor.fields.address'|trans }}</dt>
+                            <dd lang="fr" class="m-0 not-italic text-ink whitespace-pre-line">{{ 'legal_notices.editor.address'|trans|raw }}</dd>
+                        </div>
+                        <div class="grid grid-cols-[7.5rem_1fr] sm:grid-cols-[9rem_1fr] gap-x-4 py-3 border-b border-ink/10">
+                            <dt class="text-muted uppercase text-xs tracking-widest pt-1">{{ 'legal_notices.editor.fields.siren'|trans }}</dt>
+                            <dd class="m-0 text-ink tabular-nums">987&nbsp;479&nbsp;318</dd>
+                        </div>
+                        <div class="grid grid-cols-[7.5rem_1fr] sm:grid-cols-[9rem_1fr] gap-x-4 py-3 border-b border-ink/10">
+                            <dt class="text-muted uppercase text-xs tracking-widest pt-1">{{ 'legal_notices.editor.fields.siret'|trans }}</dt>
+                            <dd class="m-0 text-ink tabular-nums">987&nbsp;479&nbsp;318&nbsp;00014</dd>
+                        </div>
+                        <div class="grid grid-cols-[7.5rem_1fr] sm:grid-cols-[9rem_1fr] gap-x-4 py-3">
+                            <dt class="text-muted uppercase text-xs tracking-widest pt-1">{{ 'legal_notices.editor.fields.code_eap'|trans }}</dt>
+                            <dd class="m-0 text-ink">
+                                <span class="tabular-nums">62.01Z</span>
+                                <span class="ml-2 text-muted">{{ 'legal_notices.editor.code_eap.comment'|trans }}</span>
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </section>
+
+            <section aria-labelledby="legal-directors" class="px-6 sm:px-10 py-10 sm:py-14 border-b border-ink/10 bg-ink/[0.025]">
+                <div class="grid grid-cols-1 lg:grid-cols-[18rem_1fr] gap-8 lg:gap-12">
+                    <div>
+                        <div aria-hidden="true" class="font-mono text-xs uppercase tracking-widest text-muted mb-3">{{ 'legal_notices.directors.label'|trans }}</div>
+                        <h2 id="legal-directors" class="m-0 font-sans font-bold tracking-tighter text-3xl sm:text-4xl text-ink leading-[0.95]">
+                            {{- 'legal_notices.directors.heading'|trans|replace({
+                                '<0>': '<span class="text-accent">',
+                                '</0>': '</span>',
+                            })|raw -}}
+                        </h2>
+                    </div>
+
+                    <ul class="list-none m-0 p-0 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <li class="rounded-xl border border-ink/15 bg-paper p-5 flex items-start gap-4">
+                            <img src="{{ asset('images/team/members/robin-chalas.jpg') }}" alt="" class="shrink-0 size-12 rounded-full object-cover">
+                            <div class="min-w-0">
+                                <div class="font-sans font-semibold text-lg text-ink tracking-tight">Robin Chalas</div>
+                                <div class="font-mono text-xs text-accent uppercase tracking-widest mt-0.5">{{ 'legal_notices.directors.robin.role'|trans }}</div>
+                                <div class="font-mono text-xs text-muted mt-2 truncate">@chalasr</div>
+                            </div>
+                        </li>
+                        <li class="rounded-xl border border-ink/15 bg-paper p-5 flex items-start gap-4">
+                            <img src="{{ asset('images/team/members/mathias-arlaud.jpg') }}" alt="" class="shrink-0 size-12 rounded-full object-cover">
+                            <div class="min-w-0">
+                                <div class="font-sans font-semibold text-lg text-ink tracking-tight">Mathias Arlaud</div>
+                                <div class="font-mono text-xs text-accent uppercase tracking-widest mt-0.5">{{ 'legal_notices.directors.mathias.role'|trans }}</div>
+                                <div class="font-mono text-xs text-muted mt-2 truncate">@mtarld</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section aria-labelledby="legal-hosting" class="px-6 sm:px-10 py-10 sm:py-14">
+                <div class="grid grid-cols-1 lg:grid-cols-[18rem_1fr] gap-8 lg:gap-12">
+                    <div>
+                        <div aria-hidden="true" class="font-mono text-xs uppercase tracking-widest text-muted mb-3">{{ 'legal_notices.hosting.label'|trans }}</div>
+                        <h2 id="legal-hosting" class="m-0 font-sans font-bold tracking-tighter text-3xl sm:text-4xl text-ink leading-[0.95]">
+                            {{- 'legal_notices.hosting.heading'|trans|replace({
+                                '<0>': '<span class="text-accent">',
+                                '</0>': '</span>',
+                            })|raw -}}
+                        </h2>
+                    </div>
+
+                    <div class="rounded-xl border border-ink/15 bg-paper p-6 sm:p-7">
+                        <div class="flex items-start gap-4">
+                            <span aria-hidden="true" class="shrink-0 size-12 rounded-xl bg-ink text-paper grid place-items-center">
+                                <twig:ux:icon name="mdi:github" class="size-6" />
+                            </span>
+                            <div class="min-w-0 flex-1">
+                                <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer"
+                                    class="group inline-flex flex-wrap items-baseline gap-x-2 gap-y-1 font-sans font-semibold tracking-tight text-xl sm:text-2xl text-ink hover:text-accent no-underline transition-colors">
+                                    GitHub Pages
+                                    <span aria-hidden="true" class="font-mono text-xs uppercase tracking-widest text-muted group-hover:text-accent transition-colors">↗ pages.github.com</span>
+                                    <span class="sr-only">{{ 'common.opens_new_tab'|trans }}</span>
+                                </a>
+                                <p class="m-0 mt-2 text-ink-soft text-base sm:text-lg leading-snug">{{ 'legal_notices.hosting.provider_company'|trans }}</p>
+                                <p class="m-0 mt-1 text-muted text-sm">{{ 'legal_notices.hosting.provider_address'|trans }}</p>
+
+                                <ul role="list" class="list-none m-0 p-0 mt-5 flex flex-wrap gap-2">
+                                    <li class="font-mono text-xs uppercase tracking-widest px-2.5 py-1 rounded-full bg-ink/[0.06] text-ink-soft">{{ 'legal_notices.hosting.tag.static'|trans }}</li>
+                                    <li class="font-mono text-xs uppercase tracking-widest px-2.5 py-1 rounded-full bg-ink/[0.06] text-ink-soft">{{ 'legal_notices.hosting.tag.edge_cached'|trans }}</li>
+                                    <li class="font-mono text-xs uppercase tracking-widest px-2.5 py-1 rounded-full bg-ink/[0.06] text-ink-soft">{{ 'legal_notices.hosting.tag.https'|trans }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </div>
 {% endblock %}

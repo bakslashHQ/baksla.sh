@@ -145,19 +145,36 @@ footer.social.x: baksla.sh on X
 footer.social.bluesky: baksla.sh on Bluesky
 footer.social.linkedin: baksla.sh on LinkedIn
 
-legal_notices.title: Legal Notices
 legal_notices.seo.title: Legal notices | baksla.sh
 legal_notices.seo.description: Legal notices of Bakslash, A real OSS company, Symfony evangelist with pragmatic technologists
 
-legal_notices.last_updated_at: Last updated at {date}
-legal_notices.website_editor.title: Website Editor
-legal_notices.website_editor.address: 60 Rue François 1er, 75008 Paris
-legal_notices.website_editor.siren: "SIREN:"
-legal_notices.website_editor.siret: "SIRET:"
-legal_notices.website_editor.code_eap: "Code EAP:"
-legal_notices.publishing_directors.title: Publishing Directors
-legal_notices.publishing_directors.names: Robin Chalas, CEO and Mathias Arlaud, COO.
-legal_notices.hosting_providers.title: Hosting Provider
+legal_notices.title: 'Legal <0>notices.</0>'
+legal_notices.meta.last_commit: 'Updated at {date}'
+
+legal_notices.editor.label: '§ 01 / Editor'
+legal_notices.editor.heading: 'Website <0>editor</0>'
+legal_notices.editor.fields.name: Name
+legal_notices.editor.fields.address: Address
+legal_notices.editor.address: |-
+    60 Rue François 1<sup>er</sup>
+    75008 Paris, France
+legal_notices.editor.fields.siren: SIREN
+legal_notices.editor.fields.siret: SIRET
+legal_notices.editor.fields.code_eap: Code EAP
+legal_notices.editor.code_eap.comment: '// Computer programming activities'
+
+legal_notices.directors.label: '§ 02 / Directors'
+legal_notices.directors.heading: 'Publishing <0>directors</0>'
+legal_notices.directors.robin.role: 'CEO · co-founder'
+legal_notices.directors.mathias.role: 'COO · co-founder'
+
+legal_notices.hosting.label: '§ 03 / Hosting'
+legal_notices.hosting.heading: 'Hosting <0>provider</0>'
+legal_notices.hosting.provider_company: GitHub, Inc.
+legal_notices.hosting.provider_address: 88 Colin P. Kelly Jr St, San Francisco, CA 94107, United States
+legal_notices.hosting.tag.static: static
+legal_notices.hosting.tag.edge_cached: edge-cached
+legal_notices.hosting.tag.https: https only
 
 blog.seo.title: 'Blog | baksla.sh'
 blog.seo.description: The baksla.sh's blog
