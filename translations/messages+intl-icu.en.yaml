@@ -110,7 +110,7 @@ home.clients.cta: Your logo?
 home.clients.cta_aria_label: Add your logo; email hello@baksla.sh
 
 header.skip_to_content: Skip to content
-header.cmd.press: press
+header.cmd.open_menu: open menu
 header.cmd.title: Command palette
 header.cmd.placeholder: Jump to…
 header.cmd.home: Back to home

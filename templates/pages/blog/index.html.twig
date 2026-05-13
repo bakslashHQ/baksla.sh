@@ -14,20 +14,25 @@
 {% block content %}
     {% set total_entries = articles|length + (showcased ? 1 : 0) %}
 
-    <div class="container max-w-screen-xl mx-auto px-4 sm:px-8 xl:px-4 pt-12 sm:pt-16 lg:pt-24">
-        <header class="pb-16 sm:pb-20 lg:pb-28">
-            <div aria-hidden="true" class="font-mono text-xs uppercase tracking-widest text-accent mb-3">{{ 'blog.caption'|trans }}</div>
-            <h1 class="m-0 font-sans font-bold leading-[0.92] tracking-tighter text-5xl sm:text-6xl lg:text-8xl text-ink text-balance">
-                {{- 'blog.title'|trans|replace({
-                    '<0>': '<span class="text-accent">',
-                    '</0>': '</span>',
-                })|raw -}}
-            </h1>
-            <p class="mt-6 sm:mt-8 max-w-2xl text-lg sm:text-xl text-ink-soft italic leading-snug text-pretty">
-                {{ 'blog.subtitle'|trans }}
-            </p>
-        </header>
+    <section class="relative overflow-hidden">
+        <div aria-hidden="true" class="absolute inset-0 dot-grid pointer-events-none"></div>
+        <div class="container max-w-screen-xl mx-auto px-4 sm:px-8 xl:px-4 pt-12 sm:pt-16 lg:pt-24 relative">
+            <header class="pb-16 sm:pb-20 lg:pb-28">
+                <div aria-hidden="true" class="font-mono text-xs uppercase tracking-widest text-accent mb-3">{{ 'blog.caption'|trans }}</div>
+                <h1 class="m-0 font-sans font-bold leading-[0.92] tracking-tighter text-5xl sm:text-6xl lg:text-8xl text-ink text-balance">
+                    {{- 'blog.title'|trans|replace({
+                        '<0>': '<span class="text-accent">',
+                        '</0>': '</span>',
+                    })|raw -}}
+                </h1>
+                <p class="mt-6 sm:mt-8 max-w-2xl text-lg sm:text-xl text-ink-soft italic leading-snug text-pretty">
+                    {{ 'blog.subtitle'|trans }}
+                </p>
+            </header>
+        </div>
+    </section>
 
+    <div class="container max-w-screen-xl mx-auto px-4 sm:px-8 xl:px-4">
         {% if total_entries == 0 %}
             <p class="text-center text-base sm:text-lg text-muted py-20">
                 {{- 'blog.no_article_yet'|trans -}}
