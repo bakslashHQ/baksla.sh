@@ -31,7 +31,9 @@
         <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}">
     </head>
     <body class="bg-paper min-h-screen flex flex-col">
-        <div data-controller="analytics" data-analytics-measurement-id-value="{{ ga_measurement_id }}" data-analytics-app-name-value="{{ ga_app_name }}"></div>
+        {% if ga_measurement_id %}
+            <div data-controller="analytics" data-analytics-measurement-id-value="{{ ga_measurement_id }}" data-analytics-app-name-value="{{ ga_app_name }}"></div>
+        {% endif %}
 
         {% block body %}
             <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-white focus:text-slate-800 focus:underline">
