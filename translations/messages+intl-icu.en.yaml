@@ -1,95 +1,230 @@
+common.opens_new_tab: (opens in a new tab)
+
 home.seo.title: baksla.sh
 home.seo.description: A real OSS company, Symfony evangelist with pragmatic technologists
 
-home.hero.we_are_experts: <0>We are</0> <1></1> <2></2> <3></3>
-home.hero.words.experts: 'experts.'
+home.hero.aria_label: 'Baksla.sh: a real OSS company, everywhere in France'
+home.hero.eyebrow: A real OSS company · everywhere in France
+home.hero.heading_text: We are
+home.hero.heading_aria_label: We are Symfony maintainers, lovers, advocates, and developers.
+home.hero.tagline: We're the people you read on the Symfony changelog. A small company that builds, maintains, and teaches PHP. No pitch deck, just commits.
+home.hero.cta.primary: What we do
+home.hero.cta.secondary: Say hi
+home.hero.words.maintainers: 'maintainers.'
 home.hero.words.lovers: 'lovers.'
 home.hero.words.developers: 'developers.'
 home.hero.words.advocates: 'advocates.'
 
-home.kpi.core_team: core team
+home.kpi.aria_label: baksla.sh in numbers
+home.kpi.done: everything up to date
+home.kpi.run: run
+home.kpi.run_aria_label: Play the baksla.sh stats animation
+home.kpi.run_hint: or press
 home.kpi.projects: projects
-home.kpi.talks: related talks
-home.kpi.love_in_ecosystem: for PHP
+home.kpi.projects_hint: delivered and humming
 home.kpi.collaborators: collaborators
+home.kpi.collaborators_hint: pragmatic, curious
+home.kpi.symfony_core_team: core team
+home.kpi.symfony_core_team_hint: Symfony maintainers
+home.kpi.talks: talks given
+home.kpi.talks_hint: conferences, meetups
+home.kpi.love_in_ecosystem: ❤️ for PHP
+home.kpi.love_in_ecosystem_hint: a long love letter
 
-home.code.real_oss_company.title: A real <0>OSS company</0>
-home.code.real_oss_company.content_1: As core contributors to Symfony and its ecosystem, we don't just use tools, we shape them.
-home.code.real_oss_company.content_2: That's why we've created several Symfony components, and our two founders are part of the core team members.
-home.code.real_oss_company.content_3: Who knows a framework better than someone who contributes to its creation?
-home.code.symfony_evangelist.title: <0/> <1>evangelist</1>
-home.code.symfony_evangelist.content_1: Passionate advocates for the PHP and Symfony communities, <0>we share our expertise worldwide through conference talks, workshops, and training sessions</0>. While working on client projects, we love sharing our expertise with their development teams, empowering them to enhance their skills.
-home.code.pragmatic_technologists.title: <0>Pragmatic</0> technologists
-home.code.pragmatic_technologists.content_1: We always take the pragmatic approach, ensuring that <0>our solutions are built for long-term maintainability without falling into the trap of over-engineering</0>.
-home.code.pragmatic_technologists.content_2: We help our clients craft architectures that are tailored to their actual needs, keeping the business at the center of the discussion, and making sure that our technical decisions align with the client's goals and drive real value.
+home.values.aria_label: baksla.sh's values
+home.values.heading: Lines we won't <0>revert</0>.
+home.values.filename: who-we-are.md
+home.values.commit_meta: committed · merged by @baksla.sh
+home.values.sr_added: 'Added:'
+home.values.sr_removed: 'Removed:'
 
-home.products.title: Our tailored solutions <0>built to last</0>.
+home.values.line_1_del: We are just another agency.
+home.values.line_1_add_1: We are a real OSS company.
+home.values.line_1_add_2: The same people you read on the Symfony changelog.
+home.values.line_2_del: We use the tools we're given.
+home.values.line_2_add_1: We shape the tools we use.
+home.values.line_2_add_2: When Symfony is broken, we fix it upstream.
+home.values.line_3_del: We hoard our knowledge.
+home.values.line_3_add_1: We share it, loudly and often!
+home.values.line_3_add_2: Conferences, workshops, pair programming, mentoring.
+home.values.line_4_del: We chase shiny.
+home.values.line_4_add_1: We pick boring, battle-tested tech.
+home.values.line_4_add_2: The business comes first; the stack serves it.
+
+home.products.aria_label: baksla.sh's services
+home.products.panels_aria_label: Service details
+home.products.title: Tailored work, <0>built to last</0>.
+
 home.products.product.tag.expertise: Expertise
 home.products.product.tag.implementation: Implementation
 home.products.product.tag.upskill: Upskill
-home.products.product.custom_symfony_development.title: Custom Symfony development
-home.products.product.custom_symfony_development.content: We help you to create scalable and maintainable applications tailored to your specific needs, leveraging the expertise of our talented and passionate developers.
-home.products.product.coaching.title: Coaching "à la carte"
-home.products.product.coaching.content: "Whether starting a new project or tackling challenges as your project grows, our on-demand consulting offers tailored support, including: <0>Brainstorming</0><1>Q&A</1><2>Specifications</2><3>Code reviews</3>This will help your team make the right decisions during this crucial moment."
-home.products.product.architecture.title: Architecture study and Audit
-home.products.product.architecture.content: We help you to build solid foundations for your project with a future-proof architecture, while our audits reveal technical debt, security risks, and performance bottlenecks to ensure long-term stability and scalability.
-home.products.product.cto_as_a_service.title: CTO as a service
-home.products.product.cto_as_a_service.content: If you're launching new products, or if you're optimizing existing systems, we can provide you a strategic technical leadership to ensure your technology aligns with your business vision and growth objectives.
-home.products.product.workshops_and_trainings.title: Workshops and trainings
-home.products.product.workshops_and_trainings.content: "Whether your team is composed by beginners looking to understand the fundamentals or experienced developers, we can empower your team by providing in-depth training of: <0>Symfony</0><1>API Platform</1><2>Clean Code</2>Each training will be tailored to their specific needs and skills."
-home.products.quote.content: “The less time we spend on a mission, the more successful we've been.”
-home.products.quote.author_role: CEO at baksla.sh
-home.products.quote.detail: |
-    We don't tie ourselves tightly to your team, we work alongside you, sharing our expertise and building solutions that stand the test of time.
-    The less time we spend on a mission, the more value we've delivered, leaving your team stronger, smarter, and more independent.
 
-home.blog.title: Echo from <0>the Blog</0>
+home.products.service.custom_symfony_development.title: Custom Symfony development
+home.products.service.custom_symfony_development.summary: Greenfield builds and full rewrites, shaped around your domain. We default to clear architecture, short feedback loops, and code that reads like documentation.
+home.products.service.custom_symfony_development.bullet_1: DDD & Hexagonal
+home.products.service.custom_symfony_development.bullet_2: API Platform
+home.products.service.custom_symfony_development.bullet_3: Async & messaging
 
-home.partners.they_trust_us.title: "They've already put their trust in us, be part of it and contact us at: <0/>"
+home.products.service.cto_as_a_service.title: CTO as a service
+home.products.service.cto_as_a_service.summary: Senior technical judgment without the full hire. Roadmaps, hiring loops, vendor decisions, and the awkward conversations that keep delivery honest.
+home.products.service.cto_as_a_service.bullet_1: Roadmapping
+home.products.service.cto_as_a_service.bullet_2: Hiring & team design
+home.products.service.cto_as_a_service.bullet_3: Vendor selection
 
-header.link.blog: The Blog
-header.link.team: The Team
+home.products.service.architecture.title: Architecture study & audit
+home.products.service.architecture.summary: We read your codebase the way we'd review a Symfony PR. You leave with prioritized findings and a sequenced plan, not a 90-page deck.
+home.products.service.architecture.bullet_1: ADR workshops
+home.products.service.architecture.bullet_2: Performance deep-dives
+home.products.service.architecture.bullet_3: Security review
+
+home.products.service.coaching.title: Coaching à la carte
+home.products.service.coaching.summary: Pair on hard problems, unblock stuck decisions, and review the diff that's been open for a week. We plug into your team's rhythm, not the other way around.
+home.products.service.coaching.bullet_1: Brainstorming
+home.products.service.coaching.bullet_2: Code reviews
+home.products.service.coaching.bullet_3: Spec writing
+
+home.products.service.workshops_and_trainings.title: Workshops & trainings
+home.products.service.workshops_and_trainings.summary: We don't run slides at your team; we open your repo and write code with them. Symfony, API Platform, testing, and modern PHP, taught against problems you actually face.
+home.products.service.workshops_and_trainings.bullet_1: Symfony
+home.products.service.workshops_and_trainings.bullet_2: Testing strategies
+home.products.service.workshops_and_trainings.bullet_3: Modern PHP
+
+home.oss.aria_label: baksla.sh's open source contributions
+home.oss.heading: 'Contributing every <0>{hours}h</0>, for {years} years.'
+home.oss.totals_tagline: 'contributions <0>shipped upstream</0>, across {count, spellout} main open-source projects.'
+home.oss.bar_aria_label: '{total, number} contributions across {count} projects'
+home.oss.project_aria_label: '{sum, number} contributions on {label}: {reviews, number} reviews, {prs, number} pull requests'
+home.oss.stats.reviews: reviews
+home.oss.stats.prs: pull requests
+home.oss.line.on: 'on'
+
+home.blog.aria_label: Latest from the blog
+home.blog.title: 'Tales from <0>the changelog.</0>'
+home.blog.by: by
+home.blog.read: read
+home.blog.all_posts: All posts
+
+home.clients.aria_label: baksla.sh's clients
+home.clients.heading: 'Teams we <0>shipped</0> with.'
+home.clients.cta: Your logo?
+home.clients.cta_aria_label: 'Your logo? Email hello@baksla.sh to add it'
+
 header.skip_to_content: Skip to content
+header.cmd.open_menu: open menu
+header.cmd.title: Command palette
+header.cmd.placeholder: Jump to…
+header.cmd.home: Back to home
+header.cmd.blog: Go to the blog
+header.cmd.team: Meet the crew
+header.cmd.latest_article: 'Latest post: {title}'
+header.cmd.mail: Say hi at hello@baksla.sh
+header.cmd.source: View this site's source
+header.cmd.symfony_docs: Read the Symfony docs
+header.cmd.x: Follow us on X
+header.cmd.bluesky: Follow us on Bluesky
+header.cmd.linkedin: Follow us on LinkedIn
+header.cmd.close: close
+header.cmd.no_match: no match
+header.cmd.section.pages: pages
+header.cmd.section.external: external
+header.cmd.section.actions: actions
 
 footer.copyright: © {year} baksla.sh™. All Rights Reserved.
-footer.link.legal_notices: Legal Notices
-footer.link.blog: The Blog
-footer.link.team: The Team
+footer.about: 'A real OSS company. Symfony evangelists, pragmatic technologists. We build, maintain, teach PHP, and ship everything we learn back upstream.'
+footer.signature: 'Built with <0/>, coffee & Symfony.'
+footer.signature_heart_aria_label: love
+footer.section.pages: pages
+footer.section.social: social
+footer.section.contact: contact
+footer.link.home: Index
+footer.link.blog: Blog
+footer.link.team: Crew
+footer.link.legal_notices: Legal
 footer.social.github: baksla.sh on GitHub
 footer.social.x: baksla.sh on X
 footer.social.bluesky: baksla.sh on Bluesky
 footer.social.linkedin: baksla.sh on LinkedIn
 
-legal_notices.title: Legal Notices
 legal_notices.seo.title: Legal notices | baksla.sh
 legal_notices.seo.description: Legal notices of Bakslash, A real OSS company, Symfony evangelist with pragmatic technologists
 
-legal_notices.last_updated_at: Last updated at {date}
-legal_notices.website_editor.title: Website Editor
-legal_notices.website_editor.address: 60 Rue François 1er, 75008 Paris
-legal_notices.website_editor.siren: "SIREN:"
-legal_notices.website_editor.siret: "SIRET:"
-legal_notices.website_editor.code_eap: "Code EAP:"
-legal_notices.publishing_directors.title: Publishing Directors
-legal_notices.publishing_directors.names: Robin Chalas, CEO and Mathias Arlaud, COO.
-legal_notices.hosting_providers.title: Hosting Provider
+legal_notices.title: 'Legal <0>notices.</0>'
+legal_notices.meta.last_commit: 'Updated at {date}'
 
-blog.seo.title: Tech, Teams, and Tales
+legal_notices.editor.label: '§ 01 / Editor'
+legal_notices.editor.heading: 'Website <0>editor</0>'
+legal_notices.editor.fields.name: Name
+legal_notices.editor.fields.address: Address
+legal_notices.editor.address: |-
+    60 Rue François 1<sup>er</sup>
+    75008 Paris, France
+legal_notices.editor.fields.siren: SIREN
+legal_notices.editor.fields.siret: SIRET
+legal_notices.editor.fields.code_eap: Code EAP
+legal_notices.editor.code_eap.comment: '// Computer programming activities'
+
+legal_notices.directors.label: '§ 02 / Directors'
+legal_notices.directors.heading: 'Publishing <0>directors</0>'
+legal_notices.directors.robin.role: 'CEO · co-founder'
+legal_notices.directors.mathias.role: 'COO · co-founder'
+
+legal_notices.hosting.label: '§ 03 / Hosting'
+legal_notices.hosting.heading: 'Hosting <0>provider</0>'
+legal_notices.hosting.provider_company: GitHub, Inc.
+legal_notices.hosting.provider_address: 88 Colin P. Kelly Jr St, San Francisco, CA 94107, United States
+legal_notices.hosting.tag.static: static
+legal_notices.hosting.tag.edge_cached: edge-cached
+legal_notices.hosting.tag.https: https only
+
+blog.seo.title: 'Blog | baksla.sh'
 blog.seo.description: The baksla.sh's blog
-blog.title: Tech, Teams, and Tales
-blog.subtitle: echoes from baksla.sh
+blog.label: the blog
+blog.title: 'What we shipped<0>,</0><br>and what we learned.'
+blog.caption: '# BLOG.md'
+blog.subtitle: Half changelog, half post-mortem, all PHP.
+blog.list_label: All articles
+blog.search.label: Search articles
+blog.search.results.empty: No matching articles
+blog.search.results.singular: 1 matching article
+blog.search.results.plural: '%count% matching articles'
+blog.search.placeholder: Search…
+blog.showcased: showcased
+blog.branch: main
+blog.articles_count: '{count, plural, one {# article} other {# articles}}'
+blog.author: 'Author:'
+blog.git_command: git log --oneline --all
 blog.no_article_yet: There is no article yet, come back later!
-blog.article.more_from_the_blog: More from <0>The Blog</0>
+blog.article.back_to_blog: back to the blog
+blog.article.reading_time: '{minutes} min read'
+blog.article.top: top
+blog.article.copy_link: copy link
+blog.article.copy_link_done: copied
+blog.article.nav_label: article reader
+blog.article.scroll_to_top: scroll to top
+blog.article.code_sample: '{language} code sample'
 
-team.seo.title: Meet the Team
+team.seo.title: Crew | baksla.sh
 team.seo.description: Discover the baksla.sh's crew at work
-team.title: Shhhht! The crew is at work 🤫
-team.subtitle: Discover the baksla.sh team members while they're working
-team.click_on_member: 💡 Click on a member to discover their full profile.
-team.modal.nice: Nice!
-team.modal.close: Close dialog
-team.view_profile: View {name}''s profile
+team.caption: '# CREW.diff'
+team.title: 'Shhhht<0>!</0><br>the crew is at work.'
+team.modal.close_short: close
+team.modal.prev: prev
+team.modal.next: next
+team.modal.editorial_eyebrow: the crew
 team.reviewers: Reviewers
+
+team.pr.tag: 'Pull request #42'
+team.pr.status_open: Open
+team.pr.title: 'feat: ship the <0>/team</0> page with the in-memory roster'
+team.pr.merge_summary: '<0>mtarld</0> wants to merge <1>1 commit</1> into <2>main</2> from <3>team/view-team-page</3>'
+team.pr.file_path_short: …/Controller/ViewTeam.php
+team.pr.file_path_full: 'src/Team/Infrastructure/Controller/ViewTeam.php'
+team.pr.tip.label: Pro tip
+team.pr.tip.body: 'Tap any reviewer for their bio and socials.'
+team.pr.thread.label: Thread
+team.pr.thread.comments: '{count, plural, one {# comment} other {# comments}}'
+team.pr.diff.added: 'added:'
+team.pr.diff.removed: 'removed:'
 team.review.twig_alias_1: Could we alias this import to <0>Twig</0> to make it a little more understandable?
 team.review.twig_alias_2: What about extending <0>AbstractController</0> and use the <0>render()</0> method?
 team.review.infra_1: This should depend on an interface instead to avoid coupling to implementation details
@@ -163,3 +298,18 @@ team.bio.yazid-hassani: |-
     Always in pursuit of innovation, he thrives on tackling complex challenges, optimizing interfaces, and turning ideas into interactive experiences.
 
     When he's not refining his code, you might find him perfecting his coffee brewing technique—because great code, like great coffee, is all about precision and balance. ☕🚀
+
+llms.section.pages: Pages
+llms.section.blog: Blog
+llms.section.optional: Optional
+llms.page.home.label: Home
+llms.page.home.description: Services, values, open-source contributions, and selected blog posts.
+llms.page.blog.label: Blog
+llms.page.blog.description: 'Tales from the changelog. Symfony, API Platform, modern PHP.'
+llms.page.team.label: Team
+llms.page.team.description: The crew behind baksla.sh.
+llms.page.legal.label: Legal Notices
+llms.page.legal.description: Company details, hosting, and rights.
+llms.article.markdown_source_label: markdown source
+llms.link.sitemap: Sitemap
+llms.link.feed: RSS Feed

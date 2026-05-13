@@ -1,0 +1,100 @@
+{% set sizeClasses = [
+    'text-4xl sm:text-6xl',
+    'text-3xl sm:text-5xl',
+    'text-2xl sm:text-4xl',
+    'text-xl sm:text-3xl',
+    'text-lg sm:text-2xl',
+    'text-base sm:text-xl',
+    'text-sm sm:text-lg',
+] %}
+
+{% set barOpacityClasses = [
+    'opacity-100',
+    'opacity-90',
+    'opacity-80',
+    'opacity-70',
+    'opacity-60',
+    'opacity-50',
+    'opacity-40',
+] %}
+
+<section id="oss" aria-label="{{ 'home.oss.aria_label'|trans }}">
+    <div class="container max-w-screen-xl mx-auto px-4 sm:px-8 xl:px-4">
+        <twig:Home:Heading
+            transKey="home.oss.heading"
+            :transParams="{hours: this.hoursPerContribution, years: this.years}"
+        />
+
+        <div class="grid lg:grid-cols-[auto_minmax(0,1fr)] gap-x-8 gap-y-4 items-end">
+            <div class="font-sans font-bold text-6xl sm:text-7xl lg:text-8xl tracking-tighter leading-none tabular-nums text-ink">
+                {{- this.total|number_format -}}
+            </div>
+            <div class="flex flex-col gap-3">
+                <p class="m-0 text-base sm:text-lg text-ink-soft leading-snug max-w-prose">
+                    {{- 'home.oss.totals_tagline'|trans({
+                        count: this.projects|length,
+                    })|replace({
+                        '<0>': '<em class="text-accent font-medium not-italic">',
+                        '</0>': '</em>',
+                    })|raw -}}
+                </p>
+
+                <div
+                    role="img"
+                    aria-label="{{ 'home.oss.bar_aria_label'|trans({total: this.total, count: this.projects|length}) }}"
+                    class="relative w-full h-3 sm:h-4 flex"
+                >
+                    {% for project in this.projects %}
+                        <div
+                            style="width: {{ (project.sum / this.total * 100)|number_format(4, '.', '') }}%;"
+                            class="group relative h-full bg-accent transition-opacity duration-200 hover:opacity-100 {{ barOpacityClasses[loop.index0] ?? 'opacity-40' }} {% if loop.first %}rounded-l-full{% endif %} {% if loop.last %}rounded-r-full{% endif %} {% if not loop.last %}border-r-2 border-paper{% endif %}"
+                        >
+                            <span
+                                aria-hidden="true"
+                                class="hidden sm:block absolute bottom-full left-1/2 -translate-x-1/2 mb-2 pointer-events-none whitespace-nowrap font-mono text-xs leading-none text-paper bg-ink px-2.5 py-1.5 rounded-md shadow-lg opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-[opacity,transform] duration-150 z-10"
+                            >
+                                <span class="font-semibold">{{ project.label }}</span>
+                                <span class="opacity-60">· {{ project.sum|number_format }}</span>
+                                <span aria-hidden="true" class="absolute top-full left-1/2 -translate-x-1/2 -mt-1 w-2 h-2 rotate-45 bg-ink"></span>
+                            </span>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <ul role="list" class="list-none m-0 p-0 flex flex-wrap gap-x-5 gap-y-1 font-mono text-xs uppercase tracking-wider text-muted">
+                    <li><span class="text-ink font-semibold text-sm tabular-nums">{{ this.totalReviews|number_format }}</span> {{ 'home.oss.stats.reviews'|trans }}</li>
+                    <li><span class="text-ink font-semibold text-sm tabular-nums">{{ this.totalPullRequests|number_format }}</span> {{ 'home.oss.stats.prs'|trans }}</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mt-10 lg:mt-14 pt-8 lg:pt-10 border-t border-ink/10">
+            <ul role="list" class="list-none m-0 p-0 flex flex-col gap-3">
+                {% for project in this.projects %}
+                    <li>
+                        <a
+                            href="{{ project.url }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="{{ 'home.oss.project_aria_label'|trans({sum: project.sum, label: project.label, reviews: project.reviews, prs: project.prs}) }} {{ 'common.opens_new_tab'|trans }}"
+                            class="group flex items-baseline flex-wrap gap-x-3 gap-y-1 no-underline transition-transform duration-200 hover:translate-x-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+                        >
+                            <span class="font-sans font-medium tracking-tighter leading-none tabular-nums text-ink group-hover:text-accent transition-colors {{ sizeClasses[loop.index0] ?? sizeClasses|last }}">
+                                {{- project.sum|number_format -}}
+                            </span>
+                            <span class="text-sm sm:text-base text-ink-soft leading-snug">
+                                {{ 'home.oss.line.on'|trans }} <span class="text-ink font-medium">{{ project.label }}</span>
+                            </span>
+                            <span class="ml-auto font-mono text-xs text-muted opacity-50 group-hover:opacity-100 transition-opacity">
+                                {{ project.reviews }}r · {{ project.prs }}p
+                            </span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <p aria-hidden="true" class="mt-4 m-0 font-mono text-xs text-muted text-right opacity-50">
+                * <span class="text-ink-soft">r:</span> {{ 'home.oss.stats.reviews'|trans }} · <span class="text-ink-soft">p:</span> {{ 'home.oss.stats.prs'|trans }}
+            </p>
+        </div>
+    </div>
+</section>

@@ -8,13 +8,20 @@ use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
 use League\CommonMark\Node\Node;
 use League\CommonMark\Renderer\ChildNodeRendererInterface;
 use League\CommonMark\Renderer\NodeRendererInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Tempest\Highlight\Highlighter;
 use Tempest\Highlight\Themes\CssTheme;
-use Tempest\Highlight\WebTheme;
 
 final class TempestCodeBlockRenderer implements NodeRendererInterface
 {
+    private const string PRE_CLASSES = 'notranslate my-6 px-4 py-4 sm:px-6 sm:py-5 rounded-xl bg-ink text-paper font-mono text-[0.8125rem] sm:text-[0.875rem] leading-[1.65] overflow-x-auto focus:outline-none focus-visible:ring-2 focus-visible:ring-accent';
+
     private ?Highlighter $highlighter = null;
+
+    public function __construct(
+        private readonly TranslatorInterface $translator,
+    ) {
+    }
 
     public function render(Node $node, ChildNodeRendererInterface $childRenderer): string
     {
@@ -27,15 +34,17 @@ final class TempestCodeBlockRenderer implements NodeRendererInterface
         preg_match('/^(?<language>[\w]+)/', $node->getInfoWords()[0] ?? 'txt', $matches);
         $language = $matches['language'] ?? 'txt';
 
-        /** @var WebTheme $theme */
-        $theme = $this->highlighter->getTheme();
         $parsed = $this->highlighter->parse($node->getLiteral(), $language);
+        $ariaLabel = $this->translator->trans('blog.article.code_sample', [
+            'language' => $language,
+        ]);
 
         return sprintf(
-            '<div class="code">%s%s%s</div>',
-            $theme->preBefore($this->highlighter),
+            '<pre data-lang="%s" tabindex="0" aria-label="%s" class="%s">%s</pre>',
+            htmlspecialchars($language, ENT_QUOTES),
+            htmlspecialchars($ariaLabel, ENT_QUOTES),
+            self::PRE_CLASSES,
             $parsed,
-            $theme->preAfter($this->highlighter),
         );
     }
 }

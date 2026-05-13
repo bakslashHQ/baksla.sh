@@ -37,7 +37,7 @@ final readonly class FilesystemArticlePreviewRepository implements ArticlePrevie
 
     public function findShowcased(): ?ArticlePreview
     {
-        if (in_array($this->showcasedArticle, [null, '', '0'], true)) {
+        if ($this->showcasedArticle === null) {
             return null;
         }
 
@@ -59,6 +59,8 @@ final readonly class FilesystemArticlePreviewRepository implements ArticlePrevie
             $id = str_replace('.md.twig', '', $file->getFilename());
             $previews[] = $this->articlePreviewFactory->create($id, $file->getContents());
         }
+
+        usort($previews, static fn (ArticlePreview $a, ArticlePreview $b): int => $b->publishedAt <=> $a->publishedAt);
 
         return $previews;
     }

@@ -57,7 +57,7 @@ final class FilesystemArticlePreviewRepositoryTest extends TestCase
         $this->createArticleFile('1.md.twig');
 
         $showcased = $this->getRepository()->findShowcased();
-        $this->assertNotInstanceOf(\App\Blog\Domain\Model\ArticlePreview::class, $showcased);
+        $this->assertNotInstanceOf(ArticlePreview::class, $showcased);
 
         $showcased = $this->getRepository('1')->findShowcased();
 
@@ -86,18 +86,30 @@ final class FilesystemArticlePreviewRepositoryTest extends TestCase
         $this->assertSame(['1', '2'], array_column($previews, 'id'));
     }
 
+    public function testFindAllOrdersByPublishedAtDesc(): void
+    {
+        $this->createArticleFile('older.md.twig', '2024-01-01');
+        $this->createArticleFile('newest.md.twig', '2026-05-01');
+        $this->createArticleFile('middle.md.twig', '2025-06-15');
+
+        $previews = $this->getRepository()->findAll();
+
+        $this->assertSame(['newest', 'middle', 'older'], array_column($previews, 'id'));
+    }
+
     private function getRepository(?string $showcasedArticle = null): FilesystemArticlePreviewRepository
     {
         return new FilesystemArticlePreviewRepository(new ArticlePreviewFactory(new InMemoryMemberRepository([aMember()->withId(MemberId::MathiasArlaud)->build()])), $showcasedArticle, $this->articlesDir);
     }
 
-    private function createArticleFile(string $filename): void
+    private function createArticleFile(string $filename, string $publishedAt = '2025-01-01'): void
     {
         $validContent = <<<MD
 ---
 author: mathias-arlaud
 title: Title
 description: Description
+published_at: {$publishedAt}
 ---
 MD;
 

@@ -26,9 +26,5 @@
     "biome-js-bundle": {
         "reviews": 3,
         "pullRequests": 20
-    },
-    "oxc-bundle": {
-        "reviews": 0,
-        "pullRequests": 0
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\OpenSource\Infrastructure\Command;
 
+use App\OpenSource\Domain\Model\OpenSourceStats;
 use App\OpenSource\Infrastructure\GitHub\GitHubClient;
 use App\Team\Domain\Model\Member;
 use App\Team\Domain\Repository\MemberRepository;
@@ -54,7 +55,6 @@ final readonly class RefreshOpenSourceStatsCommand
             'thephpleague/tactian-logger',
         ],
         'biome-js-bundle' => ['Kocal/BiomeJsBundle'],
-        'oxc-bundle' => ['Kocal/OxcBundle'],
     ];
 
     public function __construct(
@@ -73,6 +73,8 @@ final readonly class RefreshOpenSourceStatsCommand
             array_values(array_map(fn (Member $member): string => $member->github, $this->memberRepository->findAll())),
         );
 
+        $previous = OpenSourceStats::fromJsonFile($this->statsFile);
+
         $stats = [];
         foreach (self::REPOS as $project => $repos) {
             $reviews = 0;
@@ -82,9 +84,11 @@ final readonly class RefreshOpenSourceStatsCommand
                 $pullRequests += $counts[$repo]->authored;
             }
 
+            // GitHub's search.issueCount is an estimate for large result sets and drifts run-to-run;
+            // ratchet upward so the published numbers never regress.
             $stats[$project] = [
-                'reviews' => $reviews,
-                'pullRequests' => $pullRequests,
+                'reviews' => max($previous->reviewsFor($project), $reviews),
+                'pullRequests' => max($previous->pullRequestsFor($project), $pullRequests),
             ];
         }
 

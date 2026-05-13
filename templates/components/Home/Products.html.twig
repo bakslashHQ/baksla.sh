@@ -1,0 +1,90 @@
+{% set services = [
+    {slug: 'custom_symfony_development', tag: 'IMPL', kind: 'implementation'},
+    {slug: 'cto_as_a_service', tag: 'LEAD', kind: 'expertise'},
+    {slug: 'architecture', tag: 'AUDIT', kind: 'expertise'},
+    {slug: 'coaching', tag: 'COACH', kind: 'upskill'},
+    {slug: 'workshops_and_trainings', tag: 'TRAIN', kind: 'upskill'},
+] %}
+
+<section id="services" aria-label="{{ 'home.products.aria_label'|trans }}">
+    <div data-controller="services" class="container max-w-screen-xl mx-auto px-4 sm:px-8 xl:px-4">
+        <twig:Home:Heading transKey="home.products.title" />
+
+        <div class="grid lg:grid-cols-3 gap-6 lg:gap-8 items-start">
+            <div role="tablist" aria-orientation="vertical" class="hidden lg:grid lg:col-span-1 gap-2">
+                {% for service in services %}
+                    <button
+                        type="button"
+                        role="tab"
+                        id="services-tab-{{ service.slug }}"
+                        aria-controls="services-panel-{{ service.slug }}"
+                        aria-selected="{{ loop.first ? 'true' : 'false' }}"
+                        tabindex="{{ loop.first ? '0' : '-1' }}"
+                        data-services-target="tab"
+                        data-services-index-param="{{ loop.index0 }}"
+                        data-action="click->services#select keydown->services#navigate"
+                        class="group w-full grid grid-cols-[auto_1fr_auto] items-center gap-3 text-left px-4 py-4 sm:py-5 border border-ink/15 rounded-lg bg-paper text-ink hover:bg-ink/5 data-[active]:bg-ink data-[active]:text-paper data-[active]:hover:bg-ink data-[active]:translate-x-1 transition-[background-color,color,transform] duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+                    >
+                        <span aria-hidden="true" class="font-mono text-xs px-2 py-1 bg-ink/5 text-muted rounded tracking-widest group-data-[active]:bg-paper group-data-[active]:text-ink">
+                            {{- service.tag -}}
+                        </span>
+                        <span class="font-sans text-sm sm:text-base leading-tight">
+                            {{- ('home.products.service.' ~ service.slug ~ '.title')|trans -}}
+                        </span>
+                        <twig:ux:icon name="mdi:arrow-right" aria-hidden="true" class="size-4 opacity-60" />
+                    </button>
+                {% endfor %}
+            </div>
+
+            <div
+                role="region"
+                aria-label="{{ 'home.products.panels_aria_label'|trans }}"
+                class="lg:col-span-2 -mx-4 sm:-mx-8 lg:mx-0 px-4 sm:px-8 lg:px-0 scroll-px-4 sm:scroll-px-8 lg:scroll-px-0 pb-8 lg:pb-0 flex gap-4 overflow-x-auto snap-x snap-mandatory lg:sticky lg:top-24 lg:grid lg:gap-0 lg:overflow-visible"
+            >
+                {% for service in services %}
+                    <article
+                        role="tabpanel"
+                        id="services-panel-{{ service.slug }}"
+                        aria-labelledby="services-tab-{{ service.slug }}"
+                        tabindex="0"
+                        data-services-target="panel"
+                        {% if loop.first %}data-active{% endif %}
+                        class="shrink-0 w-4/5 {{ loop.first ? 'snap-start' : (loop.last ? 'snap-end' : 'snap-center') }} lg:w-auto lg:shrink lg:col-start-1 lg:row-start-1 lg:self-start lg:invisible lg:data-[active]:visible border border-ink/15 rounded-2xl overflow-hidden bg-paper shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+                    >
+                        <div class="flex items-center justify-between gap-3 px-5 py-3 bg-ink text-paper font-mono text-xs">
+                            <div aria-hidden="true" class="flex items-center gap-2">
+                                <span class="size-2.5 rounded-full bg-red-400"></span>
+                                <span class="size-2.5 rounded-full bg-yellow-400"></span>
+                                <span class="size-2.5 rounded-full bg-green-400"></span>
+                                <span class="ml-3 opacity-70"><span class="hidden sm:inline">~/services/</span>{{ service.tag|lower }}.md</span>
+                            </div>
+                            <span class="opacity-60">[{{ ('home.products.product.tag.' ~ service.kind)|trans }}]</span>
+                        </div>
+
+                        <div class="p-8 sm:p-10 lg:p-12">
+                            <div class="font-mono text-xs uppercase tracking-widest text-accent mb-3">
+                                {{ ('home.products.product.tag.' ~ service.kind)|trans }}
+                            </div>
+                            <h3 class="font-sans font-medium text-2xl sm:text-3xl lg:text-4xl m-0 leading-tight">
+                                {{- ('home.products.service.' ~ service.slug ~ '.title')|trans -}}
+                            </h3>
+                            <p class="mt-6 max-w-xl text-sm sm:text-base leading-relaxed text-ink-soft">
+                                {{- ('home.products.service.' ~ service.slug ~ '.summary')|trans -}}
+                            </p>
+
+                            <ul role="list" class="mt-8 list-none p-0 m-0 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                {% for i in 1..3 %}
+                                    <li class="flex items-center gap-2 border border-ink/15 px-3 py-3 rounded font-mono text-xs text-ink-soft">
+                                        <span aria-hidden="true" class="size-1.5 rounded-full bg-accent shrink-0"></span>
+                                        {{- ('home.products.service.' ~ service.slug ~ '.bullet_' ~ i)|trans -}}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>

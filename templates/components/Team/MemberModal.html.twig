@@ -1,0 +1,129 @@
+<dialog
+    aria-labelledby="modal-title-{{ member.id.value }}"
+    aria-describedby="modal-description-{{ member.id.value }}"
+    aria-modal="true"
+    data-controller="member-modal"
+    data-member-modal-member-value="{{ member.id.value }}"
+    data-member-modal-prev-value="{{ prev }}"
+    data-member-modal-next-value="{{ next }}"
+    data-action="cancel->member-modal#onCancel"
+    class="bg-transparent p-0 w-screen max-w-none max-h-none h-screen backdrop:bg-ink/55 backdrop:backdrop-blur-md"
+>
+    <div
+        data-action="click->member-modal#close:self"
+        class="w-full h-full flex items-center justify-center p-3 sm:p-8"
+    >
+        <div
+            data-member-modal-target="modal"
+            class="relative w-full max-w-4xl max-h-[85vh] flex flex-col bg-paper rounded-2xl overflow-hidden shadow-2xl border border-ink/15 transition-all ease-out duration-300 opacity-0 translate-y-4 scale-95"
+        >
+            <button
+                type="button"
+                data-action="click->member-modal#close"
+                aria-label="{{ 'team.modal.close_short'|trans }}"
+                class="sm:hidden absolute top-3 right-3 z-10 inline-flex items-center justify-center size-9 rounded-full bg-ink/40 hover:bg-ink/60 text-paper backdrop-blur-sm cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            >
+                <twig:ux:icon name="mdi:close" aria-hidden="true" class="size-5" />
+            </button>
+            <div class="hidden sm:flex items-center justify-between px-4 sm:px-6 h-14 border-b border-ink/10 bg-paper-shade/40 font-mono text-[0.6875rem] uppercase tracking-widest text-muted">
+                <span class="text-accent font-bold">{{ 'team.modal.editorial_eyebrow'|trans }} · <span class="normal-case tracking-normal">@{{ member.github }}</span></span>
+                <button
+                    type="button"
+                    data-action="click->member-modal#close"
+                    class="normal-case font-mono text-xs bg-ink/5 border border-ink/15 rounded px-1.5 py-0.5 text-muted hover:bg-ink/10 hover:text-ink transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                >esc</button>
+            </div>
+
+            <div class="flex-1 overflow-y-auto">
+                <div class="grid grid-cols-1 md:grid-cols-[18rem_1fr] md:min-h-[24rem]">
+                    <div class="relative bg-ink overflow-hidden h-40 md:h-auto md:min-h-[14rem]">
+                        <img
+                            class="absolute inset-0 size-full object-cover"
+                            src="{{ asset('images/team/members/' ~ member.id.value ~ '.webp') }}"
+                            alt=""
+                        />
+                        <div aria-hidden="true" class="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent"></div>
+                        {% if member.nickName %}
+                            <div class="absolute bottom-5 left-5 right-5 text-paper">
+                                <div class="font-sans italic text-paper/80 text-sm">“{{ member.nickName }}”</div>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="p-6 sm:p-8">
+                        <h2
+                            id="modal-title-{{ member.id.value }}"
+                            class="mt-2 font-sans font-medium italic text-3xl sm:text-5xl tracking-tight text-ink leading-[0.95]"
+                        >{{ member.fullName }}</h2>
+                        <div class="mt-3 font-mono text-xs text-muted"><span class="text-ink">@{{ member.github }}</span></div>
+
+                        <div class="rule-dotted my-5"></div>
+
+                        <div
+                            id="modal-description-{{ member.id.value }}"
+                            class="font-article text-[0.96875rem] leading-[1.75] text-ink-soft text-pretty space-y-4"
+                        >
+                            {% for paragraph in ('team.bio.' ~ member.id.value)|trans|split('\n\n') %}
+                                <p>{{ paragraph|trim }}</p>
+                            {% endfor %}
+                        </div>
+
+                        <div class="rule-dotted my-5"></div>
+
+                        <div class="flex flex-wrap items-center gap-1.5">
+                            {% if member.badges|length > 0 %}
+                                <ul role="list" class="contents list-none p-0 m-0">
+                                    {% for badge in member.badges %}
+                                        <li class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-ink/20 bg-paper-shade/60 text-ink-soft font-mono text-[0.6875rem] font-medium">
+                                            {% if badge.uxIcon %}
+                                                <twig:ux:icon name="{{ badge.uxIcon }}" aria-label="{{ badge.uxIconLabel }}" class="size-3.5" />
+                                            {% endif %}
+                                            {{ badge.text }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+
+                            {% if member.socialNetworks|length > 0 %}
+                                <ul role="list" class="contents list-none p-0 m-0">
+                                    {% for socialNetwork in member.socialNetworks %}
+                                        <li>
+                                            <a
+                                                href="{{ socialNetwork.url }}"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                aria-label="{{ socialNetwork.uxIconLabel }} {{ 'common.opens_new_tab'|trans }}"
+                                                class="inline-flex items-center justify-center size-7 rounded-full bg-ink/[0.06] outline outline-2 outline-transparent hover:outline-accent transition-[outline-color]"
+                                            >
+                                                <twig:ux:icon name="{{ socialNetwork.uxIcon }}" aria-hidden="true" class="size-3.5" />
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="px-4 sm:px-6 h-14 border-t border-ink/10 bg-paper-shade/40 flex items-center justify-end gap-2">
+                <button
+                    type="button"
+                    data-action="click->member-modal#prev"
+                    class="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-ink/20 font-mono text-xs uppercase tracking-widest text-ink-soft hover:bg-ink hover:text-paper hover:border-ink transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                >
+                    <twig:ux:icon name="mdi:chevron-left" aria-hidden="true" class="size-3" />
+                    {{ 'team.modal.prev'|trans }}
+                </button>
+                <button
+                    type="button"
+                    data-action="click->member-modal#next"
+                    class="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-ink/20 font-mono text-xs uppercase tracking-widest text-ink-soft hover:bg-ink hover:text-paper hover:border-ink transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                >
+                    {{ 'team.modal.next'|trans }}
+                    <twig:ux:icon name="mdi:chevron-right" aria-hidden="true" class="size-3" />
+                </button>
+            </div>
+        </div>
+    </div>
+</dialog>

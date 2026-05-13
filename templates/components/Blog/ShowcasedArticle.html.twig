@@ -1,0 +1,37 @@
+<a
+    data-test-article-link
+    data-showcased
+    href="{{ path('app_blog_article', {id: article.id}) }}"
+    class="group block no-underline mb-6 rounded-2xl border-2 border-accent bg-paper relative overflow-hidden hover:bg-accent/[0.04] transition-colors focus:outline-none focus-visible:ring-4 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper focus-visible:bg-accent/[0.08]"
+>
+    <div class="absolute top-0 left-0 inline-flex items-center gap-1 px-3 py-1 bg-accent text-paper font-mono text-[10px] uppercase tracking-widest font-bold rounded-br-xl">
+        <twig:ux:icon name="mdi:star" aria-hidden="true" class="size-3" />
+        <span>{{ 'blog.showcased'|trans }}</span>
+    </div>
+    <article class="grid lg:grid-cols-[1fr_auto] gap-6 lg:gap-10 items-end px-6 sm:px-8 lg:px-10 py-8 sm:py-12 lg:py-16 pt-14 sm:pt-16 lg:pt-20">
+        <div>
+            <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-3 font-mono text-xs text-muted">
+                <time datetime="{{ article.publishedAt|date('Y-m-d') }}" class="text-accent font-bold tabular-nums">{{ article.publishedAt|format_date(pattern: 'MMM dd, y') }}</time>
+                <span>{{ 'blog.author'|trans }} {{ article.author.fullname }}</span>
+            </div>
+            <h2 class="m-0 font-sans font-semibold tracking-tight leading-[0.95] text-ink text-3xl lg:text-5xl group-hover:text-accent transition-colors">
+                {{ article.title }}
+            </h2>
+            <p class="mt-4 max-w-2xl text-base lg:text-lg text-ink-soft leading-snug">
+                {{ article.description }}
+            </p>
+        </div>
+        <div class="flex items-center gap-3 lg:flex-col lg:items-end lg:text-right">
+            <img
+                src="{{ asset('images/team/members/' ~ article.author.id.value ~ '.webp') }}"
+                alt=""
+                loading="lazy"
+                class="size-10 rounded-full object-cover"
+            >
+            <span aria-hidden="true" class="font-mono text-xs uppercase tracking-widest text-ink inline-flex items-center gap-1">
+                {{ 'home.blog.read'|trans }}
+                <twig:ux:icon name="mdi:arrow-right" class="size-4 transition-transform duration-200 group-hover:translate-x-1" />
+            </span>
+        </div>
+    </article>
+</a>

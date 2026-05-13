@@ -6,6 +6,7 @@
     {% for url in urls %}
         <url>
             <loc>{{ url.loc }}</loc>
+            {% if url.lastmod is defined %}<lastmod>{{ url.lastmod }}</lastmod>{% endif %}
         </url>
     {% endfor %}
 

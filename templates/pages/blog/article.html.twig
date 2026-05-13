@@ -1,53 +1,65 @@
 {% extends 'pages/base.html.twig' %}
 
-{% block title %}{{ article.title }}{% endblock %}
+{% block title %}{{ article.title }} — baksla.sh{% endblock %}
 
 {% block seo %}
     <meta name="description" content="{{ article.description }}">
-    <meta property="og:url" content="{{ app.request.uri }}">
+    <meta name="author" content="{{ article.author.fullname }}">
     <meta property="og:type" content="article">
     <meta property="og:title" content="{{ article.title }}">
     <meta property="og:description" content="{{ article.description }}">
     <meta property="og:image" content="{{ absolute_url('/open-graph/article/' ~ article.id ~ '.jpg') }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="{{ article.title }}">
+    <meta property="article:published_time" content="{{ article.publishedAt|date('c') }}">
+    <meta property="article:author" content="{{ article.author.fullname }}">
+    <link rel="alternate" type="text/markdown" href="{{ url('app_blog_article', {id: article.id, _format: 'md'}) }}">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": {{ article.title|json_encode|raw }},
+        "description": {{ article.description|json_encode|raw }},
+        "image": {{ absolute_url('/open-graph/article/' ~ article.id ~ '.jpg')|json_encode|raw }},
+        "datePublished": "{{ article.publishedAt|date('c') }}",
+        "author": {
+            "@type": "Person",
+            "name": {{ article.author.fullname|json_encode|raw }},
+            "url": {{ ('https://github.com/' ~ article.author.github)|json_encode|raw }}
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "baksla.sh",
+            "logo": {
+                "@type": "ImageObject",
+                "url": {{ absolute_url(asset('images/bakslash-small.png'))|json_encode|raw }}
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": {{ (app.request.schemeAndHttpHost ~ app.request.pathInfo)|json_encode|raw }}
+        }
+    }
+    </script>
 {% endblock %}
 
 {% block content %}
-    <div class="isolate pb-12 md:pb-32">
-        {% include 'pages/_bg_shape.html.twig' %}
+    <twig:Blog:ArticleNav :article="article" />
 
-        <section class="mx-auto max-w-3xl px-6 lg:max-w-5xl lg:px-8 py-20 sm:py-36">
-            <h1 class="sm:text-center text-5xl font-bold tracking-tight text-pretty text-slate-800 sm:text-6xl">
-                {{- article.title -}}
-            </h1>
-            <div class="mt-8 flex items-center sm:justify-center gap-x-4">
-                <img class="size-8 rounded-full bg-gray-50" src="{{ asset('images/team/members/' ~ article.author.id.value ~ '.jpg') }}" alt="{{ article.author.fullName }}" loading="lazy" />
-                <span class="text-md font-semibold text-gray-700" data-test-author>{{ article.author.fullName }}</span>
+    <article>
+        <section class="relative overflow-hidden">
+            <div aria-hidden="true" class="absolute inset-0 dot-grid pointer-events-none"></div>
+            <div class="container max-w-3xl mx-auto px-4 sm:px-8 pt-12 relative">
+                <twig:Blog:ArticleHeader :article="article" />
             </div>
         </section>
 
-        <section class="mx-auto max-w-3xl lg:max-w-5xl px-6 lg:px-8 text-gray-800 text-lg font-article" data-test-article>
-            {{- article.html|raw -}}
-        </section>
-
-        <section class="mx-auto max-w-3xl lg:max-w-5xl px-6 lg:px-8 mt-28">
-            <hr class="my-10" />
-
-            <div class="mx-auto max-w-2xl lg:mx-0">
-                <h2 class="text-pretty text-4xl font-bold tracking-tight text-gray-600">{{ 'blog.article.more_from_the_blog'|trans|replace({
-                    '<0>': '<a href="' ~ path('app_blog') ~ '" class="underline decoration-8 decoration-indigo-500">',
-                    '</0>': '</a>',
-                })|raw }}</h2>
+        <div class="container max-w-3xl mx-auto px-4 sm:px-8">
+            <div data-article-body data-test-article tabindex="-1" class="prose-body pt-10 mx-auto max-w-[68ch] font-article text-base sm:text-[1.125rem] leading-[1.7] text-ink text-pretty hyphens-auto focus:outline-none">
+                {{- article.html|raw -}}
             </div>
-
-            <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-8 pt-10 lg:mx-0 lg:max-w-none lg:grid-cols-3" data-test-more-articles>
-                {% for preview in more %}
-                    {% if preview %}
-                        <twig:ArticlePreview :article="preview" lazyLoadImage />
-                    {% else %}
-                        <twig:blog:ArticlePreviewPlaceholder />
-                    {% endif %}
-                {% endfor %}
-            </div>
-        </section>
-    </div>
+        </div>
+    </article>
 {% endblock %}

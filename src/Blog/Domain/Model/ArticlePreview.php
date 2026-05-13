@@ -13,6 +13,7 @@ final readonly class ArticlePreview
         public string $title,
         public string $description,
         public Member $author,
+        public \DateTimeImmutable $publishedAt,
     ) {
     }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app.request.locale }}">
+<html lang="{{ app.request.locale }}" class="scroll-pt-[10rem]">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,18 +8,11 @@
         <!-- Styles -->
         {% block stylesheets %}
             <style>
-                /* Generated through fontpie, e.g.: "pnpx fontpie ./Poppins-SemiBold.woff2" */
-                @font-face { font-family: 'Kalam Light Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 114.42%; descent-override: 57.16%; line-gap-override: 0.00%; size-adjust: 92.90%; }
-                @font-face { font-family: 'Kalam Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 110.75%; descent-override: 55.32%; line-gap-override: 0.00%; size-adjust: 95.98%; }
-                @font-face { font-family: 'Kalam Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 104.53%; descent-override: 52.22%; line-gap-override: 0.00%; size-adjust: 101.69%; }
-                @font-face { font-family: 'Poppins Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 92.83%; descent-override: 30.94%; line-gap-override: 8.84%; size-adjust: 113.11%; }
-                @font-face { font-family: 'Poppins Medium Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 91.82%; descent-override: 30.61%; line-gap-override: 8.74%; size-adjust: 114.36%; }
-                @font-face { font-family: 'Poppins SemiBold Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 90.85%; descent-override: 30.28%; line-gap-override: 8.65%; size-adjust: 115.57%; }
-                @font-face { font-family: 'Poppins Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 89.77%; descent-override: 29.92%; line-gap-override: 8.55%; size-adjust: 116.97%; }
-                @font-face { font-family: 'Poppins ExtraBold Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 88.85%; descent-override: 29.62%; line-gap-override: 8.46%; size-adjust: 118.17%; }
-                @font-face { font-family: 'Inter Light Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 91.42%; descent-override: 22.76%; line-gap-override: 0.00%; size-adjust: 105.97%; }
+                /* Generated through fontpie, e.g.: "pnpx fontpie ./Inter-Regular.woff2" */
                 @font-face { font-family: 'Inter Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 86.99%; descent-override: 21.66%; line-gap-override: 0.00%; size-adjust: 111.36%; }
                 @font-face { font-family: 'Inter Fallback'; font-style: normal; font-weight: 400; src: local('Arial'); ascent-override: 89.79%; descent-override: 22.36%; line-gap-override: 0.00%; size-adjust: 107.89%; }
+                @font-face { font-family: 'JetBrains Mono Fallback'; font-style: normal; font-weight: 400 700; src: local('Arial'); ascent-override: 77.57%; descent-override: 22.82%; line-gap-override: 0.00%; size-adjust: 131.49%; }
+                @font-face { font-family: 'Space Grotesk Fallback'; font-style: normal; font-weight: 300 700; src: local('Arial'); ascent-override: 88.78%; descent-override: 26.34%; line-gap-override: 0.00%; size-adjust: 110.84%; }
             </style>
         {% endblock %}
 
@@ -29,6 +22,10 @@
         {% endblock %}
 
         <!-- Metadata & cie -->
+        {% set canonical_url = app.request.schemeAndHttpHost ~ app.request.pathInfo %}
+        <link rel="canonical" href="{{ canonical_url }}">
+        <meta property="og:url" content="{{ canonical_url }}">
+        <meta property="og:site_name" content="baksla.sh">
         {% block seo %}
         {% endblock %}
 
@@ -37,86 +34,23 @@
         <link rel="icon" type="image/svg+xml" href="{{ asset('images/favicon.svg') }}">
         <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}">
     </head>
-    <body class="bg-white min-h-screen flex flex-col">
-        <div data-controller="analytics" data-analytics-measurement-id-value="{{ ga_measurement_id }}" data-analytics-app-name-value="{{ ga_app_name }}"></div>
+    <body class="bg-paper min-h-screen flex flex-col">
+        {% if ga_measurement_id %}
+            <div data-controller="analytics" data-analytics-measurement-id-value="{{ ga_measurement_id }}" data-analytics-app-name-value="{{ ga_app_name }}"></div>
+        {% endif %}
 
         {% block body %}
             <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-white focus:text-slate-800 focus:underline">
                 {{- 'header.skip_to_content'|trans -}}
             </a>
 
-            <header class="py-10">
-                <div class="container max-w-screen-xl mx-auto px-8 xl:px-4">
-                    <nav class="flex items-center justify-between gap-x-2 md:gap-x-6">
-                        <a href="{{ path('app_home') }}" title="baksla.sh" class="min-w-6">
-                            <img src="{{ asset('images/bakslash.svg') }}" alt="baksla.sh" class="h-11 hidden sm:block" loading="eager" fetchpriority="high" width="300" height="40">
-                            <img src="{{ asset('images/bakslash-small.svg') }}" alt="baksla.sh" aria-hidden="true" class="size-11 sm:hidden" loading="eager" fetchpriority="high" width="62" height="62">
-                        </a>
-                        <div class="flex justify-center items-center gap-x-2 sm:gap-x-4 lg:gap-x-6">
-                            {% if app.current_route != 'app_blog' %}
-                            <a href="{{ path('app_blog') }}" class="py-4 font-medium text-slate-800 text-sm sm:text-lg hover:underline underline-offset-3 decoration-2 sm:decoration-4 decoration-indigo-500 whitespace-nowrap">{{ 'header.link.blog'|trans }}</a>
-                            <div class="border-r border-gray-300 h-3 sm:h-6"></div>
-                            {% endif %}
-                            {% if app.current_route != 'app_team' %}
-                            <a href="{{ path('app_team') }}" class="py-4 font-medium text-slate-800 text-sm sm:text-lg hover:underline underline-offset-3 decoration-2 sm:decoration-4 decoration-indigo-500 whitespace-nowrap">{{ 'header.link.team'|trans }}</a>
-                            <div class="border-r border-gray-300 h-3 sm:h-6"></div>
-                            {% endif %}
-                            <a href="mailto:hello@baksla.sh" class="py-4 font-medium text-slate-800 text-sm sm:text-lg hover:underline underline-offset-3 decoration-2 sm:decoration-4 decoration-indigo-500 whitespace-nowrap">hello@baksla.sh</a>
-                        </div>
-                    </nav>
-                </div>
-            </header>
+            <twig:website:Navbar />
 
-            <main id="main-content" class="grow">
+            <main id="main-content" class="grow pb-20 lg:pb-32">
                 {% block content %}{% endblock %}
             </main>
 
-            <footer class="py-10">
-                <div class="container max-w-screen-xl mx-auto px-4 md:px-8 flex items-center md:flex-row flex-col md:justify-between">
-                    <span class="text-sm text-slate-700 flex items-center md:justify-start justify-center">
-                        {{- 'footer.copyright'|trans({year: 'now'|date('Y')}) -}}
-                    </span>
-                    <ul class="flex flex-wrap justify-center items-center mt-3 text-slate-700 text-sm sm:mt-0">
-                        <li>
-                            <a href="{{ path('app_blog') }}" class="hover:underline me-4 md:me-6 py-4">
-                                {{- 'footer.link.blog'|trans -}}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ path('app_team') }}" class="hover:underline me-4 md:me-6 py-4">
-                                {{- 'footer.link.team'|trans -}}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ path('app_legal_notices') }}" class="hover:underline me-4 md:me-6 py-4">
-                                {{- 'footer.link.legal_notices'|trans -}}
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="flex flex-wrap justify-center items-center mt-3 text-sm font-medium sm:mt-0">
-                        <li class="h-full">
-                            <a href="https://github.com/bakslashHQ" aria-label="{{ 'footer.social.github'|trans }}" target="_blank" class="hover:underline me-4 md:me-6 h-full flex items-center">
-                                <twig:UX:Icon name="logos:github" aria-hidden="true" class="h-5 mt-2 md:h-6 md:mt-0 opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition" />
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://x.com/BakslashHQ" aria-label="{{ 'footer.social.x'|trans }}" target="_blank" class="hover:underline me-4 md:me-6 h-full flex items-center">
-                                <twig:UX:Icon name="logos:x" aria-hidden="true" class="h-5 mt-2 md:h-6 md:mt-0 opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition" />
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://bsky.app/profile/baksla.sh" aria-label="{{ 'footer.social.bluesky'|trans }}" target="_blank" class="hover:underline me-4 md:me-6 h-full flex items-center">
-                                <twig:UX:Icon name="logos:bluesky" aria-hidden="true" class="h-5 mt-2 md:h-6 md:mt-0 opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition" />
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.linkedin.com/company/bakslashhq" aria-label="{{ 'footer.social.linkedin'|trans }}" target="_blank" class="hover:underline me-4 md:me-6 h-full flex items-center">
-                                <twig:UX:Icon name="logos:linkedin" aria-hidden="true" class="h-5 mt-2 md:h-6 md:mt-0 opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition" />
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </footer>
+            <twig:website:Footer />
         {% endblock %}
     </body>
 </html>

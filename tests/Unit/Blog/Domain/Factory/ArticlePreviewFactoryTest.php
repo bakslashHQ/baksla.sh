@@ -20,6 +20,7 @@ final class ArticlePreviewFactoryTest extends TestCase
             'author' => MemberId::MathiasArlaud->value,
             'title' => 'title',
             'description' => 'description',
+            'published_at' => new \DateTimeImmutable('2025-01-15'),
         ]);
         $content = sprintf("---\n%s\n---", $yaml);
         $memberRepository = new InMemoryMemberRepository([$member = aMember()->withId(MemberId::MathiasArlaud)->build()]);
@@ -30,6 +31,7 @@ final class ArticlePreviewFactoryTest extends TestCase
         $this->assertSame('title', $preview->title);
         $this->assertSame('description', $preview->description);
         $this->assertSame($member, $preview->author);
+        $this->assertSame('2025-01-15', $preview->publishedAt->format('Y-m-d'));
     }
 
     public function testCreateThrowsWhenNoMetadata(): void
@@ -42,13 +44,29 @@ final class ArticlePreviewFactoryTest extends TestCase
 
     public function testCreateThrowsWhenInvalidYaml(): void
     {
-        $yaml = 'foo: bar: baz';
-        $content = sprintf("---\n%s\n---", $yaml);
+        $content = "---\nfoo: bar: baz\n---";
 
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessageMatches('/^Cannot parse metadata of file "1\.md\.twig": ".+"\.$/');
 
         new ArticlePreviewFactory(new InMemoryMemberRepository())->create('1', $content);
+    }
+
+    public function testCreateThrowsWhenInvalidPublishedAt(): void
+    {
+        $yaml = Yaml::dump([
+            'author' => MemberId::MathiasArlaud->value,
+            'title' => 'title',
+            'description' => 'description',
+            'published_at' => 'not a date',
+        ]);
+        $content = sprintf("---\n%s\n---", $yaml);
+        $memberRepository = new InMemoryMemberRepository([aMember()->withId(MemberId::MathiasArlaud)->build()]);
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessageMatches('/^Invalid "published_at" metadata in file "1\.md\.twig": ".+"\.$/');
+
+        new ArticlePreviewFactory($memberRepository)->create('1', $content);
     }
 
     /**
@@ -58,7 +76,7 @@ final class ArticlePreviewFactoryTest extends TestCase
     public function testCreateThrowsWhenMissingMandatoryMetadata(string $expectedMissing, array $metadata): void
     {
         $yaml = Yaml::dump($metadata);
-        $content = sprintf("---\n%s\n---", $yaml);
+        $content = "---\n{$yaml}\n---";
 
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(sprintf('Missing "%s" metadata in file "1.md.twig".', $expectedMissing));
@@ -75,18 +93,28 @@ final class ArticlePreviewFactoryTest extends TestCase
             'author', [
                 'title' => 'title',
                 'description' => 'description',
+                'published_at' => new \DateTimeImmutable('2025-01-15'),
             ],
         ];
         yield [
             'title', [
                 'author' => 'author',
                 'description' => 'description',
+                'published_at' => new \DateTimeImmutable('2025-01-15'),
             ],
         ];
         yield [
             'description', [
                 'author' => 'author',
                 'title' => 'title',
+                'published_at' => new \DateTimeImmutable('2025-01-15'),
+            ],
+        ];
+        yield [
+            'published_at', [
+                'author' => 'author',
+                'title' => 'title',
+                'description' => 'description',
             ],
         ];
     }

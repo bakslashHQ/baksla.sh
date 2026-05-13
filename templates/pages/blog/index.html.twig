@@ -4,84 +4,90 @@
 
 {% block seo %}
     <meta name="description" content="{{ 'blog.seo.description'|trans|raw }}">
-    <meta property="og:url" content="{{ app.request.uri }}">
     <meta property="og:type" content="website">
     <meta property="og:title" content="{{ 'blog.seo.title'|trans|raw }}">
     <meta property="og:description" content="{{ 'blog.seo.description'|trans|raw }}">
     <meta property="og:image" content="{{ absolute_url(asset('images/og.png')) }}">
+    <meta property="og:image:alt" content="{{ 'blog.seo.title'|trans|raw }}">
+    <link rel="alternate" type="application/atom+xml" title="baksla.sh Blog" href="{{ url('app_blog_feed') }}">
 {% endblock %}
 
 {% block content %}
-    <div class="isolate pb-32 pt-10 sm:pt-32">
-        {% include 'pages/_bg_shape.html.twig' %}
+    {% set total_entries = articles|length + (showcased ? 1 : 0) %}
 
-        <section class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
-            <h1 class="mx-auto max-w-3xl text-center text-4xl font-bold tracking-tight text-slate-800 sm:text-5xl">
-                {{- 'blog.title'|trans -}}
-            </h1>
-            <p class="mt-3 mx-auto text-center text-lg/8 text-gray-600">
-                {{- 'blog.subtitle'|trans -}}
-            </p>
-        </section>
-
-        <section class="mx-auto max-w-7xl px-6 lg:px-8">
-            {% if not articles and not showcased %}
-                <p class="pt-36 mx-auto text-center text-lg/8 text-gray-600">
-                    {{- 'blog.no_article_yet'|trans -}}
+    <section class="relative overflow-hidden">
+        <div aria-hidden="true" class="absolute inset-0 dot-grid pointer-events-none"></div>
+        <div class="container max-w-screen-xl mx-auto px-4 sm:px-8 xl:px-4 pt-12 sm:pt-16 lg:pt-24 relative">
+            <header class="pb-16 sm:pb-20 lg:pb-28">
+                <div aria-hidden="true" class="font-mono text-xs uppercase tracking-widest text-accent mb-3">{{ 'blog.caption'|trans }}</div>
+                <h1 class="m-0 font-sans font-bold leading-[0.92] tracking-tighter text-5xl sm:text-6xl lg:text-8xl text-ink text-balance">
+                    {{- 'blog.title'|trans|replace({
+                        '<0>': '<span class="text-accent">',
+                        '</0>': '</span>',
+                    })|raw -}}
+                </h1>
+                <p class="mt-6 sm:mt-8 max-w-2xl text-lg sm:text-xl text-ink-soft italic leading-snug text-pretty">
+                    {{ 'blog.subtitle'|trans }}
                 </p>
+            </header>
+        </div>
+    </section>
+
+    <div class="container max-w-screen-xl mx-auto px-4 sm:px-8 xl:px-4">
+        {% if total_entries == 0 %}
+            <p class="text-center text-base sm:text-lg text-muted py-20">
+                {{- 'blog.no_article_yet'|trans -}}
+            </p>
+        {% else %}
+            {% if showcased %}
+                <twig:Blog:ShowcasedArticle :article="showcased" />
             {% endif %}
 
-            <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 grid-rows-1 gap-8 text-sm/6 text-gray-900 sm:mt-28 sm:grid-cols-2 xl:mx-0 xl:max-w-none xl:grid-flow-col xl:grid-cols-4" data-test-articles>
-
-                {% if showcased %}
-                    <twig:ArticlePreview :article="showcased" showcased class="sm:col-span-2 xl:col-start-2 xl:row-end-1" />
-                {% endif %}
-
-                <div class="space-y-8 xl:contents xl:space-y-0">
-                    <div class="space-y-8 xl:row-span-2">
-                        {% if articles %}
-                            {% for i, article in articles|filter((_, i) => i % 4 == 0) %}
-                                <twig:ArticlePreview :article="article" :lazyLoadImage="i > 7" />
-                            {% endfor %}
-                        {% else %}
-                            <twig:blog:ArticlePreviewPlaceholder />
-                            <twig:blog:ArticlePreviewPlaceholder class="max-xl:hidden" />
-                        {% endif %}
-                    </div>
-                    <div class="space-y-8 xl:row-start-1">
-                        {% if articles %}
-                            {% for i, article in articles|filter((_, i) => i % 4 == 1) %}
-                                <twig:ArticlePreview :article="article" :lazyLoadImage="i > 7" />
-                            {% endfor %}
-                        {% else %}
-                            <twig:blog:ArticlePreviewPlaceholder />
-                            <twig:blog:ArticlePreviewPlaceholder class="max-xl:hidden" />
-                        {% endif %}
-                    </div>
-                </div>
-
-                <div class="space-y-8 xl:contents xl:space-y-0">
-                    <div class="space-y-8 xl:row-start-1">
-                        {% if articles %}
-                            {% for i, article in articles|filter((_, i) => i % 4 == 2) %}
-                                <twig:ArticlePreview :article="article" :lazyLoadImage="i > 7" />
-                            {% endfor %}
-                        {% else %}
-                            <twig:blog:ArticlePreviewPlaceholder class="max-sm:hidden" />
-                        {% endif %}
+            {% if articles|length > 0 %}
+                <div
+                    data-controller="article-search"
+                    data-article-search-empty-value="{{ 'blog.search.results.empty'|trans }}"
+                    data-article-search-singular-value="{{ 'blog.search.results.singular'|trans }}"
+                    data-article-search-many-template-value="{{ 'blog.search.results.plural'|trans }}"
+                    class="bg-paper border border-ink/15 rounded-2xl overflow-hidden shadow-lg"
+                >
+                    <h2 class="sr-only">{{ 'blog.list_label'|trans }}</h2>
+                    <div role="status" aria-live="polite" data-article-search-target="status" class="sr-only"></div>
+                    <div class="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 px-5 py-3 border-b border-ink/10 font-mono text-xs text-muted">
+                        <span aria-hidden="true" class="inline-flex items-center gap-2">
+                            <twig:ux:icon name="mdi:circle" class="size-2 text-accent" />
+                            <span class="text-accent font-bold">{{ 'blog.branch'|trans }}</span>
+                            <span data-article-search-target="totalLabel" class="hidden md:inline">· {{ 'blog.articles_count'|trans({count: articles|length}) }}</span>
+                            <span data-article-search-target="matchesLabel" class="!hidden md:inline">· <span data-article-search-target="matchesCount">{{ articles|length }}</span>/{{ articles|length }}</span>
+                        </span>
+                        <label class="inline-flex items-center gap-2 px-2.5 py-1 -my-1 rounded-md bg-ink/[0.04] focus-within:bg-ink/[0.08] focus-within:ring-1 focus-within:ring-accent transition-colors">
+                            <twig:ux:icon name="mdi:magnify" aria-hidden="true" class="size-3.5 text-muted" />
+                            <span class="sr-only">{{ 'blog.search.label'|trans }}</span>
+                            <input
+                                type="search"
+                                data-article-search-target="input"
+                                data-action="input->article-search#filter keydown.esc->article-search#clear"
+                                placeholder="{{ 'blog.search.placeholder'|trans }}"
+                                class="bg-transparent border-0 outline-none font-mono text-xs text-ink placeholder:text-muted w-32 sm:w-40"
+                            >
+                        </label>
                     </div>
 
-                    <div class="space-y-8 xl:row-span-2">
-                        {% if articles %}
-                            {% for i, article in articles|filter((_, i) => i % 4 == 2) %}
-                                <twig:ArticlePreview :article="article" :lazyLoadImage="i > 7" />
-                            {% endfor %}
-                        {% else %}
-                            <twig:blog:ArticlePreviewPlaceholder class="max-xl:hidden" />
-                        {% endif %}
+                    <ol role="list" class="list-none m-0 p-0 font-mono text-sm leading-relaxed">
+                        {% for article in articles %}
+                            <twig:Blog:ArticleListEntry :article="article" />
+                        {% endfor %}
+                        <li hidden data-article-search-target="empty" class="px-6 sm:px-8 py-10 text-center text-muted font-mono text-sm">
+                            {{ 'blog.search.results.empty'|trans }}
+                        </li>
+                    </ol>
+
+                    <div aria-hidden="true" class="px-5 py-3 border-t border-ink/10 font-mono text-xs text-muted flex flex-wrap items-center justify-between gap-2">
+                        <span>$ <span class="text-ink">{{ 'blog.git_command'|trans }}</span></span>
+                        <span class="text-accent font-bold">+{{ articles|length }} −0</span>
                     </div>
                 </div>
-            </div>
-        </section>
+            {% endif %}
+        {% endif %}
     </div>
 {% endblock %}
