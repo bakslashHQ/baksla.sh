@@ -235,8 +235,11 @@ html:has(dialog[open]:is([data-command-palette-target], [data-controller~='membe
   *,
   *::before,
   *::after {
+    /* biome-ignore lint/complexity/noImportantStyles: required to override animations from libraries and controllers */
     animation-duration: 0.01ms !important;
+    /* biome-ignore lint/complexity/noImportantStyles: required to override animations from libraries and controllers */
     animation-iteration-count: 1 !important;
+    /* biome-ignore lint/complexity/noImportantStyles: required to override transitions from libraries and controllers */
     transition-duration: 0.01ms !important;
   }
 }
