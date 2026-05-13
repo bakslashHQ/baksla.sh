@@ -4,7 +4,6 @@
 
 {% block seo %}
     <meta name="description" content="{{ 'home.seo.description'|trans|raw }}">
-    <meta property="og:url" content="{{ app.request.uri }}">
     <meta property="og:type" content="website">
     <meta property="og:title" content="{{ 'home.seo.title'|trans|raw }}">
     <meta property="og:description" content="{{ 'home.seo.description'|trans|raw }}">
@@ -16,8 +15,8 @@
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "baksla.sh",
-        "url": "{{ url('app_home') }}",
-        "logo": "{{ absolute_url(asset('images/bakslash-small.svg')) }}",
+        "url": {{ url('app_home')|json_encode|raw }},
+        "logo": {{ absolute_url(asset('images/bakslash-small.png'))|json_encode|raw }},
         "description": {{ 'home.seo.description'|trans|json_encode|raw }},
         "sameAs": [
             "https://github.com/bakslashHQ",

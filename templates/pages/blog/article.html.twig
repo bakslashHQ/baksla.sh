@@ -5,7 +5,6 @@
 {% block seo %}
     <meta name="description" content="{{ article.description }}">
     <meta name="author" content="{{ article.author.fullname }}">
-    <meta property="og:url" content="{{ app.request.uri }}">
     <meta property="og:type" content="article">
     <meta property="og:title" content="{{ article.title }}">
     <meta property="og:description" content="{{ article.description }}">
@@ -22,24 +21,24 @@
         "@type": "BlogPosting",
         "headline": {{ article.title|json_encode|raw }},
         "description": {{ article.description|json_encode|raw }},
-        "image": "{{ absolute_url('/open-graph/article/' ~ article.id ~ '.jpg') }}",
+        "image": {{ absolute_url('/open-graph/article/' ~ article.id ~ '.jpg')|json_encode|raw }},
         "datePublished": "{{ article.publishedAt|date('c') }}",
         "author": {
             "@type": "Person",
             "name": {{ article.author.fullname|json_encode|raw }},
-            "url": "https://github.com/{{ article.author.github }}"
+            "url": {{ ('https://github.com/' ~ article.author.github)|json_encode|raw }}
         },
         "publisher": {
             "@type": "Organization",
             "name": "baksla.sh",
             "logo": {
                 "@type": "ImageObject",
-                "url": "{{ absolute_url(asset('images/bakslash-small.svg')) }}"
+                "url": {{ absolute_url(asset('images/bakslash-small.png'))|json_encode|raw }}
             }
         },
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "{{ app.request.uri }}"
+            "@id": {{ (app.request.schemeAndHttpHost ~ app.request.pathInfo)|json_encode|raw }}
         }
     }
     </script>

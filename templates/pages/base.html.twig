@@ -22,9 +22,10 @@
         {% endblock %}
 
         <!-- Metadata & cie -->
-        <link rel="canonical" href="{{ app.request.uri|split('?')|first }}">
+        {% set canonical_url = app.request.schemeAndHttpHost ~ app.request.pathInfo %}
+        <link rel="canonical" href="{{ canonical_url }}">
+        <meta property="og:url" content="{{ canonical_url }}">
         <meta property="og:site_name" content="baksla.sh">
-        <meta property="og:locale" content="en_US">
         {% block seo %}
         {% endblock %}
 
