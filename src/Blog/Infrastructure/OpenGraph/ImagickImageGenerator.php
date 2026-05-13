@@ -85,7 +85,7 @@ final readonly class ImagickImageGenerator implements ImageGenerator
         // Bottom row: avatar + author name (left), `baksla.sh` wordmark (right)
         $avatarTop = self::HEIGHT - self::MARGIN - self::AUTHOR_AVATAR_SIZE;
 
-        $avatar = new \Imagick(sprintf('%s/assets/images/team/members/%s.jpg', $this->projectDir, $article->author->id->value));
+        $avatar = new \Imagick(sprintf('%s/assets/images/team/members/%s.webp', $this->projectDir, $article->author->id->value));
         $avatar->resizeImage(self::AUTHOR_AVATAR_SIZE, self::AUTHOR_AVATAR_SIZE, \Imagick::FILTER_LANCZOS, 1);
         $avatar->roundCornersImage($avatar->getImageWidth(), $avatar->getImageHeight());
 
