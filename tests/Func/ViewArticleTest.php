@@ -44,4 +44,34 @@ final class ViewArticleTest extends FunctionalTestCase
 
         $this->assertResponseStatusCodeSame(404);
     }
+
+    public function testMarkdownAlternateLinkIsExposed(): void
+    {
+        $crawler = $this->get('/blog/symfony-certification');
+
+        $href = $crawler->filter('link[rel="alternate"][type="text/markdown"]')->attr('href');
+
+        $this->assertSame('https://localhost/blog/symfony-certification.md', $href);
+    }
+
+    public function testMarkdownAlternateReturnsMarkdownSource(): void
+    {
+        $this->get('/blog/symfony-certification.md');
+
+        $response = $this->getResponse();
+
+        $this->assertResponseIsSuccessful();
+        $this->assertStringContainsString('text/markdown', $response->headers->get('Content-Type') ?? '');
+
+        $body = $response->getContent() ?: '';
+        $this->assertStringContainsString('title: Symfony Certification', $body);
+        $this->assertStringContainsString('author: mathias-arlaud', $body);
+    }
+
+    public function testMarkdownAlternateThrowsNotFoundIfNoArticle(): void
+    {
+        $this->get('/blog/unexisting-article.md');
+
+        $this->assertResponseStatusCodeSame(404);
+    }
 }
