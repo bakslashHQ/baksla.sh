@@ -1,0 +1,20 @@
+# baksla.sh
+
+> {{ 'footer.about'|trans }}
+
+## {{ 'llms.section.pages'|trans }}
+
+- [{{ 'llms.page.home.label'|trans }}]({{ url('app_home') }}): {{ 'llms.page.home.description'|trans }}
+- [{{ 'llms.page.blog.label'|trans }}]({{ url('app_blog') }}): {{ 'llms.page.blog.description'|trans }}
+- [{{ 'llms.page.team.label'|trans }}]({{ url('app_team') }}): {{ 'llms.page.team.description'|trans }}
+- [{{ 'llms.page.legal.label'|trans }}]({{ url('app_legal_notices') }}): {{ 'llms.page.legal.description'|trans }}
+
+## {{ 'llms.section.blog'|trans }}
+{% for article in articles %}
+- [{{ article.title }}]({{ url('app_blog_article', {id: article.id}) }}): {{ article.description }} ([{{ 'llms.article.markdown_source_label'|trans }}]({{ url('app_blog_article', {id: article.id, _format: 'md'}) }}))
+{%- endfor %}
+
+## {{ 'llms.section.optional'|trans }}
+
+- [{{ 'llms.link.sitemap'|trans }}]({{ url('app_sitemap') }})
+- [{{ 'llms.link.feed'|trans }}]({{ url('app_blog_feed') }})

@@ -6,7 +6,7 @@ namespace App\Tests\Func;
 
 use App\Blog\Domain\Model\ArticlePreview;
 use App\Blog\Domain\Repository\ArticlePreviewRepository;
-use App\Website\Controller\ViewSitemap;
+use App\Website\Infrastructure\Controller\ViewSitemap;
 use Symfony\Bundle\FrameworkBundle\Controller\RedirectController;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
