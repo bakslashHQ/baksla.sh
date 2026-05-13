@@ -115,7 +115,7 @@ header.cmd.title: Command palette
 header.cmd.placeholder: Jump to…
 header.cmd.home: Back to home
 header.cmd.blog: Go to the blog
-header.cmd.team: Meet the team
+header.cmd.team: Meet the crew
 header.cmd.latest_article: 'Latest post: {title}'
 header.cmd.mail: Say hi at hello@baksla.sh
 header.cmd.source: View this site's source
@@ -187,15 +187,28 @@ blog.article.nav_label: article reader
 blog.article.scroll_to_top: scroll to top
 blog.article.code_sample: '{language} code sample'
 
-team.seo.title: Meet the Team
+team.seo.title: Crew | baksla.sh
 team.seo.description: Discover the baksla.sh's crew at work
-team.title: Shhhht! The crew is at work 🤫
-team.subtitle: Discover the baksla.sh team members while they're working
-team.click_on_member: 💡 Click on a member to discover their full profile.
-team.modal.nice: Nice!
-team.modal.close: Close dialog
-team.view_profile: View {name}''s profile
+team.caption: '# CREW.diff'
+team.title: 'Shhhht<0>!</0><br>the crew is at work.'
+team.modal.close_short: close
+team.modal.prev: prev
+team.modal.next: next
+team.modal.editorial_eyebrow: the crew
 team.reviewers: Reviewers
+
+team.pr.tag: 'Pull request #42'
+team.pr.status_open: Open
+team.pr.title: 'feat: ship the <0>/team</0> page with the in-memory roster'
+team.pr.merge_summary: '<0>mtarld</0> wants to merge <1>1 commit</1> into <2>main</2> from <3>team/view-team-page</3>'
+team.pr.file_path_short: …/Controller/ViewTeam.php
+team.pr.file_path_full: 'src/Team/Infrastructure/Controller/ViewTeam.php'
+team.pr.tip.label: Pro tip
+team.pr.tip.body: 'Tap any reviewer for their bio and socials.'
+team.pr.thread.label: Thread
+team.pr.thread.comments: '{count, plural, one {# comment} other {# comments}}'
+team.pr.diff.added: 'added:'
+team.pr.diff.removed: 'removed:'
 team.review.twig_alias_1: Could we alias this import to <0>Twig</0> to make it a little more understandable?
 team.review.twig_alias_2: What about extending <0>AbstractController</0> and use the <0>render()</0> method?
 team.review.infra_1: This should depend on an interface instead to avoid coupling to implementation details

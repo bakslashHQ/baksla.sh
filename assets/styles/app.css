@@ -12,6 +12,7 @@
 
   --color-accent: #860dff;
   --color-paper: #f6f2e8;
+  --color-paper-shade: #efe9d8;
   --color-ink: #1f2130;
   --color-ink-soft: #3b3e4a;
   --color-muted: #5e646c;
@@ -37,7 +38,7 @@
   @keyframes word-in {
     from {
       opacity: 0;
-      transform: translateY(10px) scale(0.95) rotate(var(--tilt, 0deg));
+      transform: translateY(0.625rem) scale(0.95) rotate(var(--tilt, 0deg));
     }
     to {
       opacity: 1;
@@ -86,14 +87,23 @@
       transparent 0.375rem,
       transparent 1.25rem
     );
-    height: 1px;
+    height: 0.0625rem;
   }
 
   .dot-grid {
-    background-image: radial-gradient(color-mix(in oklab, var(--color-ink) 10%, transparent) 1px, transparent 1px);
-    background-size: 22px 22px;
+    background-image: radial-gradient(color-mix(in oklab, var(--color-ink) 10%, transparent) 0.0625rem, transparent 0.0625rem);
+    background-size: 1.375rem 1.375rem;
     background-position: 0 0;
     mask-image: radial-gradient(ellipse 60% 60% at 50% 30%, #000 30%, transparent 75%);
+  }
+
+  .inline-code {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    background-color: color-mix(in oklab, var(--color-ink) 6%, transparent);
+    border-radius: 0.25rem;
+    padding: 0.125rem 0.375rem;
+    margin: 0 0.125rem;
   }
 }
 
@@ -111,7 +121,7 @@
     margin: 3rem 0 0;
     padding-top: 2.25rem;
     padding-bottom: 1.25rem;
-    border-top: 1px solid color-mix(in oklab, var(--color-ink) 15%, transparent);
+    border-top: 0.0625rem solid color-mix(in oklab, var(--color-ink) 15%, transparent);
     font-family: var(--font-sans);
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -129,10 +139,10 @@
     line-height: 1;
     letter-spacing: -0.05em;
     color: transparent;
-    -webkit-text-stroke: 1.5px var(--color-accent);
+    -webkit-text-stroke: 0.09375rem var(--color-accent);
   }
 
-  @media (min-width: 640px) {
+  @media (min-width: 40rem) {
     .prose-body h2 {
       gap: 1.25rem;
       font-size: 2.5rem;
@@ -143,7 +153,7 @@
     }
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 64rem) {
     .prose-body h2 {
       font-size: 3rem;
     }
@@ -189,6 +199,29 @@
   .prose-body .hl-symbol {
     color: var(--color-accent);
   }
+
+  .pr-code .hl-keyword {
+    color: #b45309;
+    font-weight: 600;
+  }
+  .pr-code .hl-type {
+    color: #1d4ed8;
+  }
+  .pr-code .hl-string,
+  .pr-code .hl-literal {
+    color: #15803d;
+  }
+  .pr-code .hl-attribute,
+  .pr-code .hl-generic {
+    color: var(--color-accent);
+  }
+  .pr-code .hl-variable {
+    color: #0e7490;
+  }
+  .pr-code .hl-comment {
+    color: #64748b;
+    font-style: italic;
+  }
 }
 
 html {
@@ -201,6 +234,6 @@ html {
   }
 }
 
-html:has(dialog[data-command-palette-target][open]) {
+html:has(dialog[open]:is([data-command-palette-target], [data-controller~='member-modal'])) {
   overflow: hidden;
 }

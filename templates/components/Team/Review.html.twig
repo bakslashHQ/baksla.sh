@@ -1,0 +1,13 @@
+{% set rendered %}{% block content %}{% endblock %}{% endset %}
+{% set commentCount = rendered|split('<div data-test-review-comment')|length - 1 %}
+
+<div class="px-5 sm:px-6 py-5 bg-paper-shade/40 border-y border-ink/10">
+    <div class="font-mono text-[0.6875rem] uppercase tracking-widest text-muted flex items-center gap-2 mb-3">
+        <twig:ux:icon name="mdi:comment-text-outline" aria-hidden="true" class="size-3.5 fill-accent text-accent" />
+        <span>{{ 'team.pr.thread.label'|trans }} · {{ 'team.pr.thread.comments'|trans({count: commentCount}) }}</span>
+    </div>
+
+    <div class="bg-paper border border-ink/15 rounded-xl shadow-sm overflow-hidden divide-y divide-ink/10">
+        {{ rendered|raw }}
+    </div>
+</div>
