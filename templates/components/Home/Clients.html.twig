@@ -6,6 +6,14 @@
     {name: 'Authwire', file: 'images/clients/authwire.png', width: 248, height: 37},
     {name: 'Wamiz', file: 'images/clients/wamiz.png', width: 225, height: 86},
     {name: 'ZEturf', file: 'images/clients/zeturf.png', width: 250, height: 141},
+    {name: 'Enership', file: 'images/clients/enership.svg', width: 194, height: 45},
+    {name: 'TradersPost', file: 'images/clients/traderspost.svg', width: 1080, height: 114},
+    {name: 'Camping-car Park', file: 'images/clients/camping-car-park.svg', width: 581, height: 107},
+    {name: 'Centreon', file: 'images/clients/centreon.png', width: 167, height: 40},
+    {name: 'Synapsun', file: 'images/clients/synapsun.svg', width: 3140, height: 705},
+    {name: 'Global-Exam', file: 'images/clients/global-exam.png', width: 380, height: 56},
+    {name: 'Bluspark', file: 'images/clients/bluspark.svg', width: 905, height: 300},
+    {name: 'GL Events', file: 'images/clients/gl-events.png', width: 480, height: 480, imgClass: 'max-h-[2.0625rem] sm:max-h-[2.6875rem]'},
 ] %}
 
 <section id="clients" aria-label="{{ 'home.clients.aria_label'|trans }}">
@@ -21,7 +29,7 @@
                         width="{{ client.width }}"
                         height="{{ client.height }}"
                         loading="lazy"
-                        class="max-h-8 sm:max-h-10 max-w-[80%] w-auto h-auto object-contain grayscale opacity-75 group-hover:grayscale-0 group-hover:opacity-100 transition duration-200"
+                        class="{{ client.imgClass|default('max-h-8 sm:max-h-10') }} max-w-[80%] w-auto h-auto object-contain grayscale opacity-75 group-hover:grayscale-0 group-hover:opacity-100 transition duration-200"
                     >
                 </li>
             {% endfor %}
@@ -33,7 +41,6 @@
                 >
                     <span class="inline-flex items-center gap-1.5 whitespace-nowrap font-sans italic font-medium text-xs sm:text-sm">
                         {{ 'home.clients.cta'|trans }}
-                        <twig:ux:icon name="mdi:plus" aria-hidden="true" class="size-3.5 transition-transform duration-200 group-hover:rotate-90" />
                     </span>
                 </a>
             </li>

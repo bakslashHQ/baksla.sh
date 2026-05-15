@@ -3,8 +3,8 @@ common.opens_new_tab: (opens in a new tab)
 home.seo.title: baksla.sh
 home.seo.description: A real OSS company, Symfony evangelist with pragmatic technologists
 
-home.hero.aria_label: 'Baksla.sh: a real OSS company, everywhere in France'
-home.hero.eyebrow: A real OSS company · everywhere in France
+home.hero.aria_label: 'Baksla.sh: a real OSS company, worldwide'
+home.hero.eyebrow: A real OSS company · worldwide
 home.hero.heading_text: We are
 home.hero.heading_aria_label: We are Symfony maintainers, lovers, advocates, and developers.
 home.hero.tagline: We're the people you read on the Symfony changelog. A small company that builds, maintains, and teaches PHP. No pitch deck, just commits.
@@ -59,35 +59,44 @@ home.products.product.tag.expertise: Expertise
 home.products.product.tag.implementation: Implementation
 home.products.product.tag.upskill: Upskill
 
-home.products.service.custom_symfony_development.title: Custom Symfony development
-home.products.service.custom_symfony_development.summary: Greenfield builds and full rewrites, shaped around your domain. We default to clear architecture, short feedback loops, and code that reads like documentation.
-home.products.service.custom_symfony_development.bullet_1: DDD & Hexagonal
-home.products.service.custom_symfony_development.bullet_2: API Platform
-home.products.service.custom_symfony_development.bullet_3: Async & messaging
+home.products.service.custom_symfony_development.title: Development
+home.products.service.custom_symfony_development.summary: "Greenfield builds and deep refactors, shaped around your domain, not around a framework's defaults. We design bounded contexts before we scaffold a single entity, and we wire architecture decisions into ADRs that outlive the engagement."
+home.products.service.custom_symfony_development.detail: "Short feedback loops, CI from day one, and code that reads like documentation. When we leave, your team owns every line: no vendor lock-in, no mystery layers, no \"ask the agency\" bottleneck."
+home.products.service.custom_symfony_development.bullet_1: DDD & Hexagonal architecture
+home.products.service.custom_symfony_development.bullet_2: API Platform & headless APIs
+home.products.service.custom_symfony_development.bullet_3: Async workers & Messenger
 
 home.products.service.cto_as_a_service.title: CTO as a service
 home.products.service.cto_as_a_service.summary: Senior technical judgment without the full hire. Roadmaps, hiring loops, vendor decisions, and the awkward conversations that keep delivery honest.
-home.products.service.cto_as_a_service.bullet_1: Roadmapping
-home.products.service.cto_as_a_service.bullet_2: Hiring & team design
-home.products.service.cto_as_a_service.bullet_3: Vendor selection
+home.products.service.cto_as_a_service.detail: Built for founders who need a technical voice at the table, not another seat to fill permanently. We embed with your leadership weekly, scale our involvement up or down as the product demands, and transfer the playbook so you can hire our replacement when the time is right.
+home.products.service.cto_as_a_service.bullet_1: Roadmapping & prioritization
+home.products.service.cto_as_a_service.bullet_2: Hiring loops & team design
+home.products.service.cto_as_a_service.bullet_3: Make-or-buy decisions
 
 home.products.service.architecture.title: Architecture study & audit
-home.products.service.architecture.summary: We read your codebase the way we'd review a Symfony PR. You leave with prioritized findings and a sequenced plan, not a 90-page deck.
-home.products.service.architecture.bullet_1: ADR workshops
-home.products.service.architecture.bullet_2: Performance deep-dives
-home.products.service.architecture.bullet_3: Security review
+home.products.service.architecture.summary: "We start by understanding your business, its rules, its constraints, its growth trajectory, and the team that will carry it forward."
+home.products.service.architecture.detail: "Every recommendation we make accounts for your developers' maturity and capacity, not just the ideal on paper."
+home.products.service.architecture.detail_new_label: New project
+home.products.service.architecture.detail_new: "Domain modeling and technical choices that won't box you in at scale, grounded in state-of-the-art software practices your team can adopt at their own pace."
+home.products.service.architecture.detail_existing_label: Existing codebase
+home.products.service.architecture.detail_existing: "Your product found its market or is ready for its next chapter. We review line by line, surface prioritized findings, and provide your team with a sequenced plan to bring it up to modern standards."
+home.products.service.architecture.bullet_1: Architecture decision records
+home.products.service.architecture.bullet_2: Performance & scalability review
+home.products.service.architecture.bullet_3: Security & dependency audit
 
 home.products.service.coaching.title: Coaching à la carte
-home.products.service.coaching.summary: Pair on hard problems, unblock stuck decisions, and review the diff that's been open for a week. We plug into your team's rhythm, not the other way around.
-home.products.service.coaching.bullet_1: Brainstorming
-home.products.service.coaching.bullet_2: Code reviews
-home.products.service.coaching.bullet_3: Spec writing
+home.products.service.coaching.summary: "Pair on hard problems, unblock stuck decisions, and review the diff that's been sitting open for a week. We plug into your team's rhythm, your Slack, your stand-ups, your repo, not the other way around."
+home.products.service.coaching.detail: "Think of it as on-demand access to Symfony core maintainers who shape the framework's evolution and have probably seen your exact problem upstream. No minimum commitment: book a single session or keep us on retainer, whatever makes your team faster."
+home.products.service.coaching.bullet_1: Brainstorming & design sessions
+home.products.service.coaching.bullet_2: Deep code reviews
+home.products.service.coaching.bullet_3: Specs & technical writing
 
 home.products.service.workshops_and_trainings.title: Workshops & trainings
-home.products.service.workshops_and_trainings.summary: We don't run slides at your team; we open your repo and write code with them. Symfony, API Platform, testing, and modern PHP, taught against problems you actually face.
-home.products.service.workshops_and_trainings.bullet_1: Symfony
-home.products.service.workshops_and_trainings.bullet_2: Testing strategies
-home.products.service.workshops_and_trainings.bullet_3: Modern PHP
+home.products.service.workshops_and_trainings.summary: "We don't run slides at your team; we open your repo and write code with them. Symfony, API Platform, testing, and modern PHP, taught against problems you actually face, not textbook examples."
+home.products.service.workshops_and_trainings.detail: Every session ships a real improvement to your codebase, so the training pays for itself before the invoice lands. Half-day deep dives or multi-day tracks, on-site or remote, groups of three or thirty.
+home.products.service.workshops_and_trainings.bullet_1: Symfony & API Platform
+home.products.service.workshops_and_trainings.bullet_2: Testing & CI strategies
+home.products.service.workshops_and_trainings.bullet_3: Modern PHP & patterns
 
 home.oss.aria_label: baksla.sh's open source contributions
 home.oss.heading: 'Contributing every <0>{hours}h</0>, for {years} years.'
@@ -105,9 +114,9 @@ home.blog.read: read
 home.blog.all_posts: All posts
 
 home.clients.aria_label: baksla.sh's clients
-home.clients.heading: 'Teams we <0>shipped</0> with.'
-home.clients.cta: Your logo?
-home.clients.cta_aria_label: 'Your logo? Email hello@baksla.sh to add it'
+home.clients.heading: 'We <0>ship</0> together.'
+home.clients.cta: Yours?
+home.clients.cta_aria_label: 'Yours? Email hello@baksla.sh'
 
 header.skip_to_content: Skip to content
 header.cmd.open_menu: open menu
@@ -206,7 +215,7 @@ blog.article.code_sample: '{language} code sample'
 team.seo.title: Crew | baksla.sh
 team.seo.description: Discover the baksla.sh's crew at work
 team.caption: '# CREW.diff'
-team.title: 'Shhhht<0>!</0><br>the crew is at work.'
+team.title: 'Shhhht<0>!</0><br>The crew is at work.'
 team.modal.close_short: close
 team.modal.prev: prev
 team.modal.next: next

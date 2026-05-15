@@ -26,7 +26,7 @@ final readonly class Kpi
 
         return [
             [
-                'value' => 20,
+                'value' => 30,
                 'suffix' => '+',
                 'label' => 'home.kpi.projects',
                 'hint' => 'home.kpi.projects_hint',

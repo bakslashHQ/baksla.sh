@@ -1,8 +1,8 @@
 {% set services = [
-    {slug: 'custom_symfony_development', tag: 'IMPL', kind: 'implementation'},
-    {slug: 'cto_as_a_service', tag: 'LEAD', kind: 'expertise'},
     {slug: 'architecture', tag: 'AUDIT', kind: 'expertise'},
-    {slug: 'coaching', tag: 'COACH', kind: 'upskill'},
+    {slug: 'custom_symfony_development', tag: 'IMPL', kind: 'implementation'},
+    {slug: 'coaching', tag: 'COACH', kind: 'expertise'},
+    {slug: 'cto_as_a_service', tag: 'LEAD', kind: 'expertise'},
     {slug: 'workshops_and_trainings', tag: 'TRAIN', kind: 'upskill'},
 ] %}
 
@@ -71,6 +71,27 @@
                             <p class="mt-6 max-w-xl text-sm sm:text-base leading-relaxed text-ink-soft">
                                 {{- ('home.products.service.' ~ service.slug ~ '.summary')|trans -}}
                             </p>
+                            {% if service.slug == 'architecture' %}
+                                <p class="mt-4 max-w-xl text-sm sm:text-base leading-relaxed text-ink-soft">
+                                    {{- ('home.products.service.architecture.detail')|trans -}}
+                                </p>
+                                <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    {% for case in ['new', 'existing'] %}
+                                        <div class="border border-ink/15 rounded-lg p-5">
+                                            <div class="font-mono text-xs uppercase tracking-widest text-accent mb-2">
+                                                {{- ('home.products.service.architecture.detail_' ~ case ~ '_label')|trans -}}
+                                            </div>
+                                            <p class="text-sm leading-relaxed text-ink-soft m-0">
+                                                {{- ('home.products.service.architecture.detail_' ~ case)|trans -}}
+                                            </p>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <p class="mt-4 max-w-xl text-sm sm:text-base leading-relaxed text-ink-soft">
+                                    {{- ('home.products.service.' ~ service.slug ~ '.detail')|trans -}}
+                                </p>
+                            {% endif %}
 
                             <ul role="list" class="mt-8 list-none p-0 m-0 grid grid-cols-1 sm:grid-cols-3 gap-3">
                                 {% for i in 1..3 %}
