@@ -20,12 +20,12 @@ final readonly class OpenSourceOverview
         'symfony' => [
             'label' => 'Symfony',
             'short' => 'symfony/symfony',
-            'url' => 'https://github.com/symfony/symfony',
+            'url' => 'https://github.com/symfony',
         ],
         'api-platform' => [
             'label' => 'API Platform',
             'short' => 'api-platform/core',
-            'url' => 'https://github.com/api-platform/core',
+            'url' => 'https://github.com/api-platform',
         ],
         'sylius' => [
             'label' => 'Sylius',
