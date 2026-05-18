@@ -292,13 +292,15 @@ team.bio.robin-chalas: |-
 
     When he's away from keyboard, Robin is either petting his cats or playing Pétanque.
 team.bio.valmont-pehaut-pietri: |-
-    Valmont is a developer specializing in PHP/Symfony. After 10 years in sales, he transitioned into web development two years ago. He focuses on backend development, code optimization, and occasionally works with Vue.js.
+    Valmont is a PHP/Symfony developer who enjoys jumping into big, messy projects when things are on fire, whether it’s to ship a feature, untangle legacy code, or help a migration finally move forward.
 
-    He is also active in the tech community through talks and open-source contributions.
+    After 10 years in sales, he switched to web development and kept a practical, people-first approach to solving problems.
+    
+    He focuses mostly on backend development, clean architecture, and code that future developers won’t curse too loudly.
 
-    Valmont is also deepening his knowledge in design patterns, software architectures, and preparing for the Symfony certification.
+    He also gives talks (when the stars align and he’s in the right mood), contributes to open source, and keeps digging into design patterns, software architecture, and the Symfony ecosystem.
 
-    A big fan of Lorcana, you'll often spot him at conferences, where instead of joining the usual after-work drinks, he'll be training with his friend Jérémy—though, of course, he's always up for both! He's also a craft beer enthusiast, but beware: if you bring up the subject, the conversation could get as intense as a political debate.
+    A big fan of TCGs, you'll often spot him at conferences, where instead of joining the usual after-work drinks, he'll be training with his friend Jérémy—though, of course, he's always up for both! He's also a craft beer enthusiast, but beware: if you bring up the subject, the conversation could get as intense as a political debate.
 team.bio.yazid-hassani: |-
     Yazid is a frontend developer specializing in React and Vue since 2019. With a strong focus on performance and user experience, he crafts sleek, responsive interfaces that feel seamless and intuitive.
 
