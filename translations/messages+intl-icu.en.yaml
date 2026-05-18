@@ -116,7 +116,7 @@ home.blog.all_posts: All posts
 home.clients.aria_label: baksla.sh's clients
 home.clients.heading: 'We <0>ship</0> together.'
 home.clients.cta: Yours?
-home.clients.cta_aria_label: 'Yours? Email hello@baksla.sh'
+home.clients.cta_aria_label: 'Add your logo. Email hello@baksla.sh'
 
 header.skip_to_content: Skip to content
 header.cmd.open_menu: open menu
