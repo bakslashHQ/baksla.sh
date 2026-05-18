@@ -74,7 +74,7 @@ ssg:
 		-e GA_APP_NAME \
 		-e GA_MEASUREMENT_ID \
 		php sh -c " \
-			bin/console cache:warmup && \
+			bin/console cache:clear && \
 			bin/console tailwind:build --minify && \
 			bin/console asset-map:compile && \
 			bin/console ssg:generate && \
