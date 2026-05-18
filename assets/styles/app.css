@@ -190,7 +190,7 @@
 
   .prose-body .hl-attribute,
   .prose-body .hl-symbol {
-    color: var(--color-accent);
+    color: #fff;
   }
 
   .pr-code .hl-keyword {
