@@ -15,7 +15,7 @@
     >
         <div
             data-member-modal-target="modal"
-            class="relative w-full max-w-4xl max-h-[85dvh] flex flex-col bg-paper rounded-2xl overflow-hidden shadow-2xl border border-ink/15 transition-all ease-out duration-300 opacity-0 translate-y-4 scale-95"
+            class="relative w-full max-w-4xl max-h-[85dvh] flex flex-col bg-paper rounded-2xl overflow-hidden shadow-2xl transition-all ease-out duration-300 opacity-0 translate-y-4 scale-95"
         >
             <button
                 type="button"
@@ -36,13 +36,18 @@
 
             <div class="flex-1 overflow-y-auto">
                 <div class="grid grid-cols-1 md:grid-cols-[18rem_1fr] md:min-h-[24rem]">
-                    <div class="relative bg-ink overflow-hidden h-40 md:h-auto md:min-h-[14rem]">
+                    <div class="relative overflow-hidden h-40 md:h-auto md:min-h-[14rem]">
                         <img
-                            class="absolute inset-0 size-full object-cover"
+                            class="absolute inset-0 size-full scale-120 object-cover blur-2xl opacity-70"
                             src="{{ asset('images/team/members/' ~ member.id.value ~ '.webp') }}"
                             alt=""
                         />
                         <div aria-hidden="true" class="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent"></div>
+                        <img
+                            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full max-h-[80%] max-w-[80%] shadow-lg"
+                            src="{{ asset('images/team/members/' ~ member.id.value ~ '.webp') }}"
+                            alt="Photo of {{ member.fullName }}"
+                        />
                         {% if member.nickName %}
                             <div class="absolute bottom-5 left-5 right-5 text-paper">
                                 <div class="font-sans italic text-paper/80 text-sm">“{{ member.nickName }}”</div>
