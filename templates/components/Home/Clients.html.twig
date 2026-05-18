@@ -29,7 +29,7 @@
                         width="{{ client.width }}"
                         height="{{ client.height }}"
                         loading="lazy"
-                        class="{{ client.imgClass|default('max-h-8 sm:max-h-10') }} max-w-[80%] w-auto h-auto object-contain grayscale opacity-75 group-hover:grayscale-0 group-hover:opacity-100 transition duration-200"
+                        class="{{ client.imgClass|default('max-h-8 sm:max-h-10') }} max-w-[80%] w-auto h-auto object-contain grayscale opacity-75 group-hover:grayscale-0 group-active:grayscale-0 group-hover:opacity-100 group-active:opacity-100 transition duration-200"
                     >
                 </li>
             {% endfor %}
