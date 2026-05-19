@@ -13,47 +13,6 @@ final readonly class OpenSourceOverview
 {
     public const int SINCE_YEAR = 2010;
 
-    /**
-     * @var array<string, array{label: string, short: string, url: string}>
-     */
-    private const array META = [
-        'symfony' => [
-            'label' => 'Symfony',
-            'short' => 'symfony/symfony',
-            'url' => 'https://github.com/symfony',
-        ],
-        'api-platform' => [
-            'label' => 'API Platform',
-            'short' => 'api-platform/core',
-            'url' => 'https://github.com/api-platform',
-        ],
-        'sylius' => [
-            'label' => 'Sylius',
-            'short' => 'Sylius/Sylius',
-            'url' => 'https://github.com/Sylius/Sylius',
-        ],
-        'lexik-jwt' => [
-            'label' => 'LexikJWTAuthBundle',
-            'short' => 'lexik/jwt-auth',
-            'url' => 'https://github.com/lexik/LexikJWTAuthenticationBundle',
-        ],
-        'oauth2-server-bundle' => [
-            'label' => 'OAuth2 Server Bundle',
-            'short' => 'league/oauth2-server-bundle',
-            'url' => 'https://github.com/thephpleague/oauth2-server-bundle',
-        ],
-        'tactician' => [
-            'label' => 'Tactician',
-            'short' => 'thephpleague/tactician',
-            'url' => 'https://github.com/thephpleague/tactician',
-        ],
-        'biome-js-bundle' => [
-            'label' => 'BiomeJsBundle',
-            'short' => 'Kocal/BiomeJsBundle',
-            'url' => 'https://github.com/Kocal/BiomeJsBundle',
-        ],
-    ];
-
     private OpenSourceStats $stats;
 
     public function __construct(
@@ -64,22 +23,20 @@ final readonly class OpenSourceOverview
     }
 
     /**
-     * @return list<array{id: string, label: string, short: string, url: string, reviews: int, prs: int, sum: int}>
+     * @return list<array{label: string, url: string, reviews: int, prs: int, sum: int}>
      */
     public function getProjects(): array
     {
         $projects = [];
-        foreach (self::META as $id => $meta) {
-            if (!$this->stats->hasProject($id)) {
+        foreach (OpenSourceStats::REPOS as $repo) {
+            if (!$this->stats->hasRepo($repo)) {
                 continue;
             }
-            $reviews = $this->stats->reviewsFor($id);
-            $prs = $this->stats->pullRequestsFor($id);
+            $reviews = $this->stats->reviewsFor($repo);
+            $prs = $this->stats->pullRequestsFor($repo);
             $projects[] = [
-                'id' => $id,
-                'label' => $meta['label'],
-                'short' => $meta['short'],
-                'url' => $meta['url'],
+                'label' => $repo,
+                'url' => \sprintf('https://github.com/%s/graphs/contributors?all=1', $repo),
                 'reviews' => $reviews,
                 'prs' => $prs,
                 'sum' => $reviews + $prs,

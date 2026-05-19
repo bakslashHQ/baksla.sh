@@ -20,43 +20,6 @@ use Symfony\Component\Filesystem\Filesystem;
 )]
 final readonly class RefreshOpenSourceStatsCommand
 {
-    /**
-     * @var array<string, list<string>>
-     */
-    public const array REPOS = [
-        'symfony' => [
-            'symfony/symfony',
-            'symfony/symfony-docs',
-            'symfony/demo',
-            'symfony/polyfill',
-            'symfony/recipes',
-            'symfony/recipes-contrib',
-            'symfony/maker-bundle',
-            'symfony/monolog-bundle',
-            'symfony/mercure',
-            'symfony/mercure-bundle',
-            'symfony/panther',
-            'symfony/ux',
-            'symfony/ux.symfony.com',
-            'symfony/ai',
-        ],
-        'api-platform' => ['api-platform/core'],
-        'sylius' => [
-            'Sylius/Sylius',
-            'Sylius/Stack',
-            'Sylius/SyliusGridBundle',
-            'Sylius/SyliusResourceBundle',
-        ],
-        'lexik-jwt' => ['lexik/LexikJWTAuthenticationBundle'],
-        'oauth2-server-bundle' => ['thephpleague/oauth2-server-bundle'],
-        'tactician' => [
-            'thephpleague/tactician',
-            'thephpleague/tactician-bundle',
-            'thephpleague/tactian-logger',
-        ],
-        'biome-js-bundle' => ['Kocal/BiomeJsBundle'],
-    ];
-
     public function __construct(
         private GitHubClient $githubClient,
         private MemberRepository $memberRepository,
@@ -69,26 +32,19 @@ final readonly class RefreshOpenSourceStatsCommand
     public function __invoke(SymfonyStyle $io): int
     {
         $counts = $this->githubClient->countPullRequests(
-            array_merge(...array_values(self::REPOS)),
+            OpenSourceStats::REPOS,
             array_values(array_map(fn (Member $member): string => $member->github, $this->memberRepository->findAll())),
         );
 
         $previous = OpenSourceStats::fromJsonFile($this->statsFile);
 
         $stats = [];
-        foreach (self::REPOS as $project => $repos) {
-            $reviews = 0;
-            $pullRequests = 0;
-            foreach ($repos as $repo) {
-                $reviews += $counts[$repo]->reviewed;
-                $pullRequests += $counts[$repo]->authored;
-            }
-
+        foreach (OpenSourceStats::REPOS as $repo) {
             // GitHub's search.issueCount is an estimate for large result sets and drifts run-to-run;
             // ratchet upward so the published numbers never regress.
-            $stats[$project] = [
-                'reviews' => max($previous->reviewsFor($project), $reviews),
-                'pullRequests' => max($previous->pullRequestsFor($project), $pullRequests),
+            $stats[$repo] = [
+                'reviews' => max($previous->reviewsFor($repo), $counts[$repo]->reviewed),
+                'pullRequests' => max($previous->pullRequestsFor($repo), $counts[$repo]->authored),
             ];
         }
 

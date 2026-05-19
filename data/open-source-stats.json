@@ -1,29 +1,101 @@
 {
-    "symfony": {
-        "reviews": 4756,
-        "pullRequests": 1784
+    "symfony\/symfony": {
+        "reviews": 3346,
+        "pullRequests": 1061
     },
-    "api-platform": {
+    "symfony\/symfony-docs": {
+        "reviews": 612,
+        "pullRequests": 182
+    },
+    "symfony\/demo": {
+        "reviews": 9,
+        "pullRequests": 6
+    },
+    "symfony\/polyfill": {
+        "reviews": 4,
+        "pullRequests": 1
+    },
+    "symfony\/recipes": {
+        "reviews": 213,
+        "pullRequests": 48
+    },
+    "symfony\/recipes-contrib": {
+        "reviews": 29,
+        "pullRequests": 20
+    },
+    "symfony\/maker-bundle": {
+        "reviews": 15,
+        "pullRequests": 4
+    },
+    "symfony\/monolog-bundle": {
+        "reviews": 16,
+        "pullRequests": 3
+    },
+    "symfony\/mercure": {
+        "reviews": 18,
+        "pullRequests": 6
+    },
+    "symfony\/mercure-bundle": {
+        "reviews": 13,
+        "pullRequests": 10
+    },
+    "symfony\/panther": {
+        "reviews": 10,
+        "pullRequests": 7
+    },
+    "symfony\/ux": {
+        "reviews": 490,
+        "pullRequests": 413
+    },
+    "symfony\/ux.symfony.com": {
+        "reviews": 10,
+        "pullRequests": 38
+    },
+    "symfony\/ai": {
+        "reviews": 0,
+        "pullRequests": 3
+    },
+    "api-platform\/core": {
         "reviews": 38,
         "pullRequests": 21
     },
-    "sylius": {
-        "reviews": 24,
-        "pullRequests": 33
+    "Sylius\/Sylius": {
+        "reviews": 13,
+        "pullRequests": 14
     },
-    "lexik-jwt": {
+    "Sylius\/Stack": {
+        "reviews": 4,
+        "pullRequests": 8
+    },
+    "Sylius\/SyliusGridBundle": {
+        "reviews": 6,
+        "pullRequests": 10
+    },
+    "Sylius\/SyliusResourceBundle": {
+        "reviews": 1,
+        "pullRequests": 1
+    },
+    "lexik\/LexikJWTAuthenticationBundle": {
         "reviews": 128,
         "pullRequests": 148
     },
-    "oauth2-server-bundle": {
+    "thephpleague\/oauth2-server-bundle": {
         "reviews": 78,
         "pullRequests": 30
     },
-    "tactician": {
-        "reviews": 11,
-        "pullRequests": 12
+    "thephpleague\/tactician": {
+        "reviews": 1,
+        "pullRequests": 2
     },
-    "biome-js-bundle": {
+    "thephpleague\/tactician-bundle": {
+        "reviews": 10,
+        "pullRequests": 10
+    },
+    "thephpleague\/tactician-logger": {
+        "reviews": 1,
+        "pullRequests": 1
+    },
+    "Kocal\/BiomeJsBundle": {
         "reviews": 3,
         "pullRequests": 20
     }

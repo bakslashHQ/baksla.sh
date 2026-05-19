@@ -7,6 +7,37 @@ namespace App\OpenSource\Domain\Model;
 final readonly class OpenSourceStats
 {
     /**
+     * @var list<string>
+     */
+    public const array REPOS = [
+        'symfony/symfony',
+        'symfony/symfony-docs',
+        'symfony/demo',
+        'symfony/polyfill',
+        'symfony/recipes',
+        'symfony/recipes-contrib',
+        'symfony/maker-bundle',
+        'symfony/monolog-bundle',
+        'symfony/mercure',
+        'symfony/mercure-bundle',
+        'symfony/panther',
+        'symfony/ux',
+        'symfony/ux.symfony.com',
+        'symfony/ai',
+        'api-platform/core',
+        'Sylius/Sylius',
+        'Sylius/Stack',
+        'Sylius/SyliusGridBundle',
+        'Sylius/SyliusResourceBundle',
+        'lexik/LexikJWTAuthenticationBundle',
+        'thephpleague/oauth2-server-bundle',
+        'thephpleague/tactician',
+        'thephpleague/tactician-bundle',
+        'thephpleague/tactician-logger',
+        'Kocal/BiomeJsBundle',
+    ];
+
+    /**
      * @param array<string, array{reviews: int, pullRequests: int}> $stats
      */
     private function __construct(
@@ -36,19 +67,19 @@ final readonly class OpenSourceStats
         return new self($data);
     }
 
-    public function hasProject(string $project): bool
+    public function hasRepo(string $repo): bool
     {
-        return isset($this->stats[$project]);
+        return isset($this->stats[$repo]);
     }
 
-    public function reviewsFor(string $project): int
+    public function reviewsFor(string $repo): int
     {
-        return $this->stats[$project]['reviews'] ?? 0;
+        return $this->stats[$repo]['reviews'] ?? 0;
     }
 
-    public function pullRequestsFor(string $project): int
+    public function pullRequestsFor(string $repo): int
     {
-        return $this->stats[$project]['pullRequests'] ?? 0;
+        return $this->stats[$repo]['pullRequests'] ?? 0;
     }
 
     public function getTotalReviews(): int

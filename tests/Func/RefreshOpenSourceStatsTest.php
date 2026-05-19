@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Func;
 
-use App\OpenSource\Infrastructure\Command\RefreshOpenSourceStatsCommand;
+use App\OpenSource\Domain\Model\OpenSourceStats;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -34,7 +34,7 @@ final class RefreshOpenSourceStatsTest extends KernelTestCase
         }
     }
 
-    public function testWritesAggregatedStatsFile(): void
+    public function testWritesPerRepoStatsFile(): void
     {
         self::getContainer()->set('github.client', $this->fakeGithubHttpClient());
 
@@ -49,11 +49,16 @@ final class RefreshOpenSourceStatsTest extends KernelTestCase
         /** @var array<string, array{reviews: int, pullRequests: int}> $stats */
         $stats = json_decode((string) file_get_contents($this->statsFile), true, flags: \JSON_THROW_ON_ERROR);
 
-        $this->assertSame(\count(RefreshOpenSourceStatsCommand::REPOS['symfony']) * self::FAKE_ISSUE_COUNT, $stats['symfony']['reviews']);
-        $this->assertSame(\count(RefreshOpenSourceStatsCommand::REPOS['symfony']) * self::FAKE_ISSUE_COUNT, $stats['symfony']['pullRequests']);
+        $this->assertCount(\count(OpenSourceStats::REPOS), $stats);
 
-        $this->assertSame(self::FAKE_ISSUE_COUNT, $stats['api-platform']['reviews']);
-        $this->assertSame(self::FAKE_ISSUE_COUNT, $stats['api-platform']['pullRequests']);
+        $this->assertSame(self::FAKE_ISSUE_COUNT, $stats['symfony/symfony']['reviews']);
+        $this->assertSame(self::FAKE_ISSUE_COUNT, $stats['symfony/symfony']['pullRequests']);
+
+        $this->assertSame(self::FAKE_ISSUE_COUNT, $stats['api-platform/core']['reviews']);
+        $this->assertSame(self::FAKE_ISSUE_COUNT, $stats['api-platform/core']['pullRequests']);
+
+        $this->assertSame(self::FAKE_ISSUE_COUNT, $stats['Kocal/BiomeJsBundle']['reviews']);
+        $this->assertSame(self::FAKE_ISSUE_COUNT, $stats['Kocal/BiomeJsBundle']['pullRequests']);
     }
 
     private function fakeGithubHttpClient(): HttpClientInterface
