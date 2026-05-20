@@ -1289,6 +1289,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         local_binary?: scalar|Param|null, // Path to the local binary (use "auto" for automatic detection) // Default: false
  *         download_binary?: bool|Param, // Download the binary from GitHub (defaults to "true" in debug mode) // Default: "%kernel.debug%"
  *         download_directory?: scalar|Param|null, // Directory to store the downloaded binary // Default: "%kernel.project_dir%/var/minify"
+ *         version?: scalar|Param|null, // Minify version to download (null for latest) // Default: null
  *     },
  * }
  * @psalm-type ConfigType = array{
