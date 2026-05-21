@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "602c28fa26eca4c6edaaccd0f79ac7fc",
+    "content-hash": "5f119dd1c63b2f6459060d12c36a4bc8",
     "packages": [
         {
             "name": "composer/semver",
@@ -1249,16 +1249,16 @@
         },
         {
             "name": "sensiolabs/minify-bundle",
-            "version": "v1.2.0",
+            "version": "dev-feat/html-support",
             "source": {
                 "type": "git",
-                "url": "https://github.com/sensiolabs/minify-bundle.git",
-                "reference": "cf6462fbbd7883367c6ee1f02424e93a3df79384"
+                "url": "https://github.com/bakslashHQ/minify-bundle.git",
+                "reference": "d1f26e79afea0595ff7ef95d97fbff00a528134f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/minify-bundle/zipball/cf6462fbbd7883367c6ee1f02424e93a3df79384",
-                "reference": "cf6462fbbd7883367c6ee1f02424e93a3df79384",
+                "url": "https://api.github.com/repos/bakslashHQ/minify-bundle/zipball/d1f26e79afea0595ff7ef95d97fbff00a528134f",
+                "reference": "d1f26e79afea0595ff7ef95d97fbff00a528134f",
                 "shasum": ""
             },
             "require": {
@@ -1280,8 +1280,8 @@
             "type": "symfony-bundle",
             "extra": {
                 "thanks": {
-                    "url": "https://github.com/tdewolff/minify",
-                    "name": "tdewolff/minify"
+                    "name": "tdewolff/minify",
+                    "url": "https://github.com/tdewolff/minify"
                 }
             },
             "autoload": {
@@ -1289,7 +1289,11 @@
                     "Sensiolabs\\MinifyBundle\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Sensiolabs\\MinifyBundle\\Tests\\": "tests/"
+                }
+            },
             "license": [
                 "MIT"
             ],
@@ -1306,21 +1310,20 @@
             "description": "Assets Minifier (CSS, JS) for Symfony & Minify integration in Asset Mapper",
             "homepage": "https://github.com/sensiolabs/minify-bundle",
             "keywords": [
-                "JS",
                 "asset-mapper",
                 "assets",
                 "compress",
                 "css",
+                "js",
                 "minifier",
                 "minify",
                 "symfony",
                 "uglify"
             ],
             "support": {
-                "issues": "https://github.com/sensiolabs/minify-bundle/issues",
-                "source": "https://github.com/sensiolabs/minify-bundle/tree/v1.2.0"
+                "source": "https://github.com/bakslashHQ/minify-bundle/tree/feat/html-support"
             },
-            "time": "2025-08-19T18:45:10+00:00"
+            "time": "2026-05-20T19:18:46+00:00"
         },
         {
             "name": "symfony/asset",
@@ -9835,9 +9838,17 @@
             "time": "2026-02-23T13:21:35+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "package": "sensiolabs/minify-bundle",
+            "version": "dev-feat/html-support",
+            "alias": "1.3.0",
+            "alias_normalized": "1.3.0.0"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "sensiolabs/minify-bundle": 20,
         "symfonycasts/tailwind-bundle": 20
     },
     "prefer-stable": true,
