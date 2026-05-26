@@ -16,41 +16,41 @@ return [
         'path' => './assets/app.js',
         'entrypoint' => true,
     ],
-    '@hotwired/stimulus' => [
-        'version' => '3.2.2',
-    ],
     '@symfony/stimulus-bundle' => [
         'path' => './vendor/symfony/stimulus-bundle/assets/dist/loader.js',
     ],
+    '@hotwired/stimulus' => [
+        'version' => '3.2.2',
+    ],
     'analytics' => [
-        'version' => '0.8.16',
+        'version' => '0.8.19',
     ],
     '@analytics/google-analytics' => [
         'version' => '1.1.0',
     ],
     '@analytics/core' => [
-        'version' => '0.12.17',
+        'version' => '0.13.2',
     ],
     '@analytics/storage-utils' => [
-        'version' => '0.4.2',
+        'version' => '0.4.4',
     ],
     'analytics-utils' => [
-        'version' => '1.0.14',
+        'version' => '1.1.1',
     ],
     '@analytics/global-storage-utils' => [
-        'version' => '0.1.7',
+        'version' => '0.1.9',
     ],
     '@analytics/type-utils' => [
-        'version' => '0.6.2',
+        'version' => '0.6.4',
     ],
     '@analytics/cookie-utils' => [
-        'version' => '0.2.12',
+        'version' => '0.2.14',
     ],
     '@analytics/localstorage-utils' => [
-        'version' => '0.1.10',
+        'version' => '0.1.12',
     ],
     '@analytics/session-storage-utils' => [
-        'version' => '0.0.7',
+        'version' => '0.0.9',
     ],
     'dlv' => [
         'version' => '1.1.3',
