@@ -1,0 +1,185 @@
+---
+author: mathias-arlaud
+title: When Symfony pages don't need Symfony
+description: 5ms to render a Symfony page. 0.2ms to serve it as a static file. 25× faster, same response. Time to put the kernel on a strict diet.
+published_at: 2026-05-18
+---
+
+If you've been running a Symfony application in production, you may have noticed something: most of your pages don't change between deploys. A blog article, a team page, a "features" page on a marketing site. Once published, the response is essentially the same for every visitor, every day, for months.
+
+And yet, on every single request, you pay the **full cost of Symfony**: autoload, container boot, kernel, event subscribers, routing, controller, Twig rendering, response cycle. That cost is per-request, and it scales linearly with traffic.
+
+*Wouldn't it be nice to render these pages once, and serve the result directly from the webserver?*
+
+That's exactly what this article is about. And the good news is, **you don't have to leave Symfony to do it**.
+
+What we're about to describe has a name: **Static Site Generation (SSG)**. It's a well-known pattern in the JavaScript world, with tools like [Next.js](https://nextjs.org/), [Astro](https://astro.build/), [Eleventy](https://www.11ty.dev/), or [Gatsby](https://www.gatsbyjs.com/). The PHP side has been quieter on the topic, but the building blocks are all there. Let's wire them up.
+
+> :pray: Big thanks to [Thomas Bibaut](https://github.com/tBibaut), who originally brought the idea of doing SSG with Symfony to the table. This article and the implementation it describes grew out of that initial spark.
+
+## The cost we are paying
+
+Let's put numbers on it.
+
+A well-tuned Symfony page, with OPcache hot, preloading enabled, and a warm container cache, typically lands in **around 5 to 15 ms** server-side.
+
+A static HTML file served by Caddy or Nginx, on the other hand, lands in the **0.2 to 0.5 ms** range. Behind a CDN, you can reach a few tens of ms globally, dominated by network latency rather than processing.
+
+That's one order of magnitude, sometimes two. And the gap only widens under load, because a static file does not wait for PHP workers.
+
+So for pages that do not depend on the incoming request, the dynamic path is plainly the wrong answer. We're computing the same response, over and over, just to throw it away after sending it.
+
+## Let the webserver answer
+
+The idea is simple: **render the page once, at build time, and write the result to disk**. Then, configure the webserver to look there first, and fall back to PHP only when no static file matches.
+
+Here's how it looks in a Caddyfile:
+
+```
+{$SERVER_NAME:localhost} {
+    root * /app/public
+    encode zstd gzip
+
+    {$CADDY_SERVER_EXTRA_DIRECTIVES}
+
+    try_files {path} /static-pages{path}.html
+    try_files {path} /static-pages{path}
+
+    php_server
+}
+```
+
+Each `try_files` directive rewrites the request to the first candidate that points to an existing file. So Caddy effectively looks for a match in this order:
+
+1. **A file already exists at `{path}`**. That's anything sitting in `public/`: assets, `robots.txt`, the favicon, etc. The URL is left alone.
+2. **A prerendered HTML file exists at `/static-pages{path}.html`**. The URL is rewritten there.
+3. **A prerendered file with its own extension exists at `/static-pages{path}`**. Same idea, for non-HTML responses (XML, JSON, Markdown, ...).
+4. **None of the above**, and the request falls through to `php_server`, which boots Symfony.
+
+In every case where one of the first three matches, `php_server` ends up serving a plain file from disk, and **the request never reaches PHP**. Symfony does not boot. The kernel does not even exist as far as that request is concerned. For everything else, Caddy passes the request on as usual, and your dynamic routes keep working exactly as before.
+
+Same domain, same codebase, same deployment. The webserver simply picks the fast path when one exists.
+
+> :bulb: Nginx does the same thing with a `try_files` block. The semantics are identical.
+
+And since the response is now just a file on disk, both Caddy and Nginx will set `Last-Modified` and `ETag` from the file's metadata out of the box, so conditional requests (`If-Modified-Since`, `If-None-Match`) just work, and clients with a fresh copy get a `304 Not Modified` instead of the full body.
+
+## But isn't that what HTTP cache is for?
+
+*Fair question*. If you've ever set up a reverse proxy in front of a Symfony app, with Varnish or Symfony own `HttpCache`, you might be wondering why we don't just slap `Cache-Control: public, max-age=86400` on the response and call it a day.
+
+And honestly, **HTTP cache is great**. But it answers a slightly different question.
+
+With a traditional HTTP cache:
+
+- The **first request** always hits Symfony. The cache is cold, so the kernel boots, the controller runs, and the response is computed. Only then is it stored.
+- **Subsequent requests** within the TTL are served from the cache, very fast.
+- When the TTL expires, when the cache is evicted, when the proxy restarts, the cycle starts over: someone, somewhere, pays the full cost again.
+
+In other words, HTTP cache is **opportunistic**. It's a runtime optimization, driven by traffic, with an eventually-evicted store.
+
+Prerendering is **deterministic**. The cost is paid once, in CI, at build time. The result lives on disk until the next deploy. There is no TTL, no cold start, no eviction, no first-visitor-pays-for-everyone-else effect. The millionth request is just as fast as the first one, because they both read the very same file.
+
+The two approaches are not mutually exclusive, of course. You can perfectly prerender your stable content routes and HTTP-cache the dynamic ones. **But for pages whose content only changes when you deploy, prerendering is essentially an HTTP cache with infinite TTL, primed at build time and invalidated by your CI pipeline.** Which is, when you think about it, exactly what you want.
+
+## Marking a route as prerenderable
+
+Now we need to tell Symfony **which routes to bake**. The simplest way is an [attribute](https://github.com/bakslashHQ/baksla.sh/blob/77fe33902d3b5d73386b132bb23f62f4137e64ec/src/Shared/Infrastructure/StaticSiteGeneration/Prerender.php) on the controller:
+
+```php
+#[Route(path: '/team', name: 'app_team', methods: ['GET'])]
+#[Prerender]
+public function __invoke(): Response
+{
+    // ...
+}
+```
+
+A [decorated `routing.loader`](https://github.com/bakslashHQ/baksla.sh/blob/77fe33902d3b5d73386b132bb23f62f4137e64ec/src/Shared/Infrastructure/StaticSiteGeneration/PrerenderRouteLoader.php) scans controllers at route-loading time and stamps the marked routes with a flag, and a [console command](https://github.com/bakslashHQ/baksla.sh/blob/77fe33902d3b5d73386b132bb23f62f4137e64ec/src/Shared/Infrastructure/StaticSiteGeneration/GenerateStaticSiteCommand.php) drives the build. At runtime, that command [walks the router collection](https://github.com/bakslashHQ/baksla.sh/blob/77fe33902d3b5d73386b132bb23f62f4137e64ec/src/Shared/Infrastructure/StaticSiteGeneration/StaticPageUrisProvider.php) to generate each URI, [calls the kernel](https://github.com/bakslashHQ/baksla.sh/blob/77fe33902d3b5d73386b132bb23f62f4137e64ec/src/Shared/Infrastructure/StaticSiteGeneration/StaticPagesGenerator.php), and [writes the response](https://github.com/bakslashHQ/baksla.sh/blob/77fe33902d3b5d73386b132bb23f62f4137e64ec/src/Shared/Infrastructure/StaticSiteGeneration/FilesystemStaticPageDumper.php) to `public/static-pages/`.
+
+The trick under the hood is that **a Symfony request lifecycle is just a function**: give the kernel a `Request`, get back a `Response`. Nothing forces that request to come from PHP-FPM or a real socket. Every controller, every event subscriber, every Twig extension runs exactly as it does in production, because it *is* production code.
+
+```php
+$request = Request::create('/team');
+$response = $kernel->handle($request, HttpKernelInterface::MAIN_REQUEST);
+
+file_put_contents('public/static-pages/team.html', $response->getContent());
+```
+
+That's it. Adding a new prerendered route is now a **one-line change** on the controller.
+
+## Dynamic routes: parameter providers
+
+So far, so good. But what about routes with path variables, like `/blog/{id}`?
+
+The router cannot generate `/blog/{id}` without knowing the `id`. And the build layer has **no business knowing which articles exist**, that's a domain concern.
+
+The solution is to let the attribute point to a [service that yields the parameter sets](https://github.com/bakslashHQ/baksla.sh/blob/77fe33902d3b5d73386b132bb23f62f4137e64ec/src/Shared/Infrastructure/StaticSiteGeneration/ParamsProviderInterface.php):
+
+```php
+#[Route(path: '/blog/{id}', name: 'app_blog_article', methods: ['GET'])]
+#[Prerender(params: BlogArticleParamsProvider::class)]
+public function __invoke(string $id): Response
+{
+    // ...
+}
+```
+
+```php
+final readonly class BlogArticleParamsProvider implements ParamsProviderInterface
+{
+    public function __construct(
+        private ArticlePreviewRepository $articlePreviewRepository,
+    ) {
+    }
+
+    public function provideParams(): iterable
+    {
+        foreach ($this->articlePreviewRepository->findAll() as $article) {
+            yield ['id' => $article->id];
+        }
+    }
+}
+```
+
+One URI per yielded parameter set. The build generates one HTML file per article. Same pattern for category pages, localized variants, and anything with a **finite, enumerable set of values**.
+
+And if the parameter is unbounded, like a free-text search query? Then prerendering is the wrong tool for that route. Just leave it dynamic.
+
+## A few caveats, of course
+
+This is not magic, and it does not fit every page.
+
+Prerendered routes must be `GET` and **stateless**. No `$_POST`, no session reads, no per-user variation. Forms, search, dashboards stay on the dynamic path.
+
+Listing pages are also frozen at deploy time. Your blog index shows the latest articles as of the last build. Fine for an engineering blog, less fine for a news feed. The fix is either to redeploy when content changes, or to keep the index dynamic and prerender only the detail pages.
+
+But the whole point of doing this **route by route** is that you don't have to choose globally. Bake the stable pages, leave the rest dynamic, and change your mind later by adding or removing a single attribute.
+
+## When things get more complex
+
+The approach described in this article is deliberately **minimal**. It fits in a few hundred lines of code, and it's a great match for simple cases: a marketing site, a blog, a portfolio, a documentation site with a stable structure.
+
+However, if your needs are richer, with structured content sources, fine-grained metadata indexing, complex routing logic, or a CMS-like authoring experience, you'll likely outgrow this quickly. In that case, take a look at [Stenope](https://github.com/StenopePHP/Stenope), a more complete SSG bundle for Symfony. It tackles the same problem from a different angle: content-first rather than route-first, with a much wider feature set out of the box.
+
+So think of this article as the **"good enough for most apps"** baseline. If it covers your needs, great. If not, you know where to look.
+
+## Taking it to the limit: no PHP at all
+
+Now, what if you push the idea to its limits?
+
+If **every route** in your application carries `#[Prerender]`, PHP is no longer in the picture at runtime. The output of the build is just a flat directory of HTML, CSS, JS, and images. And any static host will serve it.
+
+That's actually how [baksla.sh](https://baksla.sh) itself runs: on **GitHub Pages**. No server, no PHP runtime, no bill.
+
+The deploy is a `make ssg` target followed by `actions/upload-pages-artifact` and `actions/deploy-pages`.
+
+Beyond that, it's the same prerendering pipeline, the same controllers, the same templates. The Caddy fall-through to PHP is just removed, because there's nothing dynamic to fall back to.
+
+## Where this is heading
+
+This is not a clever hack reserved to one website. The pattern is generic enough that **a dedicated bundle may appear soon** to handle the whole feature: the `#[Prerender]` attribute, the parameter provider contract, the build command, the dumpers. You'd just install it, drop the attribute on the controllers you want baked, and you're done.
+
+So the interesting question is not really *"should I do this?"*. It's *"should I structure my content routes today so that, when the bundle lands, opting in costs me one attribute per controller?"*
+
+In the end, **the cheapest Symfony request is the one the webserver answered before Symfony runtime even heard about it**.
