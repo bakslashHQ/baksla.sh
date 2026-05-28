@@ -50,6 +50,8 @@ bash:
 app.install:
 	@$(call action, Installing PHP dependencies...)
 	$(COMPOSER) install --prefer-dist
+	@$(call action, Installing Playwright browsers...)
+	$(PHP_CONT) vendor/bin/playwright-install --with-deps -v
 
 ## Composer 🧙 - Run composer, pass the parameter "c=" to run a given command, example: make composer c='req symfony/orm-pack'
 composer:
