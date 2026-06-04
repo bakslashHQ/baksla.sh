@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Blog\Infrastructure\OpenGraph;
 
-use App\Blog\Domain\OpenGraph\ImageGenerator;
 use App\Blog\Domain\Repository\ArticleRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;

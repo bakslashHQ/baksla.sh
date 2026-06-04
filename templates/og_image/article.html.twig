@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OG / {{ article.title }}</title>
+    {{ importmap('app') }}
+</head>
+<body class="relative w-[1200px] h-[630px] bg-paper text-ink overflow-hidden m-0 antialiased">
+    {# Centered block: caption / title / meta — sits between top margin and footer row #}
+    <div class="absolute inset-x-[64px] top-[64px] bottom-[136px] flex flex-col justify-center">
+        <div class="font-mono text-[24px] text-accent leading-none">{{ '# BLOG.md' }}</div>
+        <h1
+            class="mt-[28px] font-sans font-bold text-[76px] leading-[1.05] m-0 text-ink"
+            style="letter-spacing: -2px;"
+        >
+            {{ article.title }}
+        </h1>
+        <div class="mt-[28px] font-mono text-[22px] text-muted">
+            <span class="uppercase">{{ article.publishedAt|date('M j, Y')|upper }}</span>&nbsp;&nbsp;·&nbsp;&nbsp;{{ article.readingTime }} min read
+        </div>
+    </div>
+
+    {# Footer row: avatar + author (left) / logo + wordmark (right) #}
+    <div class="absolute left-[64px] right-[64px] bottom-[64px] h-[72px] flex items-center justify-between">
+        <div class="flex items-center gap-[20px]">
+            <img
+                src="{{ asset('images/team/members/' ~ article.author.id.value ~ '.webp') }}"
+                alt=""
+                class="w-[72px] h-[72px] rounded-full object-cover"
+            >
+            <span class="font-sans font-bold text-[30px] text-ink">{{ article.author.fullname }}</span>
+        </div>
+        <div class="flex items-center gap-[16px]">
+            <img src="{{ asset('images/bakslash-small.svg') }}" alt="" class="w-[56px] h-[56px]">
+            <span class="font-sans font-bold text-[44px] text-ink" style="letter-spacing: -1px;">
+                baksla<span class="text-accent">.</span>sh
+            </span>
+        </div>
+    </div>
+
+    <script>
+        (async () => {
+            try { await document.fonts.ready; } catch (e) {}
+            const imgs = Array.from(document.images);
+            await Promise.all(imgs.map(img => img.complete
+                ? Promise.resolve()
+                : new Promise(res => {
+                    img.addEventListener('load', res, { once: true });
+                    img.addEventListener('error', res, { once: true });
+                })
+            ));
+            await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+            document.body.dataset.ogReady = 'true';
+        })();
+    </script>
+</body>
+</html>

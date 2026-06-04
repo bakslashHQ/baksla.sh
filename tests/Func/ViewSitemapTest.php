@@ -6,6 +6,7 @@ namespace App\Tests\Func;
 
 use App\Blog\Domain\Model\ArticlePreview;
 use App\Blog\Domain\Repository\ArticlePreviewRepository;
+use App\Blog\Infrastructure\Controller\PreviewOpenGraphImage;
 use App\Website\Infrastructure\Controller\ViewSitemap;
 use Symfony\Bundle\FrameworkBundle\Controller\RedirectController;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
@@ -59,7 +60,7 @@ final class ViewSitemapTest extends FunctionalTestCase
 
         $expectedUrls = [];
         foreach ($router->getRouteCollection() as $name => $route) {
-            if (!$this->isPageRoute($name, $route)) {
+            if (!$this->isPageRoute($route)) {
                 continue;
             }
 
@@ -110,7 +111,7 @@ final class ViewSitemapTest extends FunctionalTestCase
             $route = $router->getRouteCollection()->get($name);
             Assert::notNull($route);
 
-            if (!$this->isPageRoute($name, $route)) {
+            if (!$this->isPageRoute($route)) {
                 $extras[] = $url;
             }
         }
@@ -171,9 +172,10 @@ final class ViewSitemapTest extends FunctionalTestCase
         self::fail(sprintf('No params provider for parametric route "%s". Update %s::provideExpectedParams().', $name, self::class));
     }
 
-    private function isPageRoute(string $name, Route $route): bool
+    private function isPageRoute(Route $route): bool
     {
-        if ($name === 'app_sitemap') {
+        $controller = $route->getDefault('_controller');
+        if (in_array($controller, [ViewSitemap::class, PreviewOpenGraphImage::class], true)) {
             return false;
         }
 

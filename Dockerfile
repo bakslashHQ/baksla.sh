@@ -1,8 +1,9 @@
 #syntax=docker/dockerfile:1.4
 
 # Versions
-FROM dunglas/frankenphp:1-php8.4-alpine AS frankenphp_upstream
+FROM dunglas/frankenphp:1-php8.4 AS frankenphp_upstream
 FROM composer/composer:2-bin AS composer_upstream
+FROM node:26-bookworm-slim AS node_upstream
 
 
 # The different stages of this Dockerfile are meant to be built into separate images
@@ -16,13 +17,13 @@ FROM frankenphp_upstream AS frankenphp_base
 WORKDIR /app
 
 # persistent / runtime deps
-# hadolint ignore=DL3018
-RUN apk add --no-cache \
+# hadolint ignore=DL3018,DL3008
+RUN apt-get update && apt-get install -y --no-install-recommends \
 		acl \
 		file \
 		gettext \
 		git \
-	;
+	&& rm -rf /var/lib/apt/lists/*
 
 RUN set -eux; \
 	install-php-extensions \
@@ -65,6 +66,12 @@ RUN set -eux; \
 	;
 
 COPY --link frankenphp/conf.d/app.dev.ini $PHP_INI_DIR/conf.d/
+
+# Node.js 26 (copy from official node:26-bookworm-slim, glibc compatible)
+COPY --from=node_upstream /usr/local/bin/node /usr/local/bin/node
+COPY --from=node_upstream /usr/local/lib/node_modules /usr/local/lib/node_modules
+RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
+	&& ln -s /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx
 
 CMD [ "frankenphp", "run", "--config", "/etc/caddy/Caddyfile", "--watch" ]
 

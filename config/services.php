@@ -15,6 +15,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->set('app.showcased_article', 'when-symfony-pages-dont-need-symfony') // The filename without the ".md.twig" extension
         ->set('app.articles_dir', sprintf('%s/templates/articles', param('kernel.project_dir')))
         ->set('app.ssg_output_dir', sprintf('%s/static-pages', param('app.public_dir')))
+        ->set('app.og_preview_base_url', 'http://php')
         ->set('app.open_source_stats_file', $containerConfigurator->env() === 'test'
             ? sprintf('%s/bakslash_test/open-source-stats.json', sys_get_temp_dir())
             : sprintf('%s/data/open-source-stats.json', param('kernel.project_dir')));

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Func;
 
+use App\Blog\Infrastructure\Controller\PreviewOpenGraphImage;
 use App\Shared\Infrastructure\StaticSiteGeneration\Prerender;
 use Symfony\Bundle\FrameworkBundle\Controller\RedirectController;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -20,7 +21,8 @@ final class EveryRouteIsPrerenderTest extends KernelTestCase
         $missing = [];
 
         foreach ($router->getRouteCollection() as $routeName => $route) {
-            if ($route->getDefault('_controller') === RedirectController::class) {
+            $controller = $route->getDefault('_controller');
+            if (in_array($controller, [RedirectController::class, PreviewOpenGraphImage::class], true)) {
                 continue;
             }
 
