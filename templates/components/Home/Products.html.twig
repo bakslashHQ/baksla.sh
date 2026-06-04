@@ -61,23 +61,23 @@
                             <span class="opacity-60">[{{ ('home.products.product.tag.' ~ service.kind)|trans }}]</span>
                         </div>
 
-                        <div class="p-8 sm:p-10 lg:p-12">
-                            <div class="font-mono text-xs uppercase tracking-widest text-accent mb-3">
+                        <div class="p-4 sm:p-10 lg:p-12">
+                            <div class="font-mono text-xs uppercase tracking-widest text-accent mt-2 sm:mt-0 mb-3">
                                 {{ ('home.products.product.tag.' ~ service.kind)|trans }}
                             </div>
                             <h3 class="font-sans font-medium text-2xl sm:text-3xl lg:text-4xl m-0 leading-tight">
                                 {{- ('home.products.service.' ~ service.slug ~ '.title')|trans -}}
                             </h3>
-                            <p class="mt-6 max-w-xl text-sm sm:text-base leading-relaxed text-ink-soft">
+                            <p class="sm:mt-4 mt-6 max-w-xl text-sm sm:text-base leading-relaxed text-ink-soft">
                                 {{- ('home.products.service.' ~ service.slug ~ '.summary')|trans -}}
                             </p>
                             {% if service.slug == 'architecture' %}
-                                <p class="mt-4 max-w-xl text-sm sm:text-base leading-relaxed text-ink-soft">
+                                <p class="sm:mt-2 mt-4 max-w-xl text-sm sm:text-base leading-relaxed text-ink-soft">
                                     {{- ('home.products.service.architecture.detail')|trans -}}
                                 </p>
                                 <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     {% for case in ['new', 'existing'] %}
-                                        <div class="border border-ink/15 rounded-lg p-5">
+                                        <div class="border border-ink/15 rounded-lg p-3 sm:p-5">
                                             <div class="font-mono text-xs uppercase tracking-widest text-accent mb-2">
                                                 {{- ('home.products.service.architecture.detail_' ~ case ~ '_label')|trans -}}
                                             </div>

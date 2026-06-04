@@ -85,14 +85,14 @@
                             <span class="text-sm sm:text-base text-ink-soft leading-snug">
                                 {{ 'home.oss.line.on'|trans }} <span class="text-ink font-medium">{{ project.label }}</span>
                             </span>
-                            <span class="ml-auto font-mono text-xs text-muted opacity-50 group-hover:opacity-100 transition-opacity">
+                            <span class="ml-auto font-mono text-xs text-muted">
                                 {{ project.reviews }}r · {{ project.prs }}p
                             </span>
                         </a>
                     </li>
                 {% endfor %}
             </ul>
-            <p aria-hidden="true" class="mt-4 m-0 font-mono text-xs text-muted text-right opacity-50">
+            <p aria-hidden="true" class="mt-4 m-0 font-mono text-xs text-right text-muted">
                 * <span class="text-ink-soft">r:</span> {{ 'home.oss.stats.reviews'|trans }} · <span class="text-ink-soft">p:</span> {{ 'home.oss.stats.prs'|trans }}
             </p>
         </div>
