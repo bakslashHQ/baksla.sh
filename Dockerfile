@@ -17,7 +17,7 @@ FROM frankenphp_upstream AS frankenphp_base
 WORKDIR /app
 
 # persistent / runtime deps
-# hadolint ignore=DL3018
+# hadolint ignore=DL3018,DL3008
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		acl \
 		file \

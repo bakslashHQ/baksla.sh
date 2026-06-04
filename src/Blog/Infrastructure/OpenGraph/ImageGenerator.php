@@ -5,13 +5,16 @@ declare(strict_types=1);
 namespace App\Blog\Infrastructure\OpenGraph;
 
 use App\Blog\Domain\Model\Article;
-use App\Blog\Domain\OpenGraph\ImageGenerator;
 use Playwright\Playwright;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-final readonly class PlaywrightImageGenerator implements ImageGenerator
+final readonly class ImageGenerator
 {
+    private const int WIDTH = 1200;
+
+    private const int HEIGHT = 630;
+
     public function __construct(
         private UrlGeneratorInterface $urlGenerator,
         #[Autowire(param: 'app.og_preview_base_url')]

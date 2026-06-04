@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Blog\Domain\OpenGraph\ImageGenerator;
-use App\Blog\Infrastructure\OpenGraph\PlaywrightImageGenerator;
 use App\Team\Infrastructure\Repository\InMemoryMemberRepository;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
@@ -31,8 +29,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             sprintf('%s/src/DependencyInjection/', dirname(__DIR__)),
             sprintf('%s/src/Kernel.php', dirname(__DIR__)),
         ]);
-
-    $services->alias(ImageGenerator::class, PlaywrightImageGenerator::class);
 
     $services
         ->get(InMemoryMemberRepository::class)
