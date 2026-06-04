@@ -10,9 +10,10 @@
 - [{{ 'llms.page.legal.label'|trans }}]({{ url('app_legal_notices') }}): {{ 'llms.page.legal.description'|trans }}
 
 ## {{ 'llms.section.blog'|trans }}
+
 {% for article in articles %}
 - [{{ article.title }}]({{ url('app_blog_article', {id: article.id}) }}): {{ article.description }} ([{{ 'llms.article.markdown_source_label'|trans }}]({{ url('app_blog_article', {id: article.id, _format: 'md'}) }}))
-{%- endfor %}
+{% endfor %}
 
 ## {{ 'llms.section.optional'|trans }}
 
