@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title>baksla.sh Blog</title>
-    <subtitle>{{ 'blog.seo.description'|trans }}</subtitle>
+    <subtitle>{{ 'blog.seo.description'|trans|raw }}</subtitle>
     <link href="{{ url('app_blog_feed') }}" rel="self" />
     <link href="{{ url('app_blog') }}" />
     <id>{{ url('app_home') }}</id>
@@ -9,13 +9,13 @@
     <author><name>baksla.sh</name></author>
     {% for article in articles %}
         <entry>
-            <title>{{ article.title }}</title>
+            <title>{{ article.title|raw }}</title>
             <link href="{{ url('app_blog_article', {id: article.id}) }}" />
             <id>{{ url('app_blog_article', {id: article.id}) }}</id>
             <published>{{ article.publishedAt|date('c') }}</published>
             <updated>{{ article.publishedAt|date('c') }}</updated>
             <author><name>{{ article.author.fullname }}</name></author>
-            <summary>{{ article.description }}</summary>
+            <summary>{{ article.description|raw }}</summary>
         </entry>
     {% endfor %}
 </feed>

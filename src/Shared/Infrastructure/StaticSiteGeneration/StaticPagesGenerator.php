@@ -33,7 +33,7 @@ final readonly class StaticPagesGenerator
         ]);
 
         try {
-            $response = $this->kernel->handle($request, HttpKernelInterface::MAIN_REQUEST);
+            $response = $this->kernel->handle($request);
         } catch (\Exception $exception) {
             throw new \RuntimeException(\sprintf('Cannot generate page for URI "%s".', $uri), $exception->getCode(), $exception);
         }
@@ -44,7 +44,7 @@ final readonly class StaticPagesGenerator
 
         return [
             'content' => (string) $response->getContent(),
-            'format' => $request->getFormat($response->headers->get('Content-Type')),
+            'format' => $request->getRequestFormat(),
         ];
     }
 }
