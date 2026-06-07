@@ -69,6 +69,7 @@ cc: sf
 
 ## Symfony 🎵 - Generate static site
 ssg:
+	@rm -rf _site public/static-pages
 	@$(DOCKER_COMP) exec \
 		-e APP_ENV=prod \
 		-e DEFAULT_URI \
@@ -82,7 +83,6 @@ ssg:
 			bin/console ssg:generate && \
 			bin/console blog:generate-og-images \
 		"
-	@rm -rf _site
 	@mkdir -p _site
 	@$(DOCKER_COMP) cp php:/app/public/. _site/
 	@rm -f _site/index.php
