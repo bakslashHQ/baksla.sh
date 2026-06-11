@@ -1,7 +1,19 @@
 includes:
+    - vendor/kocal/phpstan-symfony-ux/extension.neon
     - vendor/phpstan/phpstan-symfony/extension.neon
     - tools/phpstan/symfony-configuration.php
     - phpstan-baseline.neon
+
+rules:
+    - Kocal\PHPStanSymfonyUX\Rules\TwigComponent\ClassMustBeFinalRule
+    - Kocal\PHPStanSymfonyUX\Rules\TwigComponent\ClassNameMustNotEndWithComponentRule
+    - Kocal\PHPStanSymfonyUX\Rules\TwigComponent\ForbiddenAttributesPropertyRule
+    - Kocal\PHPStanSymfonyUX\Rules\TwigComponent\ForbiddenClassPropertyRule
+    - Kocal\PHPStanSymfonyUX\Rules\TwigComponent\ForbiddenReadonlyRule
+    - Kocal\PHPStanSymfonyUX\Rules\TwigComponent\MethodsVisibilityRule
+    - Kocal\PHPStanSymfonyUX\Rules\TwigComponent\PostMountMethodSignatureRule
+    - Kocal\PHPStanSymfonyUX\Rules\TwigComponent\PreMountMethodSignatureRule
+    - Kocal\PHPStanSymfonyUX\Rules\TwigComponent\PublicPropertiesMustBeCamelCaseRule
 
 parameters:
     level: max

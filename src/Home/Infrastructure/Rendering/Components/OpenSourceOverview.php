@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent(name: 'Home:OpenSourceOverview', template: 'components/Home/OpenSourceOverview.html.twig')]
-final readonly class OpenSourceOverview
+final class OpenSourceOverview
 {
     public const int SINCE_YEAR = 2010;
 

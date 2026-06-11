@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0d019eed4f955c54883f945d5d1f5852",
+    "content-hash": "87c73b7a8184b3463e2324d4ccacc169",
     "packages": [
         {
             "name": "composer/semver",
@@ -7132,6 +7132,60 @@
                 "source": "https://github.com/Kocal/BiomeJsBundle/tree/v2.1.2"
             },
             "time": "2025-12-02T13:43:17+00:00"
+        },
+        {
+            "name": "kocal/phpstan-symfony-ux",
+            "version": "v1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Kocal/phpstan-symfony-ux.git",
+                "reference": "1541d68137e23c89872e43153b09d6c82e15bef4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Kocal/phpstan-symfony-ux/zipball/1541d68137e23c89872e43153b09d6c82e15bef4",
+                "reference": "1541d68137e23c89872e43153b09d6c82e15bef4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2",
+                "phpstan/phpstan": "^2.1.13"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^11.1",
+                "symfony/ux-live-component": "^2.0",
+                "symfony/ux-twig-component": "^2.0",
+                "symplify/easy-coding-standard": "^13.0"
+            },
+            "type": "phpstan-extension",
+            "extra": {
+                "phpstan": {
+                    "includes": [
+                        "extension.neon"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Kocal\\PHPStanSymfonyUX\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Hugo Alliaume",
+                    "email": "hugo@alliau.me"
+                }
+            ],
+            "description": "PHPStan rules for Symfony UX",
+            "support": {
+                "issues": "https://github.com/Kocal/phpstan-symfony-ux/issues",
+                "source": "https://github.com/Kocal/phpstan-symfony-ux/tree/v1.3.0"
+            },
+            "time": "2026-02-25T20:48:36+00:00"
         },
         {
             "name": "myclabs/deep-copy",

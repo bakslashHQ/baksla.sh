@@ -9,10 +9,10 @@ use App\Team\Domain\Repository\MemberRepository;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent(name: 'Home:Kpi', template: 'components/Home/Kpi.html.twig')]
-final readonly class Kpi
+final class Kpi
 {
     public function __construct(
-        private MemberRepository $memberRepository,
+        private readonly MemberRepository $memberRepository,
     ) {
     }
 
