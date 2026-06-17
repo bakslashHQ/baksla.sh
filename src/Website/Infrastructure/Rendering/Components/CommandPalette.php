@@ -9,10 +9,10 @@ use App\Blog\Domain\Repository\ArticlePreviewRepository;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent(name: 'website:CommandPalette', template: 'components/website/CommandPalette.html.twig')]
-final readonly class CommandPalette
+final class CommandPalette
 {
     public function __construct(
-        private ArticlePreviewRepository $articlePreviewRepository,
+        private readonly ArticlePreviewRepository $articlePreviewRepository,
     ) {
     }
 
