@@ -52,7 +52,7 @@ final class FilesystemStaticPageDumperTest extends TestCase
 
     public function testDumpRootAsIndexHtml(): void
     {
-        $minify = $this->createMock(MinifierInterface::class);
+        $minify = $this->createStub(MinifierInterface::class);
         $minify->method('minify')->willReturnArgument(0);
 
         $dumper = new FilesystemStaticPageDumper($minify, $this->outputDir);
@@ -66,7 +66,7 @@ final class FilesystemStaticPageDumperTest extends TestCase
 
     public function testAppendFormat(): void
     {
-        $minify = $this->createMock(MinifierInterface::class);
+        $minify = $this->createStub(MinifierInterface::class);
         $minify->method('minify')->willReturnArgument(0);
 
         $dumper = new FilesystemStaticPageDumper($minify, $this->outputDir);
@@ -107,7 +107,7 @@ final class FilesystemStaticPageDumperTest extends TestCase
 
     public function testDoNotAppendFormatIfAlreadyPresent(): void
     {
-        $minify = $this->createMock(MinifierInterface::class);
+        $minify = $this->createStub(MinifierInterface::class);
         $minify->method('minify')->willReturnArgument(0);
 
         $dumper = new FilesystemStaticPageDumper($minify, $this->outputDir);
