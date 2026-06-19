@@ -57,9 +57,9 @@ final class StaticPageUrisProviderTest extends TestCase
             'param' => 'foo',
         ]]);
 
-        $paramsProviders = $this->createMock(ContainerInterface::class);
-        $paramsProviders->method('has')->with('fooParamProvider')->willReturn(true);
-        $paramsProviders->method('get')->with('fooParamProvider')->willReturn($paramProvider);
+        $paramsProviders = $this->createStub(ContainerInterface::class);
+        $paramsProviders->method('has')->willReturnMap([['fooParamProvider', true]]);
+        $paramsProviders->method('get')->willReturnMap([['fooParamProvider', $paramProvider]]);
 
         $provider = new StaticPageUrisProvider(
             $this->createRouter($routes),
@@ -154,9 +154,9 @@ final class StaticPageUrisProviderTest extends TestCase
             ],
         ]));
 
-        $paramsProviders = $this->createMock(ContainerInterface::class);
-        $paramsProviders->method('has')->with('invalidService')->willReturn(true);
-        $paramsProviders->method('get')->with('invalidService')->willReturn(new \stdClass());
+        $paramsProviders = $this->createStub(ContainerInterface::class);
+        $paramsProviders->method('has')->willReturnMap([['invalidService', true]]);
+        $paramsProviders->method('get')->willReturnMap([['invalidService', new \stdClass()]]);
 
         $provider = new StaticPageUrisProvider(
             $this->createRouter($routes),

@@ -39,7 +39,7 @@ final class GenerateStaticSiteTest extends KernelTestCase
 
     public function testGenerateAllStaticPages(): void
     {
-        $tester = $this->runCommand();
+        $tester = $this->runSsgCommand();
 
         $this->assertSame(0, $tester->getStatusCode(), $tester->getDisplay());
 
@@ -54,7 +54,7 @@ final class GenerateStaticSiteTest extends KernelTestCase
 
     public function testDryRunDoesNotDumpFiles(): void
     {
-        $tester = $this->runCommand([
+        $tester = $this->runSsgCommand([
             '--dry-run' => true,
         ]);
 
@@ -65,7 +65,7 @@ final class GenerateStaticSiteTest extends KernelTestCase
     /**
      * @param array<string, mixed> $input
      */
-    private function runCommand(array $input = []): CommandTester
+    private function runSsgCommand(array $input = []): CommandTester
     {
         $this->assertInstanceOf(KernelInterface::class, self::$kernel);
         $application = new Application(self::$kernel);

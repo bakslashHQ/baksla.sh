@@ -28,7 +28,7 @@ final class StaticPagesGeneratorTest extends TestCase
     {
         // Simulates Symfony's router setting the route format on the request,
         // independently of the response's Content-Type (e.g. atom+xml -> "xml" route format).
-        $kernel = $this->createMock(HttpKernelInterface::class);
+        $kernel = $this->createStub(HttpKernelInterface::class);
         $kernel->method('handle')->willReturnCallback(static function (Request $request): Response {
             $request->setRequestFormat('xml');
 
