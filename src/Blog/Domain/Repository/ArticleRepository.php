@@ -10,6 +10,8 @@ interface ArticleRepository
 {
     public function get(string $id): Article;
 
+    public function findShowcased(): ?Article;
+
     /**
      * @return list<Article>
      */

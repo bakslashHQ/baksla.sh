@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Blog\Infrastructure\Controller;
 
-use App\Blog\Domain\Repository\ArticlePreviewRepository;
+use App\Blog\Domain\Repository\ArticleRepository;
 use App\Shared\Infrastructure\StaticSiteGeneration\Prerender;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
@@ -15,7 +15,7 @@ use Twig\Environment;
 final readonly class ViewFeed
 {
     public function __construct(
-        private ArticlePreviewRepository $articlePreviewRepository,
+        private ArticleRepository $articleRepository,
         private Environment $twig,
     ) {
     }
@@ -26,7 +26,7 @@ final readonly class ViewFeed
     {
         return new Response(
             $this->twig->render('pages/blog/feed.xml.twig', [
-                'articles' => $this->articlePreviewRepository->findAll(),
+                'articles' => $this->articleRepository->findAll(),
             ]),
             headers: [
                 'Content-Type' => 'application/atom+xml; charset=utf-8',

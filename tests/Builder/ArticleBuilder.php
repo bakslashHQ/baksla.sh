@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Builder;
 
 use App\Blog\Domain\Model\Article;
-use App\Blog\Domain\Model\ArticlePreview;
 use App\Blog\Infrastructure\Rendering\CodeBlock\TempestCodeBlockRenderer;
 use App\Blog\Infrastructure\Rendering\LeagueMarkdownConverter;
 use App\Team\Domain\Model\Member;
@@ -26,17 +25,6 @@ final class ArticleBuilder
     private Member|NotSet $author = NotSet::VALUE;
 
     private \DateTimeImmutable|NotSet $publishedAt = NotSet::VALUE;
-
-    public function withPreview(ArticlePreview $preview): self
-    {
-        $this->id = $preview->id;
-        $this->title = $preview->title;
-        $this->description = $preview->description;
-        $this->author = $preview->author;
-        $this->publishedAt = $preview->publishedAt;
-
-        return $this;
-    }
 
     public function withId(string $id): self
     {

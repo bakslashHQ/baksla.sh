@@ -15,6 +15,8 @@ final readonly class FilesystemArticleRepository implements ArticleRepository
 {
     public function __construct(
         private ArticleFactory $articleFactory,
+        #[Autowire(param: 'app.showcased_article')]
+        private ?string $showcasedArticle,
         #[Autowire(param: 'app.articles_dir')]
         private string $articlesDir,
     ) {
@@ -30,7 +32,16 @@ final readonly class FilesystemArticleRepository implements ArticleRepository
             throw new MissingArticleException($id);
         }
 
-        return $this->articleFactory->create($id);
+        return $this->articleFactory->create($id, $file->getContents());
+    }
+
+    public function findShowcased(): ?Article
+    {
+        if ($this->showcasedArticle === null) {
+            return null;
+        }
+
+        return $this->get($this->showcasedArticle);
     }
 
     public function findAll(): array
@@ -45,9 +56,11 @@ final readonly class FilesystemArticleRepository implements ArticleRepository
 
         $articles = [];
         foreach ($files as $file) {
-            $id = str_replace('.md.twig', '', $file->getFilename());
-            $articles[] = $this->articleFactory->create($id);
+            $id = basename($file->getFilename(), '.md.twig');
+            $articles[] = $this->articleFactory->create($id, $file->getContents());
         }
+
+        usort($articles, static fn (Article $a, Article $b): int => $b->publishedAt <=> $a->publishedAt);
 
         return $articles;
     }

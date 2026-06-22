@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Func;
 
-use App\Blog\Domain\Repository\ArticlePreviewRepository;
+use App\Blog\Domain\Repository\ArticleRepository;
 use Symfony\Component\DomCrawler\Crawler;
 
 final class ViewBlogTest extends FunctionalTestCase
@@ -19,21 +19,21 @@ final class ViewBlogTest extends FunctionalTestCase
 
     public function testEveryArticleAreDisplayed(): void
     {
-        $articlePreviewRepository = $this->getService(ArticlePreviewRepository::class);
+        $articleRepository = $this->getService(ArticleRepository::class);
 
         $this->get('/blog');
 
-        $this->assertSelectorCount(count($articlePreviewRepository->findAll()), '[data-test-article-link]');
+        $this->assertSelectorCount(count($articleRepository->findAll()), '[data-test-article-link]');
     }
 
     public function testShowcasedArticleIsDisplayedIfEnabled(): void
     {
-        $articlePreviewRepository = $this->getService(ArticlePreviewRepository::class);
+        $articleRepository = $this->getService(ArticleRepository::class);
 
         $this->get('/blog');
 
         $showcasedSelector = '[data-test-article-link][data-showcased]';
-        if ($showcased = $articlePreviewRepository->findShowcased()) {
+        if ($showcased = $articleRepository->findShowcased()) {
             $this->assertSelectorExists($showcasedSelector);
         } else {
             $this->assertSelectorNotExists($showcasedSelector);

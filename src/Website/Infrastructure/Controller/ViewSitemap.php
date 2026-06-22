@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Website\Infrastructure\Controller;
 
-use App\Blog\Domain\Repository\ArticlePreviewRepository;
+use App\Blog\Domain\Repository\ArticleRepository;
 use App\Shared\Infrastructure\StaticSiteGeneration\Prerender;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
@@ -16,7 +16,7 @@ use Twig\Environment;
 final readonly class ViewSitemap
 {
     public function __construct(
-        private ArticlePreviewRepository $articlePreviewRepository,
+        private ArticleRepository $articleRepository,
         private UrlGeneratorInterface $urlGenerator,
         private Environment $twig,
     ) {
@@ -40,12 +40,12 @@ final readonly class ViewSitemap
                 'loc' => $this->urlGenerator->generate('app_legal_notices', referenceType: UrlGeneratorInterface::ABSOLUTE_URL),
             ],
         ];
-        foreach ($this->articlePreviewRepository->findAll() as $preview) {
+        foreach ($this->articleRepository->findAll() as $article) {
             $urls[] = [
                 'loc' => $this->urlGenerator->generate('app_blog_article', [
-                    'id' => $preview->id,
+                    'id' => $article->id,
                 ], UrlGeneratorInterface::ABSOLUTE_URL),
-                'lastmod' => $preview->publishedAt->format('Y-m-d'),
+                'lastmod' => $article->publishedAt->format('Y-m-d'),
             ];
         }
 
