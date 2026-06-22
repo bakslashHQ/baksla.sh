@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Func;
 
-use App\Blog\Domain\Repository\ArticlePreviewRepository;
+use App\Blog\Domain\Repository\ArticleRepository;
 
 final class ViewFeedTest extends FunctionalTestCase
 {
@@ -28,8 +28,8 @@ final class ViewFeedTest extends FunctionalTestCase
 
     public function testFeedListsEveryArticle(): void
     {
-        $articlePreviewRepository = $this->getService(ArticlePreviewRepository::class);
-        $articles = $articlePreviewRepository->findAll();
+        $articleRepository = $this->getService(ArticleRepository::class);
+        $articles = $articleRepository->findAll();
 
         $this->get('/blog/feed.xml');
 
@@ -52,7 +52,7 @@ final class ViewFeedTest extends FunctionalTestCase
 
     public function testEntriesCarryAuthorTitleAndSummary(): void
     {
-        $articlePreviewRepository = $this->getService(ArticlePreviewRepository::class);
+        $articleRepository = $this->getService(ArticleRepository::class);
 
         $this->get('/blog/feed.xml');
 
@@ -64,7 +64,7 @@ final class ViewFeedTest extends FunctionalTestCase
             $byId[(string) $entry->id] = $entry;
         }
 
-        foreach ($articlePreviewRepository->findAll() as $article) {
+        foreach ($articleRepository->findAll() as $article) {
             $id = sprintf('https://localhost/blog/%s', $article->id);
             $entry = $byId[$id];
 

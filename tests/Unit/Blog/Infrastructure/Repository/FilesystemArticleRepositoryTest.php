@@ -8,8 +8,9 @@ use App\Blog\Domain\Exception\MissingArticleException;
 use App\Blog\Domain\Factory\ArticleFactory;
 use App\Blog\Domain\Factory\ArticleFactory\HtmlGenerator;
 use App\Blog\Domain\Model\Article;
-use App\Blog\Domain\Repository\ArticlePreviewRepository;
 use App\Blog\Infrastructure\Repository\FilesystemArticleRepository;
+use App\Team\Domain\Model\MemberId;
+use App\Team\Infrastructure\Repository\InMemoryMemberRepository;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -36,7 +37,7 @@ final class FilesystemArticleRepositoryTest extends TestCase
 
     public function testGet(): void
     {
-        $this->fs->touch(sprintf('%s/1.md.twig', $this->articlesDir));
+        $this->createArticleFile('1.md.twig');
 
         $article = $this->getRepository()->get('1');
 
@@ -52,10 +53,31 @@ final class FilesystemArticleRepositoryTest extends TestCase
         $this->getRepository()->get('1');
     }
 
+    public function testFindShowcased(): void
+    {
+        $this->createArticleFile('1.md.twig');
+
+        $showcased = $this->getRepository()->findShowcased();
+        $this->assertNotInstanceOf(Article::class, $showcased);
+
+        $showcased = $this->getRepository('1')->findShowcased();
+
+        $this->assertInstanceOf(Article::class, $showcased);
+        $this->assertSame('1', $showcased->id);
+    }
+
+    public function testFindShowcasedThrowsIfNotFound(): void
+    {
+        $this->expectException(MissingArticleException::class);
+        $this->expectExceptionMessage('"1" article does not exist.');
+
+        $this->getRepository('1')->findShowcased();
+    }
+
     public function testFindAll(): void
     {
-        $this->fs->touch(sprintf('%s/1.md.twig', $this->articlesDir));
-        $this->fs->touch(sprintf('%s/2.md.twig', $this->articlesDir));
+        $this->createArticleFile('1.md.twig');
+        $this->createArticleFile('2.md.twig');
         $this->fs->touch(sprintf('%s/3.md', $this->articlesDir));
         $this->fs->touch(sprintf('%s/4.txt', $this->articlesDir));
 
@@ -65,16 +87,38 @@ final class FilesystemArticleRepositoryTest extends TestCase
         $this->assertSame(['1', '2'], array_column($articles, 'id'));
     }
 
-    private function getRepository(): FilesystemArticleRepository
+    public function testFindAllOrdersByPublishedAtDesc(): void
     {
-        $articlePreviewRepository = $this->createStub(ArticlePreviewRepository::class);
-        $articlePreviewRepository->method('get')->willReturn(anArticlePreview()->build());
+        $this->createArticleFile('older.md.twig', '2024-01-01');
+        $this->createArticleFile('newest.md.twig', '2026-05-01');
+        $this->createArticleFile('middle.md.twig', '2025-06-15');
 
+        $articles = $this->getRepository()->findAll();
+
+        $this->assertSame(['newest', 'middle', 'older'], array_column($articles, 'id'));
+    }
+
+    private function getRepository(?string $showcasedArticle = null): FilesystemArticleRepository
+    {
         $htmlGenerator = $this->createStub(HtmlGenerator::class);
         $htmlGenerator->method('generate')->willReturn('html');
 
-        $articleFactory = new ArticleFactory($articlePreviewRepository, $htmlGenerator);
+        $articleFactory = new ArticleFactory(new InMemoryMemberRepository([aMember()->withId(MemberId::MathiasArlaud)->build()]), $htmlGenerator);
 
-        return new FilesystemArticleRepository($articleFactory, $this->articlesDir);
+        return new FilesystemArticleRepository($articleFactory, $showcasedArticle, $this->articlesDir);
+    }
+
+    private function createArticleFile(string $filename, string $publishedAt = '2025-01-01'): void
+    {
+        $validContent = <<<MD
+            ---
+            author: mathias-arlaud
+            title: Title
+            description: Description
+            published_at: {$publishedAt}
+            ---
+            MD;
+
+        $this->fs->dumpFile(sprintf('%s/%s', $this->articlesDir, $filename), $validContent);
     }
 }

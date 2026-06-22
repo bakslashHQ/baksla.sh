@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Func;
 
-use App\Blog\Domain\Model\ArticlePreview;
-use App\Blog\Domain\Repository\ArticlePreviewRepository;
+use App\Blog\Domain\Model\Article;
+use App\Blog\Domain\Repository\ArticleRepository;
 use App\Blog\Infrastructure\Controller\PreviewOpenGraphImage;
 use App\Website\Infrastructure\Controller\ViewSitemap;
 use Symfony\Bundle\FrameworkBundle\Controller\RedirectController;
@@ -19,7 +19,7 @@ final class ViewSitemapTest extends FunctionalTestCase
 {
     public function testRenderProperXml(): void
     {
-        $articlePreviewRepository = $this->getService(ArticlePreviewRepository::class);
+        $articleRepository = $this->getService(ArticleRepository::class);
 
         $this->get('/sitemap.xml');
 
@@ -39,7 +39,7 @@ final class ViewSitemapTest extends FunctionalTestCase
         $this->assertContains('https://localhost/team', $urls);
         $this->assertContains('https://localhost/legal-notices', $urls);
 
-        $articleUrls = array_map(static fn (ArticlePreview $a): string => sprintf('https://localhost/blog/%s', $a->id), $articlePreviewRepository->findAll());
+        $articleUrls = array_map(static fn (Article $a): string => sprintf('https://localhost/blog/%s', $a->id), $articleRepository->findAll());
         foreach ($articleUrls as $articleUrl) {
             $this->assertContains($articleUrl, $urls);
         }
@@ -126,7 +126,7 @@ final class ViewSitemapTest extends FunctionalTestCase
 
     public function testArticleEntriesExposeLastmod(): void
     {
-        $articlePreviewRepository = $this->getService(ArticlePreviewRepository::class);
+        $articleRepository = $this->getService(ArticleRepository::class);
 
         $this->get('/sitemap.xml');
 
@@ -140,7 +140,7 @@ final class ViewSitemapTest extends FunctionalTestCase
             $byLoc[$u['loc']] = $u;
         }
 
-        foreach ($articlePreviewRepository->findAll() as $article) {
+        foreach ($articleRepository->findAll() as $article) {
             $loc = sprintf('https://localhost/blog/%s', $article->id);
 
             $this->assertArrayHasKey('lastmod', $byLoc[$loc], sprintf('Article %s should expose <lastmod>', $article->id));
@@ -160,7 +160,7 @@ final class ViewSitemapTest extends FunctionalTestCase
         }
 
         if ($name === 'app_blog_article') {
-            foreach ($this->getService(ArticlePreviewRepository::class)->findAll() as $article) {
+            foreach ($this->getService(ArticleRepository::class)->findAll() as $article) {
                 yield [
                     'id' => $article->id,
                 ];

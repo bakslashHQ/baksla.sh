@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Func;
 
-use App\Blog\Domain\Repository\ArticlePreviewRepository;
+use App\Blog\Domain\Repository\ArticleRepository;
 
 final class ViewLlmsTest extends FunctionalTestCase
 {
@@ -33,13 +33,13 @@ final class ViewLlmsTest extends FunctionalTestCase
 
     public function testListsEveryArticleWithMarkdownAlternate(): void
     {
-        $articlePreviewRepository = $this->getService(ArticlePreviewRepository::class);
+        $articleRepository = $this->getService(ArticleRepository::class);
 
         $this->get('/llms.txt');
 
         $body = $this->getResponse()->getContent() ?: '';
 
-        foreach ($articlePreviewRepository->findAll() as $article) {
+        foreach ($articleRepository->findAll() as $article) {
             $this->assertStringContainsString($article->title, $body);
             $this->assertStringContainsString($article->description, $body);
             $this->assertStringContainsString(sprintf('https://localhost/blog/%s', $article->id), $body);

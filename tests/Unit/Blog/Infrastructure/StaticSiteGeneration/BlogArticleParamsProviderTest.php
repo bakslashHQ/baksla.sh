@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Blog\Infrastructure\StaticSiteGeneration;
 
-use App\Blog\Domain\Repository\ArticlePreviewRepository;
+use App\Blog\Domain\Repository\ArticleRepository;
 use App\Blog\Infrastructure\StaticSiteGeneration\BlogArticleParamsProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -12,10 +12,10 @@ final class BlogArticleParamsProviderTest extends TestCase
 {
     public function testProvideParams(): void
     {
-        $repository = $this->createStub(ArticlePreviewRepository::class);
+        $repository = $this->createStub(ArticleRepository::class);
         $repository->method('findAll')->willReturn([
-            anArticlePreview()->withId('article-1')->build(),
-            anArticlePreview()->withId('article-2')->build(),
+            anArticle()->withId('article-1')->build(),
+            anArticle()->withId('article-2')->build(),
         ]);
 
         $provider = new BlogArticleParamsProvider($repository);

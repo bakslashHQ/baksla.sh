@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Website\Infrastructure\Controller;
 
-use App\Blog\Domain\Repository\ArticlePreviewRepository;
+use App\Blog\Domain\Repository\ArticleRepository;
 use App\Shared\Infrastructure\StaticSiteGeneration\Prerender;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
@@ -15,7 +15,7 @@ use Twig\Environment;
 final readonly class ViewLlms
 {
     public function __construct(
-        private ArticlePreviewRepository $articlePreviewRepository,
+        private ArticleRepository $articleRepository,
         private Environment $twig,
     ) {
     }
@@ -26,7 +26,7 @@ final readonly class ViewLlms
     {
         return new Response(
             $this->twig->render('pages/website/llms.txt.twig', [
-                'articles' => $this->articlePreviewRepository->findAll(),
+                'articles' => $this->articleRepository->findAll(),
             ]),
             headers: [
                 'Content-Type' => 'text/markdown; charset=utf-8',
