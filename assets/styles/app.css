@@ -224,6 +224,11 @@
     color: #64748b;
     font-style: italic;
   }
+
+  .prose-body pre {
+    max-height: max(200px, 50vh);
+    overflow: auto;
+  }
 }
 
 html {
