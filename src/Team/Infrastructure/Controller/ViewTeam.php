@@ -20,7 +20,10 @@ final readonly class ViewTeam
     ) {
     }
 
-    #[Route(path: '/team', name: 'app_team', methods: ['GET'])]
+    #[Route(path: [
+        'en' => '/team',
+        'fr' => '/fr/equipe',
+    ], name: 'app_team', methods: ['GET'])]
     #[Prerender]
     public function __invoke(): Response
     {

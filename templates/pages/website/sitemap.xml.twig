@@ -6,6 +6,10 @@
     {% for url in urls %}
         <url>
             <loc>{{ url.loc }}</loc>
+            {% for hreflang, href in url.alternates %}
+                <xhtml:link rel="alternate" hreflang="{{ hreflang }}" href="{{ href }}" />
+            {% endfor %}
+            <xhtml:link rel="alternate" hreflang="x-default" href="{{ url.alternates[app.request.defaultLocale] }}" />
             {% if url.lastmod is defined %}<lastmod>{{ url.lastmod }}</lastmod>{% endif %}
         </url>
     {% endfor %}

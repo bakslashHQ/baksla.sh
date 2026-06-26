@@ -8,12 +8,14 @@ use Psr\Container\ContainerInterface;
 use Symfony\Component\Routing\Exception\InvalidArgumentException;
 use Symfony\Component\Routing\Exception\LogicException;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Translation\LocaleSwitcher;
 
 final readonly class StaticPageUrisProvider implements StaticPageUrisProviderInterface
 {
     public function __construct(
         private RouterInterface $router,
         private ContainerInterface $paramsProviders,
+        private LocaleSwitcher $localeSwitcher,
     ) {
     }
 
@@ -49,10 +51,37 @@ final readonly class StaticPageUrisProvider implements StaticPageUrisProviderInt
 
             /** @var class-string<ParamsProviderInterface>|list<array<string, mixed>> $params */
             $params = $config['params'];
-            foreach ($this->getParamsList($params) as $paramSet) {
-                yield $this->stripBaseUrl($this->router->generate($routeName, $paramSet, RouterInterface::ABSOLUTE_PATH), $baseUrl);
+
+            // Param values (e.g. translated slugs) can depend on the locale, so enumerate
+            // each localized route within its own locale. Must be eager: the locale is
+            // restored once runWithLocale returns, before a lazy generator would be consumed.
+            $locale = $route->getDefault('_locale');
+            if (\is_string($locale)) {
+                /** @var list<string> $uris */
+                $uris = $this->localeSwitcher->runWithLocale($locale, fn (): array => $this->generateForParams($routeName, $params, $baseUrl));
+            } else {
+                $uris = $this->generateForParams($routeName, $params, $baseUrl);
+            }
+
+            foreach ($uris as $uri) {
+                yield $uri;
             }
         }
+    }
+
+    /**
+     * @param class-string<ParamsProviderInterface>|list<array<string, mixed>> $params
+     *
+     * @return list<string>
+     */
+    private function generateForParams(string $routeName, array|string $params, string $baseUrl): array
+    {
+        $uris = [];
+        foreach ($this->getParamsList($params) as $paramSet) {
+            $uris[] = $this->stripBaseUrl($this->router->generate($routeName, $paramSet, RouterInterface::ABSOLUTE_PATH), $baseUrl);
+        }
+
+        return $uris;
     }
 
     private function stripBaseUrl(string $uri, string $baseUrl): string

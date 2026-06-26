@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Website\Infrastructure\Controller;
 
 use App\Blog\Domain\Repository\ArticleRepository;
+use App\Blog\Infrastructure\Routing\ArticleUrlGenerator;
 use App\Shared\Infrastructure\StaticSiteGeneration\Prerender;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Attribute\Route;
@@ -15,10 +17,16 @@ use Twig\Environment;
 #[AsController]
 final readonly class ViewSitemap
 {
+    /**
+     * @param list<string> $enabledLocales
+     */
     public function __construct(
         private ArticleRepository $articleRepository,
+        private ArticleUrlGenerator $articleUrlGenerator,
         private UrlGeneratorInterface $urlGenerator,
         private Environment $twig,
+        #[Autowire(param: 'kernel.enabled_locales')]
+        private array $enabledLocales,
     ) {
     }
 
@@ -26,27 +34,35 @@ final readonly class ViewSitemap
     #[Prerender]
     public function __invoke(): Response
     {
-        $urls = [
-            [
-                'loc' => $this->urlGenerator->generate('app_home', referenceType: UrlGeneratorInterface::ABSOLUTE_URL),
-            ],
-            [
-                'loc' => $this->urlGenerator->generate('app_blog', referenceType: UrlGeneratorInterface::ABSOLUTE_URL),
-            ],
-            [
-                'loc' => $this->urlGenerator->generate('app_team', referenceType: UrlGeneratorInterface::ABSOLUTE_URL),
-            ],
-            [
-                'loc' => $this->urlGenerator->generate('app_legal_notices', referenceType: UrlGeneratorInterface::ABSOLUTE_URL),
-            ],
-        ];
+        $urls = [];
+
+        foreach (['app_home', 'app_blog', 'app_team', 'app_legal_notices'] as $route) {
+            $alternates = [];
+            foreach ($this->enabledLocales as $locale) {
+                $alternates[$locale] = $this->urlGenerator->generate($route, [
+                    '_locale' => $locale,
+                ], UrlGeneratorInterface::ABSOLUTE_URL);
+            }
+
+            foreach ($alternates as $loc) {
+                $urls[] = [
+                    'loc' => $loc,
+                    'alternates' => $alternates,
+                ];
+            }
+        }
+
         foreach ($this->articleRepository->findAll() as $article) {
-            $urls[] = [
-                'loc' => $this->urlGenerator->generate('app_blog_article', [
-                    'slug' => $article->slug,
-                ], UrlGeneratorInterface::ABSOLUTE_URL),
-                'lastmod' => $article->publishedAt->format('Y-m-d'),
-            ];
+            $alternates = $this->articleUrlGenerator->urlsByLocale($article);
+
+            $lastmod = $article->publishedAt->format('Y-m-d');
+            foreach ($alternates as $loc) {
+                $urls[] = [
+                    'loc' => $loc,
+                    'alternates' => $alternates,
+                    'lastmod' => $lastmod,
+                ];
+            }
         }
 
         return new Response($this->twig->render('pages/website/sitemap.xml.twig', [

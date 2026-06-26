@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app.request.locale }}">
 <head>
     <meta charset="UTF-8">
     <title>OG / {{ article.title }}</title>
@@ -16,7 +16,7 @@
             {{ article.title }}
         </h1>
         <div class="mt-[28px] font-mono text-[22px] text-muted">
-            <span class="uppercase">{{ article.publishedAt|date('M j, Y')|upper }}</span>&nbsp;&nbsp;·&nbsp;&nbsp;{{ article.readingTime }} min read
+            <span class="uppercase">{{ article.publishedAt|date('M j, Y')|upper }}</span>&nbsp;&nbsp;·&nbsp;&nbsp;{{ 'blog.article.reading_time'|trans({minutes: article.readingTime}) }}
         </div>
     </div>
 
