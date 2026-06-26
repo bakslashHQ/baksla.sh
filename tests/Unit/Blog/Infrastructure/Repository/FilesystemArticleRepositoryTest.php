@@ -6,9 +6,10 @@ namespace App\Tests\Unit\Blog\Infrastructure\Repository;
 
 use App\Blog\Domain\Exception\MissingArticleException;
 use App\Blog\Domain\Factory\ArticleFactory;
-use App\Blog\Domain\Factory\ArticleFactory\HtmlGenerator;
+use App\Blog\Domain\Factory\ArticleFactory\HtmlProvider;
 use App\Blog\Domain\Model\Article;
 use App\Blog\Infrastructure\Repository\FilesystemArticleRepository;
+use App\Blog\Infrastructure\Repository\YamlMetadataProvider;
 use App\Team\Domain\Model\MemberId;
 use App\Team\Infrastructure\Repository\InMemoryMemberRepository;
 use PHPUnit\Framework\TestCase;
@@ -120,10 +121,14 @@ final class FilesystemArticleRepositoryTest extends TestCase
 
     private function getRepository(?string $showcasedArticle = null): FilesystemArticleRepository
     {
-        $htmlGenerator = $this->createStub(HtmlGenerator::class);
-        $htmlGenerator->method('generate')->willReturn('html');
+        $htmlProvider = $this->createStub(HtmlProvider::class);
+        $htmlProvider->method('provide')->willReturn('html');
 
-        $articleFactory = new ArticleFactory(new InMemoryMemberRepository([aMember()->withId(MemberId::MathiasArlaud)->build()]), $htmlGenerator);
+        $articleFactory = new ArticleFactory(
+            new InMemoryMemberRepository([aMember()->withId(MemberId::MathiasArlaud)->build()]),
+            new YamlMetadataProvider($this->articlesDir),
+            $htmlProvider,
+        );
 
         return new FilesystemArticleRepository($articleFactory, $showcasedArticle, $this->articlesDir);
     }

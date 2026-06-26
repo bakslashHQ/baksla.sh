@@ -4,61 +4,39 @@ declare(strict_types=1);
 
 namespace App\Blog\Domain\Factory;
 
-use App\Blog\Domain\Factory\ArticleFactory\HtmlGenerator;
+use App\Blog\Domain\Factory\ArticleFactory\HtmlProvider;
+use App\Blog\Domain\Factory\ArticleFactory\MetadataProvider;
 use App\Blog\Domain\Model\Article;
-use App\Team\Domain\Model\MemberId;
 use App\Team\Domain\Repository\MemberRepository;
-use Symfony\Component\Yaml\Exception\ParseException;
-use Symfony\Component\Yaml\Yaml;
 
 final readonly class ArticleFactory
 {
-    private const string METADATA_REGEX = '/\A---\n(?<metadata>(\n|.)+?)\n---/';
-
     public function __construct(
         private MemberRepository $memberRepository,
-        private HtmlGenerator $htmlGenerator,
+        private MetadataProvider $metadataProvider,
+        private HtmlProvider $htmlProvider,
     ) {
     }
 
-    public function create(string $id, string $content): Article
+    public function create(string $id): Article
     {
-        $filename = sprintf('%s.md.twig', $id);
-
-        if (preg_match(self::METADATA_REGEX, $content, $matches) !== 1) {
-            throw new \InvalidArgumentException(sprintf('Cannot find metadata of file "%s".', $filename));
-        }
-
-        try {
-            /** @var array{author?: string, title?: string, description?: string, slug?: string, published_at?: \DateTimeInterface|string} $metadata */
-            $metadata = Yaml::parse($matches['metadata'], Yaml::PARSE_DATETIME);
-        } catch (ParseException $parseException) {
-            throw new \InvalidArgumentException(sprintf('Cannot parse metadata of file "%s": "%s".', $filename, $parseException->getMessage()), $parseException->getCode(), previous: $parseException);
-        }
-
-        $authorId = $metadata['author'] ?? throw new \InvalidArgumentException(sprintf('Missing "author" metadata in file "%s".', $filename));
-
-        $publishedAt = $metadata['published_at'] ?? throw new \InvalidArgumentException(sprintf('Missing "published_at" metadata in file "%s".', $filename));
-        if (!$publishedAt instanceof \DateTimeImmutable) {
-            throw new \InvalidArgumentException(sprintf('Invalid "published_at" metadata in file "%s": "expected a date".', $filename));
-        }
-
-        $properties = [
-            'id' => $id,
-            'slug' => $metadata['slug'] ?? throw new \InvalidArgumentException(sprintf('Missing "slug" metadata in file "%s".', $filename)),
-            'title' => $metadata['title'] ?? throw new \InvalidArgumentException(sprintf('Missing "title" metadata in file "%s".', $filename)),
-            'description' => $metadata['description'] ?? throw new \InvalidArgumentException(sprintf('Missing "description" metadata in file "%s".', $filename)),
-            'author' => $this->memberRepository->get(MemberId::from($authorId)),
-            'publishedAt' => $publishedAt,
-        ];
+        $metadata = $this->metadataProvider->provide($id);
 
         $reflector = new \ReflectionClass(Article::class);
-
         $htmlProperty = $reflector->getProperty('html');
 
         $article = $reflector->newLazyGhost(function (Article $article) use ($id, $htmlProperty): void {
-            $htmlProperty->setRawValueWithoutLazyInitialization($article, $this->htmlGenerator->generate($id));
+            $htmlProperty->setRawValueWithoutLazyInitialization($article, $this->htmlProvider->provide($id));
         });
+
+        $properties = [
+            'id' => $id,
+            'slug' => $metadata->slug,
+            'title' => $metadata->title,
+            'description' => $metadata->description,
+            'author' => $this->memberRepository->get($metadata->authorId),
+            'publishedAt' => $metadata->publishedAt,
+        ];
 
         foreach ($properties as $property => $value) {
             $reflector->getProperty($property)->setRawValueWithoutLazyInitialization($article, $value);

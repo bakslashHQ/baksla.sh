@@ -24,30 +24,16 @@ final readonly class FilesystemArticleRepository implements ArticleRepository
 
     public function get(string $id): Article
     {
-        $files = iterator_to_array(new Finder()
-            ->in($this->articlesDir)
-            ->name(sprintf('%s.md.twig', $id)));
-
-        if (!$file = reset($files)) {
+        try {
+            return $this->articleFactory->create($id);
+        } catch (\OutOfBoundsException) {
             throw new MissingArticleException($id);
         }
-
-        return $this->articleFactory->create($id, $file->getContents());
     }
 
     public function getBySlug(string $slug): Article
     {
-        $files = new Finder()
-            ->files()
-            ->in($this->articlesDir)
-            ->name('*.md.twig')
-            ->ignoreVCSIgnored(true)
-            ->sortByName();
-
-        foreach ($files as $file) {
-            $id = basename($file->getFilename(), '.md.twig');
-            $article = $this->articleFactory->create($id, $file->getContents());
-
+        foreach ($this->findAll() as $article) {
             if ($article->slug === $slug) {
                 return $article;
             }
@@ -78,7 +64,7 @@ final readonly class FilesystemArticleRepository implements ArticleRepository
         $articles = [];
         foreach ($files as $file) {
             $id = basename($file->getFilename(), '.md.twig');
-            $articles[] = $this->articleFactory->create($id, $file->getContents());
+            $articles[] = $this->articleFactory->create($id);
         }
 
         usort($articles, static fn (Article $a, Article $b): int => $b->publishedAt <=> $a->publishedAt);

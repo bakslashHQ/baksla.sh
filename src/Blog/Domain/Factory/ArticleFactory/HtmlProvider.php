@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Blog\Domain\Factory\ArticleFactory;
 
-interface HtmlGenerator
+interface HtmlProvider
 {
-    public function generate(string $id): string;
+    public function provide(string $id): string;
 }

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Blog\Infrastructure\Rendering;
 
-use App\Blog\Infrastructure\Rendering\TwigMarkdownHtmlGenerator;
+use App\Blog\Infrastructure\Rendering\TwigMarkdownHtmlProvider;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Filesystem\Filesystem;
 
-final class TwigMarkdownHtmlGeneratorTest extends KernelTestCase
+final class TwigMarkdownHtmlProviderTest extends KernelTestCase
 {
     private Filesystem $fs;
 
@@ -19,10 +19,10 @@ final class TwigMarkdownHtmlGeneratorTest extends KernelTestCase
         $this->fs = new Filesystem();
     }
 
-    public function testGenerateProperHtml(): void
+    public function testProvideProperHtml(): void
     {
-        /** @var TwigMarkdownHtmlGenerator $generator */
-        $generator = self::getContainer()->get(TwigMarkdownHtmlGenerator::class);
+        /** @var TwigMarkdownHtmlProvider $provider */
+        $provider = self::getContainer()->get(TwigMarkdownHtmlProvider::class);
 
         $articlesDir = sprintf('%s/articles', self::getContainer()->getParameter('twig.default_path'));
 
@@ -36,7 +36,7 @@ MD;
 
         try {
             $this->fs->dumpFile(sprintf('%s/1.md.twig', $articlesDir), $content);
-            $generated = $generator->generate('1');
+            $generated = $provider->provide('1');
         } finally {
             $this->fs->remove(sprintf('%s/1.md.twig', $articlesDir));
         }
