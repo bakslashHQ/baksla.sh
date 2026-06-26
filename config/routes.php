@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use App\Shared\Infrastructure\StaticSiteGeneration\Prerender;
-use Symfony\Bundle\FrameworkBundle\Controller\RedirectController;
 use Symfony\Bundle\FrameworkBundle\Controller\TemplateController;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
@@ -22,14 +21,6 @@ return static function (RoutingConfigurator $routingConfigurator): void {
         ->defaults([
             'template' => 'pages/website/legal_notices.html.twig',
             Prerender::ROUTE_DEFAULTS_KEY => true,
-        ]);
-
-    $routingConfigurator
-        ->add('legacy_legal_notices', '/legal-notices.html')
-        ->controller(RedirectController::class)
-        ->defaults([
-            'route' => 'app_legal_notices',
-            'permanent' => true,
         ]);
 
     $routingConfigurator
