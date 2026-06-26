@@ -15,6 +15,7 @@ final class ArticleTest extends TestCase
     {
         $article = new Article(
             id: 'id',
+            slug: 'slug',
             title: 'title',
             description: 'description',
             html: $html,
@@ -22,7 +23,7 @@ final class ArticleTest extends TestCase
             publishedAt: new \DateTimeImmutable('2025-01-01'),
         );
 
-        $this->assertSame($expected, $article->readingTime);
+        $this->assertSame($expected, $article->getReadingTime());
     }
 
     /**

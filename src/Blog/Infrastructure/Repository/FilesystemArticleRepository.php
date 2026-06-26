@@ -35,6 +35,27 @@ final readonly class FilesystemArticleRepository implements ArticleRepository
         return $this->articleFactory->create($id, $file->getContents());
     }
 
+    public function getBySlug(string $slug): Article
+    {
+        $files = new Finder()
+            ->files()
+            ->in($this->articlesDir)
+            ->name('*.md.twig')
+            ->ignoreVCSIgnored(true)
+            ->sortByName();
+
+        foreach ($files as $file) {
+            $id = basename($file->getFilename(), '.md.twig');
+            $article = $this->articleFactory->create($id, $file->getContents());
+
+            if ($article->slug === $slug) {
+                return $article;
+            }
+        }
+
+        throw new MissingArticleException($slug);
+    }
+
     public function findShowcased(): ?Article
     {
         if ($this->showcasedArticle === null) {

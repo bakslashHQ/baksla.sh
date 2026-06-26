@@ -10,6 +10,8 @@ interface ArticleRepository
 {
     public function get(string $id): Article;
 
+    public function getBySlug(string $slug): Article;
+
     public function findShowcased(): ?Article;
 
     /**

@@ -53,6 +53,26 @@ final class FilesystemArticleRepositoryTest extends TestCase
         $this->getRepository()->get('1');
     }
 
+    public function testGetBySlug(): void
+    {
+        $this->createArticleFile('1.md.twig', slug: 'custom-slug');
+
+        $article = $this->getRepository()->getBySlug('custom-slug');
+
+        $this->assertInstanceOf(Article::class, $article);
+        $this->assertSame('1', $article->id);
+        $this->assertSame('custom-slug', $article->slug);
+    }
+
+    public function testGetBySlugThrowsIfNotFound(): void
+    {
+        $this->createArticleFile('1.md.twig');
+
+        $this->expectException(MissingArticleException::class);
+
+        $this->getRepository()->getBySlug('missing');
+    }
+
     public function testFindShowcased(): void
     {
         $this->createArticleFile('1.md.twig');
@@ -108,17 +128,20 @@ final class FilesystemArticleRepositoryTest extends TestCase
         return new FilesystemArticleRepository($articleFactory, $showcasedArticle, $this->articlesDir);
     }
 
-    private function createArticleFile(string $filename, string $publishedAt = '2025-01-01'): void
+    private function createArticleFile(string $filename, string $publishedAt = '2025-01-01', ?string $slug = null): void
     {
-        $validContent = <<<MD
-            ---
-            author: mathias-arlaud
-            title: Title
-            description: Description
-            published_at: {$publishedAt}
-            ---
-            MD;
+        $slug ??= basename($filename, '.md.twig');
 
-        $this->fs->dumpFile(sprintf('%s/%s', $this->articlesDir, $filename), $validContent);
+        $lines = [
+            '---',
+            'author: mathias-arlaud',
+            'title: Title',
+            'description: Description',
+            sprintf('published_at: %s', $publishedAt),
+            sprintf('slug: %s', $slug),
+            '---',
+        ];
+
+        $this->fs->dumpFile(sprintf('%s/%s', $this->articlesDir, $filename), implode("\n", $lines));
     }
 }

@@ -162,7 +162,7 @@ final class ViewSitemapTest extends FunctionalTestCase
         if ($name === 'app_blog_article') {
             foreach ($this->getService(ArticleRepository::class)->findAll() as $article) {
                 yield [
-                    'id' => $article->id,
+                    'slug' => $article->slug,
                 ];
             }
 

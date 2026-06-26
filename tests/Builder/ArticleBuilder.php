@@ -16,6 +16,8 @@ final class ArticleBuilder
 {
     private string|NotSet $id = NotSet::VALUE;
 
+    private string|NotSet $slug = NotSet::VALUE;
+
     private string|NotSet $title = NotSet::VALUE;
 
     private string|NotSet $description = NotSet::VALUE;
@@ -29,6 +31,13 @@ final class ArticleBuilder
     public function withId(string $id): self
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    public function withSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
@@ -73,6 +82,7 @@ final class ArticleBuilder
         $faker = Factory::create();
 
         $id = $this->id !== NotSet::VALUE ? $this->id : $faker->slug();
+        $slug = $this->slug !== NotSet::VALUE ? $this->slug : $faker->slug();
         $title = $this->title !== NotSet::VALUE ? $this->title : $faker->sentence();
         $description = $this->description !== NotSet::VALUE ? $this->description : $faker->paragraph(3);
         $author = $this->author !== NotSet::VALUE ? $this->author : aMember()->build();
@@ -92,6 +102,6 @@ final class ArticleBuilder
             $html = $converter->convert($markdown->getContents());
         }
 
-        return new Article($id, $title, $description, $html, $author, $publishedAt);
+        return new Article($id, $slug, $title, $description, $html, $author, $publishedAt);
     }
 }

@@ -10,16 +10,19 @@ final readonly class Article
 {
     private const int WORDS_PER_MINUTE = 220;
 
-    public int $readingTime;
-
     public function __construct(
         public string $id,
+        public string $slug,
         public string $title,
         public string $description,
         public string $html,
         public Member $author,
         public \DateTimeImmutable $publishedAt,
     ) {
-        $this->readingTime = max(1, (int) ceil(str_word_count(strip_tags($html)) / self::WORDS_PER_MINUTE));
+    }
+
+    public function getReadingTime(): int
+    {
+        return max(1, (int) ceil(str_word_count(strip_tags($this->html)) / self::WORDS_PER_MINUTE));
     }
 }
