@@ -35,10 +35,10 @@ metadata_foo: bar
 MD;
 
         try {
-            $this->fs->dumpFile(sprintf('%s/1.md.twig', $articlesDir), $content);
+            $this->fs->dumpFile(sprintf('%s/1.en.md.twig', $articlesDir), $content);
             $generated = $provider->provide('1');
         } finally {
-            $this->fs->remove(sprintf('%s/1.md.twig', $articlesDir));
+            $this->fs->remove(sprintf('%s/1.en.md.twig', $articlesDir));
         }
 
         $this->assertMatchesRegularExpression('#<a.*href="/".*>#', $generated);

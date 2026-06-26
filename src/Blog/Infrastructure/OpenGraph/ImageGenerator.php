@@ -22,10 +22,11 @@ final readonly class ImageGenerator
     ) {
     }
 
-    public function generate(Article $article): string
+    public function generate(Article $article, string $locale): string
     {
         $path = $this->urlGenerator->generate('app_blog_og_preview', [
             'id' => $article->id,
+            '_locale' => $locale,
         ]);
         $url = rtrim($this->baseUrl, '/') . $path;
 

@@ -9,6 +9,7 @@ use App\Blog\Domain\Model\Article;
 use App\Blog\Domain\Repository\ArticleRepository;
 use Symfony\Bridge\Twig\Attribute\Template;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Profiler\Profiler;
@@ -27,7 +28,10 @@ final readonly class PreviewOpenGraphImage
     /**
      * @return array{article: Article}
      */
-    #[Route(path: '/_og/blog/{id<[a-z0-9-]+>}', name: 'app_blog_og_preview', methods: ['GET'])]
+    #[Route(path: [
+        'en' => '/_og/blog/{id<[a-z0-9-]+>}',
+        'fr' => '/fr/_og/blog/{id<[a-z0-9-]+>}',
+    ], name: 'app_blog_og_preview', methods: [Request::METHOD_GET])]
     #[Template('og_image/article.html.twig')]
     public function __invoke(string $id): array
     {

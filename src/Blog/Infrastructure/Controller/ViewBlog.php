@@ -8,6 +8,7 @@ use App\Blog\Domain\Model\Article;
 use App\Blog\Domain\Repository\ArticleRepository;
 use Bakslash\StaticSiteBundle\Attribute\Prerender;
 use Symfony\Bridge\Twig\Attribute\Template;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -22,7 +23,10 @@ final readonly class ViewBlog
     /**
      * @return array{latest: ?Article, articles: list<Article>}
      */
-    #[Route(path: '/blog', name: 'app_blog', methods: ['GET'])]
+    #[Route(path: [
+        'en' => '/blog',
+        'fr' => '/fr/blog',
+    ], name: 'app_blog', methods: [Request::METHOD_GET])]
     #[Prerender]
     #[Template('pages/blog/index.html.twig')]
     public function __invoke(): array

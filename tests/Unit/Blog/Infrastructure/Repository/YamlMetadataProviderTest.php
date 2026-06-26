@@ -10,6 +10,7 @@ use App\Team\Domain\Model\MemberId;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Component\Yaml\Yaml;
 
 final class YamlMetadataProviderTest extends TestCase
@@ -57,13 +58,13 @@ final class YamlMetadataProviderTest extends TestCase
         $this->expectException(\OutOfBoundsException::class);
         $this->expectExceptionMessageIs('No source found for article "missing".');
 
-        new YamlMetadataProvider($this->articlesDir)->provide('missing');
+        new YamlMetadataProvider(new LocaleSwitcher('en', []), $this->articlesDir)->provide('missing');
     }
 
     public function testThrowsWhenNoMetadata(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Cannot find metadata of file "1.md.twig".');
+        $this->expectExceptionMessage('Cannot find metadata of file "1.en.md.twig".');
 
         $this->provide('anything');
     }
@@ -71,7 +72,7 @@ final class YamlMetadataProviderTest extends TestCase
     public function testThrowsWhenInvalidYaml(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessageMatches('/^Cannot parse metadata of file "1\.md\.twig": ".+"\.$/');
+        $this->expectExceptionMessageMatches('/^Cannot parse metadata of file "1\.en\.md\.twig": ".+"\.$/');
 
         $this->provide("---\nfoo: bar: baz\n---");
     }
@@ -87,7 +88,7 @@ final class YamlMetadataProviderTest extends TestCase
         ]);
 
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessageMatches('/^Invalid "published_at" metadata in file "1\.md\.twig": ".+"\.$/');
+        $this->expectExceptionMessageMatches('/^Invalid "published_at" metadata in file "1\.en\.md\.twig": ".+"\.$/');
 
         $this->provide(sprintf("---\n%s\n---", $yaml));
     }
@@ -101,7 +102,7 @@ final class YamlMetadataProviderTest extends TestCase
         $yaml = Yaml::dump($metadata);
 
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(sprintf('Missing "%s" metadata in file "1.md.twig".', $expectedMissing));
+        $this->expectExceptionMessage(sprintf('Missing "%s" metadata in file "1.en.md.twig".', $expectedMissing));
 
         $this->provide("---\n{$yaml}\n---");
     }
@@ -155,8 +156,8 @@ final class YamlMetadataProviderTest extends TestCase
 
     private function provide(string $content): ArticleMetadata
     {
-        $this->fs->dumpFile(sprintf('%s/1.md.twig', $this->articlesDir), $content);
+        $this->fs->dumpFile(sprintf('%s/1.en.md.twig', $this->articlesDir), $content);
 
-        return new YamlMetadataProvider($this->articlesDir)->provide('1');
+        return new YamlMetadataProvider(new LocaleSwitcher('en', []), $this->articlesDir)->provide('1');
     }
 }
