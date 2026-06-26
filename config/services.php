@@ -12,7 +12,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $params
         ->set('app.public_dir', sprintf('%s/public', param('kernel.project_dir')))
-        ->set('app.showcased_article', 'when-symfony-pages-dont-need-symfony') // The filename without the ".md.twig" extension
+        ->set('app.showcased_article', 'fixing-symfony-ux-security-vulnerabilities') // The filename without the ".md.twig" extension
         ->set('app.articles_dir', sprintf('%s/templates/articles', param('kernel.project_dir')))
         ->set('app.ssg_output_dir', sprintf('%s/static-pages', param('app.public_dir')))
         ->set('app.og_preview_base_url', 'http://php')

@@ -1,0 +1,86 @@
+---
+author: hugo-alliaume
+title: "How a Symfony UX Security Fix Actually Happens 🔒"
+description: "Behind the scenes of fixing a wave of Symfony UX vulnerabilities: the private security repo, issue triage, the CVE request, and the release. Plus what two months in the trenches taught me."
+published_at: 2026-06-25
+slug: fixing-symfony-ux-security-vulnerabilities
+---
+
+Most Symfony users see a one-line release note: "fixes CVE-2026-XXXXX". Behind that line is a quiet, structured process. Over the last two months, I went through it around a dozen times as part of the Symfony UX Core Team.
+
+This is a guided tour of that process, A to Z, using the two now-public CVEs as concrete examples.
+
+## The Private Security Repository
+
+Symfony has a private GitHub repository where fixes are developed before public disclosure. It covers the whole family: Symfony, Symfony UX, Symfony AI, Twig, and more. For Symfony UX, branches named `ux-2.x` and `ux-3.x` mirror the public `2.x` and `3.x` branches.
+
+The reason for keeping it private is straightforward: if a fix is developed in the open, attackers can read the patch and exploit the vulnerability before most users have had a chance to upgrade. Private development gives the ecosystem time to ship a patched release first, then disclose.
+
+## Opening and Triaging the Issue
+
+When a report comes in, it lands as a GitHub issue and gets reviewed by the Symfony security and core team. The key question at this stage: is this a genuine vulnerability that warrants a CVE and public disclosure, or is it a "hardening", meaning a defense-in-depth improvement that doesn't rise to that level?
+
+The distinction matters. Symfony has been merging a lot of hardenings lately, particularly from [Nicolas Grekas](https://github.com/symfony/symfony/pulls?q=sort%3Aupdated-desc+is%3Apr+is%3Amerged+harden+author%3Anicolas-grekas). Not every reported issue becomes a CVE, and that's fine.
+
+One thing I'll say honestly: Claude helps a lot at this stage. Understanding a security report and mapping it to the actual affected code paths is genuinely easier with an AI assistant in the loop. I'm not crediting it as the expert here, but it saves real time.
+
+## Opening the Fix PR
+
+The fix targets the oldest maintained branch first, the one in security-fixes-only mode. The PR gets reviewed by the Symfony and Symfony UX core team before anything is merged.
+
+Take [CVE-2026-55877](https://symfony.com/blog/cve-2026-55877-xss-in-symfony-ux-icons-via-unsanitized-svg-content-in-local-files-and-iconify-on-demand-responses), an XSS in `symfony/ux-icons`. The `ux_icon()` function is `is_safe=['html']`, so raw SVG is inlined unescaped, and browsers run any `<script>` or `on*` handler hidden inside it. Neither the local-file path nor the default Iconify on-demand path sanitized that content. The [fix](https://github.com/symfony/ux/commit/3a4964ec3700f0af4e13f7bfbf8bb3174c3e79d1) routes every icon through a central `IconFactory` that strips script-capable elements, event handlers, and dangerous URL schemes before rendering, while leaving clean icons untouched. Claude was a real help here: the attack surface is wide, so having it draft the sanitization and probe it from an attacker's angle saved time.
+
+## Requesting the CVE
+
+Once the PR is reviewed and validated, the next step is requesting a CVE and a GitHub Security Advisory (GHSA): the official record of the vulnerability, its impact, and its CVSS score.
+
+To speed this up, I built [a `github-security-advisory` skill](https://github.com/Kocal/dotfiles/blob/main/dotfiles/claude/skills/github-security-advisory/SKILL.md) for Claude Code.
+You give it the repo, issue, and PR URLs; it fetches the real data with `gh`, delegates the actual prose to [my `natural-writing-editor` agent](https://github.com/Kocal/dotfiles/blob/main/dotfiles/claude/agents/natural-writing-editor.md), and assembles a copy-paste-ready advisory with an estimated CVSS 3.1 vector. 🙌
+
+It doesn't replace judgment, but it turns half an hour of boilerplate into a solid first draft in seconds.
+
+The second example is [CVE-2026-55878](https://symfony.com/blog/cve-2026-55878-path-traversal-in-symfony-ux-toolkit-allows-arbitrary-file-write-and-read-via-crafted-recipe-manifest), a path traversal in `symfony/ux-toolkit`. The `ux:install` command copied a kit's `copy-files` paths with only a `Path::isRelative()` check, which happily accepts `../../../etc`. A crafted kit could escape the target directory and read or overwrite arbitrary files (controllers, git hooks, `.env`), up to code execution. The [fix](https://github.com/symfony/ux/commit/7b4ddf3764bf269a1b5fde5bf03c4bce568694e4) rejects any path containing a `..` segment and re-verifies the resolved path right before each read or write.
+
+## Merging the PR
+
+Technically nothing blocks a merge, since all of this lives on the private repo. But the order we follow is deliberate:
+
+1. Open the PR and draft the CVE.
+2. Once the PR is approved (which means it's about to be merged), request the CVE from GitHub.
+3. GitHub approves the request.
+4. Only then do we merge.
+
+That keeps the CVE reserved and the timeline clean before the fix reaches a public branch.
+
+## Upmerging the Fix
+
+Once the fix is merged, it gets upmerged into the newer branches so they carry it too. This is standard Symfony practice: the lower maintenance branch is merged up into the next one. It's mostly mechanical, with a review pass for any conflicts.
+
+```bash
+git checkout ux-3.x
+git merge --no-ff ux-2.x
+# resolve conflicts if any, then
+git push security ux-3.x
+```
+
+## Release and Disclosure
+
+The release and the public advisories are handled by [Fabien Potencier](https://github.com/fabpot). He writes and publishes the per-CVE advisory pages and the release announcement. For these two CVEs, the patched versions are **2.36.1** and **3.2.0**, released on June 19, 2026.
+
+There's one more public record to update: the [FriendsOfPHP/security-advisories](https://github.com/FriendsOfPHP/security-advisories/pull/791) database, which is what `composer audit` and similar tools read. A PR there lists the affected packages and version constraints, so anyone on a vulnerable version gets flagged automatically.
+
+If you're running any version of `symfony/ux-icons` or `symfony/ux-toolkit` before those tags, upgrade now:
+
+- [CVE-2026-55877: XSS in symfony/ux-icons](https://symfony.com/blog/cve-2026-55877-xss-in-symfony-ux-icons-via-unsanitized-svg-content-in-local-files-and-iconify-on-demand-responses)
+- [CVE-2026-55878: Path traversal in symfony/ux-toolkit](https://symfony.com/blog/cve-2026-55878-path-traversal-in-symfony-ux-toolkit-allows-arbitrary-file-write-and-read-via-crafted-recipe-manifest)
+- [Symfony UX 3.2.0 and 2.36.1 release announcement](https://symfony.com/blog/symfony-ux-3-2-0-and-2-36-1-released)
+
+## Two Months, Around a Dozen Fixes
+
+Doing this around a dozen times in two months gives you a different perspective on the whole thing. It's a team effort at every step: [Pascal Cescon](https://github.com/pascalcescon) reported the issues that triggered this wave, the Symfony and Symfony UX core team reviewed every PR, the Security Team coordinated the CVE requests, and Fabien handled the releases. None of this works without all of those pieces.
+
+Two honest notes:
+1. First, these fixes somewhat short-circuited the usual Security Team flow: the AI era has sharply increased the volume of incoming reports, the team is under real pressure, and because I happened to be in CC on the relevant threads I could move faster than the normal queue.
+2. Second, AI accelerated my side of the chain too, from understanding reports to drafting sanitization logic and generating CVSS vectors. But the judgment calls (is this a real CVE? does the fix cover every edge case? what's the disclosure timeline?) were made by people. That part doesn't change.
+
+For now, the queue is clear: no new security issue is open on Symfony UX. But the process is in place, and whenever the next report lands, this is the path it will follow. Stay tuned. 🚀
