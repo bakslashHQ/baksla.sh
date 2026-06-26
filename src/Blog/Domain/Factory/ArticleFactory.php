@@ -30,7 +30,7 @@ final readonly class ArticleFactory
         }
 
         try {
-            /** @var array{author?: string, title?: string, description?: string, published_at?: \DateTimeInterface|string} $metadata */
+            /** @var array{author?: string, title?: string, description?: string, slug?: string, published_at?: \DateTimeInterface|string} $metadata */
             $metadata = Yaml::parse($matches['metadata'], Yaml::PARSE_DATETIME);
         } catch (ParseException $parseException) {
             throw new \InvalidArgumentException(sprintf('Cannot parse metadata of file "%s": "%s".', $filename, $parseException->getMessage()), $parseException->getCode(), previous: $parseException);
@@ -43,13 +43,27 @@ final readonly class ArticleFactory
             throw new \InvalidArgumentException(sprintf('Invalid "published_at" metadata in file "%s": "expected a date".', $filename));
         }
 
-        return new Article(
-            id: $id,
-            title: $metadata['title'] ?? throw new \InvalidArgumentException(sprintf('Missing "title" metadata in file "%s".', $filename)),
-            description: $metadata['description'] ?? throw new \InvalidArgumentException(sprintf('Missing "description" metadata in file "%s".', $filename)),
-            html: $this->htmlGenerator->generate($id),
-            author: $this->memberRepository->get(MemberId::from($authorId)),
-            publishedAt: $publishedAt,
-        );
+        $properties = [
+            'id' => $id,
+            'slug' => $metadata['slug'] ?? throw new \InvalidArgumentException(sprintf('Missing "slug" metadata in file "%s".', $filename)),
+            'title' => $metadata['title'] ?? throw new \InvalidArgumentException(sprintf('Missing "title" metadata in file "%s".', $filename)),
+            'description' => $metadata['description'] ?? throw new \InvalidArgumentException(sprintf('Missing "description" metadata in file "%s".', $filename)),
+            'author' => $this->memberRepository->get(MemberId::from($authorId)),
+            'publishedAt' => $publishedAt,
+        ];
+
+        $reflector = new \ReflectionClass(Article::class);
+
+        $htmlProperty = $reflector->getProperty('html');
+
+        $article = $reflector->newLazyGhost(function (Article $article) use ($id, $htmlProperty): void {
+            $htmlProperty->setRawValueWithoutLazyInitialization($article, $this->htmlGenerator->generate($id));
+        });
+
+        foreach ($properties as $property => $value) {
+            $reflector->getProperty($property)->setRawValueWithoutLazyInitialization($article, $value);
+        }
+
+        return $article;
     }
 }

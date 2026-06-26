@@ -43,7 +43,7 @@ final readonly class ViewSitemap
         foreach ($this->articleRepository->findAll() as $article) {
             $urls[] = [
                 'loc' => $this->urlGenerator->generate('app_blog_article', [
-                    'id' => $article->id,
+                    'slug' => $article->slug,
                 ], UrlGeneratorInterface::ABSOLUTE_URL),
                 'lastmod' => $article->publishedAt->format('Y-m-d'),
             ];

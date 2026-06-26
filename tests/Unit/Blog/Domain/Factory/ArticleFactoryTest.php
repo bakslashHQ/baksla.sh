@@ -21,6 +21,7 @@ final class ArticleFactoryTest extends TestCase
             'author' => MemberId::MathiasArlaud->value,
             'title' => 'title',
             'description' => 'description',
+            'slug' => 'a-slug',
             'published_at' => new \DateTimeImmutable('2025-01-15'),
         ]);
         $content = sprintf("---\n%s\n---", $yaml);
@@ -32,11 +33,41 @@ final class ArticleFactoryTest extends TestCase
         $article = new ArticleFactory($memberRepository, $htmlGenerator)->create('1', $content);
 
         $this->assertInstanceOf(Article::class, $article);
+        $this->assertSame('a-slug', $article->slug);
         $this->assertSame('title', $article->title);
         $this->assertSame('description', $article->description);
         $this->assertSame($member, $article->author);
         $this->assertSame('2025-01-15', $article->publishedAt->format('Y-m-d'));
         $this->assertSame('html', $article->html);
+    }
+
+    public function testHtmlIsRenderedLazily(): void
+    {
+        $yaml = Yaml::dump([
+            'author' => MemberId::MathiasArlaud->value,
+            'title' => 'title',
+            'description' => 'description',
+            'slug' => 'a-slug',
+            'published_at' => new \DateTimeImmutable('2025-01-15'),
+        ]);
+        $content = sprintf("---\n%s\n---", $yaml);
+        $memberRepository = new InMemoryMemberRepository([aMember()->withId(MemberId::MathiasArlaud)->build()]);
+
+        $renders = 0;
+        $htmlGenerator = $this->createStub(HtmlGenerator::class);
+        $htmlGenerator->method('generate')->willReturnCallback(static function () use (&$renders): string {
+            ++$renders;
+
+            return 'html';
+        });
+
+        $article = new ArticleFactory($memberRepository, $htmlGenerator)->create('1', $content);
+
+        $this->assertSame('a-slug', $article->slug);
+        $this->assertSame(0, $renders);
+
+        $this->assertSame('html', $article->html);
+        $this->assertSame(1, $renders);
     }
 
     public function testCreateThrowsWhenNoMetadata(): void
@@ -96,6 +127,15 @@ final class ArticleFactoryTest extends TestCase
     {
         yield [
             'author', [
+                'slug' => 'a-slug',
+                'title' => 'title',
+                'description' => 'description',
+                'published_at' => new \DateTimeImmutable('2025-01-15'),
+            ],
+        ];
+        yield [
+            'slug', [
+                'author' => 'author',
                 'title' => 'title',
                 'description' => 'description',
                 'published_at' => new \DateTimeImmutable('2025-01-15'),
@@ -104,6 +144,7 @@ final class ArticleFactoryTest extends TestCase
         yield [
             'title', [
                 'author' => 'author',
+                'slug' => 'a-slug',
                 'description' => 'description',
                 'published_at' => new \DateTimeImmutable('2025-01-15'),
             ],
@@ -111,6 +152,7 @@ final class ArticleFactoryTest extends TestCase
         yield [
             'description', [
                 'author' => 'author',
+                'slug' => 'a-slug',
                 'title' => 'title',
                 'published_at' => new \DateTimeImmutable('2025-01-15'),
             ],
@@ -118,6 +160,7 @@ final class ArticleFactoryTest extends TestCase
         yield [
             'published_at', [
                 'author' => 'author',
+                'slug' => 'a-slug',
                 'title' => 'title',
                 'description' => 'description',
             ],

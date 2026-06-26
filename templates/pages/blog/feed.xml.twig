@@ -10,8 +10,8 @@
     {% for article in articles %}
         <entry>
             <title>{{ article.title|raw }}</title>
-            <link href="{{ url('app_blog_article', {id: article.id}) }}" />
-            <id>{{ url('app_blog_article', {id: article.id}) }}</id>
+            <link href="{{ url('app_blog_article', {slug: article.slug}) }}" />
+            <id>{{ url('app_blog_article', {slug: article.slug}) }}</id>
             <published>{{ article.publishedAt|date('c') }}</published>
             <updated>{{ article.publishedAt|date('c') }}</updated>
             <author><name>{{ article.author.fullname }}</name></author>

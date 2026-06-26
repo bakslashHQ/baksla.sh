@@ -18,7 +18,7 @@ final readonly class BlogArticleParamsProvider implements ParamsProviderInterfac
     {
         foreach ($this->articleRepository->findAll() as $article) {
             yield [
-                'id' => $article->id,
+                'slug' => $article->slug,
             ];
         }
     }

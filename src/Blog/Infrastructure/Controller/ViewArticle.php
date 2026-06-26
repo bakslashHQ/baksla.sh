@@ -24,19 +24,19 @@ final readonly class ViewArticle
     ) {
     }
 
-    #[Route(path: '/blog/{id<[a-z0-9-]+>}.{_format<md>?html}', name: 'app_blog_article', methods: ['GET'])]
+    #[Route(path: '/blog/{slug<[a-z0-9-]+>}.{_format<md>?html}', name: 'app_blog_article', methods: ['GET'])]
     #[Prerender(params: BlogArticleParamsProvider::class)]
-    public function __invoke(string $id, Request $request): Response
+    public function __invoke(string $slug, Request $request): Response
     {
         try {
-            $article = $this->articleRepository->get($id);
+            $article = $this->articleRepository->getBySlug($slug);
         } catch (MissingArticleException) {
             throw new NotFoundHttpException();
         }
 
         if ($request->getRequestFormat() === 'md') {
             return new Response(
-                $this->twig->render(sprintf('articles/%s.md.twig', $id)),
+                $this->twig->render(sprintf('articles/%s.md.twig', $article->id)),
                 headers: [
                     'Content-Type' => 'text/markdown; charset=utf-8',
                 ],

@@ -6,7 +6,7 @@
 
             <div class="grid lg:grid-cols-[2fr_1fr] gap-6 lg:gap-8">
                 <a
-                    href="{{ path('app_blog_article', {id: showcased.id}) }}"
+                    href="{{ path('app_blog_article', {slug: showcased.slug}) }}"
                     class="group block bg-paper border border-ink/10 rounded-xl overflow-hidden no-underline transition-all duration-200 hover:-translate-y-px hover:shadow-xl hover:border-ink/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
                 >
                     <article class="flex flex-col h-full">
@@ -55,7 +55,7 @@
                         {% for article in this.others %}
                             <li>
                                 <a
-                                    href="{{ path('app_blog_article', {id: article.id}) }}"
+                                    href="{{ path('app_blog_article', {slug: article.slug}) }}"
                                     class="group block bg-paper border border-ink/10 rounded-xl p-5 sm:p-6 no-underline transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:border-ink/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
                                 >
                                     <article>

@@ -14,18 +14,18 @@ final class BlogArticleParamsProviderTest extends TestCase
     {
         $repository = $this->createStub(ArticleRepository::class);
         $repository->method('findAll')->willReturn([
-            anArticle()->withId('article-1')->build(),
-            anArticle()->withId('article-2')->build(),
+            anArticle()->withSlug('article-1-slug')->build(),
+            anArticle()->withSlug('article-2-slug')->build(),
         ]);
 
         $provider = new BlogArticleParamsProvider($repository);
 
         $this->assertSame([
             [
-                'id' => 'article-1',
+                'slug' => 'article-1-slug',
             ],
             [
-                'id' => 'article-2',
+                'slug' => 'article-2-slug',
             ],
         ], iterator_to_array($provider->provideParams()));
     }

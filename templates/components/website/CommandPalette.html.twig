@@ -48,9 +48,9 @@
                         <twig:website:CommandPaletteItem :href="path('app_team')" icon="mdi:arrow-right" :label="'header.cmd.team'|trans" />
                     {% endif %}
                     {% set showcasedArticle = this.showcasedArticle %}
-                    {% if showcasedArticle and (app.current_route != 'app_blog_article' or app.request.attributes.get('id') != showcasedArticle.id) %}
+                    {% if showcasedArticle and (app.current_route != 'app_blog_article' or app.request.attributes.get('slug') != showcasedArticle.slug) %}
                         <twig:website:CommandPaletteItem
-                            :href="path('app_blog_article', { id: showcasedArticle.id })"
+                            :href="path('app_blog_article', { slug: showcasedArticle.slug })"
                             icon="mdi:arrow-right"
                             :label="'header.cmd.latest_article'|trans({ title: showcasedArticle.title })"
                         />
