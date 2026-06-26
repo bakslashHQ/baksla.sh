@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Blog\Infrastructure\Rendering;
 
-use App\Blog\Domain\Factory\ArticleFactory\HtmlGenerator;
+use App\Blog\Domain\Factory\ArticleFactory\HtmlProvider;
 use Twig\Environment;
 
-final readonly class TwigMarkdownHtmlGenerator implements HtmlGenerator
+final readonly class TwigMarkdownHtmlProvider implements HtmlProvider
 {
     private const string METADATA_REGEX = '/\A---\n(\n|.)+?\n---/';
 
@@ -17,7 +17,7 @@ final readonly class TwigMarkdownHtmlGenerator implements HtmlGenerator
     ) {
     }
 
-    public function generate(string $id): string
+    public function provide(string $id): string
     {
         $markdown = $this->twig->render(sprintf('articles/%s.md.twig', $id));
         $markdown = preg_replace(self::METADATA_REGEX, '', $markdown) ?? '';

@@ -5,34 +5,36 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Blog\Domain\Factory;
 
 use App\Blog\Domain\Factory\ArticleFactory;
-use App\Blog\Domain\Factory\ArticleFactory\HtmlGenerator;
+use App\Blog\Domain\Factory\ArticleFactory\ArticleMetadata;
+use App\Blog\Domain\Factory\ArticleFactory\HtmlProvider;
+use App\Blog\Domain\Factory\ArticleFactory\MetadataProvider;
 use App\Blog\Domain\Model\Article;
 use App\Team\Domain\Model\MemberId;
 use App\Team\Infrastructure\Repository\InMemoryMemberRepository;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Yaml\Yaml;
 
 final class ArticleFactoryTest extends TestCase
 {
     public function testCreate(): void
     {
-        $yaml = Yaml::dump([
-            'author' => MemberId::MathiasArlaud->value,
-            'title' => 'title',
-            'description' => 'description',
-            'slug' => 'a-slug',
-            'published_at' => new \DateTimeImmutable('2025-01-15'),
-        ]);
-        $content = sprintf("---\n%s\n---", $yaml);
         $memberRepository = new InMemoryMemberRepository([$member = aMember()->withId(MemberId::MathiasArlaud)->build()]);
 
-        $htmlGenerator = $this->createStub(HtmlGenerator::class);
-        $htmlGenerator->method('generate')->willReturn('html');
+        $metadataProvider = $this->createStub(MetadataProvider::class);
+        $metadataProvider->method('provide')->willReturn(new ArticleMetadata(
+            slug: 'a-slug',
+            title: 'title',
+            description: 'description',
+            authorId: MemberId::MathiasArlaud,
+            publishedAt: new \DateTimeImmutable('2025-01-15'),
+        ));
 
-        $article = new ArticleFactory($memberRepository, $htmlGenerator)->create('1', $content);
+        $htmlProvider = $this->createStub(HtmlProvider::class);
+        $htmlProvider->method('provide')->willReturn('html');
+
+        $article = new ArticleFactory($memberRepository, $metadataProvider, $htmlProvider)->create('1');
 
         $this->assertInstanceOf(Article::class, $article);
+        $this->assertSame('1', $article->id);
         $this->assertSame('a-slug', $article->slug);
         $this->assertSame('title', $article->title);
         $this->assertSame('description', $article->description);
@@ -43,127 +45,31 @@ final class ArticleFactoryTest extends TestCase
 
     public function testHtmlIsRenderedLazily(): void
     {
-        $yaml = Yaml::dump([
-            'author' => MemberId::MathiasArlaud->value,
-            'title' => 'title',
-            'description' => 'description',
-            'slug' => 'a-slug',
-            'published_at' => new \DateTimeImmutable('2025-01-15'),
-        ]);
-        $content = sprintf("---\n%s\n---", $yaml);
         $memberRepository = new InMemoryMemberRepository([aMember()->withId(MemberId::MathiasArlaud)->build()]);
 
+        $metadataProvider = $this->createStub(MetadataProvider::class);
+        $metadataProvider->method('provide')->willReturn(new ArticleMetadata(
+            slug: 'a-slug',
+            title: 'title',
+            description: 'description',
+            authorId: MemberId::MathiasArlaud,
+            publishedAt: new \DateTimeImmutable('2025-01-15'),
+        ));
+
         $renders = 0;
-        $htmlGenerator = $this->createStub(HtmlGenerator::class);
-        $htmlGenerator->method('generate')->willReturnCallback(static function () use (&$renders): string {
+        $htmlProvider = $this->createStub(HtmlProvider::class);
+        $htmlProvider->method('provide')->willReturnCallback(static function () use (&$renders): string {
             ++$renders;
 
             return 'html';
         });
 
-        $article = new ArticleFactory($memberRepository, $htmlGenerator)->create('1', $content);
+        $article = new ArticleFactory($memberRepository, $metadataProvider, $htmlProvider)->create('1');
 
         $this->assertSame('a-slug', $article->slug);
         $this->assertSame(0, $renders);
 
         $this->assertSame('html', $article->html);
         $this->assertSame(1, $renders);
-    }
-
-    public function testCreateThrowsWhenNoMetadata(): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Cannot find metadata of file "1.md.twig".');
-
-        new ArticleFactory(new InMemoryMemberRepository(), $this->createStub(HtmlGenerator::class))->create('1', 'anything');
-    }
-
-    public function testCreateThrowsWhenInvalidYaml(): void
-    {
-        $content = "---\nfoo: bar: baz\n---";
-
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessageMatches('/^Cannot parse metadata of file "1\.md\.twig": ".+"\.$/');
-
-        new ArticleFactory(new InMemoryMemberRepository(), $this->createStub(HtmlGenerator::class))->create('1', $content);
-    }
-
-    public function testCreateThrowsWhenInvalidPublishedAt(): void
-    {
-        $yaml = Yaml::dump([
-            'author' => MemberId::MathiasArlaud->value,
-            'title' => 'title',
-            'description' => 'description',
-            'published_at' => 'not a date',
-        ]);
-        $content = sprintf("---\n%s\n---", $yaml);
-        $memberRepository = new InMemoryMemberRepository([aMember()->withId(MemberId::MathiasArlaud)->build()]);
-
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessageMatches('/^Invalid "published_at" metadata in file "1\.md\.twig": ".+"\.$/');
-
-        new ArticleFactory($memberRepository, $this->createStub(HtmlGenerator::class))->create('1', $content);
-    }
-
-    /**
-     * @param array<string, mixed> $metadata
-     */
-    #[DataProvider('createThrowsWhenMissingMandatoryMetadataDataProvider')]
-    public function testCreateThrowsWhenMissingMandatoryMetadata(string $expectedMissing, array $metadata): void
-    {
-        $yaml = Yaml::dump($metadata);
-        $content = "---\n{$yaml}\n---";
-
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(sprintf('Missing "%s" metadata in file "1.md.twig".', $expectedMissing));
-
-        new ArticleFactory(new InMemoryMemberRepository(), $this->createStub(HtmlGenerator::class))->create('1', $content);
-    }
-
-    /**
-     * @return iterable<array{0: string, 1: array<string, mixed>}>
-     */
-    public static function createThrowsWhenMissingMandatoryMetadataDataProvider(): iterable
-    {
-        yield [
-            'author', [
-                'slug' => 'a-slug',
-                'title' => 'title',
-                'description' => 'description',
-                'published_at' => new \DateTimeImmutable('2025-01-15'),
-            ],
-        ];
-        yield [
-            'slug', [
-                'author' => 'author',
-                'title' => 'title',
-                'description' => 'description',
-                'published_at' => new \DateTimeImmutable('2025-01-15'),
-            ],
-        ];
-        yield [
-            'title', [
-                'author' => 'author',
-                'slug' => 'a-slug',
-                'description' => 'description',
-                'published_at' => new \DateTimeImmutable('2025-01-15'),
-            ],
-        ];
-        yield [
-            'description', [
-                'author' => 'author',
-                'slug' => 'a-slug',
-                'title' => 'title',
-                'published_at' => new \DateTimeImmutable('2025-01-15'),
-            ],
-        ];
-        yield [
-            'published_at', [
-                'author' => 'author',
-                'slug' => 'a-slug',
-                'title' => 'title',
-                'description' => 'description',
-            ],
-        ];
     }
 }
