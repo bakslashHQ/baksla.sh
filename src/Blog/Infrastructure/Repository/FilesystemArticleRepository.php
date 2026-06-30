@@ -10,11 +10,13 @@ use App\Blog\Domain\Model\Article;
 use App\Blog\Domain\Repository\ArticleRepository;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Translation\LocaleSwitcher;
 
 final readonly class FilesystemArticleRepository implements ArticleRepository
 {
     public function __construct(
         private ArticleFactory $articleFactory,
+        private LocaleSwitcher $localeSwitcher,
         #[Autowire(param: 'app.showcased_article')]
         private ?string $showcasedArticle,
         #[Autowire(param: 'app.articles_dir')]
@@ -53,17 +55,18 @@ final readonly class FilesystemArticleRepository implements ArticleRepository
 
     public function findAll(): array
     {
+        $locale = $this->localeSwitcher->getLocale();
+
         $files = new Finder()
             ->files()
             ->in($this->articlesDir)
-            ->name('*.md.twig')
+            ->name(sprintf('*.%s.md.twig', $locale))
             ->ignoreVCSIgnored(true)
-            ->sortByName()
-        ;
+            ->sortByName();
 
         $articles = [];
         foreach ($files as $file) {
-            $id = basename($file->getFilename(), '.md.twig');
+            $id = basename($file->getFilename(), sprintf('.%s.md.twig', $locale));
             $articles[] = $this->articleFactory->create($id);
         }
 

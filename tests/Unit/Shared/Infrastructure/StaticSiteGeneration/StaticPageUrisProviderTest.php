@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Exception\LogicException;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\Router;
+use Symfony\Component\Translation\LocaleSwitcher;
 
 final class StaticPageUrisProviderTest extends TestCase
 {
@@ -38,6 +39,7 @@ final class StaticPageUrisProviderTest extends TestCase
         $provider = new StaticPageUrisProvider(
             $this->createRouter($routes),
             $this->createStub(ContainerInterface::class),
+            new LocaleSwitcher('en', []),
         );
 
         $this->assertSame(['/static', '/param/foo', '/param/bar'], iterator_to_array($provider->provide()));
@@ -64,6 +66,7 @@ final class StaticPageUrisProviderTest extends TestCase
         $provider = new StaticPageUrisProvider(
             $this->createRouter($routes),
             $paramsProviders,
+            new LocaleSwitcher('en', []),
         );
 
         $this->assertSame(['/service/foo'], iterator_to_array($provider->provide()));
@@ -79,6 +82,7 @@ final class StaticPageUrisProviderTest extends TestCase
         $provider = new StaticPageUrisProvider(
             $this->createRouter($routes),
             $this->createStub(ContainerInterface::class),
+            new LocaleSwitcher('en', []),
         );
 
         $this->expectException(LogicException::class);
@@ -97,6 +101,7 @@ final class StaticPageUrisProviderTest extends TestCase
         $provider = new StaticPageUrisProvider(
             $this->createRouter($routes),
             $this->createStub(ContainerInterface::class),
+            new LocaleSwitcher('en', []),
         );
 
         $this->expectException(LogicException::class);
@@ -116,6 +121,7 @@ final class StaticPageUrisProviderTest extends TestCase
         $provider = new StaticPageUrisProvider(
             $this->createRouter($routes),
             $this->createStub(ContainerInterface::class),
+            new LocaleSwitcher('en', []),
         );
 
         $this->expectException(LogicException::class);
@@ -138,6 +144,7 @@ final class StaticPageUrisProviderTest extends TestCase
         $provider = new StaticPageUrisProvider(
             $this->createRouter($routes),
             $paramsProviders,
+            new LocaleSwitcher('en', []),
         );
 
         $this->expectException(InvalidArgumentException::class);
@@ -161,6 +168,7 @@ final class StaticPageUrisProviderTest extends TestCase
         $provider = new StaticPageUrisProvider(
             $this->createRouter($routes),
             $paramsProviders,
+            new LocaleSwitcher('en', []),
         );
 
         $this->expectException(InvalidArgumentException::class);

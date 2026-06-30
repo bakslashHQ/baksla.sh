@@ -3,6 +3,7 @@ twig:
     globals:
         ga_app_name: '%env(GA_APP_NAME)%'
         ga_measurement_id: '%env(GA_MEASUREMENT_ID)%'
+        enabled_locales: '%kernel.enabled_locales%'
 
 when@test:
     twig:

@@ -21,7 +21,10 @@ final readonly class ViewBlog
     ) {
     }
 
-    #[Route(path: '/blog', name: 'app_blog', methods: ['GET'])]
+    #[Route(path: [
+        'en' => '/blog',
+        'fr' => '/fr/blog',
+    ], name: 'app_blog', methods: ['GET'])]
     #[Prerender]
     public function __invoke(): Response
     {
