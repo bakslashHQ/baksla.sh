@@ -10,7 +10,6 @@ enum MemberId: string
     case FlorianMerle = 'florian-merle';
     case HugoAlliaume = 'hugo-alliaume';
     case JeremyRomey = 'jeremy-romey';
-    case JulesPietri = 'jules-pietri';
     case MathiasArlaud = 'mathias-arlaud';
     case RobinChalas = 'robin-chalas';
     case ValmontPehautPietri = 'valmont-pehaut-pietri';
