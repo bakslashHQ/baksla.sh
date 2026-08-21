@@ -1,7 +1,15 @@
 {
     "symfony": {
-        "reviews": 4756,
-        "pullRequests": 1784
+        "reviews": 4152,
+        "pullRequests": 1180
+    },
+    "symfony-ux": {
+        "reviews": 601,
+        "pullRequests": 544
+    },
+    "symfony-reprise": {
+        "reviews": 3,
+        "pullRequests": 60
     },
     "api-platform": {
         "reviews": 38,
@@ -12,12 +20,12 @@
         "pullRequests": 33
     },
     "lexik-jwt": {
-        "reviews": 128,
+        "reviews": 130,
         "pullRequests": 148
     },
     "oauth2-server-bundle": {
-        "reviews": 78,
-        "pullRequests": 30
+        "reviews": 92,
+        "pullRequests": 33
     },
     "tactician": {
         "reviews": 11,
@@ -26,5 +34,9 @@
     "biome-js-bundle": {
         "reviews": 3,
         "pullRequests": 20
+    },
+    "phpstan-symfony-ux": {
+        "reviews": 1,
+        "pullRequests": 22
     }
 }

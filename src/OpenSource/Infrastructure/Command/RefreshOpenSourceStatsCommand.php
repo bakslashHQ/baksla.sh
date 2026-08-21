@@ -36,10 +36,13 @@ final readonly class RefreshOpenSourceStatsCommand
             'symfony/mercure',
             'symfony/mercure-bundle',
             'symfony/panther',
-            'symfony/ux',
-            'symfony/ux.symfony.com',
             'symfony/ai',
         ],
+        'symfony-ux' => [
+            'symfony/ux',
+            'symfony/ux.symfony.com',
+        ],
+        'symfony-reprise' => ['symfony/reprise'],
         'api-platform' => ['api-platform/core'],
         'sylius' => [
             'Sylius/Sylius',
@@ -55,6 +58,7 @@ final readonly class RefreshOpenSourceStatsCommand
             'thephpleague/tactian-logger',
         ],
         'biome-js-bundle' => ['Kocal/BiomeJsBundle'],
+        'phpstan-symfony-ux' => ['Kocal/phpstan-symfony-ux'],
     ];
 
     public function __construct(

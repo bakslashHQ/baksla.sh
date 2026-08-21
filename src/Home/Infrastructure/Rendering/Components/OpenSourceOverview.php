@@ -22,6 +22,16 @@ final class OpenSourceOverview
             'short' => 'symfony/symfony',
             'url' => 'https://github.com/symfony/symfony',
         ],
+        'symfony-ux' => [
+            'label' => 'Symfony UX',
+            'short' => 'symfony/ux',
+            'url' => 'https://github.com/symfony/ux',
+        ],
+        'symfony-reprise' => [
+            'label' => 'Reprise',
+            'short' => 'symfony/reprise',
+            'url' => 'https://github.com/symfony/reprise',
+        ],
         'api-platform' => [
             'label' => 'API Platform',
             'short' => 'api-platform/core',
@@ -51,6 +61,11 @@ final class OpenSourceOverview
             'label' => 'BiomeJsBundle',
             'short' => 'Kocal/BiomeJsBundle',
             'url' => 'https://github.com/Kocal/BiomeJsBundle',
+        ],
+        'phpstan-symfony-ux' => [
+            'label' => 'PHPStan Symfony UX',
+            'short' => 'Kocal/phpstan-symfony-ux',
+            'url' => 'https://github.com/Kocal/phpstan-symfony-ux',
         ],
     ];
 
