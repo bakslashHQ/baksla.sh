@@ -1,7 +1,20 @@
 import { Controller } from '@hotwired/stimulus';
 
-const CLOSED_CLASSES = ['opacity-0', 'translate-y-4', 'scale-95'];
-const OPEN_CLASSES = ['opacity-100', 'scale-100'];
+const VISIBLE_CLASSES = ['opacity-100', 'scale-100'];
+
+// Opening and closing lift the modal and scale it down, while moving between members only slides sideways.
+const ENTER_CLASSES = {
+  initial: ['opacity-0', 'scale-95', 'translate-y-4'],
+  prev: ['opacity-0', '-translate-x-8'],
+  next: ['opacity-0', 'translate-x-8'],
+};
+const LEAVE_CLASSES = {
+  initial: ENTER_CLASSES.initial,
+  prev: ENTER_CLASSES.next,
+  next: ENTER_CLASSES.prev,
+};
+const RESET_CLASSES = [...new Set([...VISIBLE_CLASSES, ...Object.values(ENTER_CLASSES).flat()])];
+const LEAVE_DURATION = 150;
 
 /**
  * @property {HTMLElement} modalTarget
@@ -24,7 +37,7 @@ export default class extends Controller {
 
     // Openers live outside the controller element (reviewer rail, comment headers),
     // so Stimulus actions can't reach them, so bind manually here.
-    this.openerHandler = this.open.bind(this);
+    this.openerHandler = () => this.open();
     this.openers = Array.from(document.querySelectorAll(`[data-open-member-modal="${this.memberValue}"]`));
     for (const opener of this.openers) {
       opener.addEventListener('click', this.openerHandler);
@@ -38,17 +51,18 @@ export default class extends Controller {
     }
   }
 
-  open() {
+  open(direction = 'initial') {
+    this.#setState(ENTER_CLASSES[direction]);
     this.element.showModal();
 
     // Force a paint with the initial (closed) state before animating to the open state
     // so the CSS transition actually fires when chaining open() right after close().
-    requestAnimationFrame(() => this.#setOpenState());
+    requestAnimationFrame(() => this.#setState(VISIBLE_CLASSES));
   }
 
   close() {
-    this.#setClosedState();
-    this.timeoutClose = setTimeout(() => this.element.close(), 150);
+    this.#setState(LEAVE_CLASSES.initial);
+    this.timeoutClose = setTimeout(() => this.element.close(), this.#leaveDuration());
   }
 
   onCancel(event) {
@@ -58,34 +72,52 @@ export default class extends Controller {
   }
 
   prev(event) {
-    this.#navigateTo(event, this.prevValue);
+    this.#navigateTo(event, this.prevValue, 'prev');
   }
 
   next(event) {
-    this.#navigateTo(event, this.nextValue);
+    this.#navigateTo(event, this.nextValue, 'next');
   }
 
-  #navigateTo(event, memberId) {
+  onKeydown(event) {
+    if (event.repeat || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) {
+      return;
+    }
+
+    if (event.key === 'ArrowLeft') {
+      this.prev(event);
+    } else if (event.key === 'ArrowRight') {
+      this.next(event);
+    }
+  }
+
+  #navigateTo(event, memberId, direction) {
     if (!this.element.open || !memberId) {
       return;
     }
 
     event.preventDefault();
     clearTimeout(this.timeoutClose);
-    this.#setClosedState();
-    this.element.close();
+    this.#setState(LEAVE_CLASSES[direction]);
 
     const target = document.querySelector(`dialog[data-member-modal-member-value="${memberId}"]`);
-    this.application.getControllerForElementAndIdentifier(target, 'member-modal')?.open();
+
+    // Only one dialog can be modal at a time, so the outgoing slide has to finish before the next one opens.
+    this.timeoutClose = setTimeout(() => {
+      this.element.close();
+      this.application.getControllerForElementAndIdentifier(target, 'member-modal')?.open(direction);
+    }, this.#leaveDuration());
   }
 
-  #setOpenState() {
-    this.modalTarget.classList.add(...OPEN_CLASSES);
-    this.modalTarget.classList.remove(...CLOSED_CLASSES);
+  // prefers-reduced-motion zeroes the CSS transition, so the wait has to follow it rather than the constant.
+  #leaveDuration() {
+    const transition = parseFloat(getComputedStyle(this.modalTarget).transitionDuration) * 1000;
+
+    return Math.min(transition, LEAVE_DURATION);
   }
 
-  #setClosedState() {
-    this.modalTarget.classList.add(...CLOSED_CLASSES);
-    this.modalTarget.classList.remove(...OPEN_CLASSES);
+  #setState(classes) {
+    this.modalTarget.classList.remove(...RESET_CLASSES);
+    this.modalTarget.classList.add(...classes);
   }
 }
