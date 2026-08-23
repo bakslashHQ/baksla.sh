@@ -77,7 +77,7 @@ final readonly class InMemoryProjectRepository implements ProjectRepository
             new Project(ProjectId::Tactician, 'Tactician', [
                 'thephpleague/tactician',
                 'thephpleague/tactician-bundle',
-                'thephpleague/tactian-logger',
+                'thephpleague/tactician-logger',
             ]),
             new Project(ProjectId::BiomeJsBundle, 'BiomeJsBundle', [
                 'Kocal/BiomeJsBundle',
