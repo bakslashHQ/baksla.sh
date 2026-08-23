@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Func;
 
-use App\OpenSource\Infrastructure\Command\RefreshOpenSourceStatsCommand;
+use App\OpenSource\Domain\Model\ProjectId;
+use App\OpenSource\Domain\Repository\ProjectRepository;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -49,11 +50,16 @@ final class RefreshOpenSourceStatsTest extends KernelTestCase
         /** @var array<string, array{reviews: int, pullRequests: int}> $stats */
         $stats = json_decode((string) file_get_contents($this->statsFile), true, flags: \JSON_THROW_ON_ERROR);
 
-        $this->assertSame(\count(RefreshOpenSourceStatsCommand::REPOS['symfony']) * self::FAKE_ISSUE_COUNT, $stats['symfony']['reviews']);
-        $this->assertSame(\count(RefreshOpenSourceStatsCommand::REPOS['symfony']) * self::FAKE_ISSUE_COUNT, $stats['symfony']['pullRequests']);
+        $projects = self::getContainer()->get(ProjectRepository::class)->findAll();
 
-        $this->assertSame(self::FAKE_ISSUE_COUNT, $stats['api-platform']['reviews']);
-        $this->assertSame(self::FAKE_ISSUE_COUNT, $stats['api-platform']['pullRequests']);
+        foreach ($projects as $id => $project) {
+            $expected = \count($project->repositories) * self::FAKE_ISSUE_COUNT;
+
+            $this->assertSame($expected, $stats[$id]['reviews']);
+            $this->assertSame($expected, $stats[$id]['pullRequests']);
+        }
+
+        $this->assertCount(\count(ProjectId::cases()), $stats);
     }
 
     private function fakeGithubHttpClient(): HttpClientInterface

@@ -4,12 +4,16 @@
         "pullRequests": 1180
     },
     "symfony-ux": {
-        "reviews": 601,
-        "pullRequests": 544
+        "reviews": 609,
+        "pullRequests": 547
     },
     "symfony-reprise": {
         "reviews": 3,
-        "pullRequests": 60
+        "pullRequests": 62
+    },
+    "webpack-encore": {
+        "reviews": 80,
+        "pullRequests": 149
     },
     "api-platform": {
         "reviews": 38,
@@ -28,8 +32,8 @@
         "pullRequests": 33
     },
     "tactician": {
-        "reviews": 11,
-        "pullRequests": 12
+        "reviews": 12,
+        "pullRequests": 13
     },
     "biome-js-bundle": {
         "reviews": 3,

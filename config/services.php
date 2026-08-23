@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Team\Infrastructure\Repository\InMemoryMemberRepository;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
 
@@ -29,8 +28,4 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             sprintf('%s/src/DependencyInjection/', dirname(__DIR__)),
             sprintf('%s/src/Kernel.php', dirname(__DIR__)),
         ]);
-
-    $services
-        ->get(InMemoryMemberRepository::class)
-        ->factory([InMemoryMemberRepository::class, 'createDefault']);
 };
