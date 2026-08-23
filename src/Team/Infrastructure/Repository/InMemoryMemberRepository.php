@@ -10,7 +10,9 @@ use App\Team\Domain\Model\Member;
 use App\Team\Domain\Model\MemberId;
 use App\Team\Domain\Model\SocialNetwork;
 use App\Team\Domain\Repository\MemberRepository;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
+#[Autoconfigure(constructor: 'createDefault')]
 final readonly class InMemoryMemberRepository implements MemberRepository
 {
     /**

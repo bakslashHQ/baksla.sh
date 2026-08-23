@@ -51,7 +51,7 @@
                     {% for project in this.projects %}
                         <div
                             style="width: {{ (project.sum / this.total * 100)|number_format(4, '.', '') }}%;"
-                            class="group relative h-full bg-accent transition-opacity duration-200 hover:opacity-100 {{ barOpacityClasses[loop.index0] ?? 'opacity-40' }} {% if loop.first %}rounded-l-full{% endif %} {% if loop.last %}rounded-r-full{% endif %} {% if not loop.last %}border-r-2 border-paper{% endif %}"
+                            class="group relative h-full bg-accent transition-opacity duration-200 hover:opacity-100 {{ barOpacityClasses[loop.index0] ?? barOpacityClasses|last }} {% if loop.first %}rounded-l-full{% endif %} {% if loop.last %}rounded-r-full{% endif %} {% if not loop.last %}border-r-2 border-paper{% endif %}"
                         >
                             <span
                                 aria-hidden="true"

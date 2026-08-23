@@ -36,19 +36,19 @@ final readonly class OpenSourceStats
         return new self($data);
     }
 
-    public function hasProject(string $project): bool
+    public function hasProject(ProjectId $project): bool
     {
-        return isset($this->stats[$project]);
+        return isset($this->stats[$project->value]);
     }
 
-    public function reviewsFor(string $project): int
+    public function reviewsFor(ProjectId $project): int
     {
-        return $this->stats[$project]['reviews'] ?? 0;
+        return $this->stats[$project->value]['reviews'] ?? 0;
     }
 
-    public function pullRequestsFor(string $project): int
+    public function pullRequestsFor(ProjectId $project): int
     {
-        return $this->stats[$project]['pullRequests'] ?? 0;
+        return $this->stats[$project->value]['pullRequests'] ?? 0;
     }
 
     public function getTotalReviews(): int

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\OpenSource\Infrastructure\Command;
 
 use App\OpenSource\Domain\Model\OpenSourceStats;
+use App\OpenSource\Domain\Repository\ProjectRepository;
 use App\OpenSource\Infrastructure\GitHub\GitHubClient;
 use App\Team\Domain\Model\Member;
 use App\Team\Domain\Repository\MemberRepository;
@@ -20,49 +21,9 @@ use Symfony\Component\Filesystem\Filesystem;
 )]
 final readonly class RefreshOpenSourceStatsCommand
 {
-    /**
-     * @var array<string, list<string>>
-     */
-    public const array REPOS = [
-        'symfony' => [
-            'symfony/symfony',
-            'symfony/symfony-docs',
-            'symfony/demo',
-            'symfony/polyfill',
-            'symfony/recipes',
-            'symfony/recipes-contrib',
-            'symfony/maker-bundle',
-            'symfony/monolog-bundle',
-            'symfony/mercure',
-            'symfony/mercure-bundle',
-            'symfony/panther',
-            'symfony/ai',
-        ],
-        'symfony-ux' => [
-            'symfony/ux',
-            'symfony/ux.symfony.com',
-        ],
-        'symfony-reprise' => ['symfony/reprise'],
-        'api-platform' => ['api-platform/core'],
-        'sylius' => [
-            'Sylius/Sylius',
-            'Sylius/Stack',
-            'Sylius/SyliusGridBundle',
-            'Sylius/SyliusResourceBundle',
-        ],
-        'lexik-jwt' => ['lexik/LexikJWTAuthenticationBundle'],
-        'oauth2-server-bundle' => ['thephpleague/oauth2-server-bundle'],
-        'tactician' => [
-            'thephpleague/tactician',
-            'thephpleague/tactician-bundle',
-            'thephpleague/tactian-logger',
-        ],
-        'biome-js-bundle' => ['Kocal/BiomeJsBundle'],
-        'phpstan-symfony-ux' => ['Kocal/phpstan-symfony-ux'],
-    ];
-
     public function __construct(
         private GitHubClient $githubClient,
+        private ProjectRepository $projectRepository,
         private MemberRepository $memberRepository,
         private Filesystem $filesystem,
         #[Autowire(param: 'app.open_source_stats_file')]
@@ -72,27 +33,29 @@ final readonly class RefreshOpenSourceStatsCommand
 
     public function __invoke(SymfonyStyle $io): int
     {
+        $projects = $this->projectRepository->findAll();
+
         $counts = $this->githubClient->countPullRequests(
-            array_merge(...array_values(self::REPOS)),
+            array_merge(...array_column($projects, 'repositories')),
             array_values(array_map(fn (Member $member): string => $member->github, $this->memberRepository->findAll())),
         );
 
         $previous = OpenSourceStats::fromJsonFile($this->statsFile);
 
         $stats = [];
-        foreach (self::REPOS as $project => $repos) {
+        foreach ($projects as $project) {
             $reviews = 0;
             $pullRequests = 0;
-            foreach ($repos as $repo) {
+            foreach ($project->repositories as $repo) {
                 $reviews += $counts[$repo]->reviewed;
                 $pullRequests += $counts[$repo]->authored;
             }
 
             // GitHub's search.issueCount is an estimate for large result sets and drifts run-to-run;
             // ratchet upward so the published numbers never regress.
-            $stats[$project] = [
-                'reviews' => max($previous->reviewsFor($project), $reviews),
-                'pullRequests' => max($previous->pullRequestsFor($project), $pullRequests),
+            $stats[$project->id->value] = [
+                'reviews' => max($previous->reviewsFor($project->id), $reviews),
+                'pullRequests' => max($previous->pullRequestsFor($project->id), $pullRequests),
             ];
         }
 

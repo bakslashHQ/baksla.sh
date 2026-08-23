@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Home\Infrastructure\Rendering\Components;
 
 use App\OpenSource\Domain\Model\OpenSourceStats;
+use App\OpenSource\Domain\Repository\ProjectRepository;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
@@ -13,65 +14,10 @@ final class OpenSourceOverview
 {
     public const int SINCE_YEAR = 2010;
 
-    /**
-     * @var array<string, array{label: string, short: string, url: string}>
-     */
-    private const array META = [
-        'symfony' => [
-            'label' => 'Symfony',
-            'short' => 'symfony/symfony',
-            'url' => 'https://github.com/symfony/symfony',
-        ],
-        'symfony-ux' => [
-            'label' => 'Symfony UX',
-            'short' => 'symfony/ux',
-            'url' => 'https://github.com/symfony/ux',
-        ],
-        'symfony-reprise' => [
-            'label' => 'Reprise',
-            'short' => 'symfony/reprise',
-            'url' => 'https://github.com/symfony/reprise',
-        ],
-        'api-platform' => [
-            'label' => 'API Platform',
-            'short' => 'api-platform/core',
-            'url' => 'https://github.com/api-platform/core',
-        ],
-        'sylius' => [
-            'label' => 'Sylius',
-            'short' => 'Sylius/Sylius',
-            'url' => 'https://github.com/Sylius/Sylius',
-        ],
-        'lexik-jwt' => [
-            'label' => 'LexikJWTAuthBundle',
-            'short' => 'lexik/jwt-auth',
-            'url' => 'https://github.com/lexik/LexikJWTAuthenticationBundle',
-        ],
-        'oauth2-server-bundle' => [
-            'label' => 'OAuth2 Server Bundle',
-            'short' => 'league/oauth2-server-bundle',
-            'url' => 'https://github.com/thephpleague/oauth2-server-bundle',
-        ],
-        'tactician' => [
-            'label' => 'Tactician',
-            'short' => 'thephpleague/tactician',
-            'url' => 'https://github.com/thephpleague/tactician',
-        ],
-        'biome-js-bundle' => [
-            'label' => 'BiomeJsBundle',
-            'short' => 'Kocal/BiomeJsBundle',
-            'url' => 'https://github.com/Kocal/BiomeJsBundle',
-        ],
-        'phpstan-symfony-ux' => [
-            'label' => 'PHPStan Symfony UX',
-            'short' => 'Kocal/phpstan-symfony-ux',
-            'url' => 'https://github.com/Kocal/phpstan-symfony-ux',
-        ],
-    ];
-
     private OpenSourceStats $stats;
 
     public function __construct(
+        private readonly ProjectRepository $projectRepository,
         #[Autowire(param: 'app.open_source_stats_file')]
         string $statsFile,
     ) {
@@ -79,22 +25,20 @@ final class OpenSourceOverview
     }
 
     /**
-     * @return list<array{id: string, label: string, short: string, url: string, reviews: int, prs: int, sum: int}>
+     * @return list<array{label: string, url: string, reviews: int, prs: int, sum: int}>
      */
     public function getProjects(): array
     {
         $projects = [];
-        foreach (self::META as $id => $meta) {
-            if (!$this->stats->hasProject($id)) {
+        foreach ($this->projectRepository->findAll() as $project) {
+            if (!$this->stats->hasProject($project->id)) {
                 continue;
             }
-            $reviews = $this->stats->reviewsFor($id);
-            $prs = $this->stats->pullRequestsFor($id);
+            $reviews = $this->stats->reviewsFor($project->id);
+            $prs = $this->stats->pullRequestsFor($project->id);
             $projects[] = [
-                'id' => $id,
-                'label' => $meta['label'],
-                'short' => $meta['short'],
-                'url' => $meta['url'],
+                'label' => $project->label,
+                'url' => $project->getUrl(),
                 'reviews' => $reviews,
                 'prs' => $prs,
                 'sum' => $reviews + $prs,
