@@ -243,7 +243,6 @@ team.review.get_method_1: "While it works, <0>#[Route(methods: ['GET'])]</0> is 
 team.review.get_method_2: Indeed, better leverage Symfony Routing capabilities so you can focus on the business logic.
 team.review.pagination_1: Should it return a paginated result instead?
 team.review.pagination_2: AFAIK, baksla.sh isn't gonna have enough members to need pagination anytime soon 😉
-team.review.blank_line_1: Extra blank line 👀
 
 team.bio.hugo-alliaume: |-
     A full-stack developer since 2009, Hugo likes to learn a lot of new things, so he's super versatile. Since then, he has specialized in web development, mainly with PHP and JavaScript, but also in back-end and browser-side performance optimization.
