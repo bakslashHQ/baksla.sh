@@ -6,7 +6,7 @@
     data-member-modal-member-value="{{ member.id.value }}"
     data-member-modal-prev-value="{{ prev }}"
     data-member-modal-next-value="{{ next }}"
-    data-action="cancel->member-modal#onCancel"
+    data-action="cancel->member-modal#onCancel keydown->member-modal#onKeydown"
     class="bg-transparent p-0 w-dvw max-w-none max-h-none h-dvh backdrop:bg-ink/55 backdrop:backdrop-blur-md"
 >
     <div
@@ -15,7 +15,7 @@
     >
         <div
             data-member-modal-target="modal"
-            class="relative w-full max-w-4xl max-h-[85dvh] flex flex-col bg-paper rounded-2xl overflow-hidden shadow-2xl transition-all ease-out duration-300 opacity-0 translate-y-4 scale-95"
+            class="relative w-full max-w-4xl h-[min(720px,85dvh)] grid grid-rows-[minmax(0,1fr)_auto] sm:grid-rows-[auto_minmax(0,1fr)_auto] bg-paper rounded-2xl overflow-hidden shadow-2xl transition-all ease-out duration-300"
         >
             <button
                 type="button"
@@ -34,28 +34,28 @@
                 >esc</button>
             </div>
 
-            <div class="flex-1 overflow-y-auto">
-                <div class="grid grid-cols-1 md:grid-cols-[18rem_1fr] md:min-h-[24rem]">
-                    <div class="relative overflow-hidden h-40 md:h-auto md:min-h-[14rem]">
-                        <img
-                            class="absolute inset-0 size-full scale-120 object-cover blur-2xl"
-                            src="{{ asset('images/team/members/' ~ member.id.value ~ '.webp') }}"
-                            alt=""
-                        />
-                        <div aria-hidden="true" class="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent"></div>
-                        <img
-                            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full max-h-[80%] max-w-[80%] shadow-lg"
-                            src="{{ asset('images/team/members/' ~ member.id.value ~ '.webp') }}"
-                            alt="Photo of {{ member.fullName }}"
-                        />
-                        {% if member.nickName %}
-                            <div class="absolute bottom-5 left-5 right-5 text-paper">
-                                <div class="font-sans italic text-paper/80 text-sm">“{{ member.nickName }}”</div>
-                            </div>
-                        {% endif %}
-                    </div>
+            <div class="grid min-h-0 grid-cols-1 grid-rows-[auto_minmax(0,1fr)] md:grid-cols-[18rem_1fr] md:grid-rows-1 md:min-h-[24rem]">
+                <div class="relative overflow-hidden h-40 md:h-auto md:min-h-[14rem]">
+                    <img
+                        class="absolute inset-0 size-full scale-120 object-cover blur-2xl"
+                        src="{{ asset('images/team/members/' ~ member.id.value ~ '.webp') }}"
+                        alt=""
+                    />
+                    <div aria-hidden="true" class="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent"></div>
+                    <img
+                        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full max-h-[80%] max-w-[80%] shadow-lg"
+                        src="{{ asset('images/team/members/' ~ member.id.value ~ '.webp') }}"
+                        alt="Photo of {{ member.fullName }}"
+                    />
+                    {% if member.nickName %}
+                        <div class="absolute bottom-5 left-5 right-5 text-paper">
+                            <div class="font-sans italic text-paper/80 text-sm">“{{ member.nickName }}”</div>
+                        </div>
+                    {% endif %}
+                </div>
 
-                    <div class="p-6 sm:p-8">
+                <div class="p-6 sm:p-8 grid min-h-0 grid-rows-[auto_minmax(0,1fr)_auto]">
+                    <div>
                         <h2
                             id="modal-title-{{ member.id.value }}"
                             class="mt-2 font-sans font-medium italic text-3xl sm:text-5xl tracking-tight text-ink leading-[0.95]"
@@ -63,16 +63,18 @@
                         <div class="mt-3 font-mono text-xs text-muted"><span class="text-ink">@{{ member.github }}</span></div>
 
                         <div class="rule-dotted my-5"></div>
+                    </div>
 
-                        <div
-                            id="modal-description-{{ member.id.value }}"
-                            class="font-article text-[0.96875rem] leading-[1.75] text-ink-soft text-pretty space-y-4"
-                        >
-                            {% for paragraph in ('team.bio.' ~ member.id.value)|trans|split('\n\n') %}
-                                <p>{{ paragraph|trim }}</p>
-                            {% endfor %}
-                        </div>
+                    <div
+                        id="modal-description-{{ member.id.value }}"
+                        class="overflow-y-auto scroll-fade font-article text-[0.96875rem] leading-[1.75] text-ink-soft text-pretty space-y-4"
+                    >
+                        {% for paragraph in ('team.bio.' ~ member.id.value)|trans|split('\n\n') %}
+                            <p>{{ paragraph|trim }}</p>
+                        {% endfor %}
+                    </div>
 
+                    <div>
                         <div class="rule-dotted my-5"></div>
 
                         <div class="flex flex-wrap items-center gap-1.5">

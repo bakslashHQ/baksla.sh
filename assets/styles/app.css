@@ -71,6 +71,18 @@
   }
 }
 
+@property --scroll-fade-top {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --scroll-fade-bottom {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
 @layer utilities {
   .rule-dotted {
     background-image: repeating-linear-gradient(
@@ -88,6 +100,40 @@
     background-size: 1.375rem 1.375rem;
     background-position: 0 0;
     mask-image: radial-gradient(ellipse 60% 60% at 50% 30%, #000 30%, transparent 75%);
+  }
+
+  .scroll-fade {
+    --scroll-fade-size: 1.5rem;
+
+    /* Without a timeline the animation would run at its default 0s duration and freeze the top fade on. */
+    @supports (animation-timeline: scroll()) {
+      mask-image: linear-gradient(
+        to bottom,
+        transparent 0,
+        #000 var(--scroll-fade-top),
+        #000 calc(100% - var(--scroll-fade-bottom)),
+        transparent 100%
+      );
+      animation:
+        scroll-fade-top linear both,
+        scroll-fade-bottom linear both;
+      animation-timeline: scroll(self block);
+      animation-range:
+        0 var(--scroll-fade-size),
+        calc(100% - var(--scroll-fade-size)) 100%;
+    }
+  }
+
+  @keyframes scroll-fade-top {
+    to {
+      --scroll-fade-top: var(--scroll-fade-size);
+    }
+  }
+
+  @keyframes scroll-fade-bottom {
+    from {
+      --scroll-fade-bottom: var(--scroll-fade-size);
+    }
   }
 
   .inline-code {
