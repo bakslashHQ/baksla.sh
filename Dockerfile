@@ -73,7 +73,28 @@ COPY --from=node_upstream /usr/local/lib/node_modules /usr/local/lib/node_module
 RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
 	&& ln -s /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx
 
+# Corepack is no longer shipped with Node.js 26, so pnpm is installed globally
+RUN npm install -g pnpm@12.3.4
+
 CMD [ "frankenphp", "run", "--config", "/etc/caddy/Caddyfile", "--watch" ]
+
+# Frontend assets builder
+FROM node_upstream AS assets_builder
+
+WORKDIR /app
+
+RUN npm install -g pnpm@12.3.4
+
+COPY --link package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
+
+# Tailwind scans templates/ and src/ through the @source directives of assets/styles/app.css
+COPY --link vite.config.ts ./
+COPY --link assets assets/
+COPY --link templates templates/
+COPY --link src src/
+
+RUN pnpm build
 
 # Prod FrankenPHP image
 FROM frankenphp_base AS frankenphp_prod
@@ -93,6 +114,7 @@ RUN set -eux; \
 
 # copy sources
 COPY --link . ./
+COPY --from=assets_builder --link /app/public/build public/build/
 RUN rm -Rf frankenphp/
 
 RUN set -eux; \
@@ -101,6 +123,4 @@ RUN set -eux; \
 	composer dump-env prod; \
 	composer run-script --no-dev post-install-cmd; \
 	chmod +x bin/console; \
-	bin/console cache:warmup; \
-	bin/console tailwind:build --minify; \
-	bin/console asset-map:compile; sync;
+	bin/console cache:warmup; sync;

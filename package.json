@@ -1,0 +1,22 @@
+{
+  "name": "baksla.sh",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.3.4",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@analytics/google-analytics": "^1.1.0",
+    "@hotwired/stimulus": "^3.2.2",
+    "analytics": "^0.8.19"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.4.13",
+    "@symfony/reprise": "^1.1.2",
+    "@tailwindcss/vite": "4.2.4",
+    "tailwindcss": "4.2.4",
+    "vite": "^8.2.2"
+  }
+}

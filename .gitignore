@@ -1,3 +1,4 @@
+/.pnpm-store/
 /public/open-graph/article
 /public/static-pages
 /_site
@@ -22,11 +23,6 @@
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 
-###> symfony/asset-mapper ###
-/public/assets/
-/assets/vendor/
-###< symfony/asset-mapper ###
-
 ###> phpstan/phpstan ###
 phpstan.neon
 ###< phpstan/phpstan ###
@@ -35,6 +31,7 @@ phpstan.neon
 /.twig-cs-fixer.cache
 ###< vincentlanglet/twig-cs-fixer ###
 
-###> kocal/biome-js-bundle ###
-/bin/biome
-###< kocal/biome-js-bundle ###
+###> symfony/reprise ###
+/node_modules/
+/public/build/
+###< symfony/reprise ###

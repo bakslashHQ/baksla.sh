@@ -14,11 +14,13 @@
                 @font-face { font-family: 'JetBrains Mono Fallback'; font-style: normal; font-weight: 400 700; src: local('Arial'); ascent-override: 77.57%; descent-override: 22.82%; line-gap-override: 0.00%; size-adjust: 131.49%; }
                 @font-face { font-family: 'Space Grotesk Fallback'; font-style: normal; font-weight: 300 700; src: local('Arial'); ascent-override: 88.78%; descent-override: 26.34%; line-gap-override: 0.00%; size-adjust: 110.84%; }
             </style>
+
+            {{ reprise_entry_link_tags('app') }}
         {% endblock %}
 
         <!-- Scripts -->
         {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
+            {{ reprise_entry_script_tags('app') }}
         {% endblock %}
 
         <!-- Metadata & cie -->

@@ -14,6 +14,9 @@ services:
       - target: 8080
         published: 8080
         protocol: tcp
+      - target: 5173
+        published: 5173
+        protocol: tcp
     environment:
       XDEBUG_MODE: "${XDEBUG_MODE:-off}"
     extra_hosts:

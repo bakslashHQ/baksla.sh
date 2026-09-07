@@ -11,6 +11,7 @@ PHP_CONT = $(DOCKER_COMP) exec php
 # Executables
 PHP      = $(PHP_CONT) php
 COMPOSER = $(PHP_CONT) composer
+PNPM     = $(PHP_CONT) pnpm
 SYMFONY  = $(PHP) bin/console
 
 ## Docker 🐳 - Builds the Docker images
@@ -50,6 +51,8 @@ bash:
 app.install:
 	@$(call action, Installing PHP dependencies...)
 	$(COMPOSER) install --prefer-dist
+	@$(call action, Installing JS dependencies...)
+	$(PNPM) install --frozen-lockfile
 	@$(call action, Installing Playwright browsers...)
 	$(PHP_CONT) vendor/bin/playwright-install --with-deps -v
 
@@ -77,9 +80,8 @@ ssg:
 		-e GA_APP_NAME \
 		-e GA_MEASUREMENT_ID \
 		php sh -c " \
+			pnpm build && \
 			bin/console cache:clear && \
-			bin/console tailwind:build --minify && \
-			bin/console asset-map:compile && \
 			bin/console ssg:generate && \
 			bin/console blog:generate-og-images \
 		"
@@ -93,9 +95,13 @@ ssg:
 serve.static:
 	@$(PHP_CONT) frankenphp run --config /app/frankenphp/static.Caddyfile
 
-## Symfony 🎵 - Run TailwindCSS watcher
-tailwind.watch:
-	@$(SYMFONY) tailwind:build --watch
+## Assets 🎨 - Build the frontend assets
+assets.build:
+	@$(PNPM) build
+
+## Assets 🎨 - Run the Vite dev server, with hot module replacement
+assets.dev:
+	@$(PNPM) dev
 
 ## Symfony 🎵 - Extract tranlations
 translation.extract:
@@ -142,17 +148,15 @@ cs.back.fix:
 
 ## Coding style 📝 - Run frontend coding style checks
 cs.front:
-	$(SYMFONY) biomejs:download
 ifdef CI
-	$(PHP_CONT) bin/biome ci . --linter-enabled=false
+	$(PNPM) biome ci . --linter-enabled=false
 else
-	$(PHP_CONT) bin/biome check . --linter-enabled=false
+	$(PNPM) biome check . --linter-enabled=false
 endif
 
 ## Coding style 📝 - Run frontend coding style checks and fix issues
 cs.front.fix:
-	$(SYMFONY) biomejs:download
-	$(PHP_CONT) bin/biome check . --linter-enabled=false --write --unsafe
+	$(PNPM) biome check . --linter-enabled=false --write --unsafe
 
 ## Linter ✅ - Run all linters
 lint: lint.back lint.front
@@ -170,17 +174,15 @@ lint.back:
 
 ## Linter ✅ - Run frontend linters
 lint.front:
-	$(SYMFONY) biomejs:download
 ifdef CI
-	$(PHP_CONT) bin/biome ci . --formatter-enabled=false
+	$(PNPM) biome ci . --formatter-enabled=false
 else
-	$(PHP_CONT) bin/biome check . --formatter-enabled=false
+	$(PNPM) biome check . --formatter-enabled=false
 endif
 
 ## Linter ✅ - Run frontend linters and fix issues
 lint.front.fix:
-	$(SYMFONY) biomejs:download
-	$(PHP_CONT) bin/biome check . --formatter-enabled=false --write
+	$(PNPM) biome check . --formatter-enabled=false --write
 
 ## PHPStan 🐘 - Run PHPStan
 phpstan:
