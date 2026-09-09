@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>OG / {{ article.title }}</title>
-    {{ importmap('app') }}
+    {{ reprise_entry_link_tags('app') }}
+    {{ reprise_entry_script_tags('app') }}
 </head>
 <body class="relative w-[1200px] h-[630px] bg-paper text-ink overflow-hidden m-0 antialiased">
     {# Centered block: caption / title / meta — sits between top margin and footer row #}

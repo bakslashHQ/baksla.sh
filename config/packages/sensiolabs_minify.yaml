@@ -1,4 +1,2 @@
-when@test:
-    sensiolabs_minify:
-        asset_mapper:
-            enabled: false
+sensiolabs_minify:
+    asset_mapper: false

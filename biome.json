@@ -5,7 +5,7 @@
       "!_site/*",
       "!assets/vendor/*",
       "!assets/controllers.json",
-      "!public/assets/*",
+      "!public/build/*",
       "!public/bundles/*",
       "!data/*",
       "!tests/*",

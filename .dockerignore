@@ -32,3 +32,6 @@ vendor/
 .env.local
 .env.local.php
 .env.test
+node_modules/
+public/build/
+.pnpm-store/

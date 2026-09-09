@@ -39,6 +39,9 @@ jobs:
         name: Start services
         run: docker compose up --wait --no-build
       -
+        name: Build frontend assets
+        run: make assets.build
+      -
         name: Check HTTP reachability
         run: curl -v -o /dev/null http://localhost
       -

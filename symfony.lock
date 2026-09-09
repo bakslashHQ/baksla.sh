@@ -8,19 +8,6 @@
             "ref": "87424683adc81d7dc305eefec1fced883084aab9"
         }
     },
-    "kocal/biome-js-bundle": {
-        "version": "2.1",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "main",
-            "version": "2.0",
-            "ref": "e748fc31eee6e9d9ceaf5ec4f51a371f9f619723"
-        },
-        "files": [
-            "biome.json",
-            "config/packages/kocal_biome_js.yaml"
-        ]
-    },
     "phpstan/phpstan": {
         "version": "2.0",
         "recipe": {
@@ -55,21 +42,6 @@
             "version": "0.9",
             "ref": "b762016c180efbeff79b7a0eb95db7ec74c8e9d6"
         }
-    },
-    "symfony/asset-mapper": {
-        "version": "7.2",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "6.4",
-            "ref": "5ad1308aa756d58f999ffbe1540d1189f5d7d14a"
-        },
-        "files": [
-            "assets/app.js",
-            "assets/styles/app.css",
-            "config/packages/asset_mapper.yaml",
-            "importmap.php"
-        ]
     },
     "symfony/console": {
         "version": "7.2",
@@ -223,6 +195,20 @@
             "config/packages/property_info.yaml"
         ]
     },
+    "symfony/reprise": {
+        "version": "1.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "1.1",
+            "ref": "7cd4e200a8b8a7d48a146c9221863a2ad6533219"
+        },
+        "files": [
+            "assets/app.js",
+            "assets/styles/app.css",
+            "config/packages/reprise.yaml"
+        ]
+    },
     "symfony/routing": {
         "version": "7.2",
         "recipe": {
@@ -247,21 +233,6 @@
         "files": [
             "config/packages/security.yaml",
             "config/routes/security.yaml"
-        ]
-    },
-    "symfony/stimulus-bundle": {
-        "version": "2.22",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "2.20",
-            "ref": "41c4285a926752ec2852a5cafa39e7b527c33a38"
-        },
-        "files": [
-            "assets/bootstrap.js",
-            "assets/controllers.json",
-            "assets/controllers/csrf_protection_controller.js",
-            "assets/controllers/hello_controller.js"
         ]
     },
     "symfony/translation": {
@@ -338,9 +309,6 @@
             "config/packages/web_profiler.yaml",
             "config/routes/web_profiler.yaml"
         ]
-    },
-    "symfonycasts/tailwind-bundle": {
-        "version": "dev-main"
     },
     "twig/extra-bundle": {
         "version": "v3.17.0"

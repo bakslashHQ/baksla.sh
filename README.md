@@ -12,6 +12,7 @@
 make build
 make up
 make app.install
+make assets.build
 ```
 
 ## Usage
@@ -24,6 +25,11 @@ make start
 Display available commands:
 ```shell
 make help
+```
+
+Rebuild the assets on every change, with hot module replacement:
+```shell
+make assets.dev
 ```
 
 Automatically clear Symfony cache when writing an article:
