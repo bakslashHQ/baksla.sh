@@ -1,0 +1,88 @@
+name: Refresh open source stats
+
+on:
+  workflow_dispatch: ~
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: refresh-open-source-stats
+  cancel-in-progress: false
+
+env:
+  STATS_FILE: data/open-source-stats.json
+  STATS_BRANCH: chore/refresh-open-source-stats
+
+jobs:
+  refresh:
+    name: Refresh stats
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@d7f5e7f509e45cec5c76c4d5afdd7de93d0b3df5 # v4.1.0
+      -
+        name: Build Docker images
+        uses: docker/bake-action@6614cfa25eff9a0b2b2697efb0b6159e7680d584 # v7.2.0
+        with:
+          pull: true
+          load: true
+          files: |
+            compose.yaml
+            compose.override.yaml
+          set: |
+            *.cache-from=type=gha,scope=${{github.ref}}
+            *.cache-from=type=gha,scope=refs/heads/main
+            *.cache-to=type=gha,scope=${{github.ref}},mode=max
+      -
+        name: Start services
+        run: docker compose up --wait --no-build
+      -
+        name: Refresh stats
+        env:
+          GH_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          trap 'rm -f .env.local' EXIT
+          printf 'GITHUB_TOKEN=%s\n' "$GH_API_TOKEN" > .env.local
+          make sf c='open-source:refresh-stats -vv'
+      -
+        name: Detect changes
+        id: detect
+        run: |
+          if git diff --quiet -- "$STATS_FILE"; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::$STATS_FILE is unchanged, nothing to do."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            git --no-pager diff -- "$STATS_FILE"
+          fi
+      -
+        name: Validate JSON
+        if: steps.detect.outputs.changed == 'true'
+        run: jq -e 'type == "object" and length > 0' "$STATS_FILE" > /dev/null
+      -
+        name: Open pull request
+        if: steps.detect.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git switch --create "$STATS_BRANCH"
+          git add "$STATS_FILE"
+          git commit --message 'Refresh open source stats'
+          git push --force origin "$STATS_BRANCH"
+          if [ -n "$(gh pr list --head "$STATS_BRANCH" --state open --json number --jq '.[].number')" ]; then
+            echo "::notice::Existing pull request updated."
+            exit 0
+          fi
+          gh pr create \
+            --base "${{ github.ref_name }}" \
+            --head "$STATS_BRANCH" \
+            --title 'Refresh open source stats' \
+            --body 'Automated run of `open-source:refresh-stats`. Numbers come from the GitHub search API, which only ratchets upward, so the diff should never show a regression.'
