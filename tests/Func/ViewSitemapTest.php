@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Translation\LocaleSwitcher;
 use Webmozart\Assert\Assert;
 
 final class ViewSitemapTest extends FunctionalTestCase
@@ -109,6 +110,13 @@ final class ViewSitemapTest extends FunctionalTestCase
             Assert::string($name);
 
             $route = $router->getRouteCollection()->get($name);
+            if ($route === null) {
+                $locale = $params['_locale'] ?? '';
+                Assert::string($locale);
+
+                $route = $router->getRouteCollection()->get(sprintf('%s.%s', $name, $locale));
+            }
+
             Assert::notNull($route);
 
             if (!$this->isPageRoute($route)) {
@@ -148,6 +156,34 @@ final class ViewSitemapTest extends FunctionalTestCase
         }
     }
 
+    public function testEntriesExposeHreflangAlternates(): void
+    {
+        $this->get('/sitemap.xml');
+
+        $xml = simplexml_load_string($this->getResponse()->getContent() ?: '');
+        $this->assertNotFalse($xml);
+
+        $teamEntry = null;
+        foreach ($xml->url as $url) {
+            if ((string) $url->loc === 'https://localhost/team') {
+                $teamEntry = $url;
+
+                break;
+            }
+        }
+
+        $this->assertInstanceOf(\SimpleXMLElement::class, $teamEntry, 'Sitemap should contain the /team entry.');
+
+        $alternates = [];
+        foreach ($teamEntry->children('xhtml', true)->link as $link) {
+            $alternates[(string) $link->attributes()['hreflang']] = (string) $link->attributes()['href'];
+        }
+
+        $this->assertSame('https://localhost/team', $alternates['en'] ?? null);
+        $this->assertSame('https://localhost/fr/equipe', $alternates['fr'] ?? null);
+        $this->assertSame('https://localhost/team', $alternates['x-default'] ?? null);
+    }
+
     /**
      * @return iterable<array<string, mixed>>
      */
@@ -159,12 +195,20 @@ final class ViewSitemapTest extends FunctionalTestCase
             return;
         }
 
-        if ($name === 'app_blog_article') {
-            foreach ($this->getService(ArticleRepository::class)->findAll() as $article) {
-                yield [
+        if (preg_match('/^app_blog_article\.\w+$/', $name) === 1) {
+            $locale = $route->getDefault('_locale');
+            Assert::string($locale);
+
+            // Slugs are per-locale, so enumerate each sub-route within its own locale.
+            /** @var list<array{slug: string}> $params */
+            $params = $this->getService(LocaleSwitcher::class)->runWithLocale($locale, fn (): array => array_map(
+                static fn (Article $article): array => [
                     'slug' => $article->slug,
-                ];
-            }
+                ],
+                $this->getService(ArticleRepository::class)->findAll(),
+            ));
+
+            yield from $params;
 
             return;
         }

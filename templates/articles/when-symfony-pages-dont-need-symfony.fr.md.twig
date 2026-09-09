@@ -1,0 +1,186 @@
+---
+author: mathias-arlaud
+title: Quand les pages Symfony n'ont pas besoin de Symfony
+description: 5 ms pour rendre une page Symfony. 0,2 ms pour la servir en fichier statique. 25× plus rapide, même réponse. Il est temps de mettre le kernel à la diète.
+published_at: 2026-05-18
+slug: quand-les-pages-symfony-nont-pas-besoin-de-symfony
+---
+
+Si vous faites tourner une application Symfony en production, vous avez peut-être remarqué une chose : la plupart de vos pages ne changent pas d'un déploiement à l'autre. Un article de blog, une page d'équipe, une page "fonctionnalités" sur un site vitrine. Une fois publiée, la réponse est essentiellement la même pour chaque visiteur, chaque jour, pendant des mois.
+
+Et pourtant, à chaque requête, vous payez le **coût complet de Symfony** : autoload, démarrage du container, kernel, event subscribers, routing, contrôleur, rendu Twig, cycle de réponse. Ce coût est payé par requête, et il croît linéairement avec le trafic.
+
+*Ne serait-il pas agréable de rendre ces pages une seule fois, et de servir le résultat directement depuis le serveur web ?*
+
+C'est exactement le sujet de cet article. Et la bonne nouvelle, c'est que **vous n'avez pas besoin de quitter Symfony pour le faire**.
+
+Ce que nous nous apprêtons à décrire a un nom : la **génération de site statique (SSG)**. C'est un pattern bien connu dans le monde JavaScript, avec des outils comme [Next.js](https://nextjs.org/), [Astro](https://astro.build/), [Eleventy](https://www.11ty.dev/) ou [Gatsby](https://www.gatsbyjs.com/). Le côté PHP a été plus discret sur le sujet, mais toutes les briques sont là. Assemblons-les.
+
+> :pray: Un grand merci à [Thomas Bibaut](https://github.com/tBibaut), qui a initialement mis sur la table l'idée de faire du SSG avec Symfony. Cet article et l'implémentation qu'il décrit sont nés de cette étincelle initiale.
+
+## Le coût que nous payons
+
+Mettons-y des chiffres.
+
+Une page Symfony bien optimisée, avec OPcache chaud, le preloading activé et un cache de container chaud, se situe généralement **autour de 5 à 15 ms** côté serveur.
+
+Un fichier HTML statique servi par Caddy ou Nginx, en revanche, se situe dans la fourchette des **0,2 à 0,5 ms**. Derrière un CDN, vous pouvez atteindre quelques dizaines de ms à l'échelle mondiale, dominées par la latence réseau plutôt que par le traitement.
+
+C'est un ordre de grandeur, parfois deux. Et l'écart ne fait que se creuser sous la charge, car un fichier statique n'attend pas après les workers PHP.
+
+Donc, pour des pages qui ne dépendent pas de la requête entrante, le chemin dynamique est tout simplement la mauvaise réponse. Nous calculons la même réponse, encore et encore, juste pour la jeter après l'avoir envoyée.
+
+## Laisser le serveur web répondre
+
+L'idée est simple : **rendre la page une seule fois, au moment du build, et écrire le résultat sur le disque**. Ensuite, configurer le serveur web pour qu'il y regarde en premier, et ne se rabatte sur PHP que lorsqu'aucun fichier statique ne correspond.
+
+Voici à quoi cela ressemble dans un Caddyfile :
+
+```
+{$SERVER_NAME:localhost} {
+    root * /app/public
+    encode zstd gzip
+
+    {$CADDY_SERVER_EXTRA_DIRECTIVES}
+
+    try_files {path} /static-pages{path}.html
+    try_files {path} /static-pages{path}
+
+    php_server
+}
+```
+
+Chaque directive `try_files` réécrit la requête vers le premier candidat qui pointe vers un fichier existant. Caddy cherche donc une correspondance dans cet ordre :
+
+1. **Un fichier existe déjà à `{path}`**. C'est tout ce qui se trouve dans `public/` : assets, `robots.txt`, le favicon, etc. L'URL est laissée telle quelle.
+2. **Un fichier HTML prérendu existe à `/static-pages{path}.html`**. L'URL est réécrite vers celui-ci.
+3. **Un fichier prérendu avec sa propre extension existe à `/static-pages{path}`**. Même idée, pour les réponses non-HTML (XML, JSON, Markdown, ...).
+4. **Aucun des cas ci-dessus**, et la requête poursuit jusqu'à `php_server`, qui démarre Symfony.
+
+Dans chacun des trois premiers cas de correspondance, `php_server` finit par servir un simple fichier depuis le disque, et **la requête n'atteint jamais PHP**. Symfony ne démarre pas. Le kernel n'existe même pas du point de vue de cette requête. Pour tout le reste, Caddy transmet la requête comme d'habitude, et vos routes dynamiques continuent de fonctionner exactement comme avant.
+
+Même domaine, même base de code, même déploiement. Le serveur web choisit simplement le chemin rapide quand il en existe un.
+
+> :bulb: Nginx fait la même chose avec un bloc `try_files`. La sémantique est identique.
+
+Et comme la réponse n'est désormais qu'un fichier sur le disque, Caddy comme Nginx renseignent `Last-Modified` et `ETag` à partir des métadonnées du fichier, sans effort : les requêtes conditionnelles (`If-Modified-Since`, `If-None-Match`) fonctionnent d'emblée, et les clients qui possèdent une copie à jour reçoivent un `304 Not Modified` au lieu du corps complet.
+
+## Mais n'est-ce pas le rôle du cache HTTP ?
+
+*Bonne question*. Si vous avez déjà mis en place un reverse proxy devant une application Symfony, avec Varnish ou le `HttpCache` de Symfony, vous vous demandez peut-être pourquoi nous ne collons pas simplement un `Cache-Control: public, max-age=86400` sur la réponse pour en finir.
+
+Et honnêtement, **le cache HTTP, c'est génial**. Mais il répond à une question légèrement différente.
+
+Avec un cache HTTP traditionnel :
+
+- La **première requête** atteint toujours Symfony. Le cache est froid, donc le kernel démarre, le contrôleur s'exécute et la réponse est calculée. Ce n'est qu'ensuite qu'elle est stockée.
+- Les **requêtes suivantes** dans le TTL sont servies depuis le cache, très rapidement.
+- Quand le TTL expire, quand le cache est évincé, quand le proxy redémarre, le cycle recommence : quelqu'un, quelque part, paie de nouveau le coût complet.
+
+En d'autres termes, le cache HTTP est **opportuniste**. C'est une optimisation à l'exécution, pilotée par le trafic, avec un stockage qui finit par être évincé.
+
+Le prérendu est **déterministe**. Le coût est payé une seule fois, en CI, au moment du build. Le résultat vit sur le disque jusqu'au prochain déploiement. Pas de TTL, pas de démarrage à froid, pas d'éviction, pas d'effet où le premier visiteur paie pour tous les autres. La millionième requête est aussi rapide que la première, car elles lisent toutes les deux exactement le même fichier.
+
+Les deux approches ne s'excluent pas, bien sûr. Vous pouvez parfaitement prérendre vos routes de contenu stable et mettre en cache HTTP les routes dynamiques. **Mais pour les pages dont le contenu ne change que lorsque vous déployez, le prérendu est essentiellement un cache HTTP avec un TTL infini, amorcé au moment du build et invalidé par votre pipeline de CI.** Ce qui est, quand on y pense, exactement ce que l'on veut.
+
+## Marquer une route comme prérendable
+
+Maintenant, nous devons indiquer à Symfony **quelles routes précuire**. La façon la plus simple est un [attribut](https://github.com/bakslashHQ/baksla.sh/blob/77fe33902d3b5d73386b132bb23f62f4137e64ec/src/Shared/Infrastructure/StaticSiteGeneration/Prerender.php) sur le contrôleur :
+
+```php
+#[Route(path: '/team', name: 'app_team', methods: ['GET'])]
+#[Prerender]
+public function __invoke(): Response
+{
+    // ...
+}
+```
+
+Un [`routing.loader` décoré](https://github.com/bakslashHQ/baksla.sh/blob/77fe33902d3b5d73386b132bb23f62f4137e64ec/src/Shared/Infrastructure/StaticSiteGeneration/PrerenderRouteLoader.php) scanne les contrôleurs au moment du chargement des routes et marque d'un drapeau les routes concernées, et une [commande console](https://github.com/bakslashHQ/baksla.sh/blob/77fe33902d3b5d73386b132bb23f62f4137e64ec/src/Shared/Infrastructure/StaticSiteGeneration/GenerateStaticSiteCommand.php) pilote le build. À l'exécution, cette commande [parcourt la collection de routes](https://github.com/bakslashHQ/baksla.sh/blob/77fe33902d3b5d73386b132bb23f62f4137e64ec/src/Shared/Infrastructure/StaticSiteGeneration/StaticPageUrisProvider.php) pour générer chaque URI, [appelle le kernel](https://github.com/bakslashHQ/baksla.sh/blob/77fe33902d3b5d73386b132bb23f62f4137e64ec/src/Shared/Infrastructure/StaticSiteGeneration/StaticPagesGenerator.php), et [écrit la réponse](https://github.com/bakslashHQ/baksla.sh/blob/77fe33902d3b5d73386b132bb23f62f4137e64ec/src/Shared/Infrastructure/StaticSiteGeneration/FilesystemStaticPageDumper.php) dans `public/static-pages/`.
+
+L'astuce, sous le capot, c'est qu'**un cycle de vie de requête Symfony n'est qu'une fonction** : donnez une `Request` au kernel, récupérez une `Response`. Rien n'oblige cette requête à provenir de PHP-FPM ou d'une vraie socket. Chaque contrôleur, chaque event subscriber, chaque extension Twig s'exécute exactement comme en production, parce que c'*est* du code de production.
+
+```php
+$request = Request::create('/team');
+$response = $kernel->handle($request, HttpKernelInterface::MAIN_REQUEST);
+
+file_put_contents('public/static-pages/team.html', $response->getContent());
+```
+
+C'est tout. Ajouter une nouvelle route prérendue est désormais une **modification d'une seule ligne** sur le contrôleur.
+
+## Routes dynamiques : les fournisseurs de paramètres
+
+Jusqu'ici, tout va bien. Mais qu'en est-il des routes avec des variables de chemin, comme `/blog/{id}` ?
+
+Le router ne peut pas générer `/blog/{id}` sans connaître l'`id`. Et la couche de build **n'a pas à savoir quels articles existent**, c'est une préoccupation du domaine.
+
+La solution consiste à laisser l'attribut pointer vers un [service qui fournit les jeux de paramètres](https://github.com/bakslashHQ/baksla.sh/blob/77fe33902d3b5d73386b132bb23f62f4137e64ec/src/Shared/Infrastructure/StaticSiteGeneration/ParamsProviderInterface.php) :
+
+```php
+#[Route(path: '/blog/{id}', name: 'app_blog_article', methods: ['GET'])]
+#[Prerender(params: BlogArticleParamsProvider::class)]
+public function __invoke(string $id): Response
+{
+    // ...
+}
+```
+
+```php
+final readonly class BlogArticleParamsProvider implements ParamsProviderInterface
+{
+    public function __construct(
+        private ArticleRepository $articleRepository,
+    ) {
+    }
+
+    public function provideParams(): iterable
+    {
+        foreach ($this->articleRepository->findAll() as $article) {
+            yield ['id' => $article->id];
+        }
+    }
+}
+```
+
+Une URI par jeu de paramètres fourni. Le build génère un fichier HTML par article. Même pattern pour les pages de catégorie, les variantes localisées, et tout ce qui possède un **ensemble de valeurs fini et énumérable**.
+
+Et si le paramètre est non borné, comme une requête de recherche en texte libre ? Alors le prérendu est le mauvais outil pour cette route. Laissez-la simplement dynamique.
+
+## Quelques réserves, bien sûr
+
+Ce n'est pas magique, et cela ne convient pas à toutes les pages.
+
+Les routes prérendues doivent être en `GET` et **sans état**. Pas de `$_POST`, pas de lecture de session, pas de variation par utilisateur. Les formulaires, la recherche, les tableaux de bord restent sur le chemin dynamique.
+
+Les pages de listing sont elles aussi figées au moment du déploiement. L'index de votre blog affiche les derniers articles tels qu'ils étaient au dernier build. Très bien pour un blog d'ingénierie, moins bien pour un fil d'actualités. La solution consiste soit à redéployer quand le contenu change, soit à garder l'index dynamique et à ne prérendre que les pages de détail.
+
+Mais tout l'intérêt de procéder **route par route** est que vous n'avez pas à choisir globalement. Précuisez les pages stables, laissez le reste dynamique, et changez d'avis plus tard en ajoutant ou en retirant un seul attribut.
+
+## Quand les choses se compliquent
+
+L'approche décrite dans cet article est délibérément **minimale**. Elle tient en quelques centaines de lignes de code, et convient parfaitement aux cas simples : un site vitrine, un blog, un portfolio, un site de documentation à la structure stable.
+
+Cependant, si vos besoins sont plus riches, avec des sources de contenu structurées, une indexation fine des métadonnées, une logique de routing complexe ou une expérience d'édition de type CMS, vous dépasserez vite ce cadre. Dans ce cas, jetez un œil à [Stenope](https://github.com/StenopePHP/Stenope), un bundle SSG plus complet pour Symfony. Il aborde le même problème sous un autre angle : centré sur le contenu plutôt que sur les routes, avec un éventail de fonctionnalités bien plus large dès le départ.
+
+Voyez donc cet article comme la base **"suffisante pour la plupart des applications"**. Si elle couvre vos besoins, parfait. Sinon, vous savez où chercher.
+
+## Pousser l'idée à la limite : plus de PHP du tout
+
+Maintenant, que se passe-t-il si vous poussez l'idée jusqu'à ses limites ?
+
+Si **chaque route** de votre application porte `#[Prerender]`, PHP n'est plus dans la boucle à l'exécution. La sortie du build n'est qu'un répertoire plat de HTML, CSS, JS et images. Et n'importe quel hébergeur statique le servira.
+
+C'est d'ailleurs ainsi que [baksla.sh](https://baksla.sh) fonctionne lui-même : sur **GitHub Pages**. Pas de serveur, pas de runtime PHP, pas de facture.
+
+Le déploiement est une cible `make ssg` suivie de `actions/upload-pages-artifact` et `actions/deploy-pages`.
+
+Au-delà de ça, c'est le même pipeline de prérendu, les mêmes contrôleurs, les mêmes templates. Le repli de Caddy vers PHP est simplement retiré, car il n'y a plus rien de dynamique sur quoi se rabattre.
+
+## Vers où cela nous mène
+
+Ce n'est pas une astuce maligne réservée à un seul site web. Le pattern est suffisamment générique pour qu'**un bundle dédié puisse apparaître bientôt** pour gérer toute la fonctionnalité : l'attribut `#[Prerender]`, le contrat de fournisseur de paramètres, la commande de build, les dumpers. Vous n'auriez plus qu'à l'installer, déposer l'attribut sur les contrôleurs à précuire, et le tour est joué.
+
+La question intéressante n'est donc pas vraiment *"devrais-je faire cela ?"*. C'est *"devrais-je structurer mes routes de contenu dès aujourd'hui pour que, le jour où le bundle débarque, l'adoption ne me coûte qu'un attribut par contrôleur ?"*
+
+Au final, **la requête Symfony la moins chère est celle à laquelle le serveur web a répondu avant même que le runtime Symfony n'en entende parler**.

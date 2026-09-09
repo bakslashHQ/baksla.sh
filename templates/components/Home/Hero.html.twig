@@ -3,8 +3,8 @@
     class="relative overflow-hidden text-ink"
     data-controller="hero"
     data-hero-words-value="{{ [
-        'home.hero.words.maintainers',
         'home.hero.words.lovers',
+        'home.hero.words.maintainers',
         'home.hero.words.advocates',
         'home.hero.words.developers',
     ]|map(word => word|trans)|json_encode }}"
@@ -23,9 +23,16 @@
                     {{ 'home.hero.heading_text'|trans }}
                 </span>
                 <span class="block">
-                    <span class="font-bold text-accent tracking-tight">Symfony</span>
-                    <br class="md:hidden" />
-                    <span aria-hidden="true" data-hero-target="badge" class="inline-block min-w-28 lg:min-w-52 md:ml-3 lg:ml-4 font-mono font-medium not-italic bg-ink text-paper px-4 lg:px-8 py-1.5 lg:py-2.5 rounded-full align-[0.28em] text-2xl lg:text-5xl"></span>
+                    {% set badge_classes = 'inline-block min-w-28 lg:min-w-52 font-mono font-medium not-italic bg-ink text-paper px-4 lg:px-8 py-1.5 lg:py-2.5 rounded-full align-[0.28em] text-2xl lg:text-5xl' %}
+                    {% if app.request.locale == 'fr' %}
+                        <span aria-hidden="true" data-hero-target="badge" class="md:mr-3 lg:mr-4 {{ badge_classes }}"></span>
+                        <br class="md:hidden" />
+                        <span class="font-bold text-accent tracking-tight">Symfony</span>
+                    {% else %}
+                        <span class="font-bold text-accent tracking-tight">Symfony</span>
+                        <br class="md:hidden" />
+                        <span aria-hidden="true" data-hero-target="badge" class="md:ml-3 lg:ml-4 {{ badge_classes }}"></span>
+                    {% endif %}
                 </span>
             </h1>
 

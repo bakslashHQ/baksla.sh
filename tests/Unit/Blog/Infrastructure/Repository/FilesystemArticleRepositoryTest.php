@@ -14,6 +14,7 @@ use App\Team\Domain\Model\MemberId;
 use App\Team\Infrastructure\Repository\InMemoryMemberRepository;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Translation\LocaleSwitcher;
 
 final class FilesystemArticleRepositoryTest extends TestCase
 {
@@ -38,7 +39,7 @@ final class FilesystemArticleRepositoryTest extends TestCase
 
     public function testGet(): void
     {
-        $this->createArticleFile('1.md.twig');
+        $this->createArticleFile('1.en.md.twig');
 
         $article = $this->getRepository()->get('1');
 
@@ -49,14 +50,14 @@ final class FilesystemArticleRepositoryTest extends TestCase
     public function testGetThrowsIfNotFound(): void
     {
         $this->expectException(MissingArticleException::class);
-        $this->expectExceptionMessage('"1" article does not exist.');
+        $this->expectExceptionMessageIs('"1" article does not exist.');
 
         $this->getRepository()->get('1');
     }
 
     public function testGetBySlug(): void
     {
-        $this->createArticleFile('1.md.twig', slug: 'custom-slug');
+        $this->createArticleFile('1.en.md.twig', slug: 'custom-slug');
 
         $article = $this->getRepository()->getBySlug('custom-slug');
 
@@ -67,7 +68,7 @@ final class FilesystemArticleRepositoryTest extends TestCase
 
     public function testGetBySlugThrowsIfNotFound(): void
     {
-        $this->createArticleFile('1.md.twig');
+        $this->createArticleFile('1.en.md.twig');
 
         $this->expectException(MissingArticleException::class);
 
@@ -76,7 +77,7 @@ final class FilesystemArticleRepositoryTest extends TestCase
 
     public function testFindShowcased(): void
     {
-        $this->createArticleFile('1.md.twig');
+        $this->createArticleFile('1.en.md.twig');
 
         $showcased = $this->getRepository()->findShowcased();
         $this->assertNotInstanceOf(Article::class, $showcased);
@@ -90,16 +91,16 @@ final class FilesystemArticleRepositoryTest extends TestCase
     public function testFindShowcasedThrowsIfNotFound(): void
     {
         $this->expectException(MissingArticleException::class);
-        $this->expectExceptionMessage('"1" article does not exist.');
+        $this->expectExceptionMessageIs('"1" article does not exist.');
 
         $this->getRepository('1')->findShowcased();
     }
 
     public function testFindAll(): void
     {
-        $this->createArticleFile('1.md.twig');
-        $this->createArticleFile('2.md.twig');
-        $this->fs->touch(sprintf('%s/3.md', $this->articlesDir));
+        $this->createArticleFile('1.en.md.twig');
+        $this->createArticleFile('2.en.md.twig');
+        $this->fs->touch(sprintf('%s/3.fr.md.twig', $this->articlesDir));
         $this->fs->touch(sprintf('%s/4.txt', $this->articlesDir));
 
         $articles = $this->getRepository()->findAll();
@@ -110,9 +111,9 @@ final class FilesystemArticleRepositoryTest extends TestCase
 
     public function testFindAllOrdersByPublishedAtDesc(): void
     {
-        $this->createArticleFile('older.md.twig', '2024-01-01');
-        $this->createArticleFile('newest.md.twig', '2026-05-01');
-        $this->createArticleFile('middle.md.twig', '2025-06-15');
+        $this->createArticleFile('older.en.md.twig', '2024-01-01');
+        $this->createArticleFile('newest.en.md.twig', '2026-05-01');
+        $this->createArticleFile('middle.en.md.twig', '2025-06-15');
 
         $articles = $this->getRepository()->findAll();
 
@@ -126,16 +127,16 @@ final class FilesystemArticleRepositoryTest extends TestCase
 
         $articleFactory = new ArticleFactory(
             new InMemoryMemberRepository([aMember()->withId(MemberId::MathiasArlaud)->build()]),
-            new YamlMetadataProvider($this->articlesDir),
+            new YamlMetadataProvider(new LocaleSwitcher('en', []), $this->articlesDir),
             $htmlProvider,
         );
 
-        return new FilesystemArticleRepository($articleFactory, $showcasedArticle, $this->articlesDir);
+        return new FilesystemArticleRepository($articleFactory, new LocaleSwitcher('en', []), $showcasedArticle, $this->articlesDir);
     }
 
     private function createArticleFile(string $filename, string $publishedAt = '2025-01-01', ?string $slug = null): void
     {
-        $slug ??= basename($filename, '.md.twig');
+        $slug ??= explode('.', $filename)[0];
 
         $lines = [
             '---',

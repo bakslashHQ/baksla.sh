@@ -20,7 +20,10 @@ final readonly class ViewFeed
     ) {
     }
 
-    #[Route(path: '/blog/feed.xml', name: 'app_blog_feed', methods: ['GET'], format: 'xml')]
+    #[Route(path: [
+        'en' => '/blog/feed.xml',
+        'fr' => '/fr/blog/feed.xml',
+    ], name: 'app_blog_feed', methods: ['GET'], format: 'xml')]
     #[Prerender]
     public function __invoke(): Response
     {

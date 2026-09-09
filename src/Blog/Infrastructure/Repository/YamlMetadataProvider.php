@@ -8,6 +8,7 @@ use App\Blog\Domain\Factory\ArticleFactory\ArticleMetadata;
 use App\Blog\Domain\Factory\ArticleFactory\MetadataProvider;
 use App\Team\Domain\Model\MemberId;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
@@ -16,6 +17,7 @@ final readonly class YamlMetadataProvider implements MetadataProvider
     private const string METADATA_REGEX = '/\A---\n(?<metadata>(\n|.)+?)\n---/';
 
     public function __construct(
+        private LocaleSwitcher $localeSwitcher,
         #[Autowire(param: 'app.articles_dir')]
         private string $articlesDir,
     ) {
@@ -23,7 +25,7 @@ final readonly class YamlMetadataProvider implements MetadataProvider
 
     public function provide(string $id): ArticleMetadata
     {
-        $filename = sprintf('%s.md.twig', $id);
+        $filename = sprintf('%s.%s.md.twig', $id, $this->localeSwitcher->getLocale());
         $path = sprintf('%s/%s', $this->articlesDir, $filename);
 
         if (!is_file($path)) {
