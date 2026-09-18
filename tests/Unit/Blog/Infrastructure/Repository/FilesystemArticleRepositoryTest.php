@@ -74,25 +74,23 @@ final class FilesystemArticleRepositoryTest extends TestCase
         $this->getRepository()->getBySlug('missing');
     }
 
-    public function testFindShowcased(): void
+    public function testFindShowcasedReturnsNullWhenThereAreNoArticles(): void
     {
-        $this->createArticleFile('1.md.twig');
-
         $showcased = $this->getRepository()->findShowcased();
-        $this->assertNotInstanceOf(Article::class, $showcased);
 
-        $showcased = $this->getRepository('1')->findShowcased();
-
-        $this->assertInstanceOf(Article::class, $showcased);
-        $this->assertSame('1', $showcased->id);
+        $this->assertNotInstanceOf(\App\Blog\Domain\Model\Article::class, $showcased);
     }
 
-    public function testFindShowcasedThrowsIfNotFound(): void
+    public function testFindShowcasedReturnsMostRecentlyPublishedArticle(): void
     {
-        $this->expectException(MissingArticleException::class);
-        $this->expectExceptionMessage('"1" article does not exist.');
+        $this->createArticleFile('older.md.twig', '2024-01-01');
+        $this->createArticleFile('middle.md.twig', '2025-06-15');
+        $this->createArticleFile('newest.md.twig', '2026-05-01');
 
-        $this->getRepository('1')->findShowcased();
+        $showcased = $this->getRepository()->findShowcased();
+
+        $this->assertInstanceOf(Article::class, $showcased);
+        $this->assertSame('newest', $showcased->id);
     }
 
     public function testFindAll(): void
@@ -119,7 +117,7 @@ final class FilesystemArticleRepositoryTest extends TestCase
         $this->assertSame(['newest', 'middle', 'older'], array_column($articles, 'id'));
     }
 
-    private function getRepository(?string $showcasedArticle = null): FilesystemArticleRepository
+    private function getRepository(): FilesystemArticleRepository
     {
         $htmlProvider = $this->createStub(HtmlProvider::class);
         $htmlProvider->method('provide')->willReturn('html');
@@ -130,7 +128,7 @@ final class FilesystemArticleRepositoryTest extends TestCase
             $htmlProvider,
         );
 
-        return new FilesystemArticleRepository($articleFactory, $showcasedArticle, $this->articlesDir);
+        return new FilesystemArticleRepository($articleFactory, $this->articlesDir);
     }
 
     private function createArticleFile(string $filename, string $publishedAt = '2025-01-01', ?string $slug = null): void

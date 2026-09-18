@@ -15,8 +15,6 @@ final readonly class FilesystemArticleRepository implements ArticleRepository
 {
     public function __construct(
         private ArticleFactory $articleFactory,
-        #[Autowire(param: 'app.showcased_article')]
-        private ?string $showcasedArticle,
         #[Autowire(param: 'app.articles_dir')]
         private string $articlesDir,
     ) {
@@ -44,11 +42,7 @@ final readonly class FilesystemArticleRepository implements ArticleRepository
 
     public function findShowcased(): ?Article
     {
-        if ($this->showcasedArticle === null) {
-            return null;
-        }
-
-        return $this->get($this->showcasedArticle);
+        return $this->findAll()[0] ?? null;
     }
 
     public function findAll(): array
