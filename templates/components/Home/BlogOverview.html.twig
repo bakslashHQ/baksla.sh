@@ -1,44 +1,44 @@
-{% set showcased = this.showcased %}
-{% if showcased %}
+{% set latest = this.latest %}
+{% if latest %}
     <section id="blog" aria-label="{{ 'home.blog.aria_label'|trans }}">
         <div class="container max-w-screen-xl mx-auto px-4 sm:px-8 xl:px-4">
             <twig:Home:Heading transKey="home.blog.title" />
 
             <div class="grid lg:grid-cols-[2fr_1fr] gap-6 lg:gap-8">
                 <a
-                    href="{{ path('app_blog_article', {slug: showcased.slug}) }}"
+                    href="{{ path('app_blog_article', {slug: latest.slug}) }}"
                     class="group block bg-paper border border-ink/10 rounded-xl overflow-hidden no-underline transition-all duration-200 hover:-translate-y-px hover:shadow-xl hover:border-ink/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
                 >
                     <article class="flex flex-col h-full">
                         <div aria-hidden="true" class="flex flex-wrap items-center justify-between gap-2 px-5 sm:px-6 py-3 border-b border-ink/10 font-mono text-xs text-muted">
                             <span class="inline-flex items-center gap-1.5">
                                 <twig:ux:icon name="mdi:circle" class="size-2 text-accent" />
-                                <span class="text-ink-soft"><span class="hidden md:inline">/blog/</span>{{ showcased.id }}</span>
+                                <span class="text-ink-soft"><span class="hidden md:inline">/blog/</span>{{ latest.id }}</span>
                             </span>
-                            <span>@{{ showcased.author.id.value }}</span>
+                            <span>@{{ latest.author.id.value }}</span>
                         </div>
 
                         <div class="flex-1 flex flex-col p-6 sm:p-10">
                             <div class="flex-1 flex flex-col justify-center">
                                 <h3 class="font-sans font-medium tracking-tighter leading-[0.98] m-0 text-3xl sm:text-4xl lg:text-5xl text-ink">
-                                    {{ showcased.title }}
+                                    {{ latest.title }}
                                 </h3>
 
                                 <p class="font-sans text-base sm:text-lg leading-snug text-ink-soft mt-6 sm:mt-7 max-w-prose">
-                                    {{ showcased.description }}
+                                    {{ latest.description }}
                                 </p>
                             </div>
 
                             <div class="pt-8 sm:pt-9">
                                 <div class="pt-5 border-t border-ink/10 flex items-center gap-3">
                                     <img
-                                        src="{{ asset('images/team/members/' ~ showcased.author.id.value ~ '.webp') }}"
+                                        src="{{ asset('images/team/members/' ~ latest.author.id.value ~ '.webp') }}"
                                         alt=""
                                         loading="lazy"
                                         class="size-9 rounded-full object-cover"
                                     >
                                     <span class="text-sm text-ink-soft leading-none">
-                                        {{ 'home.blog.by'|trans }} <span class="text-ink font-medium">{{ showcased.author.fullName }}</span>
+                                        {{ 'home.blog.by'|trans }} <span class="text-ink font-medium">{{ latest.author.fullName }}</span>
                                     </span>
                                     <span aria-hidden="true" class="ml-auto inline-flex items-center gap-1 font-mono text-sm text-ink leading-none">
                                         {{ 'home.blog.read'|trans }}

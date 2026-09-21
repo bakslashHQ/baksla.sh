@@ -16,8 +16,8 @@ final class CommandPalette
     ) {
     }
 
-    public function getShowcasedArticle(): ?Article
+    public function getLatestArticle(): ?Article
     {
-        return $this->articleRepository->findShowcased();
+        return $this->articleRepository->findLatest();
     }
 }

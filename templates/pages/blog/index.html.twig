@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block content %}
-    {% set total_entries = articles|length + (showcased ? 1 : 0) %}
+    {% set total_entries = articles|length + (latest ? 1 : 0) %}
 
     <section class="relative overflow-hidden">
         <div aria-hidden="true" class="absolute inset-0 dot-grid pointer-events-none"></div>
@@ -42,8 +42,8 @@
                 {{- 'blog.no_article_yet'|trans -}}
             </p>
         {% else %}
-            {% if showcased %}
-                <twig:Blog:ShowcasedArticle :article="showcased" />
+            {% if latest %}
+                <twig:Blog:LatestArticle :article="latest" />
             {% endif %}
 
             {% if articles|length > 0 %}

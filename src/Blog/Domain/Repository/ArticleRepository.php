@@ -12,7 +12,7 @@ interface ArticleRepository
 
     public function getBySlug(string $slug): Article;
 
-    public function findShowcased(): ?Article;
+    public function findLatest(): ?Article;
 
     /**
      * @return list<Article>

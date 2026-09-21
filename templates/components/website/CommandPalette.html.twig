@@ -47,12 +47,12 @@
                     {% if app.current_route != 'app_team' %}
                         <twig:website:CommandPaletteItem :href="path('app_team')" icon="mdi:arrow-right" :label="'header.cmd.team'|trans" />
                     {% endif %}
-                    {% set showcasedArticle = this.showcasedArticle %}
-                    {% if showcasedArticle and (app.current_route != 'app_blog_article' or app.request.attributes.get('slug') != showcasedArticle.slug) %}
+                    {% set latestArticle = this.latestArticle %}
+                    {% if latestArticle and (app.current_route != 'app_blog_article' or app.request.attributes.get('slug') != latestArticle.slug) %}
                         <twig:website:CommandPaletteItem
-                            :href="path('app_blog_article', { slug: showcasedArticle.slug })"
+                            :href="path('app_blog_article', { slug: latestArticle.slug })"
                             icon="mdi:arrow-right"
-                            :label="'header.cmd.latest_article'|trans({ title: showcasedArticle.title })"
+                            :label="'header.cmd.latest_article'|trans({ title: latestArticle.title })"
                         />
                     {% endif %}
                 </ul>

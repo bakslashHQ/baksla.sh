@@ -197,7 +197,7 @@ blog.search.results.empty: No matching articles
 blog.search.results.singular: 1 matching article
 blog.search.results.plural: '%count% matching articles'
 blog.search.placeholder: Search…
-blog.showcased: showcased
+blog.latest: latest
 blog.branch: main
 blog.articles_count: '{count, plural, one {# article} other {# articles}}'
 blog.author: 'Author:'

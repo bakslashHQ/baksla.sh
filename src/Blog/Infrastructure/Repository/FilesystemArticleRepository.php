@@ -40,7 +40,7 @@ final readonly class FilesystemArticleRepository implements ArticleRepository
         throw new MissingArticleException($slug);
     }
 
-    public function findShowcased(): ?Article
+    public function findLatest(): ?Article
     {
         return $this->findAll()[0] ?? null;
     }

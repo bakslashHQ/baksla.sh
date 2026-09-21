@@ -1,12 +1,12 @@
 <a
     data-test-article-link
-    data-showcased
+    data-latest
     href="{{ path('app_blog_article', {slug: article.slug}) }}"
     class="group block no-underline mb-6 rounded-2xl border-2 border-accent bg-paper relative overflow-hidden hover:bg-accent/[0.04] transition-colors focus:outline-none focus-visible:ring-4 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper focus-visible:bg-accent/[0.08]"
 >
     <div class="absolute top-0 left-0 inline-flex items-center gap-1 px-3 py-1 bg-accent text-paper font-mono text-[10px] uppercase tracking-widest font-bold rounded-br-xl">
         <twig:ux:icon name="mdi:star" aria-hidden="true" class="size-3" />
-        <span>{{ 'blog.showcased'|trans }}</span>
+        <span>{{ 'blog.latest'|trans }}</span>
     </div>
     <article class="grid lg:grid-cols-[1fr_auto] gap-6 lg:gap-10 items-end px-6 sm:px-8 lg:px-10 py-8 sm:py-12 lg:py-16 pt-14 sm:pt-16 lg:pt-20">
         <div>

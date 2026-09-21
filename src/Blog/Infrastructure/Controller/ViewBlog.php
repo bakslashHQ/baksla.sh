@@ -26,14 +26,14 @@ final readonly class ViewBlog
     public function __invoke(): Response
     {
         $articles = $this->articleRepository->findAll();
-        $showcased = $this->articleRepository->findShowcased();
+        $latest = $this->articleRepository->findLatest();
 
-        if ($articles !== [] && $showcased instanceof Article) {
-            $articles = array_values(array_filter($articles, static fn (Article $a): bool => $a->id !== $showcased->id));
+        if ($articles !== [] && $latest instanceof Article) {
+            $articles = array_values(array_filter($articles, static fn (Article $a): bool => $a->id !== $latest->id));
         }
 
         return new Response($this->twig->render('pages/blog/index.html.twig', [
-            'showcased' => $showcased,
+            'latest' => $latest,
             'articles' => $articles,
         ]));
     }

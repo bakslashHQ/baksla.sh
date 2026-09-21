@@ -26,21 +26,21 @@ final class ViewBlogTest extends FunctionalTestCase
         $this->assertSelectorCount(count($articleRepository->findAll()), '[data-test-article-link]');
     }
 
-    public function testShowcasedArticleIsDisplayedIfEnabled(): void
+    public function testLatestArticleIsDisplayedIfEnabled(): void
     {
         $articleRepository = $this->getService(ArticleRepository::class);
 
         $this->get('/blog');
 
-        $showcasedSelector = '[data-test-article-link][data-showcased]';
-        if ($showcased = $articleRepository->findShowcased()) {
-            $this->assertSelectorExists($showcasedSelector);
+        $latestSelector = '[data-test-article-link][data-latest]';
+        if ($latest = $articleRepository->findLatest()) {
+            $this->assertSelectorExists($latestSelector);
         } else {
-            $this->assertSelectorNotExists($showcasedSelector);
+            $this->assertSelectorNotExists($latestSelector);
         }
     }
 
-    public function testNoArticleAreDuplicatedBecauseOfShowcased(): void
+    public function testNoArticleAreDuplicatedBecauseOfLatest(): void
     {
         $crawler = $this->get('/blog');
 

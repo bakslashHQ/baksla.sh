@@ -74,23 +74,23 @@ final class FilesystemArticleRepositoryTest extends TestCase
         $this->getRepository()->getBySlug('missing');
     }
 
-    public function testFindShowcasedReturnsNullWhenThereAreNoArticles(): void
+    public function testFindLatestReturnsNullWhenThereAreNoArticles(): void
     {
-        $showcased = $this->getRepository()->findShowcased();
+        $latest = $this->getRepository()->findLatest();
 
-        $this->assertNotInstanceOf(\App\Blog\Domain\Model\Article::class, $showcased);
+        $this->assertNotInstanceOf(\App\Blog\Domain\Model\Article::class, $latest);
     }
 
-    public function testFindShowcasedReturnsMostRecentlyPublishedArticle(): void
+    public function testFindLatestReturnsMostRecentlyPublishedArticle(): void
     {
         $this->createArticleFile('older.md.twig', '2024-01-01');
         $this->createArticleFile('middle.md.twig', '2025-06-15');
         $this->createArticleFile('newest.md.twig', '2026-05-01');
 
-        $showcased = $this->getRepository()->findShowcased();
+        $latest = $this->getRepository()->findLatest();
 
-        $this->assertInstanceOf(Article::class, $showcased);
-        $this->assertSame('newest', $showcased->id);
+        $this->assertInstanceOf(Article::class, $latest);
+        $this->assertSame('newest', $latest->id);
     }
 
     public function testFindAll(): void

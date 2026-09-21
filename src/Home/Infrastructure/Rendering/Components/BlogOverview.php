@@ -18,9 +18,9 @@ final class BlogOverview
     ) {
     }
 
-    public function getShowcased(): ?Article
+    public function getLatest(): ?Article
     {
-        return $this->articleRepository->findShowcased();
+        return $this->articleRepository->findLatest();
     }
 
     /**
@@ -28,11 +28,11 @@ final class BlogOverview
      */
     public function getOthers(): array
     {
-        $showcased = $this->articleRepository->findShowcased();
+        $latest = $this->articleRepository->findLatest();
         $articles = $this->articleRepository->findAll();
 
-        if ($showcased instanceof Article) {
-            $articles = array_filter($articles, static fn (Article $a): bool => $a->id !== $showcased->id);
+        if ($latest instanceof Article) {
+            $articles = array_filter($articles, static fn (Article $a): bool => $a->id !== $latest->id);
         }
 
         return \array_slice(array_values($articles), 0, self::OTHERS_LIMIT);
