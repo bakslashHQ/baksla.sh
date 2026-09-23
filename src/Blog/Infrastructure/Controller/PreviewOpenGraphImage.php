@@ -25,7 +25,10 @@ final readonly class PreviewOpenGraphImage
     ) {
     }
 
-    #[Route(path: '/_og/blog/{id<[a-z0-9-]+>}', name: 'app_blog_og_preview', methods: ['GET'])]
+    #[Route(path: [
+        'en' => '/_og/blog/{id<[a-z0-9-]+>}',
+        'fr' => '/fr/_og/blog/{id<[a-z0-9-]+>}',
+    ], name: 'app_blog_og_preview', methods: ['GET'])]
     public function __invoke(string $id): Response
     {
         $this->profiler?->disable();

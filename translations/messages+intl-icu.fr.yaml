@@ -1,0 +1,312 @@
+common.opens_new_tab: (ouvre dans un nouvel onglet)
+
+home.seo.title: baksla.sh
+home.seo.description: Une vraie entreprise open source, évangélistes Symfony et experts techniques pragmatiques
+
+home.hero.aria_label: "Baksla.sh : une vraie entreprise open source, partout dans le monde"
+home.hero.eyebrow: Une vraie entreprise open source · partout dans le monde
+home.hero.heading_text: Nous sommes des
+home.hero.heading_aria_label: Nous sommes mainteneurs, fans, ambassadeurs et développeurs Symfony.
+home.hero.tagline: "Nous sommes celles et ceux que vous lisez dans le changelog de Symfony. Une petite entreprise qui construit, maintient et enseigne PHP. Pas de pitch deck, juste des commits."
+home.hero.cta.primary: Ce que nous faisons
+home.hero.cta.secondary: Bonjour
+home.hero.words.maintainers: 'mainteneurs'
+home.hero.words.lovers: 'passionnés de'
+home.hero.words.developers: 'développeurs'
+home.hero.words.advocates: 'ambassadeurs'
+
+home.kpi.aria_label: baksla.sh en chiffres
+home.kpi.done: tout est à jour
+home.kpi.run: exécuter
+home.kpi.run_aria_label: "Lancer l'animation des statistiques de baksla.sh"
+home.kpi.run_hint: ou appuyez sur
+home.kpi.projects: projets
+home.kpi.projects_hint: livrés et bien vivants
+home.kpi.collaborators: collaborateurs
+home.kpi.collaborators_hint: pragmatiques, curieux
+home.kpi.symfony_core_team: core team
+home.kpi.symfony_core_team_hint: mainteneurs Symfony
+home.kpi.talks: conférences données
+home.kpi.talks_hint: conférences, meetups
+home.kpi.love_in_ecosystem: ❤️ pour PHP
+home.kpi.love_in_ecosystem_hint: "une longue lettre d'amour"
+
+home.values.aria_label: les valeurs de baksla.sh
+home.values.heading: "Des lignes qu'on ne <0>revert</0> pas."
+home.values.filename: qui-nous-sommes.md
+home.values.commit_meta: committé · mergé par @baksla.sh
+home.values.sr_added: "Ajouté :"
+home.values.sr_removed: "Retiré :"
+
+home.values.line_1_del: Nous sommes juste une agence de plus.
+home.values.line_1_add_1: Nous sommes une vraie entreprise open source.
+home.values.line_1_add_2: Les mêmes personnes que vous lisez dans le changelog de Symfony.
+home.values.line_2_del: "Nous utilisons les outils qu'on nous donne."
+home.values.line_2_add_1: Nous façonnons les outils que nous utilisons.
+home.values.line_2_add_2: Quand Symfony est cassé, nous le corrigeons upstream.
+home.values.line_3_del: Nous gardons notre savoir pour nous.
+home.values.line_3_add_1: Nous le partageons, haut et fort !
+home.values.line_3_add_2: Conférences, ateliers, pair programming, mentorat.
+home.values.line_4_del: Nous courons après la nouveauté.
+home.values.line_4_add_1: Nous choisissons des technos éprouvées et solides.
+home.values.line_4_add_2: "Le métier passe d'abord ; la stack est à son service."
+
+home.products.aria_label: les services de baksla.sh
+home.products.panels_aria_label: Détails des services
+home.products.title: "Du travail sur mesure, <0>fait pour durer</0>."
+
+home.products.product.tag.expertise: Expertise
+home.products.product.tag.implementation: Implémentation
+home.products.product.tag.upskill: Montée en compétences
+
+home.products.service.custom_symfony_development.title: Développement
+home.products.service.custom_symfony_development.summary: "Projets greenfield et refontes profondes, pensés autour de votre métier, pas autour des réglages par défaut d'un framework. Nous concevons les bounded contexts avant de générer la moindre entité, et nous consignons les décisions d'architecture dans des ADR qui survivent à la mission."
+home.products.service.custom_symfony_development.detail: "Des boucles de feedback courtes, de la CI dès le premier jour, et du code qui se lit comme de la documentation. Quand nous partons, votre équipe possède chaque ligne : pas de vendor lock-in, pas de couches mystérieuses, pas de dépendance à « demander à l'agence »."
+home.products.service.custom_symfony_development.bullet_1: DDD & architecture hexagonale
+home.products.service.custom_symfony_development.bullet_2: API Platform & API headless
+home.products.service.custom_symfony_development.bullet_3: Workers asynchrones & Messenger
+
+home.products.service.cto_as_a_service.title: CTO à la demande
+home.products.service.cto_as_a_service.summary: "Un jugement technique senior, sans embauche à plein temps. Roadmaps, processus de recrutement, choix de prestataires, et les conversations délicates qui garantissent une livraison honnête."
+home.products.service.cto_as_a_service.detail: "Conçu pour les fondateurs qui ont besoin d'une voix technique autour de la table, pas d'un poste de plus à pourvoir définitivement. Nous nous intégrons à votre direction chaque semaine, ajustons notre implication selon les besoins du produit, et transmettons la méthode pour que vous puissiez recruter notre remplaçant le moment venu."
+home.products.service.cto_as_a_service.bullet_1: Roadmap & priorisation
+home.products.service.cto_as_a_service.bullet_2: Recrutement & organisation d'équipe
+home.products.service.cto_as_a_service.bullet_3: Décisions make-or-buy
+
+home.products.service.architecture.title: "Étude & audit d'architecture"
+home.products.service.architecture.summary: "Nous commençons par comprendre votre métier, ses règles, ses contraintes, sa trajectoire de croissance, et l'équipe qui le portera."
+home.products.service.architecture.detail: "Chacune de nos recommandations tient compte de la maturité et de la capacité de vos développeurs, pas seulement de l'idéal sur le papier."
+home.products.service.architecture.detail_new_label: Nouveau projet
+home.products.service.architecture.detail_new: "Modélisation du domaine et choix techniques qui ne vous enfermeront pas à grande échelle, fondés sur des pratiques logicielles à l'état de l'art que votre équipe peut adopter à son rythme."
+home.products.service.architecture.detail_existing_label: Code existant
+home.products.service.architecture.detail_existing: "Votre produit a trouvé son marché ou est prêt pour son prochain chapitre. Nous le relisons ligne par ligne, faisons remonter des constats priorisés, et fournissons à votre équipe un plan séquencé pour le hisser aux standards modernes."
+home.products.service.architecture.bullet_1: Architecture decision records
+home.products.service.architecture.bullet_2: Revue de performance & scalabilité
+home.products.service.architecture.bullet_3: Audit de sécurité & dépendances
+
+home.products.service.coaching.title: Coaching à la carte
+home.products.service.coaching.summary: "Du pair programming sur les problèmes difficiles, du déblocage de décisions, et la revue de la diff ouverte depuis une semaine. Nous nous branchons sur le rythme de votre équipe, votre Slack, vos stand-ups, votre dépôt, pas l'inverse."
+home.products.service.coaching.detail: "Voyez cela comme un accès à la demande aux mainteneurs du core Symfony, celles et ceux qui façonnent l'évolution du framework et ont sûrement déjà rencontré exactement ce problème en amont. Pas d'engagement minimum : réservez une seule session ou gardez-nous au forfait, selon ce qui rend votre équipe plus rapide."
+home.products.service.coaching.bullet_1: Sessions de brainstorming & de conception
+home.products.service.coaching.bullet_2: Revues de code approfondies
+home.products.service.coaching.bullet_3: Specs & rédaction technique
+
+home.products.service.workshops_and_trainings.title: Ateliers & formations
+home.products.service.workshops_and_trainings.summary: "Nous ne déroulons pas des slides devant votre équipe ; nous ouvrons votre dépôt et écrivons du code avec elle. Symfony, API Platform, les tests et le PHP moderne, enseignés sur des problèmes que vous rencontrez vraiment, pas des exemples de manuel."
+home.products.service.workshops_and_trainings.detail: "Chaque session livre une vraie amélioration de votre code, si bien que la formation se rentabilise avant même l'arrivée de la facture. Plongées d'une demi-journée ou parcours sur plusieurs jours, sur site ou à distance, par groupes de trois ou de trente."
+home.products.service.workshops_and_trainings.bullet_1: Symfony & API Platform
+home.products.service.workshops_and_trainings.bullet_2: Stratégies de tests & de CI
+home.products.service.workshops_and_trainings.bullet_3: PHP moderne & patterns
+
+home.oss.aria_label: les contributions open source de baksla.sh
+home.oss.heading: 'Une contribution toutes les <0>{hours}h</0>, depuis {years} ans.'
+home.oss.totals_tagline: 'contributions <0>livrées en amont</0>, sur {count, spellout} principaux projets open source.'
+home.oss.bar_aria_label: '{total, number} contributions sur {count} projets'
+home.oss.project_aria_label: '{sum, number} contributions sur {label} : {reviews, number} revues, {prs, number} pull requests'
+home.oss.stats.reviews: revues
+home.oss.stats.prs: pull requests
+home.oss.line.on: sur
+
+home.blog.aria_label: Les dernières actus du blog
+home.blog.title: 'Histoires tirées <0>du changelog.</0>'
+home.blog.by: par
+home.blog.read: Lire
+home.blog.all_posts: Tous les articles
+
+home.clients.aria_label: les clients de baksla.sh
+home.clients.heading: 'Nous <0>construisons</0> ensemble.'
+home.clients.cta: Le vôtre ?
+home.clients.cta_aria_label: "Ajoutez votre logo. Écrivez à hello@baksla.sh"
+
+header.skip_to_content: Aller au contenu
+header.language.label: Choisir une langue
+header.cmd.open_menu: ouvrir le menu
+header.cmd.title: Palette de commandes
+header.cmd.placeholder: Aller à…
+header.cmd.home: "Retour à l'accueil"
+header.cmd.blog: Aller au blog
+header.cmd.team: "Rencontrer l'équipe"
+header.cmd.latest_article: 'Dernier article : {title}'
+header.cmd.mail: Dites bonjour à hello@baksla.sh
+header.cmd.source: Voir le code source de ce site
+header.cmd.symfony_docs: Lire la documentation Symfony
+header.cmd.x: Suivez-nous sur X
+header.cmd.bluesky: Suivez-nous sur Bluesky
+header.cmd.linkedin: Suivez-nous sur LinkedIn
+header.cmd.close: fermer
+header.cmd.no_match: aucun résultat
+header.cmd.section.pages: pages
+header.cmd.section.external: externe
+header.cmd.section.actions: actions
+
+footer.copyright: © {year} baksla.sh™. Tous droits réservés.
+footer.about: "Une vraie entreprise open source. Évangélistes Symfony, experts techniques pragmatiques. Nous construisons, maintenons et enseignons PHP, et reversons en amont tout ce que nous apprenons."
+footer.signature: 'Fait avec <0/>, du café & Symfony.'
+footer.signature_heart_aria_label: amour
+footer.section.pages: pages
+footer.section.social: réseaux
+footer.section.contact: contact
+footer.link.home: Accueil
+footer.link.blog: Blog
+footer.link.team: Équipe
+footer.link.legal_notices: Mentions légales
+footer.social.github: baksla.sh sur GitHub
+footer.social.x: baksla.sh sur X
+footer.social.bluesky: baksla.sh sur Bluesky
+footer.social.linkedin: baksla.sh sur LinkedIn
+
+legal_notices.seo.title: Mentions légales | baksla.sh
+legal_notices.seo.description: Mentions légales de Bakslash, une vraie entreprise open source, évangélistes Symfony et experts techniques pragmatiques
+
+legal_notices.title: 'Mentions <0>légales.</0>'
+legal_notices.meta.last_commit: 'Mis à jour le {date}'
+
+legal_notices.editor.label: '§ 01 / Éditeur'
+legal_notices.editor.heading: '<0>Éditeur</0> du site'
+legal_notices.editor.fields.name: Nom
+legal_notices.editor.fields.address: Adresse
+legal_notices.editor.address: |-
+    60 Rue François 1<sup>er</sup>
+    75008 Paris, France
+legal_notices.editor.fields.siren: SIREN
+legal_notices.editor.fields.siret: SIRET
+legal_notices.editor.fields.code_eap: Code APE
+legal_notices.editor.code_eap.comment: '// Activités de programmation informatique'
+
+legal_notices.directors.label: '§ 02 / Direction'
+legal_notices.directors.heading: '<0>Directeurs</0> de la publication'
+legal_notices.directors.robin.role: 'CEO · cofondateur'
+legal_notices.directors.mathias.role: 'COO · cofondateur'
+
+legal_notices.hosting.label: '§ 03 / Hébergement'
+legal_notices.hosting.heading: '<0>Hébergeur</0>'
+legal_notices.hosting.provider_company: GitHub, Inc.
+legal_notices.hosting.provider_address: 88 Colin P. Kelly Jr St, San Francisco, CA 94107, États-Unis
+legal_notices.hosting.tag.static: statique
+legal_notices.hosting.tag.edge_cached: mis en cache en périphérie
+legal_notices.hosting.tag.https: https uniquement
+
+blog.seo.title: 'Blog | baksla.sh'
+blog.seo.description: Le blog de baksla.sh
+blog.label: le blog
+blog.title: 'Ce que nous avons livré<0>,</0><br>et ce que nous avons appris.'
+blog.caption: '# BLOG.md'
+blog.subtitle: Moitié changelog, moitié post-mortem, 100 % PHP.
+blog.list_label: Tous les articles
+blog.search.label: Rechercher des articles
+blog.search.results.empty: Aucun article correspondant
+blog.search.results.singular: 1 article correspondant
+blog.search.results.plural: '%count% articles correspondants'
+blog.search.placeholder: Rechercher…
+blog.showcased: à la une
+blog.branch: main
+blog.articles_count: '{count, plural, one {# article} other {# articles}}'
+blog.author: "Auteur :"
+blog.git_command: git log --oneline --all
+blog.no_article_yet: "Il n'y a pas encore d'article, revenez plus tard !"
+blog.article.back_to_blog: retour au blog
+blog.article.reading_time: '{minutes} min de lecture'
+blog.article.top: haut
+blog.article.copy_link: copier le lien
+blog.article.copy_link_done: copié
+blog.article.nav_label: "lecteur d'article"
+blog.article.scroll_to_top: remonter en haut
+blog.article.code_sample: 'extrait de code {language}'
+
+team.seo.title: Équipe | baksla.sh
+team.seo.description: "Découvrez l'équipe de baksla.sh au travail"
+team.caption: '# CREW.diff'
+team.title: "Chut<0> !</0><br>L'équipe est au travail."
+team.modal.close_short: fermer
+team.modal.prev: préc.
+team.modal.next: suiv.
+team.modal.editorial_eyebrow: "l'équipe"
+team.reviewers: Relecteurs
+
+team.pr.tag: 'Pull request #42'
+team.pr.status_open: Ouverte
+team.pr.title: 'feat: livrer la page <0>/team</0> avec le roster en mémoire'
+team.pr.merge_summary: '<0>mtarld</0> souhaite merger <1>1 commit</1> dans <2>main</2> depuis <3>team/view-team-page</3>'
+team.pr.file_path_short: …/Controller/ViewTeam.php
+team.pr.file_path_full: 'src/Team/Infrastructure/Controller/ViewTeam.php'
+team.pr.tip.label: Astuce
+team.pr.tip.body: 'Touchez un relecteur pour découvrir sa bio et ses réseaux.'
+team.pr.thread.label: Fil
+team.pr.thread.comments: '{count, plural, one {# commentaire} other {# commentaires}}'
+team.pr.diff.added: "ajouté :"
+team.pr.diff.removed: "retiré :"
+team.review.twig_alias_1: Pourrait-on aliaser cet import en <0>Twig</0> pour le rendre un peu plus compréhensible ?
+team.review.twig_alias_2: Et si on étendait <0>AbstractController</0> pour utiliser la méthode <0>render()</0> ?
+team.review.infra_1: "Ceci devrait plutôt dépendre d'une interface pour éviter le couplage aux détails d'implémentation"
+team.review.infra_2: 👍 Ce contrat <0>Repository</0> appartient à la couche <1>Domain</1> à mon avis.
+team.review.infra_3: "Pour cibler une implémentation précise, tu peux utiliser l'<0>attribut Autowire</0>."
+team.review.get_method_1: "Même si ça fonctionne, <0>#[Route(methods: ['GET'])]</0> est une meilleure façon d'y parvenir."
+team.review.get_method_2: En effet, mieux vaut tirer parti des capacités du routeur Symfony pour te concentrer sur la logique métier.
+team.review.pagination_1: Devrait-elle plutôt renvoyer un résultat paginé ?
+team.review.pagination_2: "Pour autant que je sache, baksla.sh n'aura pas assez de membres pour avoir besoin de pagination de sitôt 😉"
+team.review.blank_line_1: Ligne vide en trop 👀
+
+team.bio.hugo-alliaume: |-
+    Développeur full-stack depuis 2009, Hugo aime apprendre énormément de nouvelles choses, ce qui le rend très polyvalent. Il s'est depuis spécialisé dans le développement web, principalement avec PHP et JavaScript, mais aussi dans l'optimisation des performances côté back-end et côté navigateur.
+
+    Hugo a récemment rejoint la Core Team de Symfony UX. Fan d'open source depuis les tout débuts, il y contribue aussi bien à travers ses propres projets qu'en travaillant sur Symfony, plus précisément sur Webpack Encore et Symfony UX.
+
+    Fin gourmet, vous le trouverez sans doute près des buffets des conférences.
+team.bio.felix-eymonot: |-
+    Félix est un développeur PHP spécialisé en Symfony depuis 2017, certifié « Advanced » en version 6. Fort d'une expérience en agence dans de multiples secteurs, il construit des solutions robustes et évolutives, taillées pour les besoins métier.
+
+    Passionné par Symfony et l'open source, il contribue activement à la communauté et a même donné une conférence technique.
+
+    Quand il ne conçoit pas du code propre et maintenable, il est attiré par l'univers de DC Comics, en particulier Nightwing, car que ce soit dans la tech ou à Gotham, l'agilité, l'intégrité et un fort sens de la justice font toujours la différence 🦇
+team.bio.florian-merle: |-
+    Florian est passionné d'informatique depuis toujours et a transformé cette passion en carrière de développeur web. Depuis 2017, il se spécialise en PHP et Symfony. En 2019, il a découvert Sylius et construit depuis des solutions e-commerce avec, devenant l'un de ses Key Contributors.
+
+    Grâce au mentorat de Mathias, Florian a donné sa première conférence à l'AFUP Day Lyon en 2023. Depuis, il est devenu un membre actif de l'AFUP Lyon, où il organise des événements et aide les nouveaux venus à découvrir l'écosystème PHP et sa communauté.
+
+    Quand il ne code pas, Florian aime prendre la route à moto pour découvrir de nouveaux endroits et paysages.
+team.bio.jeremy-romey: |-
+    Jérémy est un développeur Symfony certifié. Il contribue au code de Symfony et à son écosystème tout en participant aux événements de la communauté.
+
+    Il aide les développeurs PHP et Symfony à construire des applications de grande qualité. Son objectif : aider les équipes à améliorer leur façon de travailler et à gagner en confiance dans le code qu'elles produisent.
+
+    Il ne dit jamais non à un bon espresso ☕
+team.bio.jules-pietri: |-
+    Passionné de PHP et d'open source depuis plus de dix ans, Jules est devenu formateur, évangéliste et consultant avisé, amateur de défis techniques.
+
+    Et pour une bio, c'est largement suffisant.
+
+    Santé 🍺🍀
+team.bio.mathias-arlaud: |-
+    Conférencier, consultant, lead developer et formateur PHP/Symfony, Mathias a travaillé deux ans avec le créateur de Symfony et deux ans avec le créateur d'API Platform, Mercure et FrankenPHP.
+
+    Enthousiaste de l'open source, il contribue largement au framework Symfony et à son écosystème, en se concentrant notamment sur le système de sérialisation des données. Spécialisé dans le développement d'API, il met son expertise au service de solutions rapides, robustes et maintenables.
+
+    Ne demandez pas pourquoi, mais à la question PHPStorm vs VsCode, il répond encore VIM.
+team.bio.robin-chalas: |-
+    Robin est Software Architect & mainteneur open source, impliqué dans l'écosystème PHP/Symfony depuis plus de dix ans, CEO et consultant @baksla.sh.
+
+    Membre de la Core Team Symfony, il contribue au framework en corrigeant des bugs et des failles de sécurité, mais aussi en apportant de nouvelles fonctionnalités à son cœur, en améliorant continuellement sa conception et en aidant la communauté à contribuer à Symfony et aux autres paquets populaires qu'il maintient.
+
+    En tant que consultant, il aime orienter les équipes techniques de toute taille dans la bonne direction, fort de son expérience dans la conception de grands systèmes logiciels.
+
+    Il adore aussi aider et partager ses connaissances en participant aux plateformes d'entraide, en relisant des contributions et en intervenant dans des conférences techniques.
+
+    Loin du clavier, Robin caresse ses chats ou joue à la pétanque.
+team.bio.valmont-pehaut-pietri: |-
+    Valmont est un développeur PHP/Symfony qui adore plonger dans les gros projets en plein chaos quand tout brûle, que ce soit pour livrer une fonctionnalité, démêler du code legacy ou aider une migration à enfin avancer.
+
+    Après 10 ans dans la vente, il s'est reconverti dans le développement web et a gardé une approche pragmatique, centrée sur l'humain, pour résoudre les problèmes.
+
+    Il se concentre surtout sur le développement back-end, l'architecture propre et le code que les futurs développeurs ne maudiront pas trop fort.
+
+    Il donne aussi des conférences (quand les astres s'alignent et qu'il est d'humeur), contribue à l'open source et continue de creuser les design patterns, l'architecture logicielle et l'écosystème Symfony.
+
+    Grand fan de jeux de cartes à collectionner, on le croise souvent en conférence où, plutôt que de se joindre aux verres d'after-work habituels, il s'entraîne avec son ami Jérémy. Bien sûr, il est toujours partant pour les deux ! C'est aussi un amateur de bière artisanale, mais attention : si vous abordez le sujet, la conversation peut devenir aussi intense qu'un débat politique.
+team.bio.yazid-hassani: |-
+    Yazid est un développeur frontend spécialisé en React et Vue depuis 2019. Très attaché à la performance et à l'expérience utilisateur, il façonne des interfaces élégantes et réactives, fluides et intuitives.
+
+    Passionné par les technologies web modernes, il explore sans cesse de nouvelles approches pour affiner ses compétences et garder une longueur d'avance dans un paysage frontend en perpétuelle évolution.
+
+    Toujours en quête d'innovation, il s'épanouit en relevant des défis complexes, en optimisant les interfaces et en transformant les idées en expériences interactives.
+
+    Quand il ne peaufine pas son code, vous pourriez le surprendre à perfectionner sa technique d'infusion du café, car un bon code, comme un bon café, est une affaire de précision et d'équilibre. ☕🚀

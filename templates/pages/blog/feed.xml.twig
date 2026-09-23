@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="{{ app.request.locale }}">
     <title>baksla.sh Blog</title>
     <subtitle>{{ 'blog.seo.description'|trans|raw }}</subtitle>
     <link href="{{ url('app_blog_feed') }}" rel="self" />
     <link href="{{ url('app_blog') }}" />
+    {% for locale in enabled_locales %}
+        <link rel="alternate" type="application/atom+xml" hreflang="{{ locale }}" href="{{ url('app_blog_feed', {_locale: locale}) }}" />
+    {% endfor %}
     <id>{{ url('app_home') }}</id>
     <updated>{{ (articles ? articles|first.publishedAt : date())|date('c') }}</updated>
     <author><name>baksla.sh</name></author>

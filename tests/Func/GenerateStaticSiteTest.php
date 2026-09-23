@@ -50,6 +50,13 @@ final class GenerateStaticSiteTest extends KernelTestCase
         $this->assertFileExists($this->outputDir . '/blog.html');
         $this->assertFileExists($this->outputDir . '/team.html');
         $this->assertFileExists($this->outputDir . '/blog/symfony-certification.html');
+
+        $this->assertFileExists($this->outputDir . '/fr.html');
+        $this->assertFileExists($this->outputDir . '/fr/blog.html');
+        $this->assertFileExists($this->outputDir . '/fr/equipe.html');
+        $this->assertFileExists($this->outputDir . '/fr/mentions-legales.html');
+        $this->assertFileExists($this->outputDir . '/fr/blog/certification-symfony.html');
+        $this->assertFileExists($this->outputDir . '/fr/blog/feed.xml');
     }
 
     public function testDryRunDoesNotDumpFiles(): void

@@ -1,0 +1,93 @@
+---
+author: hugo-alliaume
+title: "Webpack Encore : quoi de neuf 8 mois plus tard ?"
+description: "Beaucoup de choses se sont passées depuis mon dernier article sur Webpack Encore. Encore 6.0 est sorti, la 7.0 est en préparation avec un support ESM exclusif, et l'expérience des contributeurs a été sérieusement améliorée."
+published_at: 2026-04-08
+slug: webpack-encore-quoi-de-neuf-8-mois-plus-tard
+---
+
+Il y a quelques mois, j'ai écrit sur [l'état actuel et l'avenir de Webpack Encore](webpack-encore-etat-actuel-et-avenir).
+La conclusion était claire : Encore est toujours maintenu mais son avenir est incertain, avec Vite et AssetMapper qui gagnent du terrain.
+
+Eh bien, les choses ont bougé. **Beaucoup.**
+
+## Encore 6.0 : grand ménage de printemps
+
+[Encore 6.0](https://github.com/symfony/webpack-encore/blob/main/CHANGELOG.md#600) est une **version de maintenance**.
+Pas de nouvelle fonctionnalité tape-à-l'œil, mais un nettoyage nécessaire pour garder le projet en bonne santé.
+
+L'idée est simple : **se débarrasser de tout ce qui freinait Encore**, et ouvrir la voie aux évolutions
+futures, comme le support de [Rspack](https://rspack.dev/) à terme.
+
+La version minimale de Node.js passe à **22+** (l'actuelle LTS), ce qui permet de mettre à jour toutes les
+dépendances majeures vers leurs dernières versions : babel-loader, style-loader, postcss-loader, webpack-cli, et plus encore.
+Si vous n'utilisez pas de configurations personnalisées pour ces loaders, vous ne remarquerez probablement rien.
+
+Plusieurs vestiges de legacy accumulés ont aussi été nettoyés : le `file-loader` non maintenu a disparu
+(les [Asset Modules](https://webpack.js.org/guides/asset-modules/) de webpack 5 ont pris le relais depuis longtemps),
+l'option `--https` dépréciée du dev-server a été retirée, les **derniers restes de Vue 2** ont enfin été purgés,
+et `chalk` a été remplacé par le bien plus léger [`picocolors`](https://www.npmjs.com/package/picocolors).
+
+**Plus léger, plus propre, et prêt pour la suite.**
+
+## Encore 7.0 : le grand saut vers l'ESM
+
+C'est la grosse nouveauté. Et elle n'est **pas encore sortie**.
+
+[Encore 7.0](https://github.com/symfony/webpack-encore/blob/main/CHANGELOG.md#700---the-esm-only--async-first-release)
+rend Webpack Encore **ESM uniquement**. Plus de `require()`, plus de `module.exports`.
+
+L'écosystème Node.js a atteint un point de bascule : la plupart des paquets activement maintenus ne livrent désormais que de l'ESM.
+Continuer à publier en CommonJS reviendrait à ramer à contre-courant, à figer des dépendances plus anciennes,
+à ajouter des contournements, à passer à côté du tree-shaking et du `await` de premier niveau.
+
+Mais le vrai gain est plus profond. Migrer vers l'ESM débloque l'**async/await au niveau racine**, ce qui résout un problème
+qui hante Encore depuis des années : `Encore.getWebpackConfig()` était toujours synchrone, imposant de vilains contournements
+avec `sync-rpc` chaque fois qu'une dépendance exposait une API uniquement asynchrone (ESLint, détection de config Babel...).
+
+Désormais, votre configuration webpack devient simplement :
+
+```js
+import Encore from '@symfony/webpack-encore';
+
+// ... your Encore configuration
+
+export default await Encore.getWebpackConfig();
+```
+
+La migration est simple : passez à `import`/`export`, ajoutez `"type": "module"` à votre `package.json`
+(ou renommez en `webpack.config.mjs`), et mettez à jour quelques globales Node.js (`__dirname` devient `import.meta.dirname`).
+Le [guide de migration complet](https://github.com/symfony/webpack-encore/blob/main/CHANGELOG.md#700---the-esm-only--async-first-release)
+couvre tous les cas limites.
+
+### Appel aux testeurs !
+
+**Encore 7.0 a besoin de vos retours avant la sortie officielle.** Si vous utilisez Webpack Encore, essayez-le :
+
+```bash
+npm install symfony/webpack-encore#main
+```
+
+Vous avez trouvé un bug ? Quelque chose n'est pas clair ? [Ouvrez une issue](https://github.com/symfony/webpack-encore/issues), chaque rapport aide.
+
+## Une meilleure expérience pour les contributeurs
+
+Au-delà des changements visibles pour les utilisateurs, l'**expérience des contributeurs** a été entièrement repensée :
+
+- **Vitest remplace Mocha/Sinon/Chai** ([#1404](https://github.com/symfony/webpack-encore/pull/1404)) :
+  plus de 50 fichiers de test migrés vers un test runner moderne et unifié, avec mocking intégré et mode watch
+- **PNPM remplace Yarn** ([#1405](https://github.com/symfony/webpack-encore/pull/1405)) :
+  des installations plus rapides, une meilleure efficacité disque, et le gestionnaire de paquets incontournable de nombreux projets open source aujourd'hui
+- **Oxfmt remplace le formatage d'ESLint** ([#1408](https://github.com/symfony/webpack-encore/pull/1408)) :
+  un formateur basé sur Rust issu du [projet Oxc](https://oxc.rs/), conçu spécialement pour la tâche et très rapide
+
+Des tests plus rapides, des installations plus rapides, un formatage plus rapide. Si vous avez toujours voulu contribuer à Webpack Encore,
+c'est le bon moment.
+
+## Conclusion
+
+Webpack Encore est loin d'être un projet mort. **Encore 6.0** s'est débarrassé d'années de bagage legacy, **Encore 7.0** mise
+tout sur l'ESM, et l'**outillage des contributeurs** a été entièrement modernisé.
+
+Que vous pensiez ou non que les jours de webpack sont comptés (et je crois toujours que Vite est la voie à suivre pour les nouveaux projets),
+Encore est activement maintenu pour celles et ceux qui en dépendent. Essayez la 7.0, et restez à l'écoute !

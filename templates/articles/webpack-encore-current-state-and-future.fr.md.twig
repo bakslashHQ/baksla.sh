@@ -1,0 +1,102 @@
+---
+author: hugo-alliaume
+title: "Webpack Encore : état actuel et avenir 📦"
+description: Webpack Encore a été l'outil de gestion des assets par défaut dans Symfony pendant de nombreuses années. Cependant, avec l'essor d'AssetMapper et de Vite, son avenir est incertain.
+published_at: 2025-09-09
+slug: webpack-encore-etat-actuel-et-avenir
+---
+
+Les développeurs Symfony font face aujourd'hui à un choix : rester sur **Webpack Encore**, adopter le nouvel **AssetMapper**, ou explorer d'autres alternatives...
+
+On me demande souvent où en est Webpack Encore dans l'écosystème Symfony, sa pertinence, et ce que l'avenir lui réserve.
+Est-ce encore une option viable ? Et AssetMapper ? Existe-t-il une meilleure alternative ?
+
+Cet article fait le point sur la situation actuelle, compare les options et se projette dans l'avenir.
+
+## Qu'est-ce que Webpack Encore ?
+
+[Webpack Encore](https://www.npmjs.com/package/@symfony/webpack-encore) est un moyen simple d'intégrer webpack à votre
+application Symfony. C'était autrefois l'outil de gestion des assets par défaut dans les applications Symfony, permettant aux développeurs
+de gérer et de compiler facilement leurs assets front-end (JavaScript, CSS, images, etc.).
+
+Webpack Encore a été créé par [Ryan Weaver](https://github.com/weaverryan) (❤️) en mars 2017 et a été l'outil de gestion
+des assets par défaut dans Symfony pendant de nombreuses années. Il permet aux développeurs d'utiliser des fonctionnalités et des bibliothèques JavaScript modernes,
+comme les modules ES6, les chunks optimisés, React, Vue.js, et bien plus.
+
+De nombreuses années plus tard, Webpack Encore est toujours maintenu et mis à jour, mais sa popularité a décliné avec l'arrivée
+de [Symfony AssetMapper](https://symfony.com/doc/current/frontend/asset_mapper.html), et l'essor d'outils plus modernes et
+plus rapides comme [Vite](https://vite.dev/) (ou [ESBuild](https://esbuild.github.io/), [Rspack](https://rspack.dev/), etc...).
+
+## Symfony AssetMapper
+
+Depuis Symfony 6.3, un nouveau composant nommé [AssetMapper](https://symfony.com/doc/current/frontend/asset_mapper.html) a
+été introduit.
+
+C'est la nouvelle façon recommandée de gérer les assets front-end dans les applications Symfony, sans avoir besoin de Node.js ni d'un
+bundler comme Webpack Encore. Grâce au support natif des modules ES par les navigateurs et aux import maps, AssetMapper vous permet
+d'utiliser des fonctionnalités et des bibliothèques JavaScript modernes directement dans le navigateur.
+
+Symfony AssetMapper est une excellente alternative à Webpack Encore pour les projets de petite à moyenne taille qui ne nécessitent pas
+de gestion d'assets complexe.
+
+Personnellement, en tant qu'amateur de Node.js et de bundlers, je préfère souvent utiliser une chaîne d'outils Node.js complète
+(avec des outils de qualité de code et de test) et Webpack Encore pour mes projets, sauf pour les très petits projets dont je ne
+me soucie pas vraiment et où AssetMapper convient parfaitement.
+
+## L'essor de Vite
+
+Vite est un outil de build front-end moderne qui a gagné en popularité ces dernières années grâce à sa rapidité et à sa simplicité.
+Il offre une expérience de développement bien plus rapide que les bundlers traditionnels basés sur webpack,
+grâce à son utilisation des modules ES natifs et au service des fichiers à la demande.
+
+Récemment, le 27 juillet 2025, [Vite](https://vitejs.dev/) a dépassé Webpack pour devenir le bundler JavaScript
+le plus téléchargé sur npm ([npmtrends.com/vite-vs-webpack](https://npmtrends.com/vite-vs-webpack)).
+
+Vite était déjà très rapide et efficace, et il intégrera bientôt [Rolldown](http://rolldown.rs/), un bundler
+basé sur Rust, qui le rendra encore plus **rapide**.
+
+Vite peut facilement être intégré aux applications Symfony grâce au [Vite Bundle de lhapaipai](https://github.com/lhapaipai/vite-bundle).
+
+## Comparaison rapide
+
+Voici une comparaison rapide de Webpack Encore, Symfony AssetMapper et Vite :
+
+| Fonctionnalité            | Webpack Encore                  | AssetMapper             | Vite                  |
+|:--------------------------|:--------------------------------|:------------------------|:----------------------|
+| **Complexité de mise en place** | Moyenne                   | Très faible             | Moyenne               |
+| **Performance**           | Bonne                           | Très bonne              | Excellente            |
+| **Écosystème**            | Vaste et stable                 | Symfony uniquement      | Vaste et croissant    |
+| **Idéal pour**            | Projets legacy/complexes        | Petits/moyens projets   | Projets modernes      |
+| **Statut Symfony**        | Legacy, mais toujours maintenu  | Choix recommandé        | Bundle communautaire  |
+
+## L'avenir de Webpack Encore
+
+Avec l'essor de Symfony AssetMapper et de Vite, l'avenir de Webpack Encore est peut-être incertain.
+
+Bien qu'il soit toujours maintenu et mis à jour (notamment les montées de version de Webpack et des loaders), webpack lui-même devient moins
+populaire et pertinent dans l'écosystème front-end :
+- la complexité et la configuration de webpack peuvent être décourageantes
+- l'API et la rapidité de Vite séduisent davantage les développeurs en quête d'un outil de build moderne et efficace
+- la communauté autour de Vite grandit rapidement, avec de nombreux plugins et intégrations en cours de développement
+
+En février 2024, j'ai ouvert [une discussion sur l'avenir de Webpack Encore](https://github.com/symfony/symfony/issues/59707)
+en suggérant que Webpack Encore soit déprécié au profit de Vite, et que le [Vite Bundle de lhapaipai](https://github.com/lhapaipai/vite-bundle)
+devienne l'alternative _officielle_ à Webpack Encore, sous l'organisation Symfony.
+
+Les choses n'ont pas beaucoup bougé depuis, mais je pense que, dans les prochaines années, Webpack Encore sera progressivement abandonné
+au profit d'outils plus modernes et efficaces comme Vite.
+
+## Conclusion
+
+1. **Webpack Encore** reste une **option viable** pour la gestion des assets dans les applications Symfony, en particulier pour les **projets legacy et complexes**
+2. **Symfony AssetMapper** est une **excellente alternative pour les projets de petite à moyenne taille** qui ne nécessitent pas de gestion d'assets complexe
+3. **Vite** est un outil de build moderne et efficace qui gagne en popularité dans l'écosystème front-end, et qui peut facilement
+   être intégré aux applications Symfony grâce à des **bundles communautaires**
+
+L'avenir de Webpack Encore est un peu incertain, mais il est toujours maintenu et mis à jour pour le moment.
+Alors que l'écosystème front-end continue d'évoluer, les développeurs devraient tenir compte des besoins de leur projet et choisir
+l'outil le plus adapté à leurs besoins.
+
+À l'avenir, Webpack Encore pourrait utiliser [Rspack](https://rspack.dev/) en interne pour rester pertinent et rapide… qui sait ! 👀
+
+Restez à l'écoute ! 🚀
