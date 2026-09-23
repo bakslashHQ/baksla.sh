@@ -4,12 +4,12 @@
         "pullRequests": 1180
     },
     "symfony-ux": {
-        "reviews": 653,
-        "pullRequests": 586
+        "reviews": 660,
+        "pullRequests": 597
     },
     "symfony-reprise": {
-        "reviews": 3,
-        "pullRequests": 72
+        "reviews": 4,
+        "pullRequests": 73
     },
     "webpack-encore": {
         "reviews": 80,
