@@ -103,7 +103,7 @@ assets.build:
 assets.dev:
 	@$(PNPM) dev
 
-## Symfony 🎵 - Extract tranlations
+## Symfony 🎵 - Extract translations
 translation.extract:
 	@$(SYMFONY) translation:extract --format yaml --domain messages --force fr
 	@$(SYMFONY) translation:extract --format yaml --domain messages --force en
