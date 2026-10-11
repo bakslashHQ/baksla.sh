@@ -4,15 +4,15 @@
         "pullRequests": 1180
     },
     "symfony-ux": {
-        "reviews": 689,
-        "pullRequests": 689
+        "reviews": 700,
+        "pullRequests": 711
     },
     "symfony-reprise": {
         "reviews": 4,
-        "pullRequests": 94
+        "pullRequests": 95
     },
     "webpack-encore": {
-        "reviews": 80,
+        "reviews": 81,
         "pullRequests": 152
     },
     "api-platform": {
@@ -28,7 +28,7 @@
         "pullRequests": 148
     },
     "oauth2-server-bundle": {
-        "reviews": 93,
+        "reviews": 95,
         "pullRequests": 33
     },
     "tactician": {
