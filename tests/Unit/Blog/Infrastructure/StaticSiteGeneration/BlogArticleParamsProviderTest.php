@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class BlogArticleParamsProviderTest extends TestCase
 {
-    public function testProvideParams(): void
+    public function testProvideParameterSets(): void
     {
         $repository = $this->createStub(ArticleRepository::class);
         $repository->method('findAll')->willReturn([
@@ -27,6 +27,6 @@ final class BlogArticleParamsProviderTest extends TestCase
             [
                 'slug' => 'article-2-slug',
             ],
-        ], iterator_to_array($provider->provideParams()));
+        ], iterator_to_array($provider->provideParameterSets()));
     }
 }

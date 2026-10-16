@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Blog\Infrastructure\StaticSiteGeneration;
 
 use App\Blog\Domain\Repository\ArticleRepository;
-use App\Shared\Infrastructure\StaticSiteGeneration\ParamsProviderInterface;
+use Bakslash\StaticSiteBundle\ParamsProvider\ParamsProviderInterface;
 
 final readonly class BlogArticleParamsProvider implements ParamsProviderInterface
 {
@@ -14,7 +14,7 @@ final readonly class BlogArticleParamsProvider implements ParamsProviderInterfac
     ) {
     }
 
-    public function provideParams(): iterable
+    public function provideParameterSets(): iterable
     {
         foreach ($this->articleRepository->findAll() as $article) {
             yield [

@@ -1305,6 +1305,12 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     script_attributes?: list<mixed>,
  *     link_attributes?: list<mixed>,
  * }
+ * @psalm-type BakslashStaticSiteConfig = array{
+ *     base_uri?: scalar|Param|null, // The absolute URL the generated site is served from, used for the absolute links baked into the pages (canonical, og:, sitemaps, feeds); it may include a base path (e.g. "https://example.com/docs"). Defaults to the router default URI (framework.router.default_uri) when left empty. // Default: ""
+ *     minify?: bool|Param, // Minify generated HTML and XML pages (requires sensiolabs/minify-bundle). // Default: false
+ *     clean_urls?: bool|Param, // Write HTML pages as "<path>/index.html" instead of "<path>.html", so the site serves clean URLs with no server rewrite rules. // Default: false
+ *     storage?: scalar|Param|null, // Where the generated site is written: a local directory path (a relative one resolves against the working directory), or a Flysystem operator service reference ("@service_id"). // Default: "%kernel.project_dir%/build"
+ * }
  * @psalm-type ConfigType = array{
  *     imports?: ImportsConfig,
  *     parameters?: ParametersConfig,
@@ -1318,6 +1324,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     ux_icons?: UxIconsConfig,
  *     sensiolabs_minify?: SensiolabsMinifyConfig,
  *     reprise?: RepriseConfig,
+ *     bakslash_static_site?: BakslashStaticSiteConfig,
  *     "when@dev"?: array{
  *         imports?: ImportsConfig,
  *         parameters?: ParametersConfig,
@@ -1334,6 +1341,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         ux_icons?: UxIconsConfig,
  *         sensiolabs_minify?: SensiolabsMinifyConfig,
  *         reprise?: RepriseConfig,
+ *         bakslash_static_site?: BakslashStaticSiteConfig,
  *     },
  *     "when@prod"?: array{
  *         imports?: ImportsConfig,
@@ -1348,6 +1356,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         ux_icons?: UxIconsConfig,
  *         sensiolabs_minify?: SensiolabsMinifyConfig,
  *         reprise?: RepriseConfig,
+ *         bakslash_static_site?: BakslashStaticSiteConfig,
  *     },
  *     "when@test"?: array{
  *         imports?: ImportsConfig,
@@ -1363,6 +1372,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         ux_icons?: UxIconsConfig,
  *         sensiolabs_minify?: SensiolabsMinifyConfig,
  *         reprise?: RepriseConfig,
+ *         bakslash_static_site?: BakslashStaticSiteConfig,
  *     },
  *     ...<string, ExtensionType|array{ // extra keys must follow the when@%env% pattern or match an extension alias
  *         imports?: ImportsConfig,

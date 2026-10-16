@@ -1,0 +1,7 @@
+bakslash_static_site:
+    storage: '%kernel.project_dir%/public/static-pages'
+    minify: true
+
+when@test:
+    bakslash_static_site:
+        storage: '%kernel.cache_dir%/static-pages'

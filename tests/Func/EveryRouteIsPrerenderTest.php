@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Func;
 
 use App\Blog\Infrastructure\Controller\PreviewOpenGraphImage;
-use App\Shared\Infrastructure\StaticSiteGeneration\Prerender;
+use Bakslash\StaticSiteBundle\Attribute\Prerender;
 use Symfony\Bundle\FrameworkBundle\Controller\RedirectController;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Routing\RouterInterface;

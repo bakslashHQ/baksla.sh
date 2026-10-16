@@ -82,7 +82,7 @@ ssg:
 		php sh -c " \
 			pnpm build && \
 			bin/console cache:clear && \
-			bin/console ssg:generate && \
+			bin/console static-site:generate -v && \
 			bin/console blog:generate-og-images \
 		"
 	@mkdir -p _site
