@@ -13,4 +13,5 @@ return [
     Symfony\UX\Icons\UXIconsBundle::class => ['all' => true],
     Sensiolabs\MinifyBundle\SensiolabsMinifyBundle::class => ['all' => true],
     Symfony\Reprise\RepriseBundle::class => ['all' => true],
+    Bakslash\StaticSiteBundle\BakslashStaticSiteBundle::class => ['all' => true],
 ];

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Shared\Infrastructure\StaticSiteGeneration\Prerender;
+use Bakslash\StaticSiteBundle\Attribute\Prerender;
 use Symfony\Bundle\FrameworkBundle\Controller\TemplateController;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 

@@ -4,74 +4,51 @@ declare(strict_types=1);
 
 namespace App\Tests\Func;
 
+use League\Flysystem\FilesystemOperator;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 final class GenerateStaticSiteTest extends KernelTestCase
 {
-    private string $outputDir;
-
-    private Filesystem $filesystem;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        self::bootKernel();
-        $this->filesystem = new Filesystem();
-        $this->outputDir = (string) self::getContainer()->getParameter('app.ssg_output_dir');
-
-        if ($this->filesystem->exists($this->outputDir)) {
-            $this->filesystem->remove($this->outputDir);
-        }
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        if ($this->filesystem->exists($this->outputDir)) {
-            $this->filesystem->remove($this->outputDir);
-        }
-    }
-
     public function testGenerateAllStaticPages(): void
     {
         $tester = $this->runSsgCommand();
 
         $this->assertSame(0, $tester->getStatusCode(), $tester->getDisplay());
 
-        $this->assertFileExists($this->outputDir . '/index.html');
-        $this->assertFileExists($this->outputDir . '/legal-notices.html');
-        $this->assertFileExists($this->outputDir . '/robots.txt');
-        $this->assertFileExists($this->outputDir . '/sitemap.xml');
-        $this->assertFileExists($this->outputDir . '/blog.html');
-        $this->assertFileExists($this->outputDir . '/team.html');
-        $this->assertFileExists($this->outputDir . '/blog/symfony-certification.html');
+        $storage = self::getContainer()->get('bakslash_static_site.filesystem');
+        $this->assertInstanceOf(FilesystemOperator::class, $storage);
+
+        foreach ([
+            'index.html',
+            'legal-notices.html',
+            'robots.txt',
+            // Both declare a route format while returning another Content-Type, so they are
+            // the first names to change should a route ever drop its explicit format.
+            'llms.txt',
+            'blog/feed.xml',
+            'sitemap.xml',
+            'blog.html',
+            'team.html',
+            'blog/symfony-certification.html',
+        ] as $path) {
+            $this->assertTrue($storage->fileExists($path), sprintf('Expected "%s" to be generated.', $path));
+        }
     }
 
-    public function testDryRunDoesNotDumpFiles(): void
+    private function runSsgCommand(): CommandTester
     {
-        $tester = $this->runSsgCommand([
-            '--dry-run' => true,
-        ]);
+        self::bootKernel();
 
-        $this->assertSame(0, $tester->getStatusCode());
-        $this->assertDirectoryDoesNotExist($this->outputDir);
-    }
-
-    /**
-     * @param array<string, mixed> $input
-     */
-    private function runSsgCommand(array $input = []): CommandTester
-    {
         $this->assertInstanceOf(KernelInterface::class, self::$kernel);
         $application = new Application(self::$kernel);
-        $command = $application->find('ssg:generate');
+        $command = $application->find('static-site:generate');
         $tester = new CommandTester($command);
-        $tester->execute($input);
+        $tester->execute([
+            '--allow-debug' => true,
+        ]);
 
         return $tester;
     }

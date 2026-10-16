@@ -8,6 +8,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-imagick": "*",
+        "bakslash/static-site-bundle": "^0.1",
         "fakerphp/faker": "^1.24.1",
         "league/commonmark": "^2.8.2",
         "phpdocumentor/reflection-docblock": "^6.0.3",

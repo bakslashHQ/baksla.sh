@@ -7,7 +7,7 @@ namespace App\Blog\Infrastructure\Controller;
 use App\Blog\Domain\Exception\MissingArticleException;
 use App\Blog\Domain\Repository\ArticleRepository;
 use App\Blog\Infrastructure\StaticSiteGeneration\BlogArticleParamsProvider;
-use App\Shared\Infrastructure\StaticSiteGeneration\Prerender;
+use Bakslash\StaticSiteBundle\Attribute\Prerender;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;

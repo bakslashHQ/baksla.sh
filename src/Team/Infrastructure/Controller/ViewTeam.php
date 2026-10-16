@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Team\Infrastructure\Controller;
 
-use App\Shared\Infrastructure\StaticSiteGeneration\Prerender;
 use App\Team\Domain\Repository\MemberRepository;
+use Bakslash\StaticSiteBundle\Attribute\Prerender;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Attribute\Route;
