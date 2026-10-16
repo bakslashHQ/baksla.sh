@@ -190,6 +190,6 @@ final class ViewSitemapTest extends FunctionalTestCase
         }
 
         $controller = $route->getDefault('_controller');
-        return !(\is_string($controller) && str_starts_with($controller, RedirectController::class));
+        return !\is_string($controller) || !str_starts_with($controller, RedirectController::class);
     }
 }
