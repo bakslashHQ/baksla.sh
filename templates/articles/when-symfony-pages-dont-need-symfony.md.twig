@@ -18,6 +18,8 @@ What we're about to describe has a name: **Static Site Generation (SSG)**. It's 
 
 > :pray: Big thanks to [Thomas Bibaut](https://github.com/tBibaut), who originally brought the idea of doing SSG with Symfony to the table. This article and the implementation it describes grew out of that initial spark.
 
+> :package: **Update, October 2026.** The bundle this article anticipates now exists: [`bakslash/static-site-bundle`](https://github.com/bakslashHQ/static-site-bundle), and this site runs on it. What follows describes the in-app implementation it was extracted from, with links pinned to that revision. Read it as a build log, not as installation instructions.
+
 ## The cost we are paying
 
 Let's put numbers on it.
@@ -177,10 +179,12 @@ The deploy is a `make ssg` target followed by `actions/upload-pages-artifact` an
 
 Beyond that, it's the same prerendering pipeline, the same controllers, the same templates. The Caddy fall-through to PHP is just removed, because there's nothing dynamic to fall back to.
 
-## Where this is heading
+## Where this went
 
-This is not a clever hack reserved to one website. The pattern is generic enough that **a dedicated bundle may appear soon** to handle the whole feature: the `#[Prerender]` attribute, the parameter provider contract, the build command, the dumpers. You'd just install it, drop the attribute on the controllers you want baked, and you're done.
+This was not a clever hack reserved to one website. The pattern turned out generic enough to extract, so it now lives in [`bakslash/static-site-bundle`](https://github.com/bakslashHQ/static-site-bundle): the `#[Prerender]` attribute, the parameter provider contract, the build command, the dumpers. You install it, drop the attribute on the controllers you want baked, and you're done.
 
-So the interesting question is not really *"should I do this?"*. It's *"should I structure my content routes today so that, when the bundle lands, opting in costs me one attribute per controller?"*
+This very site switched over to it, which deleted around a thousand lines of the code described above, including four test classes the bundle now covers itself. A handful of things got sharper on the way out: pages are written through [Flysystem](https://flysystem.thephpleague.com/), so S3 or any other adapter works without extra code; redirects become static stubs; and the command refuses to run against a kernel in debug mode, because that one bakes the web debug toolbar into every page.
+
+So the interesting question is not really *"should I do this?"*. It's *"which of my routes are stable enough to be baked?"*
 
 In the end, **the cheapest Symfony request is the one the webserver answered before Symfony runtime even heard about it**.
