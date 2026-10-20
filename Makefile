@@ -72,7 +72,7 @@ cc: sf
 
 ## Symfony 🎵 - Generate static site
 ssg:
-	@rm -rf _site public/static-pages
+	@rm -rf _site
 	@$(DOCKER_COMP) exec \
 		-e APP_ENV=prod \
 		-e DEFAULT_URI \
@@ -80,10 +80,14 @@ ssg:
 		-e GA_APP_NAME \
 		-e GA_MEASUREMENT_ID \
 		php sh -c " \
+			rm -rf public/static-pages && \
 			pnpm build && \
 			bin/console cache:clear && \
 			bin/console static-site:generate -v && \
-			bin/console blog:generate-og-images \
+			bin/console blog:generate-og-images; \
+			status=\$$?; \
+			chown -Rf $(shell id -u):$(shell id -g) public/build public/open-graph public/static-pages; \
+			exit \$$status \
 		"
 	@mkdir -p _site
 	@$(DOCKER_COMP) cp php:/app/public/. _site/
