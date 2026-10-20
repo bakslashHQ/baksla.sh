@@ -1,0 +1,138 @@
+---
+author: mathias-arlaud
+title: "StaticSiteBundle: Symfony routes as static files"
+description: "This page is a static file, rendered by Symfony at build time. The code behind it is now a bundle: StaticSiteBundle v0.1."
+published_at: 2026-10-20
+slug: introducing-static-site-bundle
+---
+
+You're reading a static file: no PHP ran when you opened this page. Symfony rendered it once, during our last deploy, and since then GitHub Pages has simply served the file.
+
+In May, I explained [how that works](when-symfony-pages-dont-need-symfony). At the time, the code lived in this repository. But nothing in it was specific to us, so we moved it out.
+
+It's now [`bakslash/static-site-bundle`](https://github.com/bakslashHQ/static-site-bundle), and v0.1.0 is out 🎉 To see what it does, let's follow this page from controller to file.
+
+## Routes, not content
+
+Many static site generators start from content: Markdown files, collections, front matter. Then you fit your site into their model.
+
+This bundle starts from your routes instead. To produce this page, for instance, it built a `Request` for `/blog/introducing-static-site-bundle`, passed it to our kernel, then wrote the `Response` to `blog/introducing-static-site-bundle.html`. Nothing more.
+
+That said, if you want a content-first tool, [Stenope](https://github.com/StenopePHP/Stenope) is a great one. This bundle only turns routes into files.
+
+## What a file buys you
+
+First, there is **nothing new to learn**. This page went through our usual controller, Twig templates and services, with the same code and the same tests. If a page works in your browser, then it works as a static file.
+
+Then, it is **fast and cheap**. A typical Symfony page takes 5 to 15 ms to render, while a static file is served in about 0.2 ms. There are no PHP workers to size, and free hosts like GitHub Pages or Cloudflare Pages are enough. In fact, this site costs nothing to host.
+
+You also choose **page by page**. Nothing is generated unless you mark it, so you can bake the stable pages and keep forms, search and dashboards dynamic, all in the same app. The web server [serves the file when one exists](https://github.com/bakslashHQ/static-site-bundle#serving-the-generated-site), and falls back to PHP otherwise. And if you change your mind, just remove the attribute.
+
+Finally, it leaves **less to attack and less to patch**. Nothing runs behind this page: no runtime to exploit, and no rushed server upgrade when an advisory drops. Our dependencies only run in CI.
+
+## One attribute
+
+Install the bundle:
+
+```bash
+composer require bakslash/static-site-bundle
+```
+
+Then mark a controller with `#[Prerender]`. Here's our team page:
+
+```php
+use Bakslash\StaticSiteBundle\Attribute\Prerender;
+
+#[Route(path: '/team', name: 'app_team', methods: ['GET'])]
+#[Prerender]
+public function __invoke(): Response
+{
+    return new Response($this->twig->render('pages/team/index.html.twig', [
+        'members' => $this->memberRepository->findAll(),
+    ]));
+}
+```
+
+And generate:
+
+```bash
+bin/console static-site:generate --env=prod
+```
+
+You get `build/team.html`, the default output directory. *That's the whole loop.*
+
+## This page has a slug
+
+The team page is easy: one route, one file. This page, however, lives at `/blog/{slug}`, and the bundle can't guess slugs. Nor should it know about our articles.
+
+So the controller points to a provider that lists them:
+
+```php
+use Bakslash\StaticSiteBundle\ParamsProvider\ParamsProviderInterface;
+
+final readonly class BlogArticleParamsProvider implements ParamsProviderInterface
+{
+    public function __construct(
+        private ArticleRepository $articleRepository,
+    ) {
+    }
+
+    public function provideParameterSets(): iterable
+    {
+        foreach ($this->articleRepository->findAll() as $article) {
+            yield ['slug' => $article->slug];
+        }
+    }
+}
+```
+
+```php
+#[Route(path: '/blog/{slug}', name: 'app_blog_article', methods: ['GET'])]
+#[Prerender(params: BlogArticleParamsProvider::class)]
+public function __invoke(string $slug): Response
+```
+
+One parameter set, one file. As a result, publishing this article only took a Markdown file in the repository: the provider picked it up, then the next build wrote one more page. No configuration touched.
+
+## The build that made this page
+
+Here's the bundle's whole configuration on this site:
+
+```yaml
+bakslash_static_site:
+    storage: '%kernel.project_dir%/public/static-pages'
+    minify: true
+```
+
+And here's what the build printed:
+
+```
+ ✓ /
+ ✓ /legal-notices
+ ✓ /robots.txt
+ ✓ /llms.txt
+ ✓ /sitemap.xml
+ ✓ /blog/introducing-static-site-bundle
+ ✓ /blog/fixing-symfony-ux-security-vulnerabilities
+ ✓ /blog/when-symfony-pages-dont-need-symfony
+ ✓ /blog/webpack-encore-whats-new-8-months-later
+ ✓ /blog/webpack-encore-current-state-and-future
+ ✓ /blog/symfony-certification
+ ✓ /blog
+ ✓ /blog/feed.xml
+ ✓ /team
+
+ [OK] Generated 14 page(s).
+```
+
+Line six is this page.
+
+Note also `robots.txt`, `sitemap.xml` and `feed.xml`: the file extension comes from the route `_format` or the response `Content-Type`, so non-HTML routes work the same way.
+
+In fact, every public page of the site is in that list. So there is **no PHP in production at all**: GitHub Actions builds the files, then GitHub Pages serves them.
+
+## Your turn
+
+This is a v0.1: the API is quite stable already, small on purpose, yet it may change before v1.0 gets released.
+
+This page was a controller call once, and now it's a file. Pick a page of yours that hasn't changed in months, add the attribute, and let it become one too. And if anything breaks, [open an issue](https://github.com/bakslashHQ/static-site-bundle/issues).
