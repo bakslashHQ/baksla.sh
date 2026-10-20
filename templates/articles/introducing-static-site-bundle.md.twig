@@ -1,7 +1,7 @@
 ---
 author: mathias-arlaud
 title: "StaticSiteBundle: Symfony routes as static files"
-description: "This page is a static file, rendered by Symfony at build time. The code behind it is now a bundle: StaticSiteBundle 0.1."
+description: "This page is a static file, rendered by Symfony at build time. The code behind it is now a bundle: StaticSiteBundle v0.1."
 published_at: 2026-10-20
 slug: introducing-static-site-bundle
 ---
@@ -10,7 +10,7 @@ You're reading a static file: no PHP ran when you opened this page. Symfony rend
 
 In May, I explained [how that works](when-symfony-pages-dont-need-symfony). At the time, the code lived in this repository. But nothing in it was specific to us, so we moved it out.
 
-It's now [`bakslash/static-site-bundle`](https://github.com/bakslashHQ/static-site-bundle), and 0.1.0 is out. To see what it does, let's follow this page from controller to file.
+It's now [`bakslash/static-site-bundle`](https://github.com/bakslashHQ/static-site-bundle), and v0.1.0 is out 🎉 To see what it does, let's follow this page from controller to file.
 
 ## Routes, not content
 
@@ -24,7 +24,7 @@ That said, if you want a content-first tool, [Stenope](https://github.com/Stenop
 
 First, there is **nothing new to learn**. This page went through our usual controller, Twig templates and services, with the same code and the same tests. If a page works in your browser, then it works as a static file.
 
-Then, it is **fast and cheap**. A Symfony page takes 5 to 15 ms to render, while a static file is served in about 0.2 ms. There are no PHP workers to size, and free hosts like GitHub Pages or Cloudflare Pages are enough. In fact, this site costs nothing to host.
+Then, it is **fast and cheap**. A typical Symfony page takes 5 to 15 ms to render, while a static file is served in about 0.2 ms. There are no PHP workers to size, and free hosts like GitHub Pages or Cloudflare Pages are enough. In fact, this site costs nothing to host.
 
 You also choose **page by page**. Nothing is generated unless you mark it, so you can bake the stable pages and keep forms, search and dashboards dynamic, all in the same app. The web server [serves the file when one exists](https://github.com/bakslashHQ/static-site-bundle#serving-the-generated-site), and falls back to PHP otherwise. And if you change your mind, just remove the attribute.
 
@@ -133,6 +133,6 @@ In fact, every public page of the site is in that list. So there is **no PHP in 
 
 ## Your turn
 
-This is a 0.1: the API is small on purpose, and it may still change before 1.0.
+This is a v0.1: the API is quite stable already, small on purpose, yet it may change before v1.0 gets released.
 
 This page was a controller call once, and now it's a file. Pick a page of yours that hasn't changed in months, add the attribute, and let it become one too. And if anything breaks, [open an issue](https://github.com/bakslashHQ/static-site-bundle/issues).
