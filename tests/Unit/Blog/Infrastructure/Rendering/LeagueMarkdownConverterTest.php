@@ -62,8 +62,9 @@ final class LeagueMarkdownConverterTest extends TestCase
      */
     public static function structuralDataProvider(): iterable
     {
-        yield 'h2 has no class' => ['#<h2>title</h2>#', '## title'];
-        yield 'h2 then h3 keeps both' => ["#<h2>title</h2>\n<h3 class=#", "## title\n### subtitle"];
+        yield 'h2 has no class' => ['#<h2><span>title</span></h2>#', '## title'];
+        yield 'h2 then h3 keeps both' => ["#<h2><span>title</span></h2>\n<h3 class=#", "## title\n### subtitle"];
+        yield 'h2 keeps inline code in the same grid cell as its text' => ['#<h2><span>about <code[^>]*>css\(\)</code></span></h2>#', '## about `css()`'];
         yield 'emphasis stays plain' => ['#<em>foo</em>#', '_foo_'];
         yield 'link keeps href' => ['#href="https://example\.com"#', '[foo](https://example.com)'];
         yield 'code block exposes language' => ['#<pre data-lang="php"#', "```php\necho 'hi';\n```"];

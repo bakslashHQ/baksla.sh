@@ -6,6 +6,7 @@ namespace App\Blog\Infrastructure\Rendering;
 
 use App\Blog\Infrastructure\Rendering\CodeBlock\TempestCodeBlockRenderer;
 use App\Blog\Infrastructure\Rendering\Emoji\GithubEmojiExtension;
+use App\Blog\Infrastructure\Rendering\Heading\SectionHeadingRenderer;
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\CommonMark\Node\Block;
@@ -99,6 +100,7 @@ final class LeagueMarkdownConverter
             $environment->addExtension(new GithubEmojiExtension());
 
             $environment->addRenderer(Block\FencedCode::class, $this->codeBlockRenderer);
+            $environment->addRenderer(Block\Heading::class, new SectionHeadingRenderer());
             $environment->addRenderer(Table::class, new HtmlDecorator(new TableRenderer(), 'div', [
                 'class' => 'my-6 -mx-4 sm:mx-0 px-4 sm:px-0 overflow-x-auto',
             ]));
