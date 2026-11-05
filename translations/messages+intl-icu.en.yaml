@@ -243,6 +243,7 @@ team.review.get_method_1: "While it works, <0>#[Route(methods: ['GET'])]</0> is 
 team.review.get_method_2: Indeed, better leverage Symfony Routing capabilities so you can focus on the business logic.
 team.review.pagination_1: Should it return a paginated result instead?
 team.review.pagination_2: AFAIK, baksla.sh isn't gonna have enough members to need pagination anytime soon 😉
+team.review.template_attribute: "Agreed, and while we're at it: skip <0>render()</0> entirely with the <1>#[Template] attribute</1>. Just return the array, no more <0>Environment</0> needed."
 
 team.bio.hugo-alliaume: |-
     A full-stack developer since 2009, Hugo likes to learn a lot of new things, so he's super versatile. Since then, he has specialized in web development, mainly with PHP and JavaScript, but also in back-end and browser-side performance optimization.
@@ -250,6 +251,14 @@ team.bio.hugo-alliaume: |-
     Hugo recently joined the Symfony UX Core team. A fan of open-source since the very beginning, he has contributed to it either with his own projects or by working on Symfony, more specifically on Webpack Encore and Symfony UX.
 
     As a fine gourmet, you can probably find him at the conference food buffets.
+team.bio.enzo-santamaria: |-
+    Enzo switched careers from e-commerce to become a PHP/Symfony developer in 2022, and brought his business sense along with him. That's his greatest strength: a genuine appetite for the business side, and a knack for turning real-world needs into sound technical solutions.
+
+    Drawn to software architecture and API design, he contributes to Symfony and API Platform in his spare time.
+
+    A regular at AFUP events and SymfonyCon, he kept crossing paths with the baksla.sh crew long before joining it. Now he gets to learn every day from the people who build the tools he relies on, and to keep growing alongside them.
+
+    Away from the keyboard, he's either riding his motorcycle or out for a run. Florian finally has someone to ride with 🏍️
 team.bio.felix-eymonot: |-
     Félix is a PHP developer specializing in Symfony since 2017, certified "Advanced" in version 6. With agency experience across multiple industries, he builds robust, scalable solutions tailored to business needs.
 
