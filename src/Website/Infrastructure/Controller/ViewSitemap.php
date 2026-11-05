@@ -6,11 +6,10 @@ namespace App\Website\Infrastructure\Controller;
 
 use App\Blog\Domain\Repository\ArticleRepository;
 use Bakslash\StaticSiteBundle\Attribute\Prerender;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bridge\Twig\Attribute\Template;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Twig\Environment;
 
 #[AsController]
 final readonly class ViewSitemap
@@ -18,13 +17,16 @@ final readonly class ViewSitemap
     public function __construct(
         private ArticleRepository $articleRepository,
         private UrlGeneratorInterface $urlGenerator,
-        private Environment $twig,
     ) {
     }
 
+    /**
+     * @return array{urls: list<array{loc: string, lastmod?: string}>}
+     */
     #[Route(path: 'sitemap.xml', name: 'app_sitemap', methods: ['GET'], format: 'xml')]
     #[Prerender]
-    public function __invoke(): Response
+    #[Template('pages/website/sitemap.xml.twig')]
+    public function __invoke(): array
     {
         $urls = [
             [
@@ -49,8 +51,8 @@ final readonly class ViewSitemap
             ];
         }
 
-        return new Response($this->twig->render('pages/website/sitemap.xml.twig', [
+        return [
             'urls' => $urls,
-        ]));
+        ];
     }
 }
