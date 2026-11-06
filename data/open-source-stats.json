@@ -4,16 +4,16 @@
         "pullRequests": 1180
     },
     "symfony-ux": {
-        "reviews": 700,
-        "pullRequests": 711
+        "reviews": 774,
+        "pullRequests": 794
     },
     "symfony-reprise": {
         "reviews": 4,
-        "pullRequests": 95
+        "pullRequests": 97
     },
     "webpack-encore": {
-        "reviews": 81,
-        "pullRequests": 152
+        "reviews": 83,
+        "pullRequests": 155
     },
     "api-platform": {
         "reviews": 38,
@@ -21,14 +21,14 @@
     },
     "sylius": {
         "reviews": 24,
-        "pullRequests": 33
+        "pullRequests": 34
     },
     "lexik-jwt": {
         "reviews": 130,
         "pullRequests": 148
     },
     "oauth2-server-bundle": {
-        "reviews": 95,
+        "reviews": 98,
         "pullRequests": 33
     },
     "tactician": {
