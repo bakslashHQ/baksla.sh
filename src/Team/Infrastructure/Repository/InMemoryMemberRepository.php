@@ -39,6 +39,7 @@ final readonly class InMemoryMemberRepository implements MemberRepository
         return new self([
             new Member(MemberId::EnzoSantamaria, 'Enzo', 'Santamaria', 'Enz000', [
                 SocialNetwork::github('Enz000'),
+                SocialNetwork::symfony('enz000'),
                 SocialNetwork::linkedin('enzo-santamaria'),
             ]),
             new Member(MemberId::FelixEymonot, 'Félix', 'Eymonot', 'feymo', [
