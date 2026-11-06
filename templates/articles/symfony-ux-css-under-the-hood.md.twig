@@ -1,0 +1,176 @@
+---
+author: hugo-alliaume
+title: "How Symfony UX CSS Works Under the Hood 🎨"
+description: "UX CSS gives the same class names and CSS as Panda CSS, without Node.js. Here is how: Panda's own test suite as the spec, and Twig doing the work when templates compile."
+published_at: 2026-11-06
+slug: symfony-ux-css-under-the-hood
+---
+
+Symfony UX 3.7 is out, and it ships UX CSS: an experimental package that gives Twig a `css()` function inspired by [Panda CSS](https://panda-css.com/). The [release announcement](https://symfony.com/blog/symfony-ux-3-7-released) covers what it does. This article is about how it works inside, and how I built it.
+
+UX CSS makes two promises. For the same configuration, it gives the same class names and the same CSS as Panda, without running Panda or Node.js. And a `css()` call written in the template costs nothing at runtime. Neither one holds by accident.
+
+Here is the second one in action. This template:
+
+{% verbatim %}
+```twig
+<button class="{{ css({ p: 'md', color: 'primary', _hover: { color: 'fg' } }) }}">Save</button>
+```
+{% endverbatim %}
+
+compiles to this PHP:
+
+```php
+yield "<button class=\"";
+yield (string) $this->escaper->escape(("p_md c_primary hover:c_fg"), "html", null, true);
+yield "\">Save</button>";
+```
+
+The class names are already there, as a plain string. Let's see how they got there, and how we know they are the right ones.
+
+## Panda's test suite is the spec
+
+When you port a library from another language, writing the code is not the hard part. Knowing when you're done is. No document says which class name Panda gives to `{ width: ['50px', null, '60px'] }`, or in which order it writes the rules. Panda's behavior is the spec, and its own test suite is the best description of it.
+
+So UX CSS doesn't rewrite Panda's tests: it records them. The [`tools/panda-golden/record.mjs`](https://github.com/symfony/ux-css/tree/3.x/tools/panda-golden/record.mjs) script:
+
+1. clones Panda at a pinned commit;
+2. patches Panda's source to add recording hooks, in the rule processor, the parser test fixture, the token and reset generators, and the static CSS helpers;
+3. runs Panda's vitest suite, then five codegen scenarios from Panda's sandbox, where it wraps the generated `css()` function;
+4. writes every recorded call, with its input, its config and its output, as JSON fixtures.
+
+The patches go through a small helper that refuses to guess:
+
+```js
+const replaceOnce = (file, search, replacement) => {
+    const content = readFileSync(file, 'utf8');
+    const first = content.indexOf(search);
+    if (first === -1 || content.indexOf(search, first + 1) !== -1) {
+        throw new Error(`Expected exactly one occurrence of ${JSON.stringify(search)} in ${file}.`);
+    }
+    writeFileSync(file, content.slice(0, first) + replacement + content.slice(first + search.length));
+};
+```
+
+If Panda changes the code where a hook goes, the script stops and prints the snippet it couldn't find, instead of silently recording fewer cases. Moving to a newer Panda means changing the commit and running the script again (about a minute once Panda's dependencies are installed). Then you fix what broke.
+
+Here is one recorded case, from Panda's `atomic-rule.test.ts` (trimmed):
+
+```json
+{
+    "inputs": [{ "width": ["50px", "60px"] }],
+    "expected": {
+        "classNames": ["w_50px", "sm\\:w_60px"],
+        "css": "@layer utilities {\n  .w_50px {\n    width: 50px;\n}\n\n  @media screen and (min-width: 40rem) {\n    .sm\\:w_60px {\n      width: 60px;\n}\n}\n}"
+    }
+}
+```
+
+The recorder produces 522 cases like this one, from 41 of Panda's test files. It also records what `utility.transform()` returns for each of the 455 utilities, with a few values each: 4,388 more records. Add the token and validation tests, and the golden suite runs **5,108 PHPUnit tests** built from Panda's behavior.
+
+Not every case is in scope. 156 were flagged as unsupported when they were recorded (JSX, `cva()`, patterns, config hooks), and 53 more are out of scope for this first version: the template literal syntax, merging several style objects in one call, themes, hashed class names, and a few others. Each of the remaining 313 cases gives the same output as Panda, byte for byte.
+
+Those 313 are listed in [`expectations.php`](https://github.com/symfony/ux-css/tree/3.x/tests/Fixtures/Panda/expectations.php), and that list is a ratchet. A case on it must keep passing, and the script that updates the list refuses to drop one unless you pass `--allow-regressions`. Supporting a new Panda feature means making its cases pass. Then they are locked in.
+
+Validation follows the same idea. When a call in Panda's tests sits under a `@ts-expect-error` comment, the recorder notes it. [`PandaValidationTest`](https://github.com/symfony/ux-css/tree/3.x/tests/Golden/PandaValidationTest.php) then checks that the PHP validator rejects what Panda's TypeScript types reject, and accepts the rest.
+
+## Byte for byte, really
+
+Matching Panda byte for byte forces you to port things nobody would port by choice.
+
+JavaScript and PHP disagree on small things. An object in JavaScript lists its integer-like keys first, in ascending order, while a PHP array keeps the insertion order. `\s` doesn't match the same characters in JavaScript and in PCRE. Numbers don't turn into strings the same way. So [`JsValue`](https://github.com/symfony/ux-css/tree/3.x/src/Engine/JsValue.php) reimplements JavaScript's conversions, "so that values come out exactly as in Panda":
+
+```php
+// JavaScript's \s; PCRE's \s differs on U+0085 and U+FEFF
+public const WHITESPACE = '[\t\n\x{0B}\f\r \x{A0}\x{1680}\x{2000}-\x{200A}\x{2028}\x{2029}\x{202F}\x{205F}\x{3000}\x{FEFF}]';
+```
+
+The CSS goes the same way. Panda runs its output through postcss, and the order of the passes shows in the result. [`Optimizer`](https://github.com/symfony/ux-css/tree/3.x/src/Engine/Css/Optimizer.php) runs the same passes on a small hand-written CSS tree, in the same order, down to a merged rule keeping the whitespace it had before the merge. [`MergeRules`](https://github.com/symfony/ux-css/tree/3.x/src/Engine/Css/MergeRules.php) ports the copy of postcss-merge-rules that Panda inlines. There is no PostCSS and no Node.js involved.
+
+Only one comparison is normalized: token CSS, because Panda parses it several times and leaves random indentation behind. Everything else must match exactly.
+
+## Twig does the work at compile time
+
+Back to the first promise. Twig compiles each template once into a PHP class, and before that, a node visitor can rewrite the template's tree. [`CssNodeVisitor`](https://github.com/symfony/ux-css/tree/3.x/src/Twig/CssNodeVisitor.php) finds every `css()` call and resolves as much as it can while the template compiles.
+
+A word on vocabulary first: in Twig, `{ p: 'md' }` is called a *hash*. Nothing gets hashed here: class names stay readable (`p_md`), and Panda's `hash: true` option is not supported.
+
+A hash of constants becomes one string, as shown at the top. The visitor also handles a few common shapes:
+
+- a ternary with constant branches becomes two strings, and Twig picks one when the page renders;
+- a variable set once to a constant with {% verbatim %}`{% set %}`{% endverbatim %}, before the call, in the same body, counts as a constant;
+- a mixed hash is split: the constant part is compiled to a string, and only the rest goes to the runtime.
+
+For a ternary, {% verbatim %}`{{ css({ p: 'md', color: active ? 'primary' : 'fg' }) }}`{% endverbatim %}, the compiled template holds both class lists (variable lookup simplified):
+
+```php
+("p_md")." ".($active ? ("c_primary") : ("c_fg"))
+```
+
+For a mixed hash, {% verbatim %}`{{ css({ p: 'md', _hover: { color: color } }) }}`{% endverbatim %}, only the dynamic key reaches the runtime:
+
+```php
+$this->env->getRuntime("Symfony\\UX\\Css\\Twig\\CssRuntime")->append(("p_md"), ["_hover" => ["color" => $color]])
+```
+
+The visitor is careful with variables. A variable only counts if it is set exactly once, before the call, and not inside an `if`, a `for` or a `with`. The tests list nine cases that must stay at runtime, like a variable set twice, or set after the call. When in doubt, the runtime takes over: a wrong constant would be a silent bug, while a runtime call costs 1 to 10 µs.
+
+One more detail: even a constant string still goes through Twig's escaper. That's on purpose. [`CssExpression`](https://github.com/symfony/ux-css/tree/3.x/src/Twig/CssExpression.php) is not a constant expression, so Twig escapes it like any other string. The cost is the cost of printing a string.
+
+Since the visitor validates the hash while compiling, a mistake becomes a Twig syntax error, with the template and the line:
+
+```
+Unknown property "colr". Did you mean "color" in "error.html.twig" at line 1?
+```
+
+So `lint:twig` catches it in CI, and `cache:warmup` fails at deploy, outside of debug mode.
+
+## Where the stylesheet comes from
+
+Class names are half of the job. The other half is the CSS file.
+
+The node visitor accepts a collector. [`TemplateScanner`](https://github.com/symfony/ux-css/tree/3.x/src/Dumper/TemplateScanner.php) parses every template whose source contains `css(`, without rendering it, and every hash the visitor resolves lands in an index, per template, with its modification time. [`StylesheetDumper`](https://github.com/symfony/ux-css/tree/3.x/src/Dumper/StylesheetDumper.php) then merges all of them, writes one rule per style however many templates use it, and saves `var/ux_css/styles.css`.
+
+In dev, a request listener scans only the templates that changed since the last request, and rewrites the CSS only if its content changed. With 200 templates, that's about 2 ms per request when nothing changed, and about 15 ms after one template changed. In prod, a cache warmer writes compact CSS: about 180 ms for 200 templates. AssetMapper serves the file from `var/ux_css`, and Webpack Encore or Symfony Reprise import it like any other stylesheet.
+
+A scan can't find a value only known when the page renders. For those, the `static_css` option lists the values to generate ahead of time, and in debug mode, the runtime logs a warning when a class has no CSS.
+
+## Teaching editors and PHPStan about `css()`
+
+This part happened outside of the Symfony UX repository. If you write bundles, it's the one you can reuse.
+
+A `css()` call in Twig is a hash literal, and no tool knew its keys. So in debug mode, UX CSS writes `config/reference_css.php`: a `CssStyles` array shape built from your tokens, conditions and breakpoints, which [`CssRuntime::css()`](https://github.com/symfony/ux-css/tree/3.x/src/Twig/CssRuntime.php) takes as its parameter type:
+
+```php
+/**
+ * @psalm-type ColorsToken = 'blue.500'|'primary'|string
+ * @psalm-type CssStyles = array{
+ *     color?: ColorsToken|array<ColorsToken|array<array-key, mixed>>,
+ *     p?: SpacingToken|array<SpacingToken|array<array-key, mixed>>,
+ *     _hover?: CssStylesNested,
+ *     md?: CssStylesNested,
+ *     ...
+ * }
+ */
+```
+
+That raised two problems.
+
+First, no editor completed the hash passed to a Twig function from the array shape of its PHP parameter. I sent [a pull request](https://github.com/Haehnchen/idea-php-symfony2-plugin/pull/2889) to the Symfony plugin for PhpStorm, released in version 2026.2.314, and [Symfony Language Tools](https://github.com/symfony/language-tools) got the same feature in 0.24.0. It works for any Twig function with an array shape parameter, not only `css()`.
+
+Second, PHPStan. The shape has about 840 keys, 126 of them pointing to a nested shape, and analysing a file with a single `css()` call **took 66 seconds** with PHPStan 2.2.16. I opened [an issue](https://github.com/phpstan/phpstan/issues/15348) with a public reproducer. [Markus Staab](https://github.com/staabm) picked it up, and a series of fixes, including one of mine, landed in PHPStan 2.3.0 and 2.3.1. The same analysis **now takes 3.6 seconds**.
+
+When I opened the PhpStorm pull request, I wrote that UX CSS "may not be released" because of these performance issues. A few upstream fixes later, it shipped. The nesting is still typed one level deep only (`CssStylesNested`), because PHPStan refuses a type that refers to itself, and each nested level slows the analysis down.
+
+So if your Twig function takes a hash, an array shape on its PHP parameter now buys you completion in both editors. And when a tool chokes on your types, a small public reproducer is the fastest way to get it fixed.
+
+## What's next
+
+UX CSS is experimental. Some Panda features are not supported yet: Panda's recipes (`cva()`) and slot recipes, patterns (`stack`, `grid`...), text, layer and animation styles, themes, and hashed class names. Each of them is a set of skipped golden cases waiting for their turn, and supporting one means making those cases pass.
+
+Two honest notes:
+
+1. "Same as Panda" is exactly as true as the tests: for the syntax in scope, against one pinned Panda commit. Outside of that, it's a promise I have not checked yet.
+2. About 64,000 of the 114,000 lines of [the first pull request](https://github.com/symfony/ux/pull/3933) are recorded fixtures. Reviewers could skip them, but they are the part of the code I trust the most.
+
+The [documentation](https://symfony.com/bundles/ux-css/current/index.html) has everything else, and there is [a live demo](https://ux.symfony.com/css) on ux.symfony.com. Try it on a page of yours, and if something doesn't fit your application, [open an issue](https://github.com/symfony/ux/issues). Now is when feedback matters most. 🚀
