@@ -150,6 +150,14 @@
             <twig:Team:ReviewComment :member="members['yazid-hassani']">
                 {{ 'team.review.pagination_2'|trans }}
             </twig:Team:ReviewComment>
+            <twig:Team:ReviewComment :member="members['enzo-santamaria']">
+                {{ 'team.review.template_attribute'|trans|replace({
+                    '<0>': codeOpen,
+                    '</0>': codeClose,
+                    '<1>': anchorOpen|replace({'%href%': 'https://symfony.com/doc/current/templates.html#rendering-a-template-in-controllers'}),
+                    '</1>': anchorClose,
+                })|raw }}
+            </twig:Team:ReviewComment>
         </twig:Team:Review>
 
         <twig:Team:CodeLine number="36" type="+" indent="2">]));</twig:Team:CodeLine>
