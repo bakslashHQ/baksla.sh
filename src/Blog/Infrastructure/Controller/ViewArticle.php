@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Blog\Infrastructure\Controller;
 
 use App\Blog\Domain\Exception\MissingArticleException;
+use App\Blog\Domain\Model\Article;
 use App\Blog\Domain\Repository\ArticleRepository;
 use App\Blog\Infrastructure\StaticSiteGeneration\BlogArticleParamsProvider;
 use Bakslash\StaticSiteBundle\Attribute\Prerender;
+use Symfony\Bridge\Twig\Attribute\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
@@ -24,9 +26,13 @@ final readonly class ViewArticle
     ) {
     }
 
+    /**
+     * @return array{article: Article}|Response
+     */
     #[Route(path: '/blog/{slug<[a-z0-9-]+>}.{_format<md>?html}', name: 'app_blog_article', methods: ['GET'])]
     #[Prerender(params: BlogArticleParamsProvider::class)]
-    public function __invoke(string $slug, Request $request): Response
+    #[Template('pages/blog/article.html.twig')]
+    public function __invoke(string $slug, Request $request): array|Response
     {
         try {
             $article = $this->articleRepository->getBySlug($slug);
@@ -43,8 +49,8 @@ final readonly class ViewArticle
             );
         }
 
-        return new Response($this->twig->render('pages/blog/article.html.twig', [
+        return [
             'article' => $article,
-        ]));
+        ];
     }
 }

@@ -4,28 +4,32 @@ declare(strict_types=1);
 
 namespace App\Team\Infrastructure\Controller;
 
+use App\Team\Domain\Model\Member;
+use App\Team\Domain\Model\MemberId;
 use App\Team\Domain\Repository\MemberRepository;
 use Bakslash\StaticSiteBundle\Attribute\Prerender;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bridge\Twig\Attribute\Template;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Attribute\Route;
-use Twig\Environment;
 
 #[AsController]
 final readonly class ViewTeam
 {
     public function __construct(
-        private Environment $twig,
         private MemberRepository $memberRepository,
     ) {
     }
 
+    /**
+     * @return array{members: array<value-of<MemberId>, Member>}
+     */
     #[Route(path: '/team', name: 'app_team', methods: ['GET'])]
     #[Prerender]
-    public function __invoke(): Response
+    #[Template('pages/team/index.html.twig')]
+    public function __invoke(): array
     {
-        return new Response($this->twig->render('pages/team/index.html.twig', [
+        return [
             'members' => $this->memberRepository->findAll(),
-        ]));
+        ];
     }
 }
