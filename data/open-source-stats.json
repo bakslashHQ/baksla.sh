@@ -4,16 +4,16 @@
         "pullRequests": 1180
     },
     "symfony-ux": {
-        "reviews": 774,
-        "pullRequests": 794
+        "reviews": 779,
+        "pullRequests": 800
     },
     "symfony-reprise": {
         "reviews": 4,
-        "pullRequests": 97
+        "pullRequests": 98
     },
     "webpack-encore": {
         "reviews": 83,
-        "pullRequests": 155
+        "pullRequests": 158
     },
     "api-platform": {
         "reviews": 38,
@@ -41,6 +41,6 @@
     },
     "phpstan-symfony-ux": {
         "reviews": 1,
-        "pullRequests": 22
+        "pullRequests": 28
     }
 }
