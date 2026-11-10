@@ -1,6 +1,6 @@
 {% extends 'pages/base.html.twig' %}
 
-{% block title %}{{ article.title }} — baksla.sh{% endblock %}
+{% block title %}{{ article.title }} | baksla.sh{% endblock %}
 
 {% block seo %}
     {% set og_image = article_og_image_path(article.id, app.request.locale) %}

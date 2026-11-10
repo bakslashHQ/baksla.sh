@@ -24,6 +24,13 @@ final class ViewArticleTest extends FunctionalTestCase
         $this->assertSelectorExists('[data-test-article]');
     }
 
+    public function testPageTitleEndsWithTheSiteName(): void
+    {
+        $this->get('/fr/blog/certification-symfony');
+
+        $this->assertPageTitleSame('La certification Symfony | baksla.sh');
+    }
+
     public function testHeaderExposesPublishedAt(): void
     {
         $article = $this->getService(ArticleRepository::class)->get('symfony-certification');
