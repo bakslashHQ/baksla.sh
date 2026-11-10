@@ -160,7 +160,7 @@ D'abord, aucun éditeur ne complétait le hash passé à une fonction Twig à pa
 
 Ensuite, PHPStan. Le shape compte environ 840 clés, dont 126 pointent vers un shape imbriqué, et analyser un fichier contenant un seul appel à `css()` **prenait 66 secondes** avec PHPStan 2.2.16. J'ai ouvert [une issue](https://github.com/phpstan/phpstan/issues/15348) avec un reproducer public. [Markus Staab](https://github.com/staabm) s'en est emparé, et une série de correctifs, dont un des miens, a été intégrée dans PHPStan 2.3.0 et 2.3.1. La même analyse **prend désormais 3,6 secondes**.
 
-Quand j'ai ouvert la pull request PhpStorm, j'ai écrit que UX CSS "ne sortirait peut-être pas" à cause de ces problèmes de performance. Quelques correctifs upstream plus tard, il est sorti. L'imbrication n'est toujours typée que sur un seul niveau (`CssStylesNested`), parce que PHPStan refuse un type qui fait référence à lui-même, et chaque niveau d'imbrication ralentit l'analyse.
+Quand j'ai ouvert la pull request PhpStorm, j'ai écrit qu'UX CSS "ne sortirait peut-être pas" à cause de ces problèmes de performance. Quelques correctifs upstream plus tard, il est sorti. L'imbrication n'est toujours typée que sur un seul niveau (`CssStylesNested`), parce que PHPStan refuse un type qui fait référence à lui-même, et chaque niveau d'imbrication ralentit l'analyse.
 
 Donc si votre fonction Twig prend un hash, un array shape sur son paramètre PHP vous offre désormais la complétion dans les deux éditeurs. Et quand un outil s'étrangle sur vos types, un petit reproducer public est le moyen le plus rapide d'obtenir un correctif.
 

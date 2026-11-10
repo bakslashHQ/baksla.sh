@@ -6,10 +6,10 @@ home.seo.description: Une vraie entreprise open source, évangélistes Symfony e
 home.hero.aria_label: "Baksla.sh : une vraie entreprise open source, partout dans le monde"
 home.hero.eyebrow: Une vraie entreprise open source · partout dans le monde
 home.hero.heading_text: Nous sommes des
-home.hero.heading_aria_label: Nous sommes mainteneurs, fans, ambassadeurs et développeurs Symfony.
+home.hero.heading_aria_label: Nous sommes mainteneurs, passionnés, ambassadeurs et développeurs Symfony.
 home.hero.tagline: "Nous sommes celles et ceux que vous lisez dans le changelog de Symfony. Une petite entreprise qui construit, maintient et enseigne PHP. Pas de pitch deck, juste des commits."
 home.hero.cta.primary: Ce que nous faisons
-home.hero.cta.secondary: Bonjour
+home.hero.cta.secondary: Dites bonjour
 home.hero.words.maintainers: 'mainteneurs'
 home.hero.words.lovers: 'passionnés de'
 home.hero.words.developers: 'développeurs'
