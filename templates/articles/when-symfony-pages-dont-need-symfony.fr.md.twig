@@ -132,13 +132,13 @@ public function __invoke(string $id): Response
 final readonly class BlogArticleParamsProvider implements ParamsProviderInterface
 {
     public function __construct(
-        private ArticleRepository $articleRepository,
+        private ArticlePreviewRepository $articlePreviewRepository,
     ) {
     }
 
     public function provideParams(): iterable
     {
-        foreach ($this->articleRepository->findAll() as $article) {
+        foreach ($this->articlePreviewRepository->findAll() as $article) {
             yield ['id' => $article->id];
         }
     }
