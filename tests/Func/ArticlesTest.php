@@ -7,21 +7,101 @@ namespace App\Tests\Func;
 use App\Blog\Domain\Model\Article;
 use App\Blog\Domain\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\Translation\LocaleSwitcher;
 
 final class ArticlesTest extends KernelTestCase
 {
-    public function testEverySlugIsUnique(): void
+    public function testArticlesAreTranslated(): void
     {
         self::bootKernel();
 
         $repository = self::getContainer()->get(ArticleRepository::class);
+        $localeSwitcher = self::getContainer()->get(LocaleSwitcher::class);
 
-        $slugs = array_map(static fn (Article $article): string => $article->slug, $repository->findAll());
+        /** @var list<string> $locales */
+        $locales = self::getContainer()->getParameter('kernel.enabled_locales');
 
-        $this->assertSame(
-            array_values(array_unique($slugs)),
-            $slugs,
-            sprintf('Article slugs must be unique; found duplicates: %s.', implode(', ', array_diff_assoc($slugs, array_unique($slugs)))),
-        );
+        $idsByLocale = [];
+        foreach ($locales as $locale) {
+            /** @var list<Article> $articles */
+            $articles = $localeSwitcher->runWithLocale($locale, fn (): array => $repository->findAll());
+            $ids = array_map(static fn (Article $a): string => $a->id, $articles);
+            sort($ids);
+            $idsByLocale[$locale] = $ids;
+        }
+
+        $reference = $locales[0];
+        foreach ($locales as $locale) {
+            $this->assertSame(
+                $idsByLocale[$reference],
+                $idsByLocale[$locale],
+                sprintf('Articles for locale "%s" must match locale "%s": every article must be translated in every enabled locale.', $locale, $reference),
+            );
+        }
+    }
+
+    public function testHtmlIsRenderedInTheLocaleTheArticleWasLoadedIn(): void
+    {
+        self::bootKernel();
+
+        $repository = self::getContainer()->get(ArticleRepository::class);
+        $localeSwitcher = self::getContainer()->get(LocaleSwitcher::class);
+
+        /** @var Article $article */
+        $article = $localeSwitcher->runWithLocale('fr', static fn (): Article => $repository->get('symfony-certification'));
+        $englishHtml = $repository->get('symfony-certification')->html;
+
+        $this->assertNotSame($englishHtml, $article->html);
+        $this->assertStringContainsString('La certification Symfony est découpée en', $article->html);
+    }
+
+    public function testTranslationsShareAuthorAndPublicationDate(): void
+    {
+        self::bootKernel();
+
+        $repository = self::getContainer()->get(ArticleRepository::class);
+        $localeSwitcher = self::getContainer()->get(LocaleSwitcher::class);
+
+        /** @var list<string> $locales */
+        $locales = self::getContainer()->getParameter('kernel.enabled_locales');
+
+        $referencesById = [];
+        foreach ($locales as $locale) {
+            /** @var list<Article> $articles */
+            $articles = $localeSwitcher->runWithLocale($locale, fn (): array => $repository->findAll());
+
+            foreach ($articles as $article) {
+                $reference = $referencesById[$article->id] ??= [$article->author->id, $article->publishedAt->format('Y-m-d')];
+
+                $this->assertSame(
+                    $reference,
+                    [$article->author->id, $article->publishedAt->format('Y-m-d')],
+                    sprintf('Article "%s" must have the same author and publication date in locale "%s" as in locale "%s".', $article->id, $locale, $locales[0]),
+                );
+            }
+        }
+    }
+
+    public function testSlugsAreUniquePerLocale(): void
+    {
+        self::bootKernel();
+
+        $repository = self::getContainer()->get(ArticleRepository::class);
+        $localeSwitcher = self::getContainer()->get(LocaleSwitcher::class);
+
+        /** @var list<string> $locales */
+        $locales = self::getContainer()->getParameter('kernel.enabled_locales');
+
+        foreach ($locales as $locale) {
+            /** @var list<Article> $articles */
+            $articles = $localeSwitcher->runWithLocale($locale, fn (): array => $repository->findAll());
+            $slugs = array_map(static fn (Article $a): string => $a->slug, $articles);
+
+            $this->assertSame(
+                array_values(array_unique($slugs)),
+                $slugs,
+                sprintf('Article slugs must be unique within locale "%s"; found duplicates: %s.', $locale, implode(', ', array_diff_assoc($slugs, array_unique($slugs)))),
+            );
+        }
     }
 }

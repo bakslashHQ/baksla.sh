@@ -6,6 +6,7 @@ namespace App\Blog\Infrastructure\Controller;
 
 use App\Blog\Domain\Repository\ArticleRepository;
 use Bakslash\StaticSiteBundle\Attribute\Prerender;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Attribute\Route;
@@ -20,7 +21,10 @@ final readonly class ViewFeed
     ) {
     }
 
-    #[Route(path: '/blog/feed.xml', name: 'app_blog_feed', methods: ['GET'], format: 'xml')]
+    #[Route(path: [
+        'en' => '/blog/feed.xml',
+        'fr' => '/fr/blog/feed.xml',
+    ], name: 'app_blog_feed', methods: [Request::METHOD_GET], format: 'xml')]
     #[Prerender]
     public function __invoke(): Response
     {

@@ -1,3 +1,5 @@
+{% props switch_urls = {} %}
+
 <header
     data-controller="command-palette navbar"
     class="sticky top-0 z-50 bg-paper/85 backdrop-blur-md border-b border-transparent transition-[border-color] duration-200 py-4 sm:py-5"
@@ -22,7 +24,7 @@
                     type="button"
                     data-action="command-palette#open"
                     aria-label="{{ 'header.cmd.title'|trans }}"
-                    class="md:hidden inline-flex items-center justify-center size-9 text-ink/70 border border-ink/15 rounded-md hover:border-ink transition-colors"
+                    class="order-last md:hidden inline-flex items-center justify-center size-9 text-ink/70 border border-ink/15 rounded-md hover:border-ink transition-colors"
                 >
                     <twig:ux:icon name="mdi:magnify" aria-hidden="true" class="size-5" />
                 </button>
@@ -31,11 +33,33 @@
                     type="button"
                     data-action="command-palette#open"
                     aria-label="{{ 'header.cmd.title'|trans }}"
-                    class="hidden md:inline-flex cursor-pointer items-center gap-2 font-mono text-xs text-muted border border-ink/15 rounded-md px-2.5 py-1.5 hover:border-ink hover:text-ink transition-colors"
+                    class="hidden md:inline-flex cursor-pointer items-center gap-2 font-mono text-xs text-muted border border-ink/15 rounded-md h-9 px-2.5 hover:border-ink hover:text-ink transition-colors"
                 >
                     <span>{{ 'header.cmd.open_menu'|trans }}</span>
                     <kbd class="font-mono text-xs bg-ink/5 border border-ink/15 rounded px-1 py-px text-ink">/</kbd>
                 </button>
+
+                <div role="group" aria-label="{{ 'header.language.label'|trans }}" class="inline-flex items-stretch h-9 font-mono text-xs border border-ink/15 rounded-md overflow-hidden">
+                    {% for locale in enabled_locales %}
+                        {% set language_name = locale|language_name(locale)|capitalize %}
+                        {% if app.request.locale == locale %}
+                            <span lang="{{ locale }}" aria-current="true" class="inline-flex items-center px-2 bg-ink/10 text-ink uppercase">
+                                <span class="sr-only">{{ language_name }}</span>
+                                <span aria-hidden="true">{{ locale }}</span>
+                            </span>
+                        {% else %}
+                            <a
+                                href="{{ switch_urls[locale]|default(path('app_home', {_locale: locale})) }}"
+                                hreflang="{{ locale }}"
+                                lang="{{ locale }}"
+                                class="inline-flex items-center px-2 text-muted uppercase no-underline hover:text-ink hover:bg-ink/5 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset focus-visible:text-ink transition-colors"
+                            >
+                                <span class="sr-only">{{ language_name }}</span>
+                                <span aria-hidden="true">{{ locale }}</span>
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
 
                 <a href="mailto:hello@baksla.sh" class="hidden md:inline-flex items-center font-mono text-sm font-medium bg-ink text-paper rounded-full px-4 py-2 hover:bg-accent transition-colors whitespace-nowrap no-underline">
                     hello@baksla.sh

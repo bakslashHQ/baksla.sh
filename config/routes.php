@@ -8,7 +8,10 @@ use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 return static function (RoutingConfigurator $routingConfigurator): void {
     $routingConfigurator
-        ->add('app_home', '/')
+        ->add('app_home', [
+            'en' => '/',
+            'fr' => '/fr',
+        ])
         ->controller(TemplateController::class)
         ->defaults([
             'template' => 'pages/website/home.html.twig',
@@ -16,7 +19,10 @@ return static function (RoutingConfigurator $routingConfigurator): void {
         ]);
 
     $routingConfigurator
-        ->add('app_legal_notices', '/legal-notices')
+        ->add('app_legal_notices', [
+            'en' => '/legal-notices',
+            'fr' => '/fr/mentions-legales',
+        ])
         ->controller(TemplateController::class)
         ->defaults([
             'template' => 'pages/website/legal_notices.html.twig',

@@ -6,6 +6,7 @@ namespace App\Blog\Infrastructure\Repository;
 
 use App\Blog\Domain\Factory\ArticleFactory\ArticleMetadata;
 use App\Blog\Domain\Factory\ArticleFactory\MetadataProvider;
+use App\Blog\Infrastructure\ArticleSource;
 use App\Team\Domain\Model\MemberId;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Yaml\Exception\ParseException;
@@ -21,9 +22,9 @@ final readonly class YamlMetadataProvider implements MetadataProvider
     ) {
     }
 
-    public function provide(string $id): ArticleMetadata
+    public function provide(string $id, string $locale): ArticleMetadata
     {
-        $filename = sprintf('%s.md.twig', $id);
+        $filename = ArticleSource::filename($id, $locale);
         $path = sprintf('%s/%s', $this->articlesDir, $filename);
 
         if (!is_file($path)) {

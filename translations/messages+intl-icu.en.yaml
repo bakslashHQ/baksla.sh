@@ -119,6 +119,7 @@ home.clients.cta: Yours?
 home.clients.cta_aria_label: 'Add your logo. Email hello@baksla.sh'
 
 header.skip_to_content: Skip to content
+header.language.label: Choose a language
 header.cmd.open_menu: open menu
 header.cmd.title: Command palette
 header.cmd.placeholder: Jump to…
@@ -187,6 +188,7 @@ legal_notices.hosting.tag.https: https only
 
 blog.seo.title: 'Blog | baksla.sh'
 blog.seo.description: The baksla.sh's blog
+blog.feed.title: baksla.sh Blog
 blog.label: the blog
 blog.title: 'What we shipped<0>,</0><br>and what we learned.'
 blog.caption: '# BLOG.md'
@@ -220,6 +222,7 @@ team.modal.close_short: close
 team.modal.prev: prev
 team.modal.next: next
 team.modal.editorial_eyebrow: the crew
+team.modal.photo_alt: 'Photo of {name}'
 team.reviewers: Reviewers
 
 team.pr.tag: 'Pull request #42'

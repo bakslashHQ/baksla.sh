@@ -1,0 +1,212 @@
+---
+author: mathias-arlaud
+title: La certification Symfony
+description: Curieux à propos de la certification Symfony ? Découvrons ce que c'est, pourquoi elle compte, combien de temps elle demande, et quelques conseils clés pour une préparation efficace !
+published_at: 2025-02-06
+slug: certification-symfony
+---
+
+Si vous développez des applications avec Symfony, vous avez peut-être entendu parler de la certification Symfony, un examen qui valide vos compétences et vos connaissances sur le framework Symfony et ses composants.
+
+Et vous vous êtes peut-être demandé : *qu'est-ce que la certification Symfony exactement ? À quoi sert d'être certifié ? Combien de temps cela prend-il ? Existe-t-il des trucs et astuces pour réviser efficacement ?*
+
+C'est précisément ce que cet article va couvrir !
+
+## De quoi est-elle faite ?
+
+### Les sujets
+
+La certification Symfony est découpée en **15 sujets**.
+12 d'entre eux portent sur Symfony lui-même :
+
+- Architecture de Symfony
+- Contrôleurs
+- Routing
+- Templating avec Twig
+- Formulaires
+- Validation des données
+- Injection de dépendances
+- Sécurité
+- Console
+- Tests automatisés
+- Divers (qui contient des éléments moins structurants comme Serializer, Messenger, ExpressionLanguage, Dotenv, Runtime, ...)
+
+De plus *- et c'est l'une des raisons pour lesquelles la certification Symfony est considérée comme une bonne certification -* Symfony considère que vous ne pouvez pas être un bon développeur Symfony si vous n'êtes pas un bon développeur PHP ou un bon développeur web.
+C'est pourquoi Symfony a ajouté les 3 sujets suivants à la certification :
+
+- PHP
+- HTTP
+- Cache HTTP
+
+Pour plus de détails sur les sujets et leur contenu, vous pouvez jeter un œil à [certification.symfony.com](https://certification.symfony.com/exams/symfony.html)
+
+### Les questions
+
+La certification est composée de **75 questions**, ce qui implique que **chaque sujet est composé de 5 questions**.
+Ces questions peuvent prendre l'une de ces trois formes :
+
+- **Choix unique** : une seule réponse est valide pour la question. Une seule case sera donc cochable.
+- **Choix multiple** : plusieurs réponses peuvent être valides pour la question. Plusieurs cases seront donc cochables.
+- **Vrai/Faux** : vous devrez dire si une affirmation est vraie ou fausse.
+
+<u>Vous n'aurez donc rien à écrire pendant cette certification, ni code ni texte.</u>
+
+Voici quelques exemples (qui me sont venus à l'esprit, ils ne font évidemment pas partie de la vraie certification) :
+
+1. Quel est le but de la méthode `prepare` de la `Response` de `HttpFoundation` ?
+- Convertir la `Response` en une chaîne compatible avec le format des messages de réponse HTTP.
+- Envoyer la `Response` au client.
+- S'assurer que la `Response` est conforme à la RFC 2616.
+
+2. Lesquels de ces en-têtes n'appartiennent pas à la Request ?
+- Accept
+- Accept-Charset
+- Encoding
+- Accept-Language
+- Vary
+
+3. La route `check_path` doit se trouver derrière un firewall.
+- Vrai
+- Faux
+
+### Le temps
+
+L'examen complet dure **90 minutes**.
+Vous disposez donc de **1 minute et 12 secondes par question**.
+
+Plus d'une minute pour une seule question, c'est assez long, vous pouvez donc prendre le temps de lire attentivement la question et les réponses.
+Profitez-en pour vous assurer que vous avez bien compris la question et qu'il n'y a pas de piège évident.
+
+De plus, sachez qu'**il est possible de passer une question pendant l'examen et d'y revenir plus tard**.
+Donc si vous n'êtes pas sûr de votre réponse, passez-la : vous aurez à coup sûr le temps d'y réfléchir plus tard, l'esprit plus reposé.
+
+90 minutes, c'est suffisamment long pour vous permettre de repasser plusieurs fois sur l'ensemble des questions.
+Lors de votre premier passage, concentrez-vous sur les questions qui vous semblent évidentes. Vous aurez alors encore plus de temps à consacrer à chaque question restante.
+Si vous avez un doute que vous ne parvenez pas à lever, par exemple si vous sentez un piège sans le voir, gardez votre première réponse, qui est généralement la bonne, ou passez la question et retentez votre chance au passage suivant.
+
+## Comment se déroule-t-elle ?
+
+D'abord, il vous faudra un [voucher](https://certification.symfony.com/purchase), qui coûte environ 250 €.
+
+Ensuite, pas besoin de vous rendre dans un centre d'examen, vous pouvez être certifié chez vous !
+En effet, la certification Symfony se passe entièrement en ligne.
+
+Et parce que vous passez un examen à domicile, la caméra et le microphone de l'ordinateur seront activés et l'écran entier sera enregistré pour s'assurer que vous ne trichez d'aucune manière.
+
+Pendant l'examen de quatre-vingt-dix minutes, vous devrez répondre à soixante-quinze questions, rédigées en anglais.
+Après avoir soumis vos réponses, Symfony inspectera les enregistrements de votre caméra, de votre microphone et de votre écran à la recherche de la moindre triche, puis vous enverra les résultats.
+
+Si vous réussissez, vous recevrez un e-mail vous indiquant le grade que vous avez réussi à obtenir, qui peut être soit *Advanced*, soit *Expert*, selon votre score.
+
+## Un petit aparté sur la version de la certification
+
+La certification Symfony est un examen portant sur l'utilisation d'une version spécifique de Symfony.
+Il est en effet possible d'être certifié sur Symfony 3, 4, 5, 6 et 7.
+
+**Une certification "Symfony X" porte sur la version `X.0`.**
+Par exemple, la certification Symfony 6 portera sur la version 6.0, pas la 6.1 ni la 6.4.
+
+Cela peut sembler évident, mais c'est assez important.
+En effet, il y a quelque chose que vous ne savez peut-être pas encore, et que vous apprendrez à coup sûr en étudiant pour la certification :wink::
+
+> Une version `X.0` de Symfony est exactement identique à la version `[X-1].4`, mais sans aucune couche de rétrocompatibilité ni dépréciation
+
+Donc, même si cela paraît étrange, **un développeur certifié Symfony 6 connaît tout de Symfony 5 et de ses dépréciations, pas de Symfony 6 et de ses évolutions**.
+
+## Quel est l'intérêt d'être certifié ?
+
+La certification Symfony peut être vue comme la preuve que vous connaissez Symfony en profondeur.
+Votre maîtrise est en effet validée par un processus d'examen rigoureux, garantissant que vous maîtrisez les subtilités du framework.
+
+Par conséquent, **la certification Symfony est une sorte de preuve concrète de votre expertise**.
+Et cette preuve matérialise votre valeur sur le marché de l'emploi, vous permettant de négocier des salaires plus élevés ou d'augmenter votre Tarif Journalier Moyen.
+C'est essentiellement parce que les employeurs reconnaissent la valeur ajoutée qu'un développeur Symfony certifié peut apporter à leur équipe.
+
+Au-delà de cela, la certification Symfony s'accompagne d'un superbe [badge Symfony Connect](https://connect.symfony.com/badge/151/symfony-5-certified-developer-expert), une représentation virtuelle de vos accomplissements, qui vous permet de frimer un peu auprès de vos collègues.
+
+De plus, en vous préparant à passer la certification, **vous découvrirez de nouvelles techniques, de nouveaux outils et de nouvelles méthodologies** qui pourront s'intégrer naturellement à votre travail quotidien.
+Les connaissances acquises pendant la préparation deviennent des outils dans votre arsenal, augmentant la qualité de vos projets de développement web.
+
+Par ailleurs, réviser pour la certification est un excellent moyen de s'impliquer dans la communauté Symfony.
+En effet, en lisant la documentation et en testant des choses, vous repérez sûrement des problèmes dans le code ou des parties de documentation qui ne sont pas assez claires.
+Cela vous permettra de **contribuer au code et d'améliorer la documentation**.
+Votre parcours devient ainsi un effort collaboratif, qui profite à tout l'écosystème Symfony :rocket:.
+
+## Combien de temps prend la préparation ?
+
+Le calendrier de préparation à la certification Symfony est très personnel.
+Il dépend de facteurs comme votre expérience préalable avec Symfony, vos connaissances existantes et, bien sûr, votre méthode de révision préférée.
+
+Par exemple, un ancien collègue a bouclé cette préparation en cinq mois seulement, témoignant d'une routine d'étude efficace.
+
+De mon côté, mon parcours s'est étendu un peu plus...
+
+Vous avez déjà entendu parler de la loi de Parkinson ? Elle affirme que le travail s'étale de manière à occuper tout le temps disponible pour son accomplissement.
+Dans le contexte de la préparation à la certification Symfony, cela se manifeste par la tendance à étirer la période d'étude.
+Mon parcours de quatorze mois est un exemple parlant de la façon dont le temps disponible peut influencer la préparation.
+
+Ainsi, un moyen efficace de contrer la tendance à repousser est de **passer à l'action**, c'est-à-dire d'**acheter le voucher de certification**.
+Cela mettra en branle un calendrier de préparation structuré, centré sur une échéance incontournable.
+En effet, dès l'acquisition du voucher, un compte à rebours commence. Vous avez précisément un an au maximum pour être prêt.
+Et cette horloge qui tourne devient un moteur, évitant l'inertie qui accompagne parfois les objectifs de long terme.
+
+De plus, sachez qu'**il est courant d'avoir le sentiment de ne jamais être tout à fait prêt**, et c'est normal, vu le volume considérable d'informations à couvrir.
+
+Accepter que vous ne vous sentirez peut-être jamais entièrement prêt est un changement d'état d'esprit essentiel.
+
+## Stratégies pour réviser efficacement
+
+### Définir et suivre une feuille de route claire
+
+Commencez votre révision en élaborant une feuille de route bien définie.
+Par exemple, une bonne feuille de route peut être la suivante : envisagez de consacrer une semaine à chaque sujet.
+Une fois les quinze sujets couverts, accélérez le rythme pour couvrir deux sujets par semaine.
+De cette façon, vous pouvez être certifié en 6 mois !
+
+### Réviser avec des coéquipiers
+
+Faites équipe avec un ou deux autres développeurs.
+Ensemble, vous pouvez parcourir la documentation Symfony collectivement, puis vous lancer dans des discussions et confronter vos points de vue.
+
+Cela peut aussi être une bonne idée de planifier une réunion hebdomadaire pour laquelle chaque personne doit préparer des questions de type examen pour les autres.
+De cette façon, vous pourrez apprendre ensemble de manière dynamique et interactive.
+
+De plus, quand quelqu'un commence à perdre en motivation, les autres peuvent essayer de le remotiver !
+
+> :bulb: Si vous avez du mal à trouver des coéquipiers sur votre lieu de travail, vous pouvez tenter d'en trouver en demandant sur le canal [certification](https://symfony-devs.slack.com/archives/CCFTMM2DC) du Slack "SymfonyDevs".
+
+### Plonger dans le code source
+
+Comme vous pouvez l'imaginer, mémoriser chaque ligne n'est heureusement pas nécessaire. Et ce serait évidemment impossible.
+
+Mais explorer le code source apporte des éclairages précieux, en particulier pour clarifier les concepts complexes.
+Utilisez donc le [code source de Symfony](https://github.com/symfony/symfony) comme un outil pour éclairer les points délicats et améliorer votre compréhension.
+
+### Mettre en pratique ce que vous avez appris
+
+Une bonne façon de comprendre les choses passe par la mise en pratique.
+
+Vous pouvez donc créer un projet Symfony vierge et expérimenter activement les fonctionnalités qui restent floues.
+Cette approche pratique renforce non seulement vos connaissances sur les fonctionnalités classiques, mais vous familiarise aussi avec d'éventuels cas limites.
+
+### Comprendre plutôt que mémoriser
+
+Symfony est bien plus qu'un simple ensemble de règles. Il a en effet une sorte de philosophie.
+
+Par conséquent, plutôt que d'essayer de mémoriser toute la documentation, vous avez tout intérêt à vous familiariser avec la philosophie du framework.
+De cette façon, **vous serez même capable de deviner certaines réponses de l'examen !**
+
+### Utiliser les bons outils
+
+Tirez parti d'outils dédiés pour apprendre efficacement.
+
+Vous pouvez par exemple profiter des merveilleuses leçons de [SymfonyCasts](https://symfonycasts.com), qui vous aideront, grâce à des vidéos, à comprendre aussi bien les bases que les détails de presque chaque composant.
+
+## Et voilà !
+
+En conclusion, maîtriser la certification Symfony va bien au-delà de la mémorisation par cœur.
+C'est un parcours de compréhension, de collaboration et d'exploration pratique.
+
+En suivant ces stratégies, vous traverserez non seulement le processus de certification de manière efficace, mais vous en ressortirez aussi avec une compréhension profonde de Symfony.
+
+Bon apprentissage !

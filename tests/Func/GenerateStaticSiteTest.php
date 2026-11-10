@@ -33,6 +33,12 @@ final class GenerateStaticSiteTest extends KernelTestCase
             'blog.html',
             'team.html',
             'blog/symfony-certification.html',
+            'fr.html',
+            'fr/blog.html',
+            'fr/equipe.html',
+            'fr/mentions-legales.html',
+            'fr/blog/certification-symfony.html',
+            'fr/blog/feed.xml',
         ] as $path) {
             $this->assertTrue($storage->fileExists($path), sprintf('Expected "%s" to be generated.', $path));
         }

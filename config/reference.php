@@ -1319,6 +1319,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     minify?: bool|Param, // Minify generated HTML and XML pages (requires sensiolabs/minify-bundle). // Default: false
  *     clean_urls?: bool|Param, // Write HTML pages as "<path>/index.html" instead of "<path>.html", so the site serves clean URLs with no server rewrite rules. // Default: false
  *     storage?: scalar|Param|null, // Where the generated site is written: a local directory path (a relative one resolves against the working directory), or a Flysystem operator service reference ("@service_id"). // Default: "%kernel.project_dir%/build"
+ *     headers_file?: scalar|Param|null, // Write the headers that describe each page to this file of the output, in the "_headers" format of Cloudflare Pages and Netlify (e.g. "_headers"). Disabled when null. // Default: null
  * }
  * @psalm-type ConfigType = array{
  *     imports?: ImportsConfig,

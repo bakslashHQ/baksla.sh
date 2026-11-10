@@ -6,5 +6,5 @@ namespace App\Blog\Domain\Factory\ArticleFactory;
 
 interface HtmlProvider
 {
-    public function provide(string $id): string;
+    public function provide(string $id, string $locale): string;
 }

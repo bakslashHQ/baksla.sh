@@ -45,7 +45,7 @@
                     <img
                         class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full max-h-[80%] max-w-[80%] shadow-lg"
                         src="{{ asset('images/team/members/' ~ member.id.value ~ '.webp') }}"
-                        alt="Photo of {{ member.fullName }}"
+                        alt="{{ 'team.modal.photo_alt'|trans({name: member.fullName}) }}"
                     />
                     {% if member.nickName %}
                         <div class="absolute bottom-5 left-5 right-5 text-paper">

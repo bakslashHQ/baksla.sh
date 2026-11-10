@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Blog\Infrastructure\Rendering;
 
 use App\Blog\Domain\Factory\ArticleFactory\HtmlProvider;
+use App\Blog\Infrastructure\ArticleSource;
 use Twig\Environment;
 
 final readonly class TwigMarkdownHtmlProvider implements HtmlProvider
@@ -17,9 +18,9 @@ final readonly class TwigMarkdownHtmlProvider implements HtmlProvider
     ) {
     }
 
-    public function provide(string $id): string
+    public function provide(string $id, string $locale): string
     {
-        $markdown = $this->twig->render(sprintf('articles/%s.md.twig', $id));
+        $markdown = $this->twig->render(ArticleSource::template($id, $locale));
         $markdown = preg_replace(self::METADATA_REGEX, '', $markdown) ?? '';
 
         return $this->converter->convert($markdown);

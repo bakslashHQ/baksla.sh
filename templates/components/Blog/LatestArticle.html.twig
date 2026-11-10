@@ -11,7 +11,7 @@
     <article class="grid lg:grid-cols-[1fr_auto] gap-6 lg:gap-10 items-end px-6 sm:px-8 lg:px-10 py-8 sm:py-12 lg:py-16 pt-14 sm:pt-16 lg:pt-20">
         <div>
             <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-3 font-mono text-xs text-muted">
-                <time datetime="{{ article.publishedAt|date('Y-m-d') }}" class="text-accent font-bold tabular-nums">{{ article.publishedAt|format_date(pattern: 'MMM dd, y') }}</time>
+                <time datetime="{{ article.publishedAt|date('Y-m-d') }}" class="text-accent font-bold tabular-nums">{{ article.publishedAt|format_date('medium') }}</time>
                 <span>{{ 'blog.author'|trans }} {{ article.author.fullname }}</span>
             </div>
             <h2 class="m-0 font-sans font-semibold tracking-tight leading-[0.95] text-ink text-3xl lg:text-5xl group-hover:text-accent transition-colors">
