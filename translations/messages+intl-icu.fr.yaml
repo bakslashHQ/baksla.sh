@@ -222,6 +222,7 @@ team.modal.close_short: fermer
 team.modal.prev: préc.
 team.modal.next: suiv.
 team.modal.editorial_eyebrow: "l'équipe"
+team.modal.photo_alt: 'Photo de {name}'
 team.reviewers: Relecteurs
 
 team.pr.tag: 'Pull request #42'

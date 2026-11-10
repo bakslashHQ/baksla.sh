@@ -17,6 +17,14 @@ final class ViewTeamTest extends FunctionalTestCase
         $this->assertSelectorExists('[data-test-review]');
     }
 
+    public function testMemberPhotoAltIsTranslated(): void
+    {
+        $this->get('/fr/equipe');
+
+        $this->assertSelectorExists('img[alt="team.modal.photo_alt"]');
+        $this->assertSelectorNotExists('img[alt^="Photo of"]');
+    }
+
     public function testEveryTeamMemberHasHisModal(): void
     {
         $this->get('/team');

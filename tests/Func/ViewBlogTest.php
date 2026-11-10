@@ -17,6 +17,13 @@ final class ViewBlogTest extends FunctionalTestCase
         $this->assertSelectorExists('[data-test-article-link]');
     }
 
+    public function testFeedLinkTitleIsTranslated(): void
+    {
+        $this->get('/fr/blog');
+
+        $this->assertSelectorExists('link[rel="alternate"][type="application/atom+xml"][title="blog.feed.title"]');
+    }
+
     public function testEveryArticleAreDisplayed(): void
     {
         $articleRepository = $this->getService(ArticleRepository::class);
