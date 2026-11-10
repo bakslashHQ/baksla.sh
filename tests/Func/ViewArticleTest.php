@@ -6,6 +6,7 @@ namespace App\Tests\Func;
 
 use App\Blog\Domain\Model\Article;
 use App\Blog\Domain\Repository\ArticleRepository;
+use PHPUnit\Framework\Attributes\TestWith;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Translation\LocaleSwitcher;
@@ -30,6 +31,15 @@ final class ViewArticleTest extends FunctionalTestCase
         $crawler = $this->get('/blog/symfony-certification');
 
         $this->assertSame($article->publishedAt->format('Y-m-d'), $crawler->filter('article header time')->attr('datetime'));
+    }
+
+    #[TestWith(['/blog/symfony-certification', 'https://localhost/open-graph/article/symfony-certification.jpg'])]
+    #[TestWith(['/fr/blog/certification-symfony', 'https://localhost/open-graph/article/symfony-certification.fr.jpg'])]
+    public function testOpenGraphImageMatchesTheGeneratedFile(string $path, string $image): void
+    {
+        $crawler = $this->get($path);
+
+        $this->assertSame($image, $crawler->filter('meta[property="og:image"]')->attr('content'));
     }
 
     public function testHeaderFormatsPublishedAtInTheRequestLocale(): void

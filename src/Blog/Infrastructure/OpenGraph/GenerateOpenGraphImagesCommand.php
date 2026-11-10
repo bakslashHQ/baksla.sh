@@ -23,12 +23,11 @@ final class GenerateOpenGraphImagesCommand extends Command
         private readonly ImageGenerator $imageGenerator,
         private readonly Filesystem $filesystem,
         private readonly LocaleSwitcher $localeSwitcher,
+        private readonly OpenGraphImagePath $openGraphImagePath,
         #[Autowire(param: 'app.public_dir')]
         private readonly string $publicDir,
         #[Autowire(param: 'kernel.enabled_locales')]
         private readonly array $enabledLocales,
-        #[Autowire(param: 'kernel.default_locale')]
-        private readonly string $defaultLocale,
     ) {
         parent::__construct();
     }
@@ -39,12 +38,7 @@ final class GenerateOpenGraphImagesCommand extends Command
             $articles = $this->localeSwitcher->runWithLocale($locale, fn (): array => $this->articleRepository->findAll());
 
             foreach ($articles as $article) {
-                // The default locale keeps the original "{id}.jpg" path for backward compatibility
-                $filename = $locale === $this->defaultLocale
-                    ? sprintf('%s.jpg', $article->id)
-                    : sprintf('%s.%s.jpg', $article->id, $locale);
-
-                $path = sprintf('%s/open-graph/article/%s', $this->publicDir, $filename);
+                $path = $this->publicDir.$this->openGraphImagePath->of($article->id, $locale);
                 $this->filesystem->dumpFile($path, $this->imageGenerator->generate($article, $locale));
                 $io->info(sprintf('Generated OG image for "%s" (%s)', $article->id, $locale));
             }

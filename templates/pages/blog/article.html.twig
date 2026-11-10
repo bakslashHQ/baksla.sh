@@ -3,7 +3,7 @@
 {% block title %}{{ article.title }} — baksla.sh{% endblock %}
 
 {% block seo %}
-    {% set og_image = app.request.locale == app.request.defaultLocale ? '/open-graph/article/' ~ article.id ~ '.jpg' : '/open-graph/article/' ~ article.id ~ '.' ~ app.request.locale ~ '.jpg' %}
+    {% set og_image = article_og_image_path(article.id, app.request.locale) %}
 
     <meta name="description" content="{{ article.description }}">
     <meta name="author" content="{{ article.author.fullname }}">
