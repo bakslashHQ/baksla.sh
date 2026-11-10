@@ -22,5 +22,6 @@ final class PreviewOpenGraphImageTest extends FunctionalTestCase
         $this->assertResponseIsSuccessful();
         $this->assertSelectorExists('html[lang="fr"]');
         $this->assertSelectorTextContains('h1', 'La certification Symfony');
+        $this->assertSelectorTextContains('body', '6 FÉVR. 2025');
     }
 }

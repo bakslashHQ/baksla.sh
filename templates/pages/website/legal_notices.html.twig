@@ -29,7 +29,7 @@
                 </h1>
                 <div class="mt-6 sm:mt-8 font-mono text-xs uppercase tracking-widest text-muted">
                     {{- 'legal_notices.meta.last_commit'|trans({
-                        date: '<time datetime="' ~ updated_at ~ '" class="text-accent font-bold">' ~ updated_at|date('M jS, Y') ~ '</time>'
+                        date: '<time datetime="' ~ updated_at ~ '" class="text-accent font-bold">' ~ updated_at|format_date('medium') ~ '</time>'
                     })|raw -}}
                 </div>
             </header>

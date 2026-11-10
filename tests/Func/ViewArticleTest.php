@@ -32,6 +32,15 @@ final class ViewArticleTest extends FunctionalTestCase
         $this->assertSame($article->publishedAt->format('Y-m-d'), $crawler->filter('article header time')->attr('datetime'));
     }
 
+    public function testHeaderFormatsPublishedAtInTheRequestLocale(): void
+    {
+        $this->get('/blog/symfony-certification');
+        $this->assertSelectorTextSame('article header time', 'Feb 6, 2025');
+
+        $this->get('/fr/blog/certification-symfony');
+        $this->assertSelectorTextSame('article header time', '6 févr. 2025');
+    }
+
     public function testFrenchMarkdownAlternateReturnsFrenchSource(): void
     {
         $this->get('/fr/blog/certification-symfony.md');
