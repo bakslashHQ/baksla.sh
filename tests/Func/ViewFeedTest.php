@@ -100,8 +100,11 @@ final class ViewFeedTest extends FunctionalTestCase
         $this->assertStringContainsString('/fr/blog/feed.xml', (string) $xml->link[0]->attributes()['href']);
 
         $titles = [];
+        $links = [];
         foreach ($xml->entry as $entry) {
             $titles[] = (string) $entry->title;
+            $links[] = (string) $entry->link->attributes()['href'];
+            $this->assertSame((string) $entry->link->attributes()['href'], (string) $entry->id);
         }
 
         /** @var list<Article> $frenchArticles */
@@ -109,6 +112,7 @@ final class ViewFeedTest extends FunctionalTestCase
             ->runWithLocale('fr', fn () => $articleRepository->findAll());
         foreach ($frenchArticles as $article) {
             $this->assertContains($article->title, $titles);
+            $this->assertContains(sprintf('https://localhost/fr/blog/%s', $article->slug), $links);
         }
     }
 

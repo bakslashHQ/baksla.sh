@@ -52,7 +52,34 @@ final class ArticlesTest extends KernelTestCase
         $englishHtml = $repository->get('symfony-certification')->html;
 
         $this->assertNotSame($englishHtml, $article->html);
-        $this->assertStringContainsString('certification', $article->html);
+        $this->assertStringContainsString('La certification Symfony est découpée en', $article->html);
+    }
+
+    public function testTranslationsShareAuthorAndPublicationDate(): void
+    {
+        self::bootKernel();
+
+        $repository = self::getContainer()->get(ArticleRepository::class);
+        $localeSwitcher = self::getContainer()->get(LocaleSwitcher::class);
+
+        /** @var list<string> $locales */
+        $locales = self::getContainer()->getParameter('kernel.enabled_locales');
+
+        $referencesById = [];
+        foreach ($locales as $locale) {
+            /** @var list<Article> $articles */
+            $articles = $localeSwitcher->runWithLocale($locale, fn (): array => $repository->findAll());
+
+            foreach ($articles as $article) {
+                $reference = $referencesById[$article->id] ??= [$article->author->id, $article->publishedAt->format('Y-m-d')];
+
+                $this->assertSame(
+                    $reference,
+                    [$article->author->id, $article->publishedAt->format('Y-m-d')],
+                    sprintf('Article "%s" must have the same author and publication date in locale "%s" as in locale "%s".', $article->id, $locale, $locales[0]),
+                );
+            }
+        }
     }
 
     public function testSlugsAreUniquePerLocale(): void
