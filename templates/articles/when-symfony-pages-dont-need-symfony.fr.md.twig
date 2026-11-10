@@ -18,6 +18,8 @@ Ce que nous nous apprêtons à décrire a un nom : la **génération de site sta
 
 > :pray: Un grand merci à [Thomas Bibaut](https://github.com/tBibaut), qui a initialement mis sur la table l'idée de faire du SSG avec Symfony. Cet article et l'implémentation qu'il décrit sont nés de cette étincelle initiale.
 
+> :package: **Mise à jour, octobre 2026.** Le bundle que cet article anticipe existe désormais : [`bakslash/static-site-bundle`](https://github.com/bakslashHQ/static-site-bundle), et ce site tourne dessus. La suite décrit l'implémentation interne dont il a été extrait, avec des liens figés sur cette révision. Lisez-la comme un journal de bord, pas comme un guide d'installation.
+
 ## Le coût que nous payons
 
 Mettons-y des chiffres.
@@ -177,10 +179,12 @@ Le déploiement est une cible `make ssg` suivie de `actions/upload-pages-artifac
 
 Au-delà de ça, c'est le même pipeline de prérendu, les mêmes contrôleurs, les mêmes templates. Le repli de Caddy vers PHP est simplement retiré, car il n'y a plus rien de dynamique sur quoi se rabattre.
 
-## Vers où cela nous mène
+## Ce que c'est devenu
 
-Ce n'est pas une astuce maligne réservée à un seul site web. Le pattern est suffisamment générique pour qu'**un bundle dédié puisse apparaître bientôt** pour gérer toute la fonctionnalité : l'attribut `#[Prerender]`, le contrat de fournisseur de paramètres, la commande de build, les dumpers. Vous n'auriez plus qu'à l'installer, déposer l'attribut sur les contrôleurs à précuire, et le tour est joué.
+Ce n'était pas une astuce maligne réservée à un seul site web. Le pattern s'est révélé assez générique pour être extrait, et il vit désormais dans [`bakslash/static-site-bundle`](https://github.com/bakslashHQ/static-site-bundle) : l'attribut `#[Prerender]`, le contrat de fournisseur de paramètres, la commande de build, les dumpers. Vous l'installez, déposez l'attribut sur les contrôleurs à précuire, et le tour est joué.
 
-La question intéressante n'est donc pas vraiment *"devrais-je faire cela ?"*. C'est *"devrais-je structurer mes routes de contenu dès aujourd'hui pour que, le jour où le bundle débarque, l'adoption ne me coûte qu'un attribut par contrôleur ?"*
+Ce site a lui-même basculé dessus, ce qui a supprimé un millier de lignes du code décrit plus haut, dont quatre classes de test que le bundle couvre désormais lui-même. Quelques points se sont affinés au passage : les pages sont écrites via [Flysystem](https://flysystem.thephpleague.com/), donc S3 ou n'importe quel autre adaptateur fonctionne sans code supplémentaire ; les redirections deviennent des pages statiques ; et la commande refuse de tourner sur un kernel en mode debug, car celui-ci intégrerait la web debug toolbar dans chaque page.
+
+La question intéressante n'est donc pas vraiment *"devrais-je faire cela ?"*. C'est *"lesquelles de mes routes sont assez stables pour être précuites ?"*
 
 Au final, **la requête Symfony la moins chère est celle à laquelle le serveur web a répondu avant même que le runtime Symfony n'en entende parler**.

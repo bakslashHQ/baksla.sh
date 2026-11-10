@@ -1,0 +1,138 @@
+---
+author: mathias-arlaud
+title: "StaticSiteBundle : des routes Symfony en fichiers statiques"
+description: "Cette page est un fichier statique, rendu par Symfony au moment du build. Le code qui la produit est désormais un bundle : StaticSiteBundle v0.1."
+published_at: 2026-10-20
+slug: presentation-du-static-site-bundle
+---
+
+Vous êtes en train de lire un fichier statique : aucune ligne de PHP ne s'est exécutée à l'ouverture de cette page. Symfony l'a rendue une seule fois, lors de notre dernier déploiement, et depuis, GitHub Pages se contente de servir le fichier.
+
+En mai, j'expliquais [comment cela fonctionne](quand-les-pages-symfony-nont-pas-besoin-de-symfony). À l'époque, le code vivait dans ce dépôt. Mais rien n'y était spécifique à notre site, alors nous l'avons extrait.
+
+C'est désormais [`bakslash/static-site-bundle`](https://github.com/bakslashHQ/static-site-bundle), et la v0.1.0 est sortie 🎉 Pour voir ce qu'il fait, suivons cette page, du contrôleur jusqu'au fichier.
+
+## Des routes, pas du contenu
+
+Beaucoup de générateurs de sites statiques partent du contenu : fichiers Markdown, collections, front matter. C'est ensuite à vous de faire rentrer votre site dans leur modèle.
+
+Ce bundle, lui, part de vos routes. Pour produire cette page, par exemple, il a construit une `Request` pour `/fr/blog/presentation-du-static-site-bundle`, l'a passée à notre kernel, puis a écrit la `Response` dans `fr/blog/presentation-du-static-site-bundle.html`. Rien de plus.
+
+Cela dit, si vous cherchez un outil centré sur le contenu, [Stenope](https://github.com/StenopePHP/Stenope) est un excellent choix. Ce bundle se contente de transformer des routes en fichiers.
+
+## Ce qu'un fichier vous apporte
+
+D'abord, il n'y a **rien de nouveau à apprendre**. Cette page est passée par notre contrôleur, nos templates Twig et nos services habituels, avec le même code et les mêmes tests. Si une page fonctionne dans votre navigateur, alors elle fonctionne en fichier statique.
+
+Ensuite, c'est **rapide et peu coûteux**. Une page Symfony typique met 5 à 15 ms à se rendre, alors qu'un fichier statique est servi en 0,2 ms environ. Pas de workers PHP à dimensionner, et des hébergeurs gratuits comme GitHub Pages ou Cloudflare Pages suffisent. D'ailleurs, l'hébergement de ce site ne coûte rien.
+
+Vous choisissez aussi **page par page**. Rien n'est généré tant que vous ne l'avez pas marqué, vous pouvez donc précuire les pages stables et garder les formulaires, la recherche et les tableaux de bord dynamiques, le tout dans la même application. Le serveur web [sert le fichier quand il existe](https://github.com/bakslashHQ/static-site-bundle#serving-the-generated-site), et se rabat sur PHP sinon. Et si vous changez d'avis, retirez simplement l'attribut.
+
+Enfin, cela laisse **moins de surface d'attaque et moins de correctifs à appliquer**. Rien ne tourne derrière cette page : pas de runtime à exploiter, et pas de mise à jour serveur dans l'urgence quand une alerte de sécurité tombe. Nos dépendances ne s'exécutent qu'en CI.
+
+## Un seul attribut
+
+Installez le bundle :
+
+```bash
+composer require bakslash/static-site-bundle
+```
+
+Puis marquez un contrôleur avec `#[Prerender]`. Voici notre page d'équipe :
+
+```php
+use Bakslash\StaticSiteBundle\Attribute\Prerender;
+
+#[Route(path: '/team', name: 'app_team', methods: ['GET'])]
+#[Prerender]
+public function __invoke(): Response
+{
+    return new Response($this->twig->render('pages/team/index.html.twig', [
+        'members' => $this->memberRepository->findAll(),
+    ]));
+}
+```
+
+Et lancez la génération :
+
+```bash
+bin/console static-site:generate --env=prod
+```
+
+Vous obtenez `build/team.html`, dans le répertoire de sortie par défaut. *C'est toute la boucle.*
+
+## Cette page a un slug
+
+La page d'équipe est simple : une route, un fichier. Cette page, en revanche, vit à `/blog/{slug}`, et le bundle ne peut pas deviner les slugs. Il n'a d'ailleurs pas à connaître nos articles.
+
+Le contrôleur pointe donc vers un fournisseur qui les liste :
+
+```php
+use Bakslash\StaticSiteBundle\ParamsProvider\ParamsProviderInterface;
+
+final readonly class BlogArticleParamsProvider implements ParamsProviderInterface
+{
+    public function __construct(
+        private ArticleRepository $articleRepository,
+    ) {
+    }
+
+    public function provideParameterSets(): iterable
+    {
+        foreach ($this->articleRepository->findAll() as $article) {
+            yield ['slug' => $article->slug];
+        }
+    }
+}
+```
+
+```php
+#[Route(path: '/blog/{slug}', name: 'app_blog_article', methods: ['GET'])]
+#[Prerender(params: BlogArticleParamsProvider::class)]
+public function __invoke(string $slug): Response
+```
+
+Un jeu de paramètres, un fichier. Résultat : publier cet article n'a demandé qu'un fichier Markdown dans le dépôt. Le fournisseur l'a détecté, puis le build suivant a écrit une page de plus. Aucune configuration modifiée.
+
+## Le build qui a produit cette page
+
+Voici toute la configuration du bundle sur ce site :
+
+```yaml
+bakslash_static_site:
+    storage: '%kernel.project_dir%/public/static-pages'
+    minify: true
+```
+
+Et voici ce que le build a affiché :
+
+```
+ ✓ /
+ ✓ /legal-notices
+ ✓ /robots.txt
+ ✓ /llms.txt
+ ✓ /sitemap.xml
+ ✓ /blog/introducing-static-site-bundle
+ ✓ /blog/fixing-symfony-ux-security-vulnerabilities
+ ✓ /blog/when-symfony-pages-dont-need-symfony
+ ✓ /blog/webpack-encore-whats-new-8-months-later
+ ✓ /blog/webpack-encore-current-state-and-future
+ ✓ /blog/symfony-certification
+ ✓ /blog
+ ✓ /blog/feed.xml
+ ✓ /team
+
+ [OK] Generated 14 page(s).
+```
+
+La sixième ligne, c'est la version anglaise de cette page.
+
+Remarquez aussi `robots.txt`, `sitemap.xml` et `feed.xml` : l'extension du fichier provient du `_format` de la route ou du `Content-Type` de la réponse, donc les routes non-HTML fonctionnent de la même manière.
+
+En fait, chaque page publique du site figure dans cette liste. Il n'y a donc **plus aucun PHP en production** : GitHub Actions construit les fichiers, puis GitHub Pages les sert.
+
+## À vous de jouer
+
+C'est une v0.1 : l'API est déjà plutôt stable, volontairement réduite, mais elle pourrait encore évoluer avant la sortie de la v1.0.
+
+Cette page a été un appel de contrôleur, une fois, et c'est maintenant un fichier. Choisissez l'une de vos pages qui n'a pas bougé depuis des mois, ajoutez l'attribut, et laissez-la en devenir un elle aussi. Et si quelque chose casse, [ouvrez une issue](https://github.com/bakslashHQ/static-site-bundle/issues).
