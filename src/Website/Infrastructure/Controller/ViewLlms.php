@@ -6,8 +6,8 @@ namespace App\Website\Infrastructure\Controller;
 
 use App\Blog\Domain\Repository\ArticleRepository;
 use Bakslash\StaticSiteBundle\Attribute\Prerender;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Attribute\Route;
 use Twig\Environment;
