@@ -8,6 +8,7 @@ use App\Blog\Domain\Exception\MissingArticleException;
 use App\Blog\Domain\Factory\ArticleFactory;
 use App\Blog\Domain\Model\Article;
 use App\Blog\Domain\Repository\ArticleRepository;
+use App\Blog\Infrastructure\ArticleSource;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Translation\LocaleSwitcher;
@@ -25,7 +26,7 @@ final readonly class FilesystemArticleRepository implements ArticleRepository
     public function get(string $id): Article
     {
         try {
-            return $this->articleFactory->create($id);
+            return $this->articleFactory->create($id, $this->localeSwitcher->getLocale());
         } catch (\OutOfBoundsException) {
             throw new MissingArticleException($id);
         }
@@ -54,14 +55,13 @@ final readonly class FilesystemArticleRepository implements ArticleRepository
         $files = new Finder()
             ->files()
             ->in($this->articlesDir)
-            ->name(sprintf('*.%s.md.twig', $locale))
+            ->name(ArticleSource::glob($locale))
             ->ignoreVCSIgnored(true)
             ->sortByName();
 
         $articles = [];
         foreach ($files as $file) {
-            $id = basename($file->getFilename(), sprintf('.%s.md.twig', $locale));
-            $articles[] = $this->articleFactory->create($id);
+            $articles[] = $this->articleFactory->create(ArticleSource::id($file->getFilename(), $locale), $locale);
         }
 
         usort($articles, static fn (Article $a, Article $b): int => $b->publishedAt <=> $a->publishedAt);

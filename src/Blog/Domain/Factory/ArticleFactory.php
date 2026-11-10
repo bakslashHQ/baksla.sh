@@ -18,15 +18,15 @@ final readonly class ArticleFactory
     ) {
     }
 
-    public function create(string $id): Article
+    public function create(string $id, string $locale): Article
     {
-        $metadata = $this->metadataProvider->provide($id);
+        $metadata = $this->metadataProvider->provide($id, $locale);
 
         $reflector = new \ReflectionClass(Article::class);
         $htmlProperty = $reflector->getProperty('html');
 
-        $article = $reflector->newLazyGhost(function (Article $article) use ($id, $htmlProperty): void {
-            $htmlProperty->setRawValueWithoutLazyInitialization($article, $this->htmlProvider->provide($id));
+        $article = $reflector->newLazyGhost(function (Article $article) use ($id, $locale, $htmlProperty): void {
+            $htmlProperty->setRawValueWithoutLazyInitialization($article, $this->htmlProvider->provide($id, $locale));
         });
 
         $properties = [

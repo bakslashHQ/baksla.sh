@@ -40,6 +40,21 @@ final class ArticlesTest extends KernelTestCase
         }
     }
 
+    public function testHtmlIsRenderedInTheLocaleTheArticleWasLoadedIn(): void
+    {
+        self::bootKernel();
+
+        $repository = self::getContainer()->get(ArticleRepository::class);
+        $localeSwitcher = self::getContainer()->get(LocaleSwitcher::class);
+
+        /** @var Article $article */
+        $article = $localeSwitcher->runWithLocale('fr', static fn (): Article => $repository->get('symfony-certification'));
+        $englishHtml = $repository->get('symfony-certification')->html;
+
+        $this->assertNotSame($englishHtml, $article->html);
+        $this->assertStringContainsString('certification', $article->html);
+    }
+
     public function testSlugsAreUniquePerLocale(): void
     {
         self::bootKernel();

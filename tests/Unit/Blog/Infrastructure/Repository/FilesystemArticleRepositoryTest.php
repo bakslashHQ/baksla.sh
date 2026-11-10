@@ -125,7 +125,7 @@ final class FilesystemArticleRepositoryTest extends TestCase
 
         $articleFactory = new ArticleFactory(
             new InMemoryMemberRepository([aMember()->withId(MemberId::MathiasArlaud)->build()]),
-            new YamlMetadataProvider(new LocaleSwitcher('en', []), $this->articlesDir),
+            new YamlMetadataProvider($this->articlesDir),
             $htmlProvider,
         );
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Blog\Infrastructure\Rendering;
 
 use App\Blog\Domain\Factory\ArticleFactory\HtmlProvider;
-use Symfony\Component\Translation\LocaleSwitcher;
+use App\Blog\Infrastructure\ArticleSource;
 use Twig\Environment;
 
 final readonly class TwigMarkdownHtmlProvider implements HtmlProvider
@@ -15,13 +15,12 @@ final readonly class TwigMarkdownHtmlProvider implements HtmlProvider
     public function __construct(
         private Environment $twig,
         private LeagueMarkdownConverter $converter,
-        private LocaleSwitcher $localeSwitcher,
     ) {
     }
 
-    public function provide(string $id): string
+    public function provide(string $id, string $locale): string
     {
-        $markdown = $this->twig->render(sprintf('articles/%s.%s.md.twig', $id, $this->localeSwitcher->getLocale()));
+        $markdown = $this->twig->render(ArticleSource::template($id, $locale));
         $markdown = preg_replace(self::METADATA_REGEX, '', $markdown) ?? '';
 
         return $this->converter->convert($markdown);

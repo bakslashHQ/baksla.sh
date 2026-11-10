@@ -31,7 +31,7 @@ final class ArticleFactoryTest extends TestCase
         $htmlProvider = $this->createStub(HtmlProvider::class);
         $htmlProvider->method('provide')->willReturn('html');
 
-        $article = new ArticleFactory($memberRepository, $metadataProvider, $htmlProvider)->create('1');
+        $article = new ArticleFactory($memberRepository, $metadataProvider, $htmlProvider)->create('1', 'en');
 
         $this->assertInstanceOf(Article::class, $article);
         $this->assertSame('1', $article->id);
@@ -64,12 +64,31 @@ final class ArticleFactoryTest extends TestCase
             return 'html';
         });
 
-        $article = new ArticleFactory($memberRepository, $metadataProvider, $htmlProvider)->create('1');
+        $article = new ArticleFactory($memberRepository, $metadataProvider, $htmlProvider)->create('1', 'en');
 
         $this->assertSame('a-slug', $article->slug);
         $this->assertSame(0, $renders);
 
         $this->assertSame('html', $article->html);
         $this->assertSame(1, $renders);
+    }
+
+    public function testForwardsTheLocaleToTheProviders(): void
+    {
+        $memberRepository = new InMemoryMemberRepository([aMember()->withId(MemberId::MathiasArlaud)->build()]);
+
+        $metadataProvider = $this->createMock(MetadataProvider::class);
+        $metadataProvider->expects($this->once())->method('provide')->with('1', 'fr')->willReturn(new ArticleMetadata(
+            slug: 'un-slug',
+            title: 'titre',
+            description: 'description',
+            authorId: MemberId::MathiasArlaud,
+            publishedAt: new \DateTimeImmutable('2025-01-15'),
+        ));
+
+        $htmlProvider = $this->createMock(HtmlProvider::class);
+        $htmlProvider->expects($this->once())->method('provide')->with('1', 'fr')->willReturn('html');
+
+        $this->assertSame('html', new ArticleFactory($memberRepository, $metadataProvider, $htmlProvider)->create('1', 'fr')->html);
     }
 }

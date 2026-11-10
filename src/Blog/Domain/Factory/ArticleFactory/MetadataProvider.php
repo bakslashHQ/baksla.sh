@@ -9,5 +9,5 @@ interface MetadataProvider
     /**
      * @throws \OutOfBoundsException
      */
-    public function provide(string $id): ArticleMetadata;
+    public function provide(string $id, string $locale): ArticleMetadata;
 }

@@ -10,7 +10,6 @@ use App\Team\Domain\Model\MemberId;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Component\Yaml\Yaml;
 
 final class YamlMetadataProviderTest extends TestCase
@@ -58,7 +57,7 @@ final class YamlMetadataProviderTest extends TestCase
         $this->expectException(\OutOfBoundsException::class);
         $this->expectExceptionMessageIs('No source found for article "missing".');
 
-        new YamlMetadataProvider(new LocaleSwitcher('en', []), $this->articlesDir)->provide('missing');
+        new YamlMetadataProvider($this->articlesDir)->provide('missing', 'en');
     }
 
     public function testThrowsWhenNoMetadata(): void
@@ -158,6 +157,6 @@ final class YamlMetadataProviderTest extends TestCase
     {
         $this->fs->dumpFile(sprintf('%s/1.en.md.twig', $this->articlesDir), $content);
 
-        return new YamlMetadataProvider(new LocaleSwitcher('en', []), $this->articlesDir)->provide('1');
+        return new YamlMetadataProvider($this->articlesDir)->provide('1', 'en');
     }
 }
