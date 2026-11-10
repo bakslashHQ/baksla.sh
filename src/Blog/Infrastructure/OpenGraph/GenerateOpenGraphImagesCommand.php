@@ -38,7 +38,7 @@ final class GenerateOpenGraphImagesCommand extends Command
             $articles = $this->localeSwitcher->runWithLocale($locale, fn (): array => $this->articleRepository->findAll());
 
             foreach ($articles as $article) {
-                $path = $this->publicDir.$this->openGraphImagePath->of($article->id, $locale);
+                $path = $this->publicDir . $this->openGraphImagePath->of($article->id, $locale);
                 $this->filesystem->dumpFile($path, $this->imageGenerator->generate($article, $locale));
                 $io->info(sprintf('Generated OG image for "%s" (%s)', $article->id, $locale));
             }
