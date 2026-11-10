@@ -28,6 +28,16 @@ final class ViewFeedTest extends FunctionalTestCase
         $this->assertSame('feed', $xml->getName());
     }
 
+    public function testFeedTitleIsTranslated(): void
+    {
+        $this->get('/fr/blog/feed.xml');
+
+        $xml = simplexml_load_string($this->getResponse()->getContent() ?: '');
+
+        $this->assertNotFalse($xml);
+        $this->assertSame('blog.feed.title', (string) $xml->title);
+    }
+
     public function testFeedListsEveryArticle(): void
     {
         $articleRepository = $this->getService(ArticleRepository::class);

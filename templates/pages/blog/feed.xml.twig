@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="{{ app.request.locale }}">
-    <title>baksla.sh Blog</title>
+    <title>{{ 'blog.feed.title'|trans }}</title>
     <subtitle>{{ 'blog.seo.description'|trans|raw }}</subtitle>
     <link href="{{ url('app_blog_feed') }}" rel="self" />
     <link href="{{ url('app_blog') }}" />

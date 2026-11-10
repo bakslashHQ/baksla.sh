@@ -188,6 +188,7 @@ legal_notices.hosting.tag.https: https only
 
 blog.seo.title: 'Blog | baksla.sh'
 blog.seo.description: The baksla.sh's blog
+blog.feed.title: baksla.sh Blog
 blog.label: the blog
 blog.title: 'What we shipped<0>,</0><br>and what we learned.'
 blog.caption: '# BLOG.md'
