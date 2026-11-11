@@ -1,0 +1,106 @@
+---
+author: hugo-alliaume
+title: "Symfony UX CSS, une semaine plus tard 🎨"
+description: "La semaine dernière, UX CSS n'avait pas de cva(). Il en a une maintenant, l'appelant d'un composant peut surcharger ses classes, css() évite l'escaper quand elle le peut, et une application de benchmark le compare à twig-tailwind-extra. Tout cela arrive dans Symfony UX 3.8."
+published_at: 2026-11-12
+slug: symfony-ux-css-une-semaine-plus-tard
+---
+
+La semaine dernière, [Symfony UX CSS sous le capot](symfony-ux-css-sous-le-capot) se terminait par ce qu'UX CSS ne supportait pas encore, et la liste commençait par les recipes de Panda : `cva()`. UX CSS a maintenant une fonction `cva()`.
+
+Ce n'est pas le seul changement en une semaine. L'appelant d'un composant peut désormais surcharger ses classes, `css()` évite l'escaper de Twig quand elle le peut, et une application de benchmark compare UX CSS à twig-tailwind-extra sur une vraie page. Rien n'est encore publié : tout arrive dans Symfony UX 3.8.
+
+## `cva()` est là
+
+Dans Panda, `cva()` décrit les variantes d'un composant. UX CSS a maintenant la même fonction ([#4243](https://github.com/symfony/ux/pull/4243)). Comme `html_cva()` de twig/html-extra, elle prend quatre arguments nommés : `base`, `variants`, `compoundVariants` et `defaultVariants`.
+
+{% verbatim %}
+```twig
+{# templates/components/Button.html.twig #}
+{% props size = 'sm' %}
+
+{% set button = cva(
+    base: { rounded: 'md', px: '3' },
+    variants: { size: { sm: { py: '1' }, lg: { px: '5' } } },
+    defaultVariants: { size: 'sm' },
+) %}
+
+<button {{ attributes.defaults({ class: button.apply({ size: size }) }) }}>
+    {% block content %}{% endblock %}
+</button>
+```
+{% endverbatim %}
+
+La différence avec `html_cva()`, c'est le moment où les styles sont fusionnés. `html_cva()` met des chaînes de classes côte à côte, et un filtre comme `tailwind_classes` doit ensuite faire le ménage. `cva()` fusionne d'abord les hashs de styles, puis génère les classes. Avec `size: 'lg'`, le `px` de `lg` remplace celui de `base` : le résultat contient `px_5`, et pas `px_3`.
+
+La configuration est lue à la compilation du template, comme un appel à `css()`. Chaque hash est alors validé, et le CSS de chaque variante est écrit dans la feuille de style, qu'une page l'utilise ou non. Une variante choisie au runtime, comme `size` ci-dessus, n'a donc pas besoin de `static_css`. Les classes de 256 combinaisons au maximum sont aussi compilées dans le template, et `apply()` prend environ 1,6 µs.
+
+Le cliquet du premier article a aussi gagné cinq cas : des appels à `cva()` enregistrés depuis la suite de tests de Panda, qui donnent maintenant la même sortie que Panda.
+
+## Surcharger les classes d'un composant
+
+Voici un composant qui définit ses classes avec `css()`, comme valeur par défaut de son attribut `class` :
+
+{% verbatim %}
+```twig
+{# templates/components/Button.html.twig #}
+<button {{ attributes.defaults({ class: css({ px: '3', color: 'primary' }) }) }}>
+    {% block content %}{% endblock %}
+</button>
+```
+{% endverbatim %}
+
+Et un appelant qui veut plus de padding :
+
+{% verbatim %}
+```twig
+<twig:Button class="{{ css({ px: '5' }) }}">Save</twig:Button>
+```
+{% endverbatim %}
+
+En 3.7, `px_3` et `px_5` se retrouvent tous les deux dans l'attribut, et c'est l'ordre des règles dans la feuille de style qui décide laquelle gagne. En 3.8, la classe de l'appelant remplace celle du composant quand elles ont les mêmes conditions et la même propriété CSS ([#4215](https://github.com/symfony/ux/pull/4215)). Le bouton est rendu avec `class="c_primary px_5"`. Il en va de même pour les variantes de `cva()` : {% verbatim %}`<twig:Button size="lg" class="...">`{% endverbatim %} peut remplacer le `px` de `lg`.
+
+Cela fonctionne parce que `css()` ne renvoie plus une chaîne. Elle renvoie un `CssClassList`, que la fusion d'attributs de twig/html-extra comprend. C'est un BC break : le résultat de `css()` est toujours truthy, `html_classes()` le refuse, et des tests comme `in` ou `starts with` échouent dessus. Ajoutez `~ ''` quand vous avez besoin de la chaîne. La surcharge demande aussi symfony/ux-twig-component 3.8, et le [CHANGELOG](https://github.com/symfony/ux-css/blob/3.x/CHANGELOG.md) liste le reste.
+
+Elle a aussi un coût. Sur une page avec 100 appels à `css()`, dont 20 avec une partie connue seulement au runtime, le rendu est passé d'environ 85 µs à 93 µs. Ces 20 appels construisent maintenant un `CssClassList` que l'escaper retransforme en chaîne. Les 80 autres sont toujours compilés en simple chaîne.
+
+## Moins d'escaping
+
+Le premier article s'ouvrait sur ce template compilé :
+
+```php
+yield (string) $this->escaper->escape(("p_md c_primary hover:c_fg"), "html", null, true);
+```
+
+C'est le comportement standard de Twig : il échappe tout ce qu'il affiche, sauf s'il sait que la valeur est sûre. Je n'avais pas encore optimisé cela, donc rien n'indiquait à Twig que les classes de `css()` étaient sûres, et elles passaient par l'escaper à chaque rendu.
+
+Maintenant, `css()` le lui dit ([#4235](https://github.com/symfony/ux/pull/4235)). Quand les classes sont connues à la compilation et ne contiennent que de l'ASCII imprimable, sans `&`, `<`, `>` ni guillemets, elles sont sûres pour le HTML, et le même template est compilé en :
+
+```php
+yield (string) ("p_md c_primary hover:c_fg");
+```
+
+Les hashs connus seulement au runtime, les classes avec d'autres caractères et les autres stratégies d'échappement, comme `js`, passent toujours par l'escaper.
+
+Sur la même page de 100 appels, le rendu est passé de 111 µs à 83 µs, et Blackfire compte 40 appels à l'escaper par rendu au lieu de 120. La compilation du template prend le même temps. Ce changement est arrivé avant la surcharge, qui en a repris environ 8 µs : de 111 µs avant les deux changements à environ 93 µs après.
+
+## Mesuré face à twig-tailwind-extra
+
+Les microbenchmarks disent à quelle vitesse tourne `css()`, pas si cela compte sur une vraie page. Le dépôt Symfony UX a donc maintenant une [application de benchmark](https://github.com/symfony/ux/tree/3.x/apps/css-benchmark) ([#4238](https://github.com/symfony/ux/pull/4238)) qui rend deux fois le même dashboard, avec 364 composants à chaque fois. La première page utilise les recipes shadcn du UX Toolkit, qui fusionnent des classes Tailwind avec `html_cva()` et le filtre `tailwind_classes` de [twig-tailwind-extra](https://github.com/tales-from-a-dev/twig-tailwind-extra), une extension Twig de tales-from-a-dev construite sur tailwind-merge-php. La seconde page utilise les jumeaux de ces recipes, écrits avec `css()` et `cva()`.
+
+`bin/bench` sert les deux pages avec FrankenPHP, en mode classique puis en mode worker, dans l'environnement `prod` avec OPcache et le preloading activés. Chaque page reçoit 5 séries de 2 000 requêtes. Médiane des requêtes par seconde, sur un Apple M1 Pro :
+
+| Mode FrankenPHP | twig-tailwind-extra | UX CSS |
+| --------------- | ------------------- | ------ |
+| Classique       | 469                 | 497    |
+| Worker          | 537                 | 545    |
+
+En mode classique, UX CSS sert 5,8 % de requêtes par seconde en plus, alors que les séries d'une même page varient jusqu'à 2,1 %. En mode worker, l'écart de 1,5 % est dans cette variation : disons une égalité. Seul le rendu du HTML est mesuré, pas la construction du CSS.
+
+`cva()` a aidé en mode classique. Passer les composants Button, Badge et Alert dessus ([#4246](https://github.com/symfony/ux/pull/4246)) revient à lire une table compilée dans le template, au lieu de calculer à chaque requête les classes d'environ 85 composants. En mode worker, le cache runtime de `css()` les gardait déjà, donc le gain reste dans la variation.
+
+## Rendez-vous en 3.8
+
+Tout cela sort avec Symfony UX 3.8. UX CSS reste expérimental, et le reste de la liste de la semaine dernière tient toujours : les config recipes de Panda (déclarées dans la configuration plutôt que dans le template), les patterns, les styles de texte, de layer et d'animation, les thèmes, et les noms de classes hashés. Chacun est un ensemble de cas golden qui attendent leur tour.
+
+Quand la 3.8 sera sortie, essayez `cva()` sur l'un de vos composants, et si quelque chose ne convient pas à votre application, [ouvrez une issue](https://github.com/symfony/ux/issues). 🚀
