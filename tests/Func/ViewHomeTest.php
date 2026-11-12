@@ -43,7 +43,7 @@ final class ViewHomeTest extends FunctionalTestCase
         $links = $this->hrefs($this->get($path)->filter('[data-test-maintainers] a'));
 
         $this->assertSame([
-            'https://symfony.com/doc/current/contributing/code/core_team.html',
+            'https://symfony.com/doc/current/contributing/core_team.html#active-core-members',
             'https://github.com/Kocal',
             'https://github.com/mtarld',
             'https://github.com/chalasr',
