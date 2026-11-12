@@ -10,7 +10,7 @@
 
 {% set talks = this.talks|map(talk => {
     label: talk.title,
-    meta: talk.event ~ ' ' ~ talk.year,
+    meta: talk.event,
     url: talk.url,
     authors: talk.speakers|map(id => members[id.value]),
     thumbnail: 'images/talks/' ~ talk.youtubeId ~ '.webp',
@@ -22,18 +22,18 @@
     {type: 'del', text: 'home.values.line_1_del'|trans},
     {type: 'add', text: 'home.values.line_1_add_1'|trans},
     {type: 'add', text: 'home.values.line_1_add_2'|trans},
-    {type: 'link', label: 'home.values.proof.pull_requests'|trans({count: this.symfonyPullRequestsCount}), url: this.symfonyPullRequestsUrl},
+    {type: 'link', icon: 'mdi:github', label: 'home.values.proof.pull_requests'|trans({count: this.symfonyPullRequestsCount}), url: this.symfonyPullRequestsUrl},
     {type: 'ctx', text: ''},
     {type: 'del', text: 'home.values.line_2_del'|trans},
     {type: 'add', text: 'home.values.line_2_add_1'|trans},
-    {type: 'refs', summary: 'home.values.proof.components'|trans({count: components|length}), items: components},
+    {type: 'refs', icon: 'mdi:github', summary: 'home.values.proof.components'|trans({count: components|length}), items: components},
     {type: 'add', text: 'home.values.line_2_add_2'|trans},
-    {type: 'link', label: 'home.values.proof.bug_fixes'|trans({count: this.symfonyBugFixesCount}), url: this.symfonyBugFixesUrl},
+    {type: 'link', icon: 'mdi:github', label: 'home.values.proof.bug_fixes'|trans({count: this.symfonyBugFixesCount}), url: this.symfonyBugFixesUrl},
     {type: 'ctx', text: ''},
     {type: 'del', text: 'home.values.line_3_del'|trans},
     {type: 'add', text: 'home.values.line_3_add_1'|trans},
     {type: 'add', text: 'home.values.line_3_add_2'|trans},
-    {type: 'refs', summary: 'home.values.proof.talks'|trans({count: talks|length}), items: talks},
+    {type: 'refs', icon: 'mdi:play', summary: 'home.values.proof.talks'|trans({count: talks|length}), items: talks},
     {type: 'ctx', text: ''},
     {type: 'del', text: 'home.values.line_4_del'|trans},
     {type: 'add', text: 'home.values.line_4_add_1'|trans},
@@ -83,7 +83,7 @@
                                     rel="noopener noreferrer"
                                     class="group inline-flex items-center gap-1 text-accent no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
                                 >
-                                    <twig:ux:icon name="mdi:arrow-right" aria-hidden="true" class="size-4 shrink-0" />
+                                    <twig:ux:icon :name="line.icon" aria-hidden="true" class="size-4 shrink-0" />
                                     <span class="underline decoration-accent/30 underline-offset-2 group-hover:decoration-accent">{{ line.label }}</span>
                                     <span class="sr-only">{{ 'common.opens_new_tab'|trans }}</span>
                                 </a>
@@ -117,14 +117,14 @@
                                     <span data-test-proof-authors class="text-muted">· {{ authors|map(a => a.firstName)|join(', ') }}</span>
                                 </summary>
 
-                                <ul role="list" class="list-none m-0 mt-3 mb-2 p-0 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 {% if (line.items|first).thumbnail is not defined %}xl:grid-cols-5{% endif %}">
+                                <ul role="list" class="list-none m-0 mt-3 mb-2 p-0 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
                                     {% for item in line.items %}
                                         <li>
                                             <a
                                                 href="{{ item.url }}"
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                class="group/ref flex h-full flex-col overflow-hidden rounded-xl border border-ink/10 bg-paper no-underline transition duration-200 hover:border-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                                                class="group/ref flex h-full items-center gap-3 rounded-xl border border-ink/10 bg-paper p-2 no-underline transition duration-200 hover:border-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                                             >
                                                 {% if item.thumbnail is defined %}
                                                     <img
@@ -133,13 +133,17 @@
                                                         width="320"
                                                         height="180"
                                                         loading="lazy"
-                                                        class="aspect-video w-full object-cover bg-paper-shade"
+                                                        class="w-24 shrink-0 aspect-video rounded-md object-cover bg-paper-shade"
                                                     >
+                                                {% else %}
+                                                    <span class="grid place-items-center size-10 shrink-0 rounded-md bg-ink text-paper group-hover/ref:bg-accent transition-colors" aria-hidden="true">
+                                                        <twig:ux:icon :name="line.icon" class="size-5" />
+                                                    </span>
                                                 {% endif %}
-                                                <span class="flex flex-1 flex-col gap-1.5 p-3 font-sans text-sm leading-snug">
+                                                <span class="flex min-w-0 flex-1 flex-col gap-0.5 font-sans text-sm leading-snug">
                                                     <span class="font-medium text-ink group-hover/ref:text-accent transition-colors line-clamp-2">{{ item.label }}</span>
-                                                    <span class="font-mono text-xs text-muted">{{ item.meta }}</span>
-                                                    <span class="mt-auto flex items-center gap-1.5 pt-1 text-xs text-ink-soft">
+                                                    <span class="font-mono text-xs text-muted truncate">{{ item.meta }}</span>
+                                                    <span class="flex items-center gap-1.5 pt-0.5 text-xs text-ink-soft">
                                                         <span class="flex -space-x-1.5" aria-hidden="true">
                                                             {% for author in item.authors %}
                                                                 <img

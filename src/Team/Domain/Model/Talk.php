@@ -10,15 +10,16 @@ namespace App\Team\Domain\Model;
 final readonly class Talk
 {
     /**
-     * @param non-empty-string           $title
-     * @param non-empty-string           $event
-     * @param non-empty-string           $youtubeId
-     * @param non-empty-list<MemberId>   $speakers
+     * @param non-empty-string         $title
+     * @param non-empty-string         $event       where and when it was given, e.g. "Forum PHP 2025"
+     * @param \DateTimeImmutable       $publishedAt when the recording went online, to list the most recent talks first
+     * @param non-empty-string         $youtubeId
+     * @param non-empty-list<MemberId> $speakers
      */
     public function __construct(
         public string $title,
         public string $event,
-        public int $year,
+        public \DateTimeImmutable $publishedAt,
         public string $youtubeId,
         public array $speakers,
     ) {

@@ -131,7 +131,7 @@ final class ViewHomeTest extends FunctionalTestCase
     {
         $authors = $this->get('/')->filter('#values [data-test-proof-authors]')->each(static fn (Crawler $author): string => $author->text());
 
-        $this->assertSame(['· Mathias, Robin, Hugo', '· Mathias, Robin, Florian, Félix, Jérémy'], $authors);
+        $this->assertSame(['· Mathias, Robin, Hugo', '· Mathias, Robin, Félix, Florian, Jérémy'], $authors);
     }
 
     public function testEveryOpenSourceLineLinksToTheMatchingGitHubSearch(): void
