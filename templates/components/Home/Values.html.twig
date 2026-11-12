@@ -33,7 +33,7 @@
     {type: 'del', text: 'home.values.line_3_del'|trans},
     {type: 'add', text: 'home.values.line_3_add_1'|trans},
     {type: 'add', text: 'home.values.line_3_add_2'|trans},
-    {type: 'refs', icon: 'mdi:play', summary: 'home.values.proof.talks'|trans({count: talks|length}), items: talks},
+    {type: 'refs', summary: 'home.values.proof.talks'|trans({count: talks|length}), items: talks},
     {type: 'ctx', text: ''},
     {type: 'del', text: 'home.values.line_4_del'|trans},
     {type: 'add', text: 'home.values.line_4_add_1'|trans},
@@ -66,13 +66,13 @@
                     {% set line_n = diff_lines|slice(0, loop.index)|filter(l => l.type != 'del')|length + (line.type == 'del' ? 1 : 0) %}
                     <li
                         {% if is_blank %}aria-hidden="true"{% endif %}
-                        class="flex min-h-8 {% if line.type == 'add' %}bg-green-500/10{% elseif line.type == 'del' %}bg-red-500/10{% endif %}"
+                        class="group/line flex min-h-8 {% if line.type == 'add' %}bg-green-500/10{% elseif line.type == 'del' %}bg-red-500/10{% endif %}"
                     >
                         <span aria-hidden="true" class="w-10 sm:w-16 shrink-0 pr-2 sm:pr-4 text-right text-muted text-sm leading-loose border-r border-ink/10 select-none">
                             {{ line_n }}
                         </span>
                         <span aria-hidden="true" class="w-6 sm:w-10 shrink-0 text-center font-bold select-none {% if line.type == 'add' %}text-green-700{% elseif line.type == 'del' %}text-red-700{% endif %}">
-                            {% if line.type == 'add' %}+{% elseif line.type == 'del' %}−{% endif %}
+                            {% if line.type == 'add' %}+{% elseif line.type == 'del' %}−{% elseif line.type == 'link' %}<twig:ux:icon :name="line.icon" class="inline-block size-4 align-[-0.2em] text-accent" />{% elseif line.type == 'refs' %}<twig:ux:icon name="mdi:chevron-right" class="inline-block size-4 align-[-0.2em] text-accent transition-transform duration-200 group-has-[details[open]]/line:rotate-90" />{% endif %}
                         </span>
                         {% if line.type == 'link' %}
                             <span data-test-proof class="flex-1 pr-4 sm:pr-6">
@@ -83,7 +83,6 @@
                                     rel="noopener noreferrer"
                                     class="group inline-flex items-center gap-1 text-accent no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
                                 >
-                                    <twig:ux:icon :name="line.icon" aria-hidden="true" class="size-4 shrink-0" />
                                     <span class="underline decoration-accent/30 underline-offset-2 group-hover:decoration-accent">{{ line.label }}</span>
                                     <span class="sr-only">{{ 'common.opens_new_tab'|trans }}</span>
                                 </a>
@@ -100,7 +99,6 @@
                             <details data-test-proof class="group/refs flex-1 min-w-0 pr-4 sm:pr-6">
                                 <summary class="inline-flex flex-wrap items-center gap-x-2 gap-y-1 py-1 cursor-pointer list-none text-accent rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-accent [&::-webkit-details-marker]:hidden">
                                     <span class="sr-only">{{ 'home.values.sr_proof'|trans }} </span>
-                                    <twig:ux:icon name="mdi:chevron-right" aria-hidden="true" class="size-4 shrink-0 transition-transform duration-200 group-open/refs:rotate-90" />
                                     <span class="flex -space-x-1.5" aria-hidden="true">
                                         {% for author in authors %}
                                             <img
