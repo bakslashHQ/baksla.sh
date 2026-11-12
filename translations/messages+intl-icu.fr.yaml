@@ -1,14 +1,19 @@
 common.opens_new_tab: (ouvre dans un nouvel onglet)
 
 home.seo.title: baksla.sh
-home.seo.description: "Une équipe qui compte des membres de la Core Team Symfony. Quand le framework bloque votre équipe, nous le corrigeons en amont."
+home.seo.description: "Une équipe qui compte des membres de la Core Team Symfony. Quand le framework vous freine, nous le corrigeons à la source."
 
-home.hero.aria_label: "baksla.sh : des mainteneurs Symfony qui débloquent votre équipe"
-home.hero.eyebrow: Mainteneurs Symfony · conseil, développement, formation
-home.hero.heading: Quand le framework bloque, votre équipe attend. <0>Nous, on le débloque.</0>
-home.hero.tagline: "Nous sommes celles et ceux que vous lisez dans le changelog de Symfony. Bugs du framework, failles de sécurité, briques manquantes : nous les corrigeons à la source. Pas de pitch deck, juste des commits."
+home.hero.aria_label: "Baksla.sh : une vraie entreprise open source, partout dans le monde"
+home.hero.eyebrow: Une vraie entreprise open source · partout dans le monde
+home.hero.heading_text: Nous sommes des
+home.hero.heading_aria_label: Nous sommes mainteneurs, passionnés, ambassadeurs et développeurs Symfony.
+home.hero.tagline: "Nous sommes celles et ceux que vous lisez dans le changelog de Symfony. Quand le framework vous freine, nous savons où regarder, et nous le corrigeons à la source. Pas de pitch deck, juste des commits."
 home.hero.cta.primary: Ce que nous faisons
 home.hero.cta.secondary: Dites bonjour
+home.hero.words.maintainers: 'mainteneurs'
+home.hero.words.lovers: 'passionnés de'
+home.hero.words.developers: 'développeurs'
+home.hero.words.advocates: 'ambassadeurs'
 
 home.maintainers.label: Core Team Symfony
 home.maintainers.source: vérifier sur symfony.com
@@ -31,7 +36,7 @@ home.kpi.love_in_ecosystem: ❤️ pour PHP
 home.kpi.love_in_ecosystem_hint: "une longue lettre d'amour"
 
 home.problems.aria_label: ce qui bloque votre équipe, et comment baksla.sh le débloque
-home.problems.heading: Ce qui vous bloque, <0>et comment nous le débloquons</0>.
+home.problems.heading: "Des fixes qu'on ne <0>revert</0> pas."
 home.problems.filename: blocages.md
 home.problems.commit_meta: committé · mergé en amont
 home.problems.sr_problem: "Problème :"

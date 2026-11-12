@@ -1,14 +1,19 @@
 common.opens_new_tab: (opens in a new tab)
 
 home.seo.title: baksla.sh
-home.seo.description: A team including Symfony Core Team members. When the framework blocks your team, we fix it upstream.
+home.seo.description: A team including Symfony Core Team members. When the framework slows you down, we fix it at the source.
 
-home.hero.aria_label: 'baksla.sh: Symfony maintainers who unblock your team'
-home.hero.eyebrow: Symfony maintainers · consulting, development, training
-home.hero.heading: When the framework blocks, your team waits. <0>We unblock it.</0>
-home.hero.tagline: "We're the people you read in the Symfony changelog. Framework bugs, security flaws, missing building blocks: we fix them at the source. No pitch deck, just commits."
+home.hero.aria_label: 'Baksla.sh: a real OSS company, worldwide'
+home.hero.eyebrow: A real OSS company · worldwide
+home.hero.heading_text: We are
+home.hero.heading_aria_label: We are Symfony maintainers, lovers, advocates, and developers.
+home.hero.tagline: "We're the people you read in the Symfony changelog. When the framework slows you down, we know where to look, and we fix it at the source. No pitch deck, just commits."
 home.hero.cta.primary: What we do
 home.hero.cta.secondary: Say hi
+home.hero.words.maintainers: 'maintainers.'
+home.hero.words.lovers: 'lovers.'
+home.hero.words.developers: 'developers.'
+home.hero.words.advocates: 'advocates.'
 
 home.maintainers.label: Symfony Core Team
 home.maintainers.source: check on symfony.com
@@ -31,7 +36,7 @@ home.kpi.love_in_ecosystem: ❤️ for PHP
 home.kpi.love_in_ecosystem_hint: a long love letter
 
 home.problems.aria_label: what blocks your team, and how baksla.sh unblocks it
-home.problems.heading: What blocks you, <0>and how we unblock it</0>.
+home.problems.heading: Fixes we won't <0>revert</0>.
 home.problems.filename: blockers.md
 home.problems.commit_meta: committed · merged upstream
 home.problems.sr_problem: 'Problem:'

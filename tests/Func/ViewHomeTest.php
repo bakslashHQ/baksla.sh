@@ -38,6 +38,20 @@ final class ViewHomeTest extends FunctionalTestCase
 
     #[TestWith(['/'])]
     #[TestWith(['/fr'])]
+    public function testHeroWordsFollowTheHeadingOrder(string $path): void
+    {
+        $crawler = $this->get($path);
+
+        $this->assertSame([
+            'home.hero.words.maintainers',
+            'home.hero.words.lovers',
+            'home.hero.words.advocates',
+            'home.hero.words.developers',
+        ], json_decode($crawler->filter('[data-controller="hero"]')->attr('data-hero-words-value') ?? '', true));
+    }
+
+    #[TestWith(['/'])]
+    #[TestWith(['/fr'])]
     public function testHeroShowsSymfonyCoreTeamMembersWithVerifiableLinks(string $path): void
     {
         $links = $this->hrefs($this->get($path)->filter('[data-test-maintainers] a'));

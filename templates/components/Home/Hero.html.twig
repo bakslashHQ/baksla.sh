@@ -1,6 +1,13 @@
 <section
     aria-label="{{ 'home.hero.aria_label'|trans }}"
     class="relative overflow-hidden text-ink"
+    data-controller="hero"
+    data-hero-words-value="{{ [
+        'home.hero.words.maintainers',
+        'home.hero.words.lovers',
+        'home.hero.words.advocates',
+        'home.hero.words.developers',
+    ]|map(word => word|trans)|json_encode }}"
 >
     <div aria-hidden="true" class="absolute inset-0 dot-grid pointer-events-none"></div>
     <div class="container max-w-screen-xl mx-auto px-4 sm:px-8 xl:px-4 pt-20 lg:pt-24 relative">
@@ -10,11 +17,23 @@
                 {{ 'home.hero.eyebrow'|trans }}
             </div>
 
-            <h1 class="text-center lg:text-left font-sans font-normal leading-none tracking-tight lg:tracking-tighter m-0 text-5xl lg:text-7xl max-w-5xl mx-auto lg:mx-0">
-                {{- 'home.hero.heading'|trans|replace({
-                    '<0>': '<span class="block mt-3 lg:mt-4 font-bold text-accent">',
-                    '</0>': '</span>',
-                })|raw -}}
+            <h1 class="flex flex-col justify-center text-center lg:text-left font-sans font-normal leading-none tracking-tight lg:tracking-tighter m-0 text-6xl lg:text-8xl"
+                aria-label="{{ 'home.hero.heading_aria_label'|trans }}">
+                <span class="block text-4xl lg:text-7xl text-ink-soft">
+                    {{ 'home.hero.heading_text'|trans }}
+                </span>
+                <span class="block">
+                    {% set badge_classes = 'inline-block min-w-28 lg:min-w-52 font-mono font-medium not-italic bg-ink text-paper px-4 lg:px-8 py-1.5 lg:py-2.5 rounded-full align-[0.28em] text-2xl lg:text-5xl' %}
+                    {% if app.request.locale == 'fr' %}
+                        <span aria-hidden="true" data-hero-target="badge" class="md:mr-3 lg:mr-4 {{ badge_classes }}"></span>
+                        <br class="md:hidden" />
+                        <span class="font-bold text-accent tracking-tight">Symfony</span>
+                    {% else %}
+                        <span class="font-bold text-accent tracking-tight">Symfony</span>
+                        <br class="md:hidden" />
+                        <span aria-hidden="true" data-hero-target="badge" class="md:ml-3 lg:ml-4 {{ badge_classes }}"></span>
+                    {% endif %}
+                </span>
             </h1>
 
             <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] gap-6 lg:gap-12 items-end">
