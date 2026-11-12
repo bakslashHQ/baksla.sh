@@ -55,7 +55,7 @@
                     <span class="ml-1 hidden md:inline-block">{{ 'home.values.commit_meta'|trans }}</span>
                 </span>
                 <span>
-                    <span class="text-green-700 font-bold">+{{ additions }}</span>
+                    <span class="text-green-800 font-bold">+{{ additions }}</span>
                     <span class="ml-2 text-red-700 font-bold">−{{ deletions }}</span>
                 </span>
             </div>
@@ -117,7 +117,7 @@
                                     <span data-test-proof-authors class="text-muted">· {{ authors|map(a => a.firstName)|join(', ') }}</span>
                                 </summary>
 
-                                <ul role="list" class="list-none m-0 mt-3 mb-2 p-0 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                                <ul role="list" class="list-none m-0 mt-3 mb-2 p-0 grid gap-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                                     {% for item in line.items %}
                                         <li>
                                             <a
@@ -142,7 +142,7 @@
                                                 {% endif %}
                                                 <span class="flex min-w-0 flex-1 flex-col gap-0.5 font-sans text-sm leading-snug">
                                                     <span class="font-medium text-ink group-hover/ref:text-accent transition-colors line-clamp-2">{{ item.label }}</span>
-                                                    <span class="font-mono text-xs text-muted truncate">{{ item.meta }}</span>
+                                                    <span class="font-mono text-xs text-muted">{{ item.meta }}</span>
                                                     <span class="flex items-center gap-1.5 pt-0.5 text-xs text-ink-soft">
                                                         <span class="flex -space-x-1.5" aria-hidden="true">
                                                             {% for author in item.authors %}
