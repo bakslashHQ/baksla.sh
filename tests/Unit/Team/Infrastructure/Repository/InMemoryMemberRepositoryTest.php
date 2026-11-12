@@ -27,6 +27,16 @@ final class InMemoryMemberRepositoryTest extends TestCase
         }
     }
 
+    public function testFindGithubUsernames(): void
+    {
+        $repository = new InMemoryMemberRepository([
+            aMember()->withId(MemberId::MathiasArlaud)->withGithub('mtarld')->build(),
+            aMember()->withId(MemberId::RobinChalas)->withGithub('chalasr')->build(),
+        ]);
+
+        $this->assertSame(['mtarld', 'chalasr'], $repository->findGithubUsernames());
+    }
+
     public function testGet(): void
     {
         $member = aMember()->withId(MemberId::MathiasArlaud)->build();

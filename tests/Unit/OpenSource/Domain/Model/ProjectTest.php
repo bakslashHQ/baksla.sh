@@ -8,10 +8,13 @@ use PHPUnit\Framework\TestCase;
 
 final class ProjectTest extends TestCase
 {
-    public function testUrlPointsToTheCanonicalRepository(): void
+    public function testPullRequestsUrlSearchesEveryRepositoryForEveryAuthor(): void
     {
-        $project = aProject()->withRepositories('symfony/webpack-encore', 'symfony/webpack-encore-bundle')->build();
+        $project = aProject()->withRepositories('symfony/ux', 'symfony/ux.symfony.com')->build();
 
-        $this->assertSame('https://github.com/symfony/webpack-encore', $project->getUrl());
+        $this->assertSame(
+            'https://github.com/search?type=pullrequests&q=is%3Apr%20repo%3Asymfony%2Fux%20repo%3Asymfony%2Fux.symfony.com%20author%3AKocal%20author%3Amtarld',
+            $project->getPullRequestsUrl(['Kocal', 'mtarld']),
+        );
     }
 }

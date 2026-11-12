@@ -7,7 +7,6 @@ namespace App\OpenSource\Infrastructure\Command;
 use App\OpenSource\Domain\Model\OpenSourceStats;
 use App\OpenSource\Domain\Repository\ProjectRepository;
 use App\OpenSource\Infrastructure\GitHub\GitHubClient;
-use App\Team\Domain\Model\Member;
 use App\Team\Domain\Repository\MemberRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -37,7 +36,7 @@ final readonly class RefreshOpenSourceStatsCommand
 
         $counts = $this->githubClient->countPullRequests(
             array_merge(...array_column($projects, 'repositories')),
-            array_values(array_map(fn (Member $member): string => $member->github, $this->memberRepository->findAll())),
+            $this->memberRepository->findGithubUsernames(),
         );
 
         $previous = OpenSourceStats::fromJsonFile($this->statsFile);

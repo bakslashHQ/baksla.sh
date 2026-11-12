@@ -8,7 +8,7 @@ final readonly class Project
 {
     /**
      * @param non-empty-string                 $label
-     * @param non-empty-list<non-empty-string> $repositories GitHub "owner/name" slugs; the first one is the project's canonical repository
+     * @param non-empty-list<non-empty-string> $repositories GitHub "owner/name" slugs
      */
     public function __construct(
         public ProjectId $id,
@@ -17,8 +17,22 @@ final readonly class Project
     ) {
     }
 
-    public function getUrl(): string
+    /**
+     * GitHub search listing the pull requests authored by any of the given users across the project's repositories.
+     *
+     * @param list<non-empty-string> $authors
+     */
+    public function getPullRequestsUrl(array $authors): string
     {
-        return \sprintf('https://github.com/%s', $this->repositories[0]);
+        $qualifiers = [
+            'is:pr',
+            ...array_map(static fn (string $repository): string => \sprintf('repo:%s', $repository), $this->repositories),
+            ...array_map(static fn (string $author): string => \sprintf('author:%s', $author), $authors),
+        ];
+
+        return \sprintf('https://github.com/search?%s', http_build_query([
+            'type' => 'pullrequests',
+            'q' => implode(' ', $qualifiers),
+        ], encoding_type: \PHP_QUERY_RFC3986));
     }
 }

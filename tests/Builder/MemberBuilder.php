@@ -12,9 +12,24 @@ final class MemberBuilder
 {
     private MemberId|NotSet $id = NotSet::VALUE;
 
+    /**
+     * @var non-empty-string|NotSet
+     */
+    private string|NotSet $github = NotSet::VALUE;
+
     public function withId(MemberId $id): self
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * @param non-empty-string $github
+     */
+    public function withGithub(string $github): self
+    {
+        $this->github = $github;
 
         return $this;
     }
@@ -33,7 +48,7 @@ final class MemberBuilder
         $lastName = $faker->lastName();
 
         /** @var non-empty-string $github */
-        $github = $faker->userName();
+        $github = $this->github !== NotSet::VALUE ? $this->github : $faker->userName();
 
         return new Member(
             id: $id,

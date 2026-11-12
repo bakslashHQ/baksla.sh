@@ -1,0 +1,46 @@
+<div data-test-maintainers class="flex flex-col gap-3 items-center lg:items-start">
+    <p class="m-0 font-mono text-xs tracking-widest uppercase text-muted">
+        <span id="maintainers-label">{{ 'home.maintainers.label'|trans }}</span>
+        <span aria-hidden="true">·</span>
+        <a
+            href="https://symfony.com/doc/current/contributing/code/core_team.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-ink-soft underline decoration-ink/30 underline-offset-2 hover:text-accent hover:decoration-accent"
+        >{{ 'home.maintainers.source'|trans }}<span class="sr-only"> {{ 'common.opens_new_tab'|trans }}</span></a>
+    </p>
+
+    <ul role="list" aria-labelledby="maintainers-label" class="list-none m-0 p-0 flex flex-wrap justify-center lg:justify-start gap-2">
+        {% for member in this.maintainers %}
+            <li>
+                <a
+                    href="https://github.com/{{ member.github }}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="group flex items-center gap-2.5 pl-1 pr-4 py-1 rounded-full border border-ink/15 bg-paper no-underline transition duration-200 hover:border-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+                >
+                    <img
+                        src="{{ asset('images/team/members/' ~ member.id.value ~ '.webp') }}"
+                        alt=""
+                        width="36"
+                        height="36"
+                        class="size-9 rounded-full object-cover bg-paper-shade"
+                    >
+                    <span class="flex flex-col text-left leading-tight">
+                        <span class="text-sm font-semibold text-ink group-hover:text-accent transition-colors">{{ member.fullname }}</span>
+                        <span data-test-maintainer-role class="font-mono text-[0.6875rem] text-muted">{{ member.symfonyCoreTeam.value }} · @{{ member.github }}</span>
+                    </span>
+                    <span class="sr-only">{{ 'common.opens_new_tab'|trans }}</span>
+                </a>
+            </li>
+        {% endfor %}
+        {% if this.othersCount > 0 %}
+            <li>
+                <a
+                    href="{{ path('app_team') }}"
+                    class="flex items-center h-full px-4 py-1 rounded-full border border-dashed border-ink/25 font-mono text-xs text-ink-soft no-underline transition duration-200 hover:border-accent hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+                >{{ 'home.maintainers.others'|trans({count: this.othersCount}) }}</a>
+            </li>
+        {% endif %}
+    </ul>
+</div>
