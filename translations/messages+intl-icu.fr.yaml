@@ -279,7 +279,7 @@ team.bio.jeremy-romey: |-
 team.bio.mathias-arlaud: |-
     Conférencier, consultant, lead developer et formateur PHP/Symfony, Mathias a travaillé deux ans avec le créateur de Symfony et deux ans avec le créateur d'API Platform, Mercure et FrankenPHP.
 
-    Enthousiaste de l'open source, il contribue largement au framework Symfony et à son écosystème, en se concentrant notamment sur le système de sérialisation des données. Spécialisé dans le développement d'API, il met son expertise au service de solutions rapides, robustes et maintenables.
+    Membre de la Core Team Symfony et enthousiaste de l'open source, il contribue largement au framework Symfony et à son écosystème, en se concentrant notamment sur le système de sérialisation des données. Spécialisé dans le développement d'API, il met son expertise au service de solutions rapides, robustes et maintenables.
 
     Ne demandez pas pourquoi, mais à la question PHPStorm vs VsCode, il répond encore VIM.
 team.bio.robin-chalas: |-
