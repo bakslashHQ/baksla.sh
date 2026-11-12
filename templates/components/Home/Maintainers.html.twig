@@ -1,5 +1,5 @@
-<div data-test-maintainers class="flex flex-col gap-3 items-center lg:items-start">
-    <p class="m-0 text-center lg:text-left font-mono text-xs tracking-widest uppercase text-muted">
+<div data-test-maintainers class="flex flex-col gap-3 w-full max-w-sm mx-auto lg:max-w-none lg:mx-0">
+    <p class="m-0 font-mono text-xs tracking-widest uppercase text-muted">
         <span id="maintainers-label">{{ 'home.maintainers.label'|trans }}</span>
         <span aria-hidden="true">·</span>
         <a
@@ -10,7 +10,7 @@
         >{{ 'home.maintainers.source'|trans }}<span class="sr-only"> {{ 'common.opens_new_tab'|trans }}</span></a>
     </p>
 
-    <ul role="list" aria-labelledby="maintainers-label" class="list-none m-0 p-0 flex flex-wrap justify-center lg:justify-start gap-2">
+    <ul role="list" aria-labelledby="maintainers-label" class="list-none m-0 p-0 flex flex-col lg:flex-row lg:flex-wrap gap-2">
         {% for member in this.maintainers %}
             <li>
                 <a

@@ -68,10 +68,10 @@
                         {% if is_blank %}aria-hidden="true"{% endif %}
                         class="flex min-h-8 {% if line.type == 'add' %}bg-green-500/10{% elseif line.type == 'del' %}bg-red-500/10{% endif %}"
                     >
-                        <span aria-hidden="true" class="w-14 sm:w-16 shrink-0 pr-3 sm:pr-4 text-right text-muted text-sm leading-loose border-r border-ink/10 select-none">
+                        <span aria-hidden="true" class="w-10 sm:w-16 shrink-0 pr-2 sm:pr-4 text-right text-muted text-sm leading-loose border-r border-ink/10 select-none">
                             {{ line_n }}
                         </span>
-                        <span aria-hidden="true" class="w-8 sm:w-10 shrink-0 text-center font-bold select-none {% if line.type == 'add' %}text-green-700{% elseif line.type == 'del' %}text-red-700{% endif %}">
+                        <span aria-hidden="true" class="w-6 sm:w-10 shrink-0 text-center font-bold select-none {% if line.type == 'add' %}text-green-700{% elseif line.type == 'del' %}text-red-700{% endif %}">
                             {% if line.type == 'add' %}+{% elseif line.type == 'del' %}−{% endif %}
                         </span>
                         {% if line.type == 'link' %}
@@ -117,14 +117,16 @@
                                     <span data-test-proof-authors class="text-muted">· {{ authors|map(a => a.firstName)|join(', ') }}</span>
                                 </summary>
 
-                                <ul role="list" class="list-none m-0 mt-3 mb-2 p-0 grid gap-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                                {% set carousel = (line.items|first).thumbnail is defined %}
+
+                                <ul role="list" class="list-none m-0 mt-3 mb-2 p-0 gap-2 {{ carousel ? 'flex overflow-x-auto snap-x snap-mandatory pb-2 sm:pb-0 sm:grid sm:overflow-visible' : 'grid grid-cols-1' }} sm:grid-cols-2 lg:grid-cols-3">
                                     {% for item in line.items %}
-                                        <li>
+                                        <li class="{{ carousel ? 'w-48 shrink-0 snap-start sm:w-auto' }}">
                                             <a
                                                 href="{{ item.url }}"
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                class="group/ref flex h-full items-center gap-3 rounded-xl border border-ink/10 bg-paper p-2 no-underline transition duration-200 hover:border-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                                                class="group/ref flex h-full {{ carousel ? 'flex-col sm:flex-row sm:items-center' : 'items-center' }} gap-3 rounded-xl border border-ink/10 bg-paper p-2 no-underline transition duration-200 hover:border-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                                             >
                                                 {% if item.thumbnail is defined %}
                                                     <img
@@ -133,7 +135,7 @@
                                                         width="320"
                                                         height="180"
                                                         loading="lazy"
-                                                        class="w-20 sm:w-24 shrink-0 aspect-video rounded-md object-cover bg-paper-shade"
+                                                        class="w-full sm:w-24 shrink-0 aspect-video rounded-md object-cover bg-paper-shade"
                                                     >
                                                 {% else %}
                                                     <span class="grid place-items-center size-10 shrink-0 rounded-md bg-ink text-paper group-hover/ref:bg-accent transition-colors" aria-hidden="true">
