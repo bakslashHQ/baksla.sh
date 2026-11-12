@@ -30,8 +30,8 @@ home.kpi.collaborators: collaborateurs
 home.kpi.collaborators_hint: pragmatiques, curieux
 home.kpi.symfony_core_team: core team
 home.kpi.symfony_core_team_hint: mainteneurs Symfony
-home.kpi.talks: conférences données
-home.kpi.talks_hint: conférences, meetups
+home.kpi.talks: conférences publiques filmées
+home.kpi.talks_hint: à voir plus bas
 home.kpi.love_in_ecosystem: ❤️ pour PHP
 home.kpi.love_in_ecosystem_hint: "une longue lettre d'amour"
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Func;
 
+use App\Home\Infrastructure\Rendering\Components\Kpi;
 use App\Home\Infrastructure\Rendering\Components\Values;
 use App\Team\Domain\Repository\TalkRepository;
 use PHPUnit\Framework\Attributes\TestWith;
@@ -125,6 +126,17 @@ final class ViewHomeTest extends FunctionalTestCase
 
         $this->assertSame(3, $values->getSymfonyPullRequestsCount());
         $this->assertSame(1, $values->getSymfonyBugFixesCount());
+    }
+
+    public function testTalksKpiCountsTheRecordedTalks(): void
+    {
+        $kpi = $this->mountTwigComponent('Home:Kpi');
+        $this->assertInstanceOf(Kpi::class, $kpi);
+
+        $talks = array_find($kpi->getKpis(), static fn (array $kpi): bool => $kpi['label'] === 'home.kpi.talks');
+
+        $this->assertNotNull($talks);
+        $this->assertSame(\count($this->getService(TalkRepository::class)->findAll()), $talks['value']);
     }
 
     public function testEveryCollapsedProofNamesItsAuthors(): void

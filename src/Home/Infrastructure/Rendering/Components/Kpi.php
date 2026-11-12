@@ -7,6 +7,7 @@ namespace App\Home\Infrastructure\Rendering\Components;
 use App\Team\Domain\Model\Member;
 use App\Team\Domain\Model\SymfonyCoreTeam;
 use App\Team\Domain\Repository\MemberRepository;
+use App\Team\Domain\Repository\TalkRepository;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent(name: 'Home:Kpi', template: 'components/Home/Kpi.html.twig')]
@@ -14,6 +15,7 @@ final class Kpi
 {
     public function __construct(
         private readonly MemberRepository $memberRepository,
+        private readonly TalkRepository $talkRepository,
     ) {
     }
 
@@ -45,8 +47,8 @@ final class Kpi
                 'hint' => 'home.kpi.symfony_core_team_hint',
             ],
             [
-                'value' => 25,
-                'suffix' => '+',
+                'value' => \count($this->talkRepository->findAll()),
+                'suffix' => '',
                 'label' => 'home.kpi.talks',
                 'hint' => 'home.kpi.talks_hint',
             ],
