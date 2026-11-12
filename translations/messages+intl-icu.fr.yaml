@@ -16,7 +16,6 @@ home.hero.words.developers: 'développeurs'
 home.hero.words.advocates: 'ambassadeurs'
 
 home.maintainers.label: Core Team Symfony
-home.maintainers.source: vérifier sur symfony.com
 home.maintainers.teammates: '{count, plural, one {et # coéquipier} other {et # coéquipiers}}'
 
 home.kpi.aria_label: baksla.sh en chiffres

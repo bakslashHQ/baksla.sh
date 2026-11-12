@@ -1,13 +1,11 @@
 <div data-test-maintainers class="flex flex-col gap-3 items-center lg:items-start">
     <p class="m-0 text-center lg:text-left font-mono text-xs tracking-widest uppercase text-muted">
-        <span id="maintainers-label">{{ 'home.maintainers.label'|trans }}</span>
-        <span aria-hidden="true">·</span>
         <a
             href="https://symfony.com/doc/current/contributing/core_team.html#active-core-members"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-ink-soft underline decoration-ink/30 underline-offset-2 hover:text-accent hover:decoration-accent"
-        >{{ 'home.maintainers.source'|trans }}<span class="sr-only"> {{ 'common.opens_new_tab'|trans }}</span></a>
+            class="text-muted no-underline hover:text-accent hover:underline underline-offset-2"
+        ><span id="maintainers-label">{{ 'home.maintainers.label'|trans }}</span><span class="sr-only"> {{ 'common.opens_new_tab'|trans }}</span></a>
     </p>
 
     <ul role="list" aria-labelledby="maintainers-label" class="list-none m-0 p-0 w-full max-w-md grid grid-cols-3 gap-2 lg:max-w-none lg:flex lg:flex-wrap">
