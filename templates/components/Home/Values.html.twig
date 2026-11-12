@@ -133,7 +133,7 @@
                                                         width="320"
                                                         height="180"
                                                         loading="lazy"
-                                                        class="w-24 shrink-0 aspect-video rounded-md object-cover bg-paper-shade"
+                                                        class="w-20 sm:w-24 shrink-0 aspect-video rounded-md object-cover bg-paper-shade"
                                                     >
                                                 {% else %}
                                                     <span class="grid place-items-center size-10 shrink-0 rounded-md bg-ink text-paper group-hover/ref:bg-accent transition-colors" aria-hidden="true">
@@ -141,7 +141,7 @@
                                                     </span>
                                                 {% endif %}
                                                 <span class="flex min-w-0 flex-1 flex-col gap-0.5 font-sans text-sm leading-snug">
-                                                    <span class="font-medium text-ink group-hover/ref:text-accent transition-colors line-clamp-2">{{ item.label }}</span>
+                                                    <span class="font-medium text-ink group-hover/ref:text-accent transition-colors break-words line-clamp-3 sm:line-clamp-2">{{ item.label }}</span>
                                                     <span class="font-mono text-xs text-muted">{{ item.meta }}</span>
                                                     <span class="flex items-center gap-1.5 pt-0.5 text-xs text-ink-soft">
                                                         <span class="flex -space-x-1.5" aria-hidden="true">
