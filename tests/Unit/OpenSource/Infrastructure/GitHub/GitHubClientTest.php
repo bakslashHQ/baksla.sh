@@ -28,11 +28,17 @@ final class GitHubClientTest extends TestCase
                     'reviewed_0' => [
                         'issueCount' => 20,
                     ],
+                    'bug_fixes_0' => [
+                        'issueCount' => 3,
+                    ],
                     'authored_1' => [
                         'issueCount' => 5,
                     ],
                     'reviewed_1' => [
                         'issueCount' => 7,
+                    ],
+                    'bug_fixes_1' => [
+                        'issueCount' => 1,
                     ],
                 ],
             ]));
@@ -43,8 +49,8 @@ final class GitHubClientTest extends TestCase
         $counts = $client->countPullRequests(['symfony/symfony', 'api-platform/core'], ['mtarld', 'chalasr']);
 
         $this->assertEquals([
-            'symfony/symfony' => new PullRequestsCount(authored: 10, reviewed: 20),
-            'api-platform/core' => new PullRequestsCount(authored: 5, reviewed: 7),
+            'symfony/symfony' => new PullRequestsCount(authored: 10, reviewed: 20, bugFixes: 3),
+            'api-platform/core' => new PullRequestsCount(authored: 5, reviewed: 7, bugFixes: 1),
         ], $counts);
 
         $this->assertSame(1, $httpClient->getRequestsCount());
@@ -55,6 +61,30 @@ final class GitHubClientTest extends TestCase
 
         $this->assertStringContainsString('authored_0: search(type: ISSUE, query: "repo:symfony\/symfony is:pr author:mtarld author:chalasr")', $payload['query']);
         $this->assertStringContainsString('reviewed_0: search(type: ISSUE, query: "repo:symfony\/symfony is:pr reviewed-by:mtarld reviewed-by:chalasr")', $payload['query']);
+        $this->assertStringContainsString('bug_fixes_0: search(type: ISSUE, query: "repo:symfony\\/symfony is:pr is:merged label:Bug author:mtarld author:chalasr")', $payload['query']);
         $this->assertStringContainsString('authored_1: search(type: ISSUE, query: "repo:api-platform\/core is:pr author:mtarld author:chalasr")', $payload['query']);
+    }
+
+    public function testCountPullRequestsSplitsSearchesAcrossRequests(): void
+    {
+        $httpClient = new MockHttpClient(static function (string $method, string $url, array $options): MockResponse {
+            /** @var string $body */
+            $body = $options['body'] ?? '';
+
+            preg_match_all('/(\w+): search\(/', $body, $matches);
+
+            return new MockResponse((string) json_encode([
+                'data' => array_fill_keys($matches[1], [
+                    'issueCount' => 1,
+                ]),
+            ]));
+        });
+
+        $repos = array_map(static fn (int $i): string => \sprintf('org/repo-%d', $i), range(1, 11));
+
+        $counts = new GitHubClient($httpClient)->countPullRequests($repos, ['mtarld']);
+
+        $this->assertSame(2, $httpClient->getRequestsCount());
+        $this->assertEquals(array_fill_keys($repos, new PullRequestsCount(authored: 1, reviewed: 1, bugFixes: 1)), $counts);
     }
 }

@@ -42,8 +42,8 @@ home.values.commit_meta: committé · mergé par @baksla.sh
 home.values.sr_added: "Ajouté :"
 home.values.sr_removed: "Retiré :"
 home.values.sr_proof: "Preuve :"
-home.values.proof.pull_requests: Nos pull requests sur Symfony
-home.values.proof.bug_fixes: Nos correctifs de bugs mergés dans Symfony
+home.values.proof.pull_requests: '{count, plural, one {# pull request sur Symfony} other {# pull requests sur Symfony}}'
+home.values.proof.bug_fixes: '{count, plural, one {# correctif de bug mergé dans Symfony} other {# correctifs de bugs mergés dans Symfony}}'
 home.values.proof.components: '{count, plural, one {# composant créé} other {# composants créés}}'
 home.values.proof.talks: '{count, plural, one {# conférence publique filmée} other {# conférences publiques filmées}}'
 

@@ -45,9 +45,11 @@ final readonly class RefreshOpenSourceStatsCommand
         foreach ($projects as $project) {
             $reviews = 0;
             $pullRequests = 0;
+            $bugFixes = 0;
             foreach ($project->repositories as $repo) {
                 $reviews += $counts[$repo]->reviewed;
                 $pullRequests += $counts[$repo]->authored;
+                $bugFixes += $counts[$repo]->bugFixes;
             }
 
             // GitHub's search.issueCount is an estimate for large result sets and drifts run-to-run;
@@ -55,6 +57,7 @@ final readonly class RefreshOpenSourceStatsCommand
             $stats[$project->id->value] = [
                 'reviews' => max($previous->reviewsFor($project->id), $reviews),
                 'pullRequests' => max($previous->pullRequestsFor($project->id), $pullRequests),
+                'bugFixes' => max($previous->bugFixesFor($project->id), $bugFixes),
             ];
         }
 

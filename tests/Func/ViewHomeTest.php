@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace App\Tests\Func;
 
+use App\Home\Infrastructure\Rendering\Components\Values;
 use App\Team\Domain\Repository\TalkRepository;
 use PHPUnit\Framework\Attributes\TestWith;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\UX\TwigComponent\Test\InteractsWithTwigComponents;
 
 final class ViewHomeTest extends FunctionalTestCase
 {
+    use InteractsWithTwigComponents;
+
     private string $statsFile;
 
     protected function setUp(): void
@@ -22,6 +26,7 @@ final class ViewHomeTest extends FunctionalTestCase
             'symfony' => [
                 'reviews' => 2,
                 'pullRequests' => 3,
+                'bugFixes' => 1,
             ],
             'symfony-ux' => [
                 'reviews' => 1,
@@ -111,6 +116,15 @@ final class ViewHomeTest extends FunctionalTestCase
         foreach ($talks as $talk) {
             $this->assertStringStartsWith('https://www.youtube.com/watch?v=', $talk);
         }
+    }
+
+    public function testSymfonyProofsCountWhatTheirLinksSearch(): void
+    {
+        $values = $this->mountTwigComponent('Home:Values');
+        $this->assertInstanceOf(Values::class, $values);
+
+        $this->assertSame(3, $values->getSymfonyPullRequestsCount());
+        $this->assertSame(1, $values->getSymfonyBugFixesCount());
     }
 
     public function testEveryCollapsedProofNamesItsAuthors(): void

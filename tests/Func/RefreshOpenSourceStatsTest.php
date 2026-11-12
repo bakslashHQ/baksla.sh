@@ -47,7 +47,7 @@ final class RefreshOpenSourceStatsTest extends KernelTestCase
 
         $this->assertFileExists($this->statsFile);
 
-        /** @var array<string, array{reviews: int, pullRequests: int}> $stats */
+        /** @var array<string, array{reviews: int, pullRequests: int, bugFixes: int}> $stats */
         $stats = json_decode((string) file_get_contents($this->statsFile), true, flags: \JSON_THROW_ON_ERROR);
 
         $projects = self::getContainer()->get(ProjectRepository::class)->findAll();
@@ -57,6 +57,7 @@ final class RefreshOpenSourceStatsTest extends KernelTestCase
 
             $this->assertSame($expected, $stats[$id]['reviews']);
             $this->assertSame($expected, $stats[$id]['pullRequests']);
+            $this->assertSame($expected, $stats[$id]['bugFixes']);
         }
 
         $this->assertCount(\count(ProjectId::cases()), $stats);
