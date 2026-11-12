@@ -21,11 +21,13 @@ final readonly class Project
      * GitHub search listing the pull requests authored by any of the given users across the project's repositories.
      *
      * @param list<non-empty-string> $authors
+     * @param list<non-empty-string> $filters extra GitHub search qualifiers, such as "is:merged" or "label:Bug"
      */
-    public function getPullRequestsUrl(array $authors): string
+    public function getPullRequestsUrl(array $authors, array $filters = []): string
     {
         $qualifiers = [
             'is:pr',
+            ...$filters,
             ...array_map(static fn (string $repository): string => \sprintf('repo:%s', $repository), $this->repositories),
             ...array_map(static fn (string $author): string => \sprintf('author:%s', $author), $authors),
         ];

@@ -104,8 +104,9 @@ final class ViewHomeTest extends FunctionalTestCase
             'https://github.com/symfony/ux/pull/1937',
             'https://github.com/symfony/ux/pull/616',
         ], \array_slice($links, 1, 5));
+        $this->assertStringStartsWith('https://github.com/search?type=pullrequests&q=is%3Apr%20is%3Amerged%20label%3ABug%20repo%3Asymfony%2Fsymfony%20', $links[6]);
 
-        $talks = \array_slice($links, 6);
+        $talks = \array_slice($links, 7);
         $this->assertCount(\count($this->getService(TalkRepository::class)->findAll()), $talks);
         foreach ($talks as $talk) {
             $this->assertStringStartsWith('https://www.youtube.com/watch?v=', $talk);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Home\Infrastructure\Rendering\Components;
 
+use App\OpenSource\Domain\Model\Project;
 use App\OpenSource\Domain\Model\ProjectId;
 use App\OpenSource\Domain\Repository\ProjectRepository;
 use App\Team\Domain\Model\Member;
@@ -25,9 +26,12 @@ final class Values
 
     public function getSymfonyPullRequestsUrl(): string
     {
-        $symfony = $this->projectRepository->findAll()[ProjectId::Symfony->value] ?? throw new \LogicException('The Symfony project is missing.');
+        return $this->getSymfonyProject()->getPullRequestsUrl($this->memberRepository->findGithubUsernames());
+    }
 
-        return $symfony->getPullRequestsUrl($this->memberRepository->findGithubUsernames());
+    public function getSymfonyBugFixesUrl(): string
+    {
+        return $this->getSymfonyProject()->getPullRequestsUrl($this->memberRepository->findGithubUsernames(), ['is:merged', 'label:Bug']);
     }
 
     /**
@@ -44,5 +48,10 @@ final class Values
     public function getTalks(): array
     {
         return $this->talkRepository->findAll();
+    }
+
+    private function getSymfonyProject(): Project
+    {
+        return $this->projectRepository->findAll()[ProjectId::Symfony->value] ?? throw new \LogicException('The Symfony project is missing.');
     }
 }

@@ -43,6 +43,7 @@ home.values.sr_added: "Ajouté :"
 home.values.sr_removed: "Retiré :"
 home.values.sr_proof: "Preuve :"
 home.values.proof.pull_requests: Nos pull requests sur Symfony
+home.values.proof.bug_fixes: Nos correctifs de bugs mergés dans Symfony
 home.values.proof.components: '{count, plural, one {# composant créé} other {# composants créés}}'
 home.values.proof.talks: '{count, plural, one {# conférence filmée} other {# conférences filmées}}'
 

@@ -17,4 +17,14 @@ final class ProjectTest extends TestCase
             $project->getPullRequestsUrl(['Kocal', 'mtarld']),
         );
     }
+
+    public function testPullRequestsUrlAppliesTheGivenFilters(): void
+    {
+        $project = aProject()->withRepositories('symfony/symfony')->build();
+
+        $this->assertSame(
+            'https://github.com/search?type=pullrequests&q=is%3Apr%20is%3Amerged%20label%3ABug%20repo%3Asymfony%2Fsymfony%20author%3Achalasr',
+            $project->getPullRequestsUrl(['chalasr'], ['is:merged', 'label:Bug']),
+        );
+    }
 }
