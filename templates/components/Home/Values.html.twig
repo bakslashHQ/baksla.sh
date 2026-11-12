@@ -98,7 +98,7 @@
                                 {% endfor %}
                             {% endfor %}
                             <details data-test-proof class="group/refs flex-1 min-w-0 pr-4 sm:pr-6">
-                                <summary class="inline-flex flex-wrap items-center gap-x-2 gap-y-1 cursor-pointer list-none text-accent rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-accent [&::-webkit-details-marker]:hidden">
+                                <summary class="inline-flex flex-wrap items-center gap-x-2 gap-y-1 py-1 cursor-pointer list-none text-accent rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-accent [&::-webkit-details-marker]:hidden">
                                     <span class="sr-only">{{ 'home.values.sr_proof'|trans }} </span>
                                     <twig:ux:icon name="mdi:chevron-right" aria-hidden="true" class="size-4 shrink-0 transition-transform duration-200 group-open/refs:rotate-90" />
                                     <span class="flex -space-x-1.5" aria-hidden="true">
@@ -117,16 +117,14 @@
                                     <span data-test-proof-authors class="text-muted">· {{ authors|map(a => a.firstName)|join(', ') }}</span>
                                 </summary>
 
-                                {% set carousel = (line.items|first).thumbnail is defined %}
-
-                                <ul role="list" class="list-none m-0 mt-3 mb-2 p-0 gap-2 {{ carousel ? 'flex overflow-x-auto snap-x snap-mandatory pb-2 sm:pb-0 sm:grid sm:overflow-visible' : 'grid grid-cols-1' }} sm:grid-cols-2 lg:grid-cols-3">
+                                <ul role="list" class="list-none m-0 mt-3 mb-2 p-0 gap-2 flex overflow-x-auto snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:grid sm:overflow-visible sm:grid-cols-2 lg:grid-cols-3">
                                     {% for item in line.items %}
-                                        <li class="{{ carousel ? 'w-48 shrink-0 snap-start sm:w-auto' }}">
+                                        <li class="w-48 shrink-0 snap-start sm:w-auto">
                                             <a
                                                 href="{{ item.url }}"
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                class="group/ref flex h-full {{ carousel ? 'flex-col sm:flex-row sm:items-center' : 'items-center' }} gap-3 rounded-xl border border-ink/10 bg-paper p-2 no-underline transition duration-200 hover:border-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                                                class="group/ref flex h-full flex-col sm:flex-row sm:items-center gap-3 rounded-xl border border-ink/10 bg-paper p-2 no-underline transition duration-200 hover:border-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                                             >
                                                 {% if item.thumbnail is defined %}
                                                     <img
