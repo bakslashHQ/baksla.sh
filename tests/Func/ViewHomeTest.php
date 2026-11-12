@@ -127,6 +127,14 @@ final class ViewHomeTest extends FunctionalTestCase
         $this->assertSame(1, $values->getSymfonyBugFixesCount());
     }
 
+    public function testServicePanelsUseAnElementThatAllowsTheTabpanelRole(): void
+    {
+        $panels = $this->get('/')->filter('#services [role="tabpanel"]');
+
+        $this->assertGreaterThan(0, $panels->count());
+        $this->assertSame(array_fill(0, $panels->count(), 'div'), $panels->each(static fn (Crawler $panel): string => $panel->nodeName()));
+    }
+
     public function testEveryCollapsedProofNamesItsAuthors(): void
     {
         $authors = $this->get('/')->filter('#values [data-test-proof-authors]')->each(static fn (Crawler $author): string => $author->text());
