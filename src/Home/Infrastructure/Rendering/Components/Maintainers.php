@@ -25,8 +25,11 @@ final class Maintainers
         return array_values(array_filter($this->memberRepository->findAll(), static fn (Member $member): bool => $member->symfonyCoreTeam instanceof SymfonyCoreTeam));
     }
 
-    public function getOthersCount(): int
+    /**
+     * @return list<Member>
+     */
+    public function getTeammates(): array
     {
-        return \count($this->memberRepository->findAll()) - \count($this->getMaintainers());
+        return array_values(array_filter($this->memberRepository->findAll(), static fn (Member $member): bool => !$member->symfonyCoreTeam instanceof SymfonyCoreTeam));
     }
 }

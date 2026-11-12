@@ -6,13 +6,13 @@ home.seo.description: A team including Symfony Core Team members. When the frame
 home.hero.aria_label: 'baksla.sh: Symfony maintainers who unblock your team'
 home.hero.eyebrow: Symfony maintainers · consulting, development, training
 home.hero.heading: When the framework blocks, your team waits. <0>We unblock it.</0>
-home.hero.tagline: 'Framework bugs, security flaws, missing building blocks: we fix Symfony at the source, because we maintain it. No pitch deck, just commits.'
+home.hero.tagline: "We're the people you read in the Symfony changelog. Framework bugs, security flaws, missing building blocks: we fix them at the source. No pitch deck, just commits."
 home.hero.cta.primary: What we do
 home.hero.cta.secondary: Say hi
 
 home.maintainers.label: Symfony Core Team
 home.maintainers.source: check on symfony.com
-home.maintainers.others: '{count, plural, one {+# teammate} other {+# teammates}}'
+home.maintainers.teammates: '{count, plural, one {and # teammate} other {and # teammates}}'
 
 home.kpi.aria_label: baksla.sh in numbers
 home.kpi.done: everything up to date

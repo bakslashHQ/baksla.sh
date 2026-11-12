@@ -6,13 +6,13 @@ home.seo.description: "Une équipe qui compte des membres de la Core Team Symfon
 home.hero.aria_label: "baksla.sh : des mainteneurs Symfony qui débloquent votre équipe"
 home.hero.eyebrow: Mainteneurs Symfony · conseil, développement, formation
 home.hero.heading: Quand le framework bloque, votre équipe attend. <0>Nous, on le débloque.</0>
-home.hero.tagline: "Bugs du framework, failles de sécurité, briques manquantes : nous corrigeons Symfony à la source, parce que nous le maintenons. Pas de pitch deck, juste des commits."
+home.hero.tagline: "Nous sommes celles et ceux que vous lisez dans le changelog de Symfony. Bugs du framework, failles de sécurité, briques manquantes : nous les corrigeons à la source. Pas de pitch deck, juste des commits."
 home.hero.cta.primary: Ce que nous faisons
 home.hero.cta.secondary: Dites bonjour
 
 home.maintainers.label: Core Team Symfony
 home.maintainers.source: vérifier sur symfony.com
-home.maintainers.others: '{count, plural, one {+# coéquipier} other {+# coéquipiers}}'
+home.maintainers.teammates: '{count, plural, one {et # coéquipier} other {et # coéquipiers}}'
 
 home.kpi.aria_label: baksla.sh en chiffres
 home.kpi.done: tout est à jour

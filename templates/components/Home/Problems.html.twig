@@ -1,4 +1,5 @@
 {% set security_article = this.securityArticle %}
+{% set members = this.members %}
 
 {% set diff_lines = [
     {type: 'ctx', text: '// ' ~ 'home.problems.filename'|trans},
@@ -12,14 +13,17 @@
     {type: 'del', text: 'home.problems.component.problem'|trans},
     {type: 'add', text: 'home.problems.component.solution'|trans},
     {type: 'proof', proofs: [
-        {label: 'TypeInfo · symfony/symfony#52510', url: 'https://github.com/symfony/symfony/pull/52510'},
-        {label: 'JsonStreamer · symfony/symfony#51718', url: 'https://github.com/symfony/symfony/pull/51718'},
+        {label: 'TypeInfo', url: 'https://github.com/symfony/symfony/pull/52510', author: members['mathias-arlaud']},
+        {label: 'JsonStreamer', url: 'https://github.com/symfony/symfony/pull/51718', author: members['mathias-arlaud']},
+        {label: 'PasswordHasher', url: 'https://github.com/symfony/symfony/pull/39802', author: members['robin-chalas']},
+        {label: 'UX Map', url: 'https://github.com/symfony/ux/pull/1937', author: members['hugo-alliaume']},
+        {label: 'UX Translator', url: 'https://github.com/symfony/ux/pull/616', author: members['hugo-alliaume']},
     ]},
     {type: 'ctx', text: ''},
     {type: 'del', text: 'home.problems.security.problem'|trans},
     {type: 'add', text: 'home.problems.security.solution'|trans},
     {type: 'proof', proofs: [
-        {label: security_article.title, url: path('app_blog_article', {slug: security_article.slug}), internal: true},
+        {label: security_article.title, url: path('app_blog_article', {slug: security_article.slug}), internal: true, author: security_article.author},
     ]},
 ] %}
 
@@ -69,10 +73,22 @@
                                     <a
                                         href="{{ proof.url }}"
                                         {% if external %}target="_blank" rel="noopener noreferrer"{% endif %}
-                                        class="inline-flex items-center gap-1 text-accent underline decoration-accent/30 underline-offset-2 hover:decoration-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
+                                        class="group inline-flex items-center gap-1 text-accent no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
                                     >
-                                        <twig:ux:icon name="mdi:arrow-right" aria-hidden="true" class="size-4 shrink-0" />
-                                        {{ proof.label }}
+                                        {% if proof.author ?? null %}
+                                            <img
+                                                src="{{ asset('images/team/members/' ~ proof.author.id.value ~ '.webp') }}"
+                                                alt=""
+                                                width="20"
+                                                height="20"
+                                                loading="lazy"
+                                                class="size-5 shrink-0 rounded-full object-cover bg-paper-shade"
+                                            >
+                                        {% else %}
+                                            <twig:ux:icon name="mdi:arrow-right" aria-hidden="true" class="size-4 shrink-0" />
+                                        {% endif %}
+                                        <span class="underline decoration-accent/30 underline-offset-2 group-hover:decoration-accent">{{ proof.label }}</span>
+                                        {% if proof.author ?? null %}<span data-test-proof-author class="text-muted">· {{ proof.author.firstName }}</span>{% endif %}
                                         {% if external %}<span class="sr-only">{{ 'common.opens_new_tab'|trans }}</span>{% endif %}
                                     </a>
                                 {% endfor %}

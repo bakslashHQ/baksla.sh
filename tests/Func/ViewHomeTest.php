@@ -58,20 +58,46 @@ final class ViewHomeTest extends FunctionalTestCase
         $this->assertSame(['UX Core Team · @Kocal', 'Core Team · @mtarld', 'Core Team · @chalasr'], $roles);
     }
 
+    public function testHeroShowsTheFaceOfEveryOtherTeammate(): void
+    {
+        $teammates = $this->get('/')->filter('[data-test-teammate]')->each(static fn (Crawler $face): string => (string) $face->attr('alt'));
+
+        $this->assertSame([
+            'Enzo Santamaria',
+            'Félix Eymonot',
+            'Florian Merle',
+            'Jérémy Romey',
+            'Valmont Pehaut Pietri',
+            'Yazid Hassani',
+        ], $teammates);
+    }
+
     #[TestWith(['/', '/blog/fixing-symfony-ux-security-vulnerabilities'])]
     #[TestWith(['/fr', '/fr/blog/corriger-les-vulnerabilites-de-securite-symfony-ux'])]
     public function testEveryProblemLinksToAPublicProof(string $path, string $securityArticleUrl): void
     {
-        $anchors = $this->get($path)->filter('#problems [data-test-proofs] a');
+        $crawler = $this->get($path);
+        $anchors = $crawler->filter('#problems [data-test-proofs] a');
         $links = $this->hrefs($anchors);
 
-        $this->assertSame(['_blank', '_blank', '_blank', ''], $anchors->each(static fn (Crawler $link): string => (string) $link->attr('target')));
-        $this->assertCount(4, $links);
+        $this->assertSame(['_blank', '_blank', '_blank', '_blank', '_blank', '_blank', ''], $anchors->each(static fn (Crawler $link): string => (string) $link->attr('target')));
         $this->assertStringStartsWith('https://github.com/search?type=pullrequests&q=is%3Apr%20repo%3Asymfony%2Fsymfony%20', $links[0]);
         $this->assertStringContainsString('author%3Amtarld', $links[0]);
-        $this->assertSame('https://github.com/symfony/symfony/pull/52510', $links[1]);
-        $this->assertSame('https://github.com/symfony/symfony/pull/51718', $links[2]);
-        $this->assertSame($securityArticleUrl, $links[3]);
+        $this->assertSame([
+            'https://github.com/symfony/symfony/pull/52510',
+            'https://github.com/symfony/symfony/pull/51718',
+            'https://github.com/symfony/symfony/pull/39802',
+            'https://github.com/symfony/ux/pull/1937',
+            'https://github.com/symfony/ux/pull/616',
+            $securityArticleUrl,
+        ], \array_slice($links, 1));
+    }
+
+    public function testEveryAuthoredProofIsSignedByItsAuthor(): void
+    {
+        $authors = $this->get('/')->filter('#problems [data-test-proof-author]')->each(static fn (Crawler $author): string => $author->text());
+
+        $this->assertSame(['· Mathias', '· Mathias', '· Robin', '· Hugo', '· Hugo', '· Hugo'], $authors);
     }
 
     public function testEveryOpenSourceLineLinksToTheMatchingGitHubSearch(): void

@@ -8,6 +8,8 @@ use App\Blog\Domain\Model\Article;
 use App\Blog\Domain\Repository\ArticleRepository;
 use App\OpenSource\Domain\Model\ProjectId;
 use App\OpenSource\Domain\Repository\ProjectRepository;
+use App\Team\Domain\Model\Member;
+use App\Team\Domain\Model\MemberId;
 use App\Team\Domain\Repository\MemberRepository;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
@@ -28,6 +30,14 @@ final class Problems
         $symfony = $this->projectRepository->findAll()[ProjectId::Symfony->value] ?? throw new \LogicException('The Symfony project is missing.');
 
         return $symfony->getPullRequestsUrl($this->memberRepository->findGithubUsernames());
+    }
+
+    /**
+     * @return array<value-of<MemberId>, Member>
+     */
+    public function getMembers(): array
+    {
+        return $this->memberRepository->findAll();
     }
 
     public function getSecurityArticle(): Article

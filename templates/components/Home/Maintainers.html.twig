@@ -34,12 +34,28 @@
                 </a>
             </li>
         {% endfor %}
-        {% if this.othersCount > 0 %}
+        {% set teammates = this.teammates %}
+        {% if teammates is not empty %}
             <li>
                 <a
                     href="{{ path('app_team') }}"
-                    class="flex items-center h-full px-4 py-1 rounded-full border border-dashed border-ink/25 font-mono text-xs text-ink-soft no-underline transition duration-200 hover:border-accent hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
-                >{{ 'home.maintainers.others'|trans({count: this.othersCount}) }}</a>
+                    class="group flex items-center gap-2.5 h-full pl-1 pr-4 py-1 rounded-full border border-dashed border-ink/25 font-mono text-xs text-ink-soft no-underline transition duration-200 hover:border-accent hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+                >
+                    <span class="flex -space-x-2.5">
+                        {% for teammate in teammates %}
+                            <img
+                                data-test-teammate
+                                src="{{ asset('images/team/members/' ~ teammate.id.value ~ '.webp') }}"
+                                alt="{{ teammate.fullname }}"
+                                title="{{ teammate.fullname }}"
+                                width="36"
+                                height="36"
+                                class="size-9 rounded-full object-cover bg-paper-shade ring-2 ring-paper"
+                            >
+                        {% endfor %}
+                    </span>
+                    {{ 'home.maintainers.teammates'|trans({count: teammates|length}) }}
+                </a>
             </li>
         {% endif %}
     </ul>
