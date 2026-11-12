@@ -72,7 +72,7 @@
                             {{ line_n }}
                         </span>
                         <span aria-hidden="true" class="w-6 sm:w-10 shrink-0 text-center font-bold select-none {% if line.type == 'add' %}text-green-700{% elseif line.type == 'del' %}text-red-700{% endif %}">
-                            {% if line.type == 'add' %}+{% elseif line.type == 'del' %}−{% elseif line.type == 'link' %}<twig:ux:icon :name="line.icon" class="inline-block size-4 align-[-0.2em] text-accent" />{% elseif line.type == 'refs' %}<twig:ux:icon name="mdi:chevron-right" class="inline-block size-4 align-[-0.2em] text-accent transition-transform duration-200 group-has-[details[open]]/line:rotate-90" />{% endif %}
+                            {% if line.type == 'add' %}+{% elseif line.type == 'del' %}−{% elseif line.type == 'link' %}<twig:ux:icon :name="line.icon" class="inline-block size-4 align-[-0.2em] text-muted" />{% elseif line.type == 'refs' %}<twig:ux:icon name="mdi:chevron-right" class="inline-block size-4 align-[-0.2em] text-muted transition-transform duration-200 group-has-[details[open]]/line:rotate-90" />{% endif %}
                         </span>
                         {% if line.type == 'link' %}
                             <span data-test-proof class="flex-1 pr-4 sm:pr-6">
