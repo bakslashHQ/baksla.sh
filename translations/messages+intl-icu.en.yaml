@@ -45,7 +45,7 @@ home.values.sr_proof: 'Proof:'
 home.values.proof.pull_requests: Our pull requests on Symfony
 home.values.proof.bug_fixes: Our merged bug fixes in Symfony
 home.values.proof.components: '{count, plural, one {# component created} other {# components created}}'
-home.values.proof.talks: '{count, plural, one {# recorded talk} other {# recorded talks}}'
+home.values.proof.talks: '{count, plural, one {# public recorded talk} other {# public recorded talks}}'
 
 home.values.line_1_del: We are just another agency.
 home.values.line_1_add_1: We are a real OSS company.
