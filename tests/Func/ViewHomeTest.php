@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Func;
 
+use App\Team\Domain\Repository\TalkRepository;
 use PHPUnit\Framework\Attributes\TestWith;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\Filesystem\Filesystem;
@@ -86,15 +87,14 @@ final class ViewHomeTest extends FunctionalTestCase
         ], $teammates);
     }
 
-    #[TestWith(['/', '/blog/fixing-symfony-ux-security-vulnerabilities'])]
-    #[TestWith(['/fr', '/fr/blog/corriger-les-vulnerabilites-de-securite-symfony-ux'])]
-    public function testEveryValueLinksToAPublicProof(string $path, string $securityArticleUrl): void
+    #[TestWith(['/'])]
+    #[TestWith(['/fr'])]
+    public function testEveryValueLinksToPublicProofsInANewTab(string $path): void
     {
-        $crawler = $this->get($path);
-        $anchors = $crawler->filter('#values [data-test-proofs] a');
+        $anchors = $this->get($path)->filter('#values [data-test-proof] a');
         $links = $this->hrefs($anchors);
 
-        $this->assertSame(['_blank', '_blank', '_blank', '_blank', '_blank', '_blank', ''], $anchors->each(static fn (Crawler $link): string => (string) $link->attr('target')));
+        $this->assertSame(array_fill(0, \count($links), '_blank'), $anchors->each(static fn (Crawler $link): string => (string) $link->attr('target')));
         $this->assertStringStartsWith('https://github.com/search?type=pullrequests&q=is%3Apr%20repo%3Asymfony%2Fsymfony%20', $links[0]);
         $this->assertStringContainsString('author%3Amtarld', $links[0]);
         $this->assertSame([
@@ -103,15 +103,20 @@ final class ViewHomeTest extends FunctionalTestCase
             'https://github.com/symfony/symfony/pull/39802',
             'https://github.com/symfony/ux/pull/1937',
             'https://github.com/symfony/ux/pull/616',
-            $securityArticleUrl,
-        ], \array_slice($links, 1));
+        ], \array_slice($links, 1, 5));
+
+        $talks = \array_slice($links, 6);
+        $this->assertCount(\count($this->getService(TalkRepository::class)->findAll()), $talks);
+        foreach ($talks as $talk) {
+            $this->assertStringStartsWith('https://www.youtube.com/watch?v=', $talk);
+        }
     }
 
-    public function testEveryAuthoredProofIsSignedByItsAuthor(): void
+    public function testEveryCollapsedProofNamesItsAuthors(): void
     {
-        $authors = $this->get('/')->filter('#values [data-test-proof-author]')->each(static fn (Crawler $author): string => $author->text());
+        $authors = $this->get('/')->filter('#values [data-test-proof-authors]')->each(static fn (Crawler $author): string => $author->text());
 
-        $this->assertSame(['· Mathias', '· Mathias', '· Robin', '· Hugo', '· Hugo', '· Hugo'], $authors);
+        $this->assertSame(['· Mathias, Robin, Hugo', '· Mathias, Florian, Félix, Robin, Jérémy'], $authors);
     }
 
     public function testEveryOpenSourceLineLinksToTheMatchingGitHubSearch(): void

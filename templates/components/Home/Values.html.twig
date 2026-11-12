@@ -1,5 +1,20 @@
 {% set members = this.members %}
-{% set security_article = this.securityArticle %}
+
+{% set components = [
+    {label: 'TypeInfo', meta: 'symfony/symfony#52510', url: 'https://github.com/symfony/symfony/pull/52510', authors: [members['mathias-arlaud']]},
+    {label: 'JsonStreamer', meta: 'symfony/symfony#51718', url: 'https://github.com/symfony/symfony/pull/51718', authors: [members['mathias-arlaud']]},
+    {label: 'PasswordHasher', meta: 'symfony/symfony#39802', url: 'https://github.com/symfony/symfony/pull/39802', authors: [members['robin-chalas']]},
+    {label: 'UX Map', meta: 'symfony/ux#1937', url: 'https://github.com/symfony/ux/pull/1937', authors: [members['hugo-alliaume']]},
+    {label: 'UX Translator', meta: 'symfony/ux#616', url: 'https://github.com/symfony/ux/pull/616', authors: [members['hugo-alliaume']]},
+] %}
+
+{% set talks = this.talks|map(talk => {
+    label: talk.title,
+    meta: talk.event ~ ' ' ~ talk.year,
+    url: talk.url,
+    authors: talk.speakers|map(id => members[id.value]),
+    thumbnail: 'images/talks/' ~ talk.youtubeId ~ '.webp',
+}) %}
 
 {% set diff_lines = [
     {type: 'ctx', text: '// ' ~ 'home.values.filename'|trans},
@@ -7,27 +22,17 @@
     {type: 'del', text: 'home.values.line_1_del'|trans},
     {type: 'add', text: 'home.values.line_1_add_1'|trans},
     {type: 'add', text: 'home.values.line_1_add_2'|trans},
-    {type: 'proof', proofs: [
-        {label: 'home.values.proof.pull_requests'|trans, url: this.symfonyPullRequestsUrl},
-    ]},
+    {type: 'link', label: 'home.values.proof.pull_requests'|trans, url: this.symfonyPullRequestsUrl},
     {type: 'ctx', text: ''},
     {type: 'del', text: 'home.values.line_2_del'|trans},
     {type: 'add', text: 'home.values.line_2_add_1'|trans},
     {type: 'add', text: 'home.values.line_2_add_2'|trans},
-    {type: 'proof', proofs: [
-        {label: 'TypeInfo', url: 'https://github.com/symfony/symfony/pull/52510', author: members['mathias-arlaud']},
-        {label: 'JsonStreamer', url: 'https://github.com/symfony/symfony/pull/51718', author: members['mathias-arlaud']},
-        {label: 'PasswordHasher', url: 'https://github.com/symfony/symfony/pull/39802', author: members['robin-chalas']},
-        {label: 'UX Map', url: 'https://github.com/symfony/ux/pull/1937', author: members['hugo-alliaume']},
-        {label: 'UX Translator', url: 'https://github.com/symfony/ux/pull/616', author: members['hugo-alliaume']},
-    ]},
+    {type: 'refs', summary: 'home.values.proof.components'|trans({count: components|length}), items: components},
     {type: 'ctx', text: ''},
     {type: 'del', text: 'home.values.line_3_del'|trans},
     {type: 'add', text: 'home.values.line_3_add_1'|trans},
     {type: 'add', text: 'home.values.line_3_add_2'|trans},
-    {type: 'proof', proofs: [
-        {label: security_article.title, url: path('app_blog_article', {slug: security_article.slug}), internal: true, author: security_article.author},
-    ]},
+    {type: 'refs', summary: 'home.values.proof.talks'|trans({count: talks|length}), items: talks},
     {type: 'ctx', text: ''},
     {type: 'del', text: 'home.values.line_4_del'|trans},
     {type: 'add', text: 'home.values.line_4_add_1'|trans},
@@ -68,34 +73,93 @@
                         <span aria-hidden="true" class="w-8 sm:w-10 shrink-0 text-center font-bold select-none {% if line.type == 'add' %}text-green-700{% elseif line.type == 'del' %}text-red-700{% endif %}">
                             {% if line.type == 'add' %}+{% elseif line.type == 'del' %}−{% endif %}
                         </span>
-                        {% if line.type == 'proof' %}
-                            <span data-test-proofs class="flex-1 pr-4 sm:pr-6 flex flex-wrap gap-x-4 text-ink-soft">
+                        {% if line.type == 'link' %}
+                            <span data-test-proof class="flex-1 pr-4 sm:pr-6">
                                 <span class="sr-only">{{ 'home.values.sr_proof'|trans }} </span>
-                                {% for proof in line.proofs %}
-                                    {% set external = not (proof.internal ?? false) %}
-                                    <a
-                                        href="{{ proof.url }}"
-                                        {% if external %}target="_blank" rel="noopener noreferrer"{% endif %}
-                                        class="group inline-flex items-center gap-1 text-accent no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
-                                    >
-                                        {% if proof.author ?? null %}
+                                <a
+                                    href="{{ line.url }}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="group inline-flex items-center gap-1 text-accent no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
+                                >
+                                    <twig:ux:icon name="mdi:arrow-right" aria-hidden="true" class="size-4 shrink-0" />
+                                    <span class="underline decoration-accent/30 underline-offset-2 group-hover:decoration-accent">{{ line.label }}</span>
+                                    <span class="sr-only">{{ 'common.opens_new_tab'|trans }}</span>
+                                </a>
+                            </span>
+                        {% elseif line.type == 'refs' %}
+                            {% set authors = [] %}
+                            {% for item in line.items %}
+                                {% for author in item.authors %}
+                                    {% if author not in authors %}
+                                        {% set authors = authors|merge([author]) %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                            <details data-test-proof class="group/refs flex-1 min-w-0 pr-4 sm:pr-6">
+                                <summary class="inline-flex flex-wrap items-center gap-x-2 gap-y-1 cursor-pointer list-none text-accent rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-accent [&::-webkit-details-marker]:hidden">
+                                    <span class="sr-only">{{ 'home.values.sr_proof'|trans }} </span>
+                                    <twig:ux:icon name="mdi:chevron-right" aria-hidden="true" class="size-4 shrink-0 transition-transform duration-200 group-open/refs:rotate-90" />
+                                    <span class="flex -space-x-1.5" aria-hidden="true">
+                                        {% for author in authors %}
                                             <img
-                                                src="{{ asset('images/team/members/' ~ proof.author.id.value ~ '.webp') }}"
+                                                src="{{ asset('images/team/members/' ~ author.id.value ~ '.webp') }}"
                                                 alt=""
                                                 width="20"
                                                 height="20"
                                                 loading="lazy"
-                                                class="size-5 shrink-0 rounded-full object-cover bg-paper-shade"
+                                                class="size-5 rounded-full object-cover bg-paper-shade ring-2 ring-paper"
                                             >
-                                        {% else %}
-                                            <twig:ux:icon name="mdi:arrow-right" aria-hidden="true" class="size-4 shrink-0" />
-                                        {% endif %}
-                                        <span class="underline decoration-accent/30 underline-offset-2 group-hover:decoration-accent">{{ proof.label }}</span>
-                                        {% if proof.author ?? null %}<span data-test-proof-author class="text-muted">· {{ proof.author.firstName }}</span>{% endif %}
-                                        {% if external %}<span class="sr-only">{{ 'common.opens_new_tab'|trans }}</span>{% endif %}
-                                    </a>
-                                {% endfor %}
-                            </span>
+                                        {% endfor %}
+                                    </span>
+                                    <span class="underline decoration-accent/30 underline-offset-2 hover:decoration-accent">{{ line.summary }}</span>
+                                    <span data-test-proof-authors class="text-muted">· {{ authors|map(a => a.firstName)|join(', ') }}</span>
+                                </summary>
+
+                                <ul role="list" class="list-none m-0 mt-3 mb-2 p-0 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 {% if (line.items|first).thumbnail is not defined %}xl:grid-cols-5{% endif %}">
+                                    {% for item in line.items %}
+                                        <li>
+                                            <a
+                                                href="{{ item.url }}"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                class="group/ref flex h-full flex-col overflow-hidden rounded-xl border border-ink/10 bg-paper no-underline transition duration-200 hover:border-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                                            >
+                                                {% if item.thumbnail is defined %}
+                                                    <img
+                                                        src="{{ asset(item.thumbnail) }}"
+                                                        alt=""
+                                                        width="320"
+                                                        height="180"
+                                                        loading="lazy"
+                                                        class="aspect-video w-full object-cover bg-paper-shade"
+                                                    >
+                                                {% endif %}
+                                                <span class="flex flex-1 flex-col gap-1.5 p-3 font-sans text-sm leading-snug">
+                                                    <span class="font-medium text-ink group-hover/ref:text-accent transition-colors line-clamp-2">{{ item.label }}</span>
+                                                    <span class="font-mono text-xs text-muted">{{ item.meta }}</span>
+                                                    <span class="mt-auto flex items-center gap-1.5 pt-1 text-xs text-ink-soft">
+                                                        <span class="flex -space-x-1.5" aria-hidden="true">
+                                                            {% for author in item.authors %}
+                                                                <img
+                                                                    src="{{ asset('images/team/members/' ~ author.id.value ~ '.webp') }}"
+                                                                    alt=""
+                                                                    width="20"
+                                                                    height="20"
+                                                                    loading="lazy"
+                                                                    class="size-5 rounded-full object-cover bg-paper-shade ring-2 ring-paper"
+                                                                >
+                                                            {% endfor %}
+                                                        </span>
+                                                        {{ item.authors|map(a => a.firstName)|join(', ') }}
+                                                    </span>
+                                                </span>
+                                                <span class="sr-only">{{ 'common.opens_new_tab'|trans }}</span>
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </details>
                         {% else %}
                             <span class="flex-1 pr-4 sm:pr-6 {% if line.type == 'del' %}line-through text-muted{% elseif line.type == 'add' %}text-ink{% else %}text-ink-soft{% endif %}">
                                 {% if line.type == 'add' %}<span class="sr-only">{{ 'home.values.sr_added'|trans }} </span>{% endif %}
