@@ -43,8 +43,8 @@ final class ViewHomeTest extends FunctionalTestCase
         $crawler = $this->get($path);
 
         $this->assertSame([
-            'home.hero.words.maintainers',
             'home.hero.words.lovers',
+            'home.hero.words.maintainers',
             'home.hero.words.advocates',
             'home.hero.words.developers',
         ], json_decode($crawler->filter('[data-controller="hero"]')->attr('data-hero-words-value') ?? '', true));
@@ -88,10 +88,10 @@ final class ViewHomeTest extends FunctionalTestCase
 
     #[TestWith(['/', '/blog/fixing-symfony-ux-security-vulnerabilities'])]
     #[TestWith(['/fr', '/fr/blog/corriger-les-vulnerabilites-de-securite-symfony-ux'])]
-    public function testEveryProblemLinksToAPublicProof(string $path, string $securityArticleUrl): void
+    public function testEveryValueLinksToAPublicProof(string $path, string $securityArticleUrl): void
     {
         $crawler = $this->get($path);
-        $anchors = $crawler->filter('#problems [data-test-proofs] a');
+        $anchors = $crawler->filter('#values [data-test-proofs] a');
         $links = $this->hrefs($anchors);
 
         $this->assertSame(['_blank', '_blank', '_blank', '_blank', '_blank', '_blank', ''], $anchors->each(static fn (Crawler $link): string => (string) $link->attr('target')));
@@ -109,7 +109,7 @@ final class ViewHomeTest extends FunctionalTestCase
 
     public function testEveryAuthoredProofIsSignedByItsAuthor(): void
     {
-        $authors = $this->get('/')->filter('#problems [data-test-proof-author]')->each(static fn (Crawler $author): string => $author->text());
+        $authors = $this->get('/')->filter('#values [data-test-proof-author]')->each(static fn (Crawler $author): string => $author->text());
 
         $this->assertSame(['· Mathias', '· Mathias', '· Robin', '· Hugo', '· Hugo', '· Hugo'], $authors);
     }

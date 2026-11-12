@@ -13,8 +13,8 @@ use App\Team\Domain\Model\MemberId;
 use App\Team\Domain\Repository\MemberRepository;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
-#[AsTwigComponent(name: 'Home:Problems', template: 'components/Home/Problems.html.twig')]
-final class Problems
+#[AsTwigComponent(name: 'Home:Values', template: 'components/Home/Values.html.twig')]
+final class Values
 {
     private const string SECURITY_ARTICLE_ID = 'fixing-symfony-ux-security-vulnerabilities';
 

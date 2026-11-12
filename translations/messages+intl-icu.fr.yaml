@@ -6,7 +6,7 @@ home.seo.description: "Une équipe qui compte des membres de la Core Team Symfon
 home.hero.aria_label: "Baksla.sh : une vraie entreprise open source, partout dans le monde"
 home.hero.eyebrow: Une vraie entreprise open source · partout dans le monde
 home.hero.heading_text: Nous sommes des
-home.hero.heading_aria_label: Nous sommes mainteneurs, passionnés, ambassadeurs et développeurs Symfony.
+home.hero.heading_aria_label: Nous sommes passionnés, mainteneurs, ambassadeurs et développeurs Symfony.
 home.hero.tagline: "Nous sommes celles et ceux que vous lisez dans le changelog de Symfony. Quand le framework vous freine, nous savons où regarder, et nous le corrigeons à la source. Pas de pitch deck, juste des commits."
 home.hero.cta.primary: Ce que nous faisons
 home.hero.cta.secondary: Dites bonjour
@@ -35,21 +35,27 @@ home.kpi.talks_hint: conférences, meetups
 home.kpi.love_in_ecosystem: ❤️ pour PHP
 home.kpi.love_in_ecosystem_hint: "une longue lettre d'amour"
 
-home.problems.aria_label: ce qui bloque votre équipe, et comment baksla.sh le débloque
-home.problems.heading: "Des fixes qu'on ne <0>revert</0> pas."
-home.problems.filename: blocages.md
-home.problems.commit_meta: committé · mergé en amont
-home.problems.sr_problem: "Problème :"
-home.problems.sr_solution: "Correctif :"
-home.problems.sr_proof: "Preuve :"
+home.values.aria_label: les valeurs de baksla.sh
+home.values.heading: "Des lignes qu'on ne <0>revert</0> pas."
+home.values.filename: qui-nous-sommes.md
+home.values.commit_meta: committé · mergé par @baksla.sh
+home.values.sr_added: "Ajouté :"
+home.values.sr_removed: "Retiré :"
+home.values.sr_proof: "Preuve :"
+home.values.proof.pull_requests: Nos pull requests sur Symfony
 
-home.problems.bug.problem: Un bug du framework bloque votre release.
-home.problems.bug.solution: Nous le corrigeons en amont, et savons le faire merger.
-home.problems.bug.proof: Nos pull requests sur Symfony
-home.problems.component.problem: Il manque à Symfony la brique dont vous avez besoin.
-home.problems.component.solution: "Nous l'écrivons, et elle devient un composant."
-home.problems.security.problem: Une faille de sécurité tombe.
-home.problems.security.solution: Nous sommes de celles et ceux qui la corrigent.
+home.values.line_1_del: Nous sommes juste une agence de plus.
+home.values.line_1_add_1: Nous sommes une vraie entreprise open source.
+home.values.line_1_add_2: Les mêmes personnes que vous lisez dans le changelog de Symfony.
+home.values.line_2_del: "Nous utilisons les outils qu'on nous donne."
+home.values.line_2_add_1: Nous façonnons les outils que nous utilisons.
+home.values.line_2_add_2: Quand Symfony est cassé, nous le corrigeons upstream.
+home.values.line_3_del: Nous gardons notre savoir pour nous.
+home.values.line_3_add_1: Nous le partageons, haut et fort !
+home.values.line_3_add_2: Conférences, ateliers, pair programming, mentorat.
+home.values.line_4_del: Nous courons après la nouveauté.
+home.values.line_4_add_1: Nous choisissons des technos éprouvées et solides.
+home.values.line_4_add_2: "Le métier passe d'abord ; la stack est à son service."
 
 home.products.aria_label: les services de baksla.sh
 home.products.panels_aria_label: Détails des services
