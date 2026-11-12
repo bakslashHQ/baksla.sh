@@ -45,7 +45,7 @@ final class Kpi
                 'hint' => 'home.kpi.symfony_core_team_hint',
             ],
             [
-                'value' => 25,
+                'value' => 35,
                 'suffix' => '+',
                 'label' => 'home.kpi.talks',
                 'hint' => 'home.kpi.talks_hint',
