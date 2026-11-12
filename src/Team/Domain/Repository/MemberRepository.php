@@ -16,6 +16,11 @@ interface MemberRepository
     public function findAll(): array;
 
     /**
+     * @return list<non-empty-string>
+     */
+    public function findGithubUsernames(): array;
+
+    /**
      * @throws MissingMemberException
      */
     public function get(MemberId $id): Member;

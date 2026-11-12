@@ -7,7 +7,7 @@ namespace App\OpenSource\Domain\Model;
 final readonly class OpenSourceStats
 {
     /**
-     * @param array<string, array{reviews: int, pullRequests: int}> $stats
+     * @param array<string, array{reviews: int, pullRequests: int, bugFixes?: int}> $stats
      */
     private function __construct(
         private array $stats,
@@ -30,7 +30,7 @@ final readonly class OpenSourceStats
             return self::empty();
         }
 
-        /** @var array<string, array{reviews: int, pullRequests: int}> $data */
+        /** @var array<string, array{reviews: int, pullRequests: int, bugFixes?: int}> $data */
         $data = json_decode($contents, true, flags: \JSON_THROW_ON_ERROR);
 
         return new self($data);
@@ -49,6 +49,11 @@ final readonly class OpenSourceStats
     public function pullRequestsFor(ProjectId $project): int
     {
         return $this->stats[$project->value]['pullRequests'] ?? 0;
+    }
+
+    public function bugFixesFor(ProjectId $project): int
+    {
+        return $this->stats[$project->value]['bugFixes'] ?? 0;
     }
 
     public function getTotalReviews(): int

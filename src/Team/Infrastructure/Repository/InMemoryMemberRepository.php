@@ -9,6 +9,7 @@ use App\Team\Domain\Model\Badge;
 use App\Team\Domain\Model\Member;
 use App\Team\Domain\Model\MemberId;
 use App\Team\Domain\Model\SocialNetwork;
+use App\Team\Domain\Model\SymfonyCoreTeam;
 use App\Team\Domain\Repository\MemberRepository;
 use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
@@ -68,7 +69,7 @@ final readonly class InMemoryMemberRepository implements MemberRepository
                 SocialNetwork::linkedin('hugo-alliaume'),
             ], [
                 Badge::symfonyAward('UX Core Team'),
-            ], isSymfonyCoreTeamMember: true),
+            ], symfonyCoreTeam: SymfonyCoreTeam::Ux),
             new Member(MemberId::JeremyRomey, 'Jérémy', 'Romey', 'jeremyfreeagent', [
                 SocialNetwork::github('jeremyfreeagent'),
                 SocialNetwork::twitter('jeremyfreeagent'),
@@ -88,7 +89,7 @@ final readonly class InMemoryMemberRepository implements MemberRepository
                 Badge::bakslashPosition('Co-Founder / Consultant'),
                 Badge::symfonyAward('Core Team'),
                 Badge::symfonyAward('Certified'),
-            ], isSymfonyCoreTeamMember: true),
+            ], symfonyCoreTeam: SymfonyCoreTeam::Framework),
             new Member(MemberId::RobinChalas, 'Robin', 'Chalas', 'chalasr', [
                 SocialNetwork::github('chalasr'),
                 SocialNetwork::symfony('chalas_r'),
@@ -98,7 +99,7 @@ final readonly class InMemoryMemberRepository implements MemberRepository
             ], [
                 Badge::bakslashPosition('Co-Founder / Consultant'),
                 Badge::symfonyAward('Core Team'),
-            ], isSymfonyCoreTeamMember: true),
+            ], symfonyCoreTeam: SymfonyCoreTeam::Framework),
             new Member(MemberId::ValmontPehautPietri, 'Valmont', 'Pehaut Pietri', 'Valmonzo', [
                 SocialNetwork::github('Valmonzo'),
                 SocialNetwork::symfony('Valmonzo'),
@@ -115,6 +116,11 @@ final readonly class InMemoryMemberRepository implements MemberRepository
     public function findAll(): array
     {
         return $this->members;
+    }
+
+    public function findGithubUsernames(): array
+    {
+        return array_values(array_map(static fn (Member $member): string => $member->github, $this->members));
     }
 
     public function get(MemberId $id): Member

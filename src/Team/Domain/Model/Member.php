@@ -22,7 +22,7 @@ final readonly class Member
         public array $socialNetworks = [],
         public array $badges = [],
         public ?string $nickName = null,
-        public bool $isSymfonyCoreTeamMember = false,
+        public ?SymfonyCoreTeam $symfonyCoreTeam = null,
     ) {
     }
 

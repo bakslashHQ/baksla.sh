@@ -1,46 +1,57 @@
 {
     "symfony": {
         "reviews": 4152,
-        "pullRequests": 1180
+        "pullRequests": 1180,
+        "bugFixes": 308
     },
     "symfony-ux": {
         "reviews": 779,
-        "pullRequests": 800
+        "pullRequests": 808,
+        "bugFixes": 177
     },
     "symfony-reprise": {
         "reviews": 4,
-        "pullRequests": 98
+        "pullRequests": 101,
+        "bugFixes": 16
     },
     "webpack-encore": {
         "reviews": 83,
-        "pullRequests": 158
+        "pullRequests": 158,
+        "bugFixes": 5
     },
     "api-platform": {
         "reviews": 38,
-        "pullRequests": 21
+        "pullRequests": 21,
+        "bugFixes": 0
     },
     "sylius": {
         "reviews": 24,
-        "pullRequests": 34
+        "pullRequests": 34,
+        "bugFixes": 3
     },
     "lexik-jwt": {
         "reviews": 130,
-        "pullRequests": 148
+        "pullRequests": 148,
+        "bugFixes": 18
     },
     "oauth2-server-bundle": {
         "reviews": 98,
-        "pullRequests": 33
+        "pullRequests": 33,
+        "bugFixes": 0
     },
     "tactician": {
         "reviews": 12,
-        "pullRequests": 13
+        "pullRequests": 13,
+        "bugFixes": 0
     },
     "biome-js-bundle": {
         "reviews": 3,
-        "pullRequests": 20
+        "pullRequests": 20,
+        "bugFixes": 0
     },
     "phpstan-symfony-ux": {
         "reviews": 1,
-        "pullRequests": 28
+        "pullRequests": 28,
+        "bugFixes": 0
     }
 }

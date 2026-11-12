@@ -96,7 +96,10 @@
                     </li>
                 {% endfor %}
             </ul>
-            <p aria-hidden="true" class="mt-4 m-0 font-mono text-xs text-right text-muted">
+            <p class="mt-4 m-0 font-mono text-xs text-right text-muted">
+                {{ 'home.oss.source_hint'|trans }}
+            </p>
+            <p aria-hidden="true" class="mt-1 m-0 font-mono text-xs text-right text-muted">
                 * <span class="text-ink-soft">r:</span> {{ 'home.oss.stats.reviews'|trans }} · <span class="text-ink-soft">p:</span> {{ 'home.oss.stats.prs'|trans }}
             </p>
         </div>

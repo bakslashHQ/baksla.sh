@@ -1,0 +1,60 @@
+<div data-test-maintainers class="flex flex-col gap-3 items-center lg:items-start">
+    <p class="m-0 text-center lg:text-left font-mono text-xs tracking-widest uppercase text-muted">
+        <a
+            href="https://symfony.com/doc/current/contributing/core_team.html#active-core-members"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-muted no-underline hover:text-accent hover:underline underline-offset-2"
+        ><span id="maintainers-label">{{ 'home.maintainers.label'|trans }}</span><span class="sr-only"> {{ 'common.opens_new_tab'|trans }}</span></a>
+    </p>
+
+    <ul role="list" aria-labelledby="maintainers-label" class="list-none m-0 p-0 w-full max-w-md grid grid-cols-3 gap-2 lg:max-w-none lg:flex lg:flex-wrap">
+        {% for member in this.maintainers %}
+            <li>
+                <a
+                    href="https://github.com/{{ member.github }}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="group flex h-full flex-col items-center gap-2 p-3 rounded-2xl text-center border border-ink/15 bg-paper no-underline transition duration-200 hover:border-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper lg:flex-row lg:gap-2.5 lg:pl-1 lg:pr-4 lg:py-1 lg:rounded-full lg:text-left"
+                >
+                    <img
+                        src="{{ asset('images/team/members/' ~ member.id.value ~ '.webp') }}"
+                        alt=""
+                        width="48"
+                        height="48"
+                        class="size-12 lg:size-9 rounded-full object-cover bg-paper-shade"
+                    >
+                    <span class="flex flex-col leading-tight">
+                        <span class="text-sm font-semibold text-ink group-hover:text-accent transition-colors">{{ member.fullname }}</span>
+                        <span data-test-maintainer-role class="mt-1 lg:mt-0 font-mono text-[0.6875rem] text-muted">{{ member.symfonyCoreTeam.value }}<span class="hidden lg:inline"> · </span><span class="block lg:inline">@{{ member.github }}</span></span>
+                    </span>
+                    <span class="sr-only">{{ 'common.opens_new_tab'|trans }}</span>
+                </a>
+            </li>
+        {% endfor %}
+        {% set teammates = this.teammates %}
+        {% if teammates is not empty %}
+            <li class="col-span-3 flex justify-center lg:block">
+                <a
+                    href="{{ path('app_team') }}"
+                    class="group flex items-center gap-2.5 h-full pl-1 pr-4 py-1 rounded-full border border-dashed border-ink/25 font-mono text-xs text-ink-soft no-underline transition duration-200 hover:border-accent hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+                >
+                    <span class="flex -space-x-2.5">
+                        {% for teammate in teammates %}
+                            <img
+                                data-test-teammate
+                                src="{{ asset('images/team/members/' ~ teammate.id.value ~ '.webp') }}"
+                                alt="{{ teammate.fullname }}"
+                                title="{{ teammate.fullname }}"
+                                width="36"
+                                height="36"
+                                class="size-9 rounded-full object-cover bg-paper-shade ring-2 ring-paper"
+                            >
+                        {% endfor %}
+                    </span>
+                    {{ 'home.maintainers.teammates'|trans({count: teammates|length}) }}
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</div>

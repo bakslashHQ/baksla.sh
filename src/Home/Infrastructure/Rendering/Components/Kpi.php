@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Home\Infrastructure\Rendering\Components;
 
 use App\Team\Domain\Model\Member;
+use App\Team\Domain\Model\SymfonyCoreTeam;
 use App\Team\Domain\Repository\MemberRepository;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
@@ -22,7 +23,7 @@ final class Kpi
     public function getKpis(): array
     {
         $memberCount = \count($this->memberRepository->findAll());
-        $symfonyCoreTeamCount = \count(array_filter($this->memberRepository->findAll(), static fn (Member $m): bool => $m->isSymfonyCoreTeamMember));
+        $symfonyCoreTeamCount = \count(array_filter($this->memberRepository->findAll(), static fn (Member $m): bool => $m->symfonyCoreTeam instanceof SymfonyCoreTeam));
 
         return [
             [
@@ -44,7 +45,7 @@ final class Kpi
                 'hint' => 'home.kpi.symfony_core_team_hint',
             ],
             [
-                'value' => 25,
+                'value' => 35,
                 'suffix' => '+',
                 'label' => 'home.kpi.talks',
                 'hint' => 'home.kpi.talks_hint',

@@ -42,7 +42,7 @@
                 class="lg:col-span-2 -mx-4 sm:-mx-8 lg:mx-0 px-4 sm:px-8 lg:px-0 scroll-px-4 sm:scroll-px-8 lg:scroll-px-0 pb-8 lg:pb-0 flex gap-4 overflow-x-auto snap-x snap-mandatory lg:sticky lg:top-24 lg:grid lg:gap-0 lg:overflow-visible"
             >
                 {% for service in services %}
-                    <article
+                    <div
                         role="tabpanel"
                         id="services-panel-{{ service.slug }}"
                         aria-labelledby="services-tab-{{ service.slug }}"
@@ -103,7 +103,7 @@
                             </ul>
 
                         </div>
-                    </article>
+                    </div>
                 {% endfor %}
             </div>
         </div>

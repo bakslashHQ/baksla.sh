@@ -7,7 +7,6 @@ namespace App\OpenSource\Infrastructure\Command;
 use App\OpenSource\Domain\Model\OpenSourceStats;
 use App\OpenSource\Domain\Repository\ProjectRepository;
 use App\OpenSource\Infrastructure\GitHub\GitHubClient;
-use App\Team\Domain\Model\Member;
 use App\Team\Domain\Repository\MemberRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -37,7 +36,7 @@ final readonly class RefreshOpenSourceStatsCommand
 
         $counts = $this->githubClient->countPullRequests(
             array_merge(...array_column($projects, 'repositories')),
-            array_values(array_map(fn (Member $member): string => $member->github, $this->memberRepository->findAll())),
+            $this->memberRepository->findGithubUsernames(),
         );
 
         $previous = OpenSourceStats::fromJsonFile($this->statsFile);
@@ -46,9 +45,11 @@ final readonly class RefreshOpenSourceStatsCommand
         foreach ($projects as $project) {
             $reviews = 0;
             $pullRequests = 0;
+            $bugFixes = 0;
             foreach ($project->repositories as $repo) {
                 $reviews += $counts[$repo]->reviewed;
                 $pullRequests += $counts[$repo]->authored;
+                $bugFixes += $counts[$repo]->bugFixes;
             }
 
             // GitHub's search.issueCount is an estimate for large result sets and drifts run-to-run;
@@ -56,6 +57,7 @@ final readonly class RefreshOpenSourceStatsCommand
             $stats[$project->id->value] = [
                 'reviews' => max($previous->reviewsFor($project->id), $reviews),
                 'pullRequests' => max($previous->pullRequestsFor($project->id), $pullRequests),
+                'bugFixes' => max($previous->bugFixesFor($project->id), $bugFixes),
             ];
         }
 

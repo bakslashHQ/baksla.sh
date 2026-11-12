@@ -1,19 +1,22 @@
 common.opens_new_tab: (ouvre dans un nouvel onglet)
 
 home.seo.title: baksla.sh
-home.seo.description: Une vraie entreprise open source, évangélistes Symfony et experts techniques pragmatiques
+home.seo.description: "Une équipe qui compte des membres de la Core Team Symfony. Quand le framework vous freine, nous le corrigeons à la source."
 
 home.hero.aria_label: "Baksla.sh : une vraie entreprise open source, partout dans le monde"
 home.hero.eyebrow: Une vraie entreprise open source · partout dans le monde
 home.hero.heading_text: Nous sommes des
-home.hero.heading_aria_label: Nous sommes mainteneurs, passionnés, ambassadeurs et développeurs Symfony.
-home.hero.tagline: "Nous sommes celles et ceux que vous lisez dans le changelog de Symfony. Une petite entreprise qui construit, maintient et enseigne PHP. Pas de pitch deck, juste des commits."
+home.hero.heading_aria_label: Nous sommes passionnés, mainteneurs, ambassadeurs et développeurs Symfony.
+home.hero.tagline: "Nous sommes celles et ceux que vous lisez dans le changelog de Symfony. Quand le framework vous freine, nous savons où regarder, et nous le corrigeons à la source. Pas de pitch deck, juste des commits."
 home.hero.cta.primary: Ce que nous faisons
 home.hero.cta.secondary: Dites bonjour
 home.hero.words.maintainers: 'mainteneurs'
 home.hero.words.lovers: 'passionnés de'
 home.hero.words.developers: 'développeurs'
 home.hero.words.advocates: 'ambassadeurs'
+
+home.maintainers.label: Core Team Symfony
+home.maintainers.teammates: '{count, plural, one {et # coéquipier} other {et # coéquipiers}}'
 
 home.kpi.aria_label: baksla.sh en chiffres
 home.kpi.done: tout est à jour
@@ -37,6 +40,11 @@ home.values.filename: qui-nous-sommes.md
 home.values.commit_meta: committé · mergé par @baksla.sh
 home.values.sr_added: "Ajouté :"
 home.values.sr_removed: "Retiré :"
+home.values.sr_proof: "Preuve :"
+home.values.proof.pull_requests: '{count, plural, one {# pull request sur Symfony} other {# pull requests sur Symfony}}'
+home.values.proof.bug_fixes: '{count, plural, one {# correctif de bug mergé dans Symfony} other {# correctifs de bugs mergés dans Symfony}}'
+home.values.proof.components: '{count, plural, one {# composant créé} other {# composants créés}}'
+home.values.proof.talks: '{count, plural, one {# conférence publique filmée} other {# conférences publiques filmées}}'
 
 home.values.line_1_del: Nous sommes juste une agence de plus.
 home.values.line_1_add_1: Nous sommes une vraie entreprise open source.
@@ -106,6 +114,7 @@ home.oss.project_aria_label: '{sum, number} contributions sur {label} : {reviews
 home.oss.stats.reviews: revues
 home.oss.stats.prs: pull requests
 home.oss.line.on: sur
+home.oss.source_hint: Chaque ligne ouvre nos pull requests sur GitHub.
 
 home.blog.aria_label: Les dernières actus du blog
 home.blog.title: 'Histoires tirées <0>du changelog.</0>'
@@ -283,7 +292,7 @@ team.bio.jeremy-romey: |-
 team.bio.mathias-arlaud: |-
     Conférencier, consultant, lead developer et formateur PHP/Symfony, Mathias a travaillé deux ans avec le créateur de Symfony et deux ans avec le créateur d'API Platform, Mercure et FrankenPHP.
 
-    Enthousiaste de l'open source, il contribue largement au framework Symfony et à son écosystème, en se concentrant notamment sur le système de sérialisation des données. Spécialisé dans le développement d'API, il met son expertise au service de solutions rapides, robustes et maintenables.
+    Membre de la Core Team Symfony et enthousiaste de l'open source, il contribue largement au framework Symfony et à son écosystème, en se concentrant notamment sur le système de sérialisation des données. Spécialisé dans le développement d'API, il met son expertise au service de solutions rapides, robustes et maintenables.
 
     Ne demandez pas pourquoi, mais à la question PHPStorm vs VsCode, il répond encore VIM.
 team.bio.robin-chalas: |-

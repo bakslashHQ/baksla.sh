@@ -6,6 +6,7 @@ namespace App\Home\Infrastructure\Rendering\Components;
 
 use App\OpenSource\Domain\Model\OpenSourceStats;
 use App\OpenSource\Domain\Repository\ProjectRepository;
+use App\Team\Domain\Repository\MemberRepository;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
@@ -18,6 +19,7 @@ final class OpenSourceOverview
 
     public function __construct(
         private readonly ProjectRepository $projectRepository,
+        private readonly MemberRepository $memberRepository,
         #[Autowire(param: 'app.open_source_stats_file')]
         string $statsFile,
     ) {
@@ -29,6 +31,8 @@ final class OpenSourceOverview
      */
     public function getProjects(): array
     {
+        $authors = $this->memberRepository->findGithubUsernames();
+
         $projects = [];
         foreach ($this->projectRepository->findAll() as $project) {
             if (!$this->stats->hasProject($project->id)) {
@@ -38,7 +42,7 @@ final class OpenSourceOverview
             $prs = $this->stats->pullRequestsFor($project->id);
             $projects[] = [
                 'label' => $project->label,
-                'url' => $project->getUrl(),
+                'url' => $project->getPullRequestsUrl($authors),
                 'reviews' => $reviews,
                 'prs' => $prs,
                 'sum' => $reviews + $prs,

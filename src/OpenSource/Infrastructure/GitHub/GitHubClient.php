@@ -9,6 +9,11 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 final readonly class GitHubClient
 {
+    /**
+     * GitHub answers a 502 when one GraphQL query holds too many searches.
+     */
+    private const int SEARCHES_PER_REQUEST = 30;
+
     public function __construct(
         #[Target('github.client')]
         private HttpClientInterface $httpClient,
@@ -29,10 +34,13 @@ final readonly class GitHubClient
             return [];
         }
 
+        $authors = implode(' ', array_map(static fn (string $u): string => \sprintf('author:%s', $u), $usernames));
+
         $queries = [];
         foreach ($repos as $index => $repo) {
-            $queries['authored_' . $index] = \sprintf('repo:%s is:pr %s', $repo, implode(' ', array_map(static fn (string $u): string => \sprintf('author:%s', $u), $usernames)));
+            $queries['authored_' . $index] = \sprintf('repo:%s is:pr %s', $repo, $authors);
             $queries['reviewed_' . $index] = \sprintf('repo:%s is:pr %s', $repo, implode(' ', array_map(static fn (string $u): string => \sprintf('reviewed-by:%s', $u), $usernames)));
+            $queries['bug_fixes_' . $index] = \sprintf('repo:%s is:pr is:merged label:Bug %s', $repo, $authors);
         }
 
         $counts = $this->fetchIssueCounts($queries);
@@ -42,6 +50,7 @@ final readonly class GitHubClient
             $result[$repo] = new PullRequestsCount(
                 authored: $counts['authored_' . $index] ?? 0,
                 reviewed: $counts['reviewed_' . $index] ?? 0,
+                bugFixes: $counts['bug_fixes_' . $index] ?? 0,
             );
         }
 
@@ -54,6 +63,21 @@ final readonly class GitHubClient
      * @return array<string, non-negative-int> Map of alias => issueCount
      */
     private function fetchIssueCounts(array $queries): array
+    {
+        $counts = [];
+        foreach (array_chunk($queries, self::SEARCHES_PER_REQUEST, true) as $chunk) {
+            $counts = [...$counts, ...$this->fetchIssueCountsChunk($chunk)];
+        }
+
+        return $counts;
+    }
+
+    /**
+     * @param array<string, string> $queries Map of alias => GitHub search query
+     *
+     * @return array<string, non-negative-int> Map of alias => issueCount
+     */
+    private function fetchIssueCountsChunk(array $queries): array
     {
         $lines = ['query {'];
         foreach ($queries as $alias => $searchQuery) {
