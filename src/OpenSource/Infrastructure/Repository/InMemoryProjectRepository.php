@@ -59,6 +59,9 @@ final readonly class InMemoryProjectRepository implements ProjectRepository
                 'symfony/webpack-encore',
                 'symfony/webpack-encore-bundle',
             ]),
+            new Project(ProjectId::Twig, 'Twig', [
+                'twigphp/Twig',
+            ]),
             new Project(ProjectId::ApiPlatform, 'API Platform', [
                 'api-platform/core',
             ]),

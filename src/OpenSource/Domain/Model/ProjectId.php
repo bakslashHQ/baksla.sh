@@ -16,5 +16,6 @@ enum ProjectId: string
     case SymfonyUx = 'symfony-ux';
     case Sylius = 'sylius';
     case Tactician = 'tactician';
+    case Twig = 'twig';
     case WebpackEncore = 'webpack-encore';
 }
