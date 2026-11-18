@@ -5,13 +5,13 @@
         "bugFixes": 308
     },
     "symfony-ux": {
-        "reviews": 779,
-        "pullRequests": 808,
-        "bugFixes": 177
+        "reviews": 797,
+        "pullRequests": 867,
+        "bugFixes": 178
     },
     "symfony-reprise": {
         "reviews": 4,
-        "pullRequests": 101,
+        "pullRequests": 102,
         "bugFixes": 16
     },
     "webpack-encore": {
@@ -40,7 +40,7 @@
         "bugFixes": 18
     },
     "oauth2-server-bundle": {
-        "reviews": 98,
+        "reviews": 100,
         "pullRequests": 33,
         "bugFixes": 0
     },
@@ -50,7 +50,7 @@
         "bugFixes": 0
     },
     "biome-js-bundle": {
-        "reviews": 3,
+        "reviews": 4,
         "pullRequests": 20,
         "bugFixes": 0
     },
